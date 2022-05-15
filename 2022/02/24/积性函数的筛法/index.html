@@ -1,0 +1,635 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/bg/logo.jpeg">
+  <link rel="icon" href="/img/bg/logo.jpeg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Recalling_Clouds">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="本文所有知识均属数论范畴，包括线性筛、杜教筛、Min_25 筛、Powerful Number 以及非积性函数的筛法。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="积性函数的筛法">
+<meta property="og:url" content="https://reclouds.github.io/2022/02/24/%E7%A7%AF%E6%80%A7%E5%87%BD%E6%95%B0%E7%9A%84%E7%AD%9B%E6%B3%95/index.html">
+<meta property="og:site_name" content="ReClouds&#39; Blog">
+<meta property="og:description" content="本文所有知识均属数论范畴，包括线性筛、杜教筛、Min_25 筛、Powerful Number 以及非积性函数的筛法。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://reclouds.github.io/img/bg/2.jpeg">
+<meta property="article:published_time" content="2022-02-24T05:36:44.000Z">
+<meta property="article:modified_time" content="2022-04-15T21:03:08.000Z">
+<meta property="article:author" content="Recalling_Clouds">
+<meta property="article:tag" content="学习笔记">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://reclouds.github.io/img/bg/2.jpeg">
+  
+  
+  <title>积性函数的筛法 - ReClouds&#39; Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"reclouds.github.io","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.1"><link rel="alternate" href="/atom.xml" title="ReClouds' Blog" type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>凌云の小屋</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/bg/2.jpeg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="积性函数的筛法">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      Recalling_Clouds
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-02-24 13:36" pubdate>
+        2022年2月24日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      6k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      50 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">积性函数的筛法</h1>
+            
+            <div class="markdown-body">
+              <p>下面的所有知识均属<strong>数论</strong>范畴。</p>
+<hr>
+<h2 id="欧拉筛"><a href="#欧拉筛" class="headerlink" title="欧拉筛"></a>欧拉筛</h2><p>可以做到 $\mathcal{O}(n)$ 的<strong>线性复杂度</strong>！</p>
+<p>可以筛所有的<strong>积性函数</strong>（即对于所有的 $a \perp b$ 都满足 $f(ab) = f(a)*f(b)$ 的函数)。</p>
+<p>举两个例子：</p>
+<p>线性筛欧拉函数：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></div></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-type">void</span> <span class="hljs-title">Sieve</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    phi[<span class="hljs-number">1</span>] = <span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> i = <span class="hljs-number">2</span>; i &lt;= MAXN; i++)	<span class="hljs-comment">//MAXN表示值域</span><br>    &#123;<br>        <span class="hljs-keyword">if</span>(!NotPrime[i])	<span class="hljs-comment">//是质数</span><br>        &#123;<br>            phi[i] = i - <span class="hljs-number">1</span>;<br>            Prime[++len] = i;<br>        &#125;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> j = <span class="hljs-number">1</span>; j &lt;= len &amp;&amp; i * Prime[j] &lt;= MAXN; j++)<br>        &#123;<br>            NotPrime[i * Prime[j]] = <span class="hljs-literal">true</span>;<br>            <span class="hljs-keyword">if</span>(i % Prime[j] == <span class="hljs-number">0</span>)	<span class="hljs-comment">//此时 Prime[j] 为 i 的最小质因子</span><br>			&#123;<br>            	phi[i * Prime[j]] = phi[i] * prime[j];<br>				<span class="hljs-keyword">break</span>;<br>            &#125;<br>            phi[i * Prime[j]] = phi[i] * (Prime[j] - <span class="hljs-number">1</span>);<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>线性筛莫比乌斯函数：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-type">void</span> <span class="hljs-title">Sieve</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    miu[<span class="hljs-number">1</span>] = <span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> i = <span class="hljs-number">2</span>; i &lt;= MAXN; i++)<br>    &#123;<br>        <span class="hljs-keyword">if</span>(!NotPrime[i])<br>        &#123;<br>            miu[i] = <span class="hljs-number">-1</span>;<br>            Prime[++len] = i;<br>        &#125;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> j = <span class="hljs-number">1</span>; j &lt;= len &amp;&amp; i * Prime[j] &lt;= MAXN; j++)<br>        &#123;<br>            NotPrime[i * Prime[j]] = <span class="hljs-literal">true</span>;<br>            <span class="hljs-keyword">if</span>(i % Prime[j] == <span class="hljs-number">0</span>) <span class="hljs-keyword">break</span>;	<span class="hljs-comment">//此时 miu 函数值为 0，可以直接跳过</span><br>            miu[i * Prime[j]] = -miu[i];<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>可以发现，每个数<strong>最多只会被自己的最小质因子筛到一次</strong>，所以时间复杂度是线性的 $\mathcal{O}(n)$。</p>
+<p>不过要注意，每个数被自己的最小质因子筛到时，对应的 <code>i * Prime[j]</code> <strong>仍然是需要计算函数值的</strong>！（当然 $\mu$ 函数此时就等于 $0$，可以直接跳过）</p>
+<hr>
+<h2 id="杜教筛"><a href="#杜教筛" class="headerlink" title="杜教筛"></a>杜教筛</h2><p>在非线性时间内求解<strong>积性函数</strong>的前缀和。</p>
+<p>设现在我们要求的是 $f$ 的前缀和，即 $S(n) = \sum_{i = 1} ^n f(i)$。</p>
+<p>我们考虑把 $f$ 卷上一个 $g$ 的前缀和，即：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+S'(n) &= \sum_{i = 1}^n(f * g)(i)
+\\
+&= \sum_{i = 1} ^n \sum_{d | i} f(d)g(\frac{i}{d})
+\\
+&=\sum_{d = 1}^n g(d) \sum_{i = 1}^{\lfloor\frac{n}{d}\rfloor} f(i)
+\\
+&=\sum_{d = 1}^ng(d)S(\lfloor\frac{n}{d}\rfloor)
+\end{aligned}</script><p>然后再推导一下，发现：</p>
+<script type="math/tex; mode=display">
+g(1)S(n) = \sum_{d = 1}^ng(d)S(\lfloor\frac{n}{d}\rfloor) - \sum_{d = 2}^ng(d)S(\lfloor\frac{n}{d}\rfloor)</script><p>即：</p>
+<script type="math/tex; mode=display">
+S(n) = \frac{\sum_{i = 1}^n(f * g)(i) - \sum_{d = 2}^ng(d)S(\lfloor\frac{n}{d}\rfloor)}{g(1)}</script><p>所以，只要我们找到合适的 $g$，就能够快速求出 $S(n)$ 了。</p>
+<p>对于 $\mu$ 的前缀和，我们发现有 $\mu * 1 = \epsilon$，即定义 $g = 1$，代入公式有 $S(n) = 1 - \sum_{i = 2}^nS(\frac{n}{i})$。</p>
+<p>对于 $\varphi$ 的前缀和，我们发现有 $\varphi * 1 = id$，即定义 $g = 1$，代入公式有 $S(n) = \frac{n(n + 1)}{2} - \sum_{i = 2}^n S(\frac{n}{i})$。</p>
+<p>这些递推式显然可以<strong>整除分块</strong>做。</p>
+<p>不过为了做到非线性复杂度，我们需要先<strong>预处理</strong>出 $n^{\frac{2}{3}}$ 以内的 $S(n)$，然后剩下的用<strong>记忆化搜索</strong>。</p>
+<p>这样的复杂度据说可以达到最快的 $\mathcal{O}(n^{\frac{2}{3}})$。</p>
+<p>放上洛谷模板题（上面举的两个例子）的<a target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/tree/master/Codes/积性函数的筛法/杜教筛.cpp">代码</a>。</p>
+<hr>
+<h2 id="operatorname-Min-underline-25-筛"><a href="#operatorname-Min-underline-25-筛" class="headerlink" title="$\operatorname{Min\underline{}25}$ 筛"></a>$\operatorname{Min\underline{}25}$ 筛</h2><p>一般用于求积性函数 $f$ 的前缀和。$f$ 要求当 $p$ 为质数时，$f(p)$ 是一个<strong>次数较少的简单多项式，它的每一项都必须是完全积性函数</strong>。</p>
+<p>复杂度众说纷纭，不过当 $n \le 10^{10}$ 时可以轻松跑过。</p>
+<ul>
+<li>$Step~~1$：</li>
+</ul>
+<p>先考虑求质数的前缀和：</p>
+<script type="math/tex; mode=display">
+\sum_{i = 1,i \in \operatorname{Prime}}^n f(i)</script><p>我们先来看一个神奇的操作：</p>
+<p>考虑当 $d$ 为质数时 $f(p)$ 的运算公式。</p>
+<p>然后，<strong>我们把所有数都当成质数，套用这个运算公式</strong>！</p>
+<p>我们设这个新的函数为 $h$。</p>
+<p>前面提到当 $p$ 为质数时 $f(p)$ 是一个次数较低的多项式，所以，我们可以把 $h$ 拆成几项，分开来算，最后加在一起即可。 </p>
+<p>我们设 $g(n, j)$ 为所有质数和 $1\sim n$ 中最小质因子大于第 $j$ 个质数的合数的 $h$ 值的和，设 $p_j$ 为第 $j$ 个质数。</p>
+<p>考虑分讨：</p>
+<ol>
+<li>如果 $p_j &gt; \sqrt{n}$，此时不会再有更多的合数对值造成影响，因此有 $g(n, j) = g(n, j - 1)$；</li>
+<li>如果 $p<em>j \le \sqrt{n}$，我们发现要被减去的数中一定含有质因子 $p_j$，且除掉 $p_j$ 后最小的质因子会大于等于 $p_j$，所以我们需要减去 $h(p_j)g(\frac{n}{p_j},j−1)$。但 $g(\frac{n}{p_j},j−1)$ 中包含了 $\sum</em>{i=1}^{j - 1}h(p_i)$ 这些小于 $p_j$ 的质数函数值，它们是不合法的（因为 $p_i*p_j$ 的最小质因子为 $p_i$），所以再把它们加上就好了。</li>
+</ol>
+<p>此时有递推式：</p>
+<script type="math/tex; mode=display">
+g(n, j) = g(n, j - 1) - h(p_j)(g(\lfloor\frac{n}{p_j}\rfloor,j - 1) - \sum_{i=1}^{j - 1}h(p_i)</script><p>最后我们可以求出 $g(n, |\operatorname{Prime}|)$，这就是前缀和中<strong>所有质数的答案</strong>。</p>
+<ul>
+<li>$Step~2$：</li>
+</ul>
+<p>类⽐ $g$，设 $S(n, j)$ 表⽰最⼩质因⼦<strong>大于</strong>第 $j$ 个素数的所有 $f$ 的函数值和。</p>
+<p>对于质数，我们已经算出答案；对于合数，我们考虑<strong>枚举最小质因子及其指数</strong>即可递推：</p>
+<p>（注意当 $p_k^{t + 1}$ 大于 $n$ 时，我们定义其为 $0$。）</p>
+<script type="math/tex; mode=display">
+S(n, j) = g(n, |\operatorname{Prime}|) - \sum_{i = 1}^{j} f(p_i) + \sum_{k = j + 1}^{p_k^2 \le n}\sum_{t = 1}^{p_k^{t} \le n} (f(p_k^{t + 1}) + f(p_k^{t}) S(\lfloor\frac{n}{p_k^t}\rfloor, k + 1)))</script><p>前面的 $g(n, j) - \sum_{i = 1}^{j - 1} f(p_i)$ 即为质数部分，注意要减去所有小于 $p_j$ 的质数 $p_i$ 的贡献；</p>
+<p>枚举合数时，我们需要考虑所有最小质因子为 $d~(d \ge p_j)$ 的数 $k$ 对应的 $f(k)$ 的贡献。</p>
+<p>显然合数 $k$ 的最小质因子是小于等于 $\lfloor\sqrt{k}\rfloor$ 的，所以枚举 $d$ 时我们仅需枚举满足 $d^2 \le n$ 的部分即可。</p>
+<p>由于<strong>质数我们在前面已经计算过</strong>，因此对于 $f(d^{t + 1})$ 这一项，我们从 $t=1$ 而非 $t = 0$ 开始枚举。</p>
+<p>而后面的合数部分，我们类似 $g$ 的处理，利用<strong>积性函数的性质</strong>把 $f(d^t)$ 这一项提出来，同时把 $d^t$ 这一项消掉，再递归求解所有最小质因子<strong>大于</strong> $d$ 的 $S$。</p>
+<p>最后 $S(n, 0)$ 即为答案，不过注意要考虑一下 $f(1)$ 的贡献。</p>
+<hr>
+<p>说了那么多，拿<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5325">洛谷的模板题</a>讲解一下吧：</p>
+<p>定义积性函数 $f(x)$，当 $p$ 为质数时有 $f(p^k) = p^k(p^k - 1)$。</p>
+<p>给定 $n ~(n \le 10^{10})$，求：</p>
+<script type="math/tex; mode=display">
+\sum_{i = 1}^n f(i)</script><p>对 $10^9 + 7$ 取模。</p>
+<p>题解：</p>
+<ul>
+<li>$Step~1$：</li>
+</ul>
+<p>显然对于质数 $p$，有 $f(p) = p(p - 1) = p^2 - p$。可以发现，这正是上面提到的 “次数较少的简单多项式”。<strong>不看符号</strong>，它的每一项都是完全积性函数。</p>
+<p>所以我们把 $f(p)$ 拆成 $p^2$ 和 $p$ 两项计算，最后相减即可。</p>
+<p>我们再次回顾递推式：</p>
+<script type="math/tex; mode=display">
+g(n, j) = g(n, j - 1) - h(p_j)(g(\lfloor\frac{n}{p_j}\rfloor,j - 1) - \sum_{i = 1}^{j - 1}h(p_i))</script><p>可以发现两件事情：</p>
+<ol>
+<li>$\lfloor\frac{n}{p_j}\rfloor$ 最多会有 $\sqrt{n}$ 种取值，可以考虑整除分块预处理；</li>
+<li>$n$ 以内的质因子个数也是 $\sqrt{n}$ 级别的，所以说 $\sum_{i = 1}^{j - 1}h(p_i))$ 也可以预处理。</li>
+</ol>
+<p>所以我们先考虑把所有的素数筛出来，同时维护后面的那一项 $\sum_{i = 1}^{j - 1}h(p_i))$：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-type">void</span> <span class="hljs-title">Sieve</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>	NotPrime[<span class="hljs-number">1</span>] = <span class="hljs-literal">true</span>;<br>	<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> i = <span class="hljs-number">2</span>; i &lt;= s; i++)	<span class="hljs-comment">//s = sqrt(n)</span><br>	&#123;<br>		<span class="hljs-keyword">if</span>(!NotPrime[i])<br>		&#123;<br>			Prime[++len] = i;<br>			sum1[len] = <span class="hljs-built_in">GetMOD</span>(sum1[len - <span class="hljs-number">1</span>] + i) % MOD;<br>			sum2[len] = <span class="hljs-built_in">GetMOD</span>(sum2[len - <span class="hljs-number">1</span>] + <span class="hljs-number">1LL</span> * i * i % MOD) % MOD;<br>		&#125;<br>		<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> j = <span class="hljs-number">1</span>; j &lt;= len &amp;&amp; i * Prime[j] &lt;= s; j++)<br>		&#123;<br>			NotPrime[i * Prime[j]] = <span class="hljs-literal">true</span>;<br>			<span class="hljs-keyword">if</span>(i % Prime[j] == <span class="hljs-number">0LL</span>) <span class="hljs-keyword">break</span>;<br>		&#125;<br>	&#125;<br>	<span class="hljs-keyword">return</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>然后我们整除分块，把对应的值存储下来编号，这样可以节省空间。同时我们预处理出 $g(1 \sim n, 0)$：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> LL l = <span class="hljs-number">1</span>, r; l &lt;= n; l = r + <span class="hljs-number">1</span>)<br>&#123;<br>	r = n / (n / l), val[++m] = n / l;<br>	g1[m] = <span class="hljs-built_in">GetMOD</span>(<span class="hljs-built_in">Prefix1</span>(val[m]) - <span class="hljs-number">1LL</span> + MOD), g2[m] = <span class="hljs-built_in">GetMOD</span>(<span class="hljs-built_in">Prefix2</span>(val[m]) - <span class="hljs-number">1LL</span> + MOD);	<span class="hljs-comment">//注意要减去 f(1) 的贡献</span><br>	<span class="hljs-keyword">if</span>(val[m] &lt;= s) pos1[val[m]] = m; <span class="hljs-keyword">else</span> pos2[n / val[m]] = m;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>接着我们求解 $g$，这里可以发现后面的值只会由前面推导过来，所以可以考虑把数组滚动：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> i = <span class="hljs-number">1</span>; i &lt;= len; i++)<br>&#123;<br>	<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> j = <span class="hljs-number">1</span>; j &lt;= m &amp;&amp; Prime[i] * Prime[i] &lt;= val[j]; j++)<br>	&#123;<br>		g1[j] = <span class="hljs-built_in">GetMOD</span>(g1[j] - <span class="hljs-number">1LL</span> * Prime[i] * <span class="hljs-built_in">GetMOD</span>(g1[<span class="hljs-built_in">GetPos</span>(val[j] / Prime[i])] - sum1[i - <span class="hljs-number">1</span>] + MOD) % MOD + MOD); <br>		g2[j] = <span class="hljs-built_in">GetMOD</span>(g2[j] - <span class="hljs-number">1LL</span> * Prime[i] * Prime[i] % MOD * <span class="hljs-built_in">GetMOD</span>(g2[<span class="hljs-built_in">GetPos</span>(val[j] / Prime[i])] - sum2[i - <span class="hljs-number">1</span>] + MOD) % MOD + MOD);<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>完毕。</p>
+<ul>
+<li>$Step~2$：</li>
+</ul>
+<p>接下来考虑求解 $S$。实际上没有那么麻烦，直接暴力枚举然后递归即可：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-keyword">inline</span> LL <span class="hljs-title">S</span><span class="hljs-params">(LL k, <span class="hljs-type">int</span> p)</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-keyword">if</span>(Prime[p] &gt;= k) <span class="hljs-keyword">return</span> <span class="hljs-number">0LL</span>;<br>	LL res = <span class="hljs-built_in">GetMOD</span>(<span class="hljs-built_in">GetMOD</span>(g2[<span class="hljs-built_in">GetPos</span>(k)] - g1[<span class="hljs-built_in">GetPos</span>(k)] + MOD) - <span class="hljs-built_in">GetMOD</span>(sum2[p] - sum1[p] + MOD) + MOD);<br>	<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> i = p + <span class="hljs-number">1</span>; i &lt;= len &amp;&amp; Prime[i] * Prime[i] &lt;= k; i++)<br>	&#123;<br>		LL pw = Prime[i];<br>		<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> j = <span class="hljs-number">1</span>; pw &lt;= k; pw = pw * Prime[i], j++) res = <span class="hljs-built_in">GetMOD</span>(res + pw % MOD * <span class="hljs-built_in">GetMOD</span>(pw % MOD - <span class="hljs-number">1LL</span> + MOD) % MOD * <span class="hljs-built_in">GetMOD</span>(<span class="hljs-built_in">S</span>(k / pw, i) + (j &gt; <span class="hljs-number">1</span>)) % MOD);<br>	&#125;<br>	<span class="hljs-keyword">return</span> res;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>放上<a target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/tree/master/Codes/积性函数的筛法/Min_25筛.cpp">完整代码</a>。</p>
+<hr>
+<h2 id="operatorname-Powerful-Number"><a href="#operatorname-Powerful-Number" class="headerlink" title="$\operatorname{Powerful~Number}$"></a>$\operatorname{Powerful~Number}$</h2><p>对正整数 $k$ 唯一分解为 $\sum_{p_i\in \operatorname{Prime}} p_i^{\alpha_i}$，如满足 $\forall p_i \in {\operatorname{Prime}}， \alpha_i \ge 2$，则称其为 $\operatorname{Powerful~Number}$。</p>
+<p>每一个 $\operatorname{Powerful~Number}$ 都可以表示成 $a^2 b^3$ 的形式。由此我们也可以证明：$1 \sim n$ 内 $\operatorname{Powerful~Number}$ 的数量在 $O(\sqrt{n})$ 级别。</p>
+<p>它有什么用处呢？</p>
+<p>假设我们要求积性函数 $f$ 的前缀和，考虑构造一个前缀和很好求的函数 $g$，满足两函数在<strong>质数处</strong>值相等。</p>
+<p>再设函数 $h$ 使得 $f = h * g$。</p>
+<p>可以发现，当 $d$ 不为 $\operatorname{Powerful~Number}$ 时，$h(d)$ 取值为 $0$。</p>
+<p>又有：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\sum_{i = 1}^n f(i) &= \sum_{i = 1}^n (h * g)(i)
+\\
+&=\sum_{i = 1}^n\sum_{d | i} h(d)g(\frac{i}{d})
+\\
+&=\sum_{d = 1}^nh(d)\sum_{i = 1}^{\lfloor\frac{n}{d}\rfloor} g(i)
+\end{aligned}</script><p>由于后者前缀和很好求，因此可以考虑暴力找出 $n$ 以内的 $\operatorname{Powerful~Number}$，直接暴力加就行。</p>
+<hr>
+<h2 id="operatorname-END"><a href="#operatorname-END" class="headerlink" title="$\operatorname{END}$"></a>$\operatorname{END}$</h2>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/OI/">OI</a>
+                    
+                      <a class="hover-with-bg" href="/categories/OI/%E6%95%B0%E5%AD%A6/">数学</a>
+                    
+                      <a class="hover-with-bg" href="/categories/OI/%E6%95%B0%E5%AD%A6/%E6%95%B0%E8%AE%BA/">数论</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/02/26/%E5%A4%9A%E9%A1%B9%E5%BC%8F%E5%85%A8%E5%AE%B6%E6%A1%B6/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">多项式全家桶</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/02/23/%E6%95%B4%E9%99%A4%E5%92%8C%E5%90%8C%E4%BD%99%E7%9B%B8%E5%85%B3%E7%90%86%E8%AE%BA/">
+                        <span class="hidden-mobile">整除和同余相关理论</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        loader: {
+          load: ['ui/lazy']
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+</html>

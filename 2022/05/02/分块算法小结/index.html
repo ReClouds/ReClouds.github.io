@@ -1,0 +1,854 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/bg/logo.jpeg">
+  <link rel="icon" href="/img/bg/logo.jpeg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Recalling_Clouds">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="本文实际上是小组学习时对若干课件和论文的整理。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="分块算法小结">
+<meta property="og:url" content="https://reclouds.github.io/2022/05/02/%E5%88%86%E5%9D%97%E7%AE%97%E6%B3%95%E5%B0%8F%E7%BB%93/index.html">
+<meta property="og:site_name" content="ReClouds&#39; Blog">
+<meta property="og:description" content="本文实际上是小组学习时对若干课件和论文的整理。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://reclouds.github.io/img/bg/17.jpeg">
+<meta property="article:published_time" content="2022-05-02T07:53:34.000Z">
+<meta property="article:modified_time" content="2022-05-13T10:38:24.000Z">
+<meta property="article:author" content="Recalling_Clouds">
+<meta property="article:tag" content="学习笔记">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://reclouds.github.io/img/bg/17.jpeg">
+  
+  
+  <title>分块算法小结 - ReClouds&#39; Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"reclouds.github.io","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.1"><link rel="alternate" href="/atom.xml" title="ReClouds' Blog" type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>凌云の小屋</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/bg/17.jpeg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="分块算法小结">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      Recalling_Clouds
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-05-02 15:53" pubdate>
+        2022年5月2日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      17k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      142 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">分块算法小结</h1>
+            
+            <div class="markdown-body">
+              <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本文实际上是小组学习时对若干课件和论文的整理。</p>
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><p>本文不会讲解一些和分块无关的定义（如树上 $\operatorname{LCA}$），除非引起歧义。</p>
+<p>下面阐述可能引起歧义的部分：</p>
+<ul>
+<li>本文提到的 $\operatorname{DFS}$ 序指在 $\operatorname{DFS}$ 的过程中，每个点在入栈和出栈时分别记录一次形成的序列。</li>
+</ul>
+<hr>
+<ul>
+<li>$\operatorname{Source}$：<a target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/blob/master/Articles/%E5%9B%BD%E5%AE%B6%E9%9B%86%E8%AE%AD%E9%98%9F%202013%20%E8%AE%BA%E6%96%87%E9%9B%86%20%E6%B5%85%E8%B0%88%E5%88%86%E5%9D%97%E6%80%9D%E6%83%B3%E5%9C%A8%E4%B8%80%E7%B1%BB%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E9%97%AE%E9%A2%98%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8%20%E7%BD%97%E5%89%91%E6%A1%A5.pdf">国家集训队 $2013$ 论文集 浅谈分块思想在一类数据处理问题中的应用 罗剑桥</a></li>
+</ul>
+<h3 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h3><p>在数据处理问题中，分块思想有着广泛的应用，原因是分块的方法具有一些良好的性质：</p>
+<ol>
+<li>若子集规模很小，对每个子集可以使用关于子集规模的复杂度较高的算法；</li>
+<li><p>若子集数目很少，可使用与整个集合规模有关的算法分别处理每个子集；</p>
+</li>
+<li><p>若每个子集内部的元素具有共同的性质，可以分别设计有针对性的算法。</p>
+</li>
+</ol>
+<p>容易发现前两条性质之间存在矛盾。为了均衡，既不能让子集规模过大，也不能让子集数目过大。这就是为什么分块算法的时间复杂度往往与 $\sqrt{n}$ 有关的原因。在下面一些题目的复杂度分析中，你可以看到得出 $\sqrt{n}$ 的具体过程。</p>
+<h3 id="数据的分块化"><a href="#数据的分块化" class="headerlink" title="数据的分块化"></a>数据的分块化</h3><p>这里将介绍两种常用的数据结构：线性序列和树形结构的分块化。</p>
+<h4 id="线性序列分块化"><a href="#线性序列分块化" class="headerlink" title="线性序列分块化"></a>线性序列分块化</h4><p>按照引言的说法，对序列分块后，若有一个对子段 $[l, r]$ 的操作，那么我们可以对每一个块进行整体操作（如打整体加法标记等），对子段 $[l, r]$ 去除所有块后两端剩下的部分（我们称之为散块）进行比较暴力的操作。</p>
+<ul>
+<li>例题 $1$：</li>
+</ul>
+<p>维护一个长度为 $n$ 的数列，$n$ 次操作，支持如下两种操作：</p>
+<ol>
+<li><p>从第一个数开始，每隔 $d$ 个位置的数增加 $x$；</p>
+</li>
+<li><p>回答子段 $[l, r]$ 的和。</p>
+</li>
+</ol>
+<p>$\operatorname{Data~Range}$：$n \le 5 \times 10^5$。</p>
+<ul>
+<li>题解：</li>
+</ul>
+<p>假如没有修改，如何 $\mathcal{O}(\frac{n^2}{S})$ 求当前数列答案？</p>
+<p>我们维护每一个位置的具体数值和整块和，求和时枚举 $\mathcal{O}(\frac{n}{S})$ 个整块和左右两侧剩余的 $\mathcal{O}(S)$ 个位置求和即可。</p>
+<p>单次询问的复杂度为 $\mathcal{O}(\frac{n}{S} + S)$，如果采用均值不等式分析（这也是大多数分块常用的分析手段），若块大小为 $\sqrt{n}$，那么上述算法复杂度为最优的 $\mathcal{O}(n\sqrt{n})$。</p>
+<p>不过，修改操作还没有很好的复杂度，这里又要介绍另外一个分块思想：</p>
+<p>对于 $d &gt; \sqrt{n}$，可以直接暴力修改涉及到的位置以及涉及到的块（不会超过 $\mathcal{O}(\sqrt{n})$ 个）的总和。</p>
+<p>对于 $d \le \sqrt{n}$，由于对于同一个 $d$，每次修改的位置集合相同，所以我们可以对每一个 $d$ 维护一个加法标记（这样的 $d$ 也不会超过 $\sqrt{n}$ 个）。</p>
+<p>求和时先求当前数列的答案，再 $\mathcal{O}(\sqrt{n})$ 枚举 $d$ 并 $\mathcal{O}(1)$ 计算出修改量即可。</p>
+<p>总复杂度为 $\mathcal{O}(n\sqrt{n})$。</p>
+<h4 id="树形结构分块化"><a href="#树形结构分块化" class="headerlink" title="树形结构分块化"></a>树形结构分块化</h4><p>如果我们对树的 $\operatorname{DFS}$ 序分块，那么根据其性质，我们可以得出如此分块的性质：</p>
+<ul>
+<li>每一个块对应的所有点和它们的 $\operatorname{LCA}$ 共同组成一个连通块。下面说的块一般指组成的这个连通块。</li>
+</ul>
+<p>这个算法实现十分简单，并且块的数目也不多。不过，这并不是最严格的树分块，这只是对树进行分块的一种方式。真正严格的树分块可以搜索 $\operatorname{Top~Cluster}$。</p>
+<ul>
+<li>例题 $2$：</li>
+</ul>
+<p>给定一个 $n$ 个点的树和 $k$，每条边有一个绝对值不超过 $1000$ 的整数权，求对于每个 $i$，其它 $n - 1$ 个点到该点的距离的第 $k$ 小值是多少。</p>
+<p>$\operatorname{Data~Range}$：$n,k \le 5 \times 10^5$。</p>
+<ul>
+<li>题解</li>
+</ul>
+<p>朴素的做法是求出任意两点后的距离，然后排序。如果采用基数排序，时间复杂度可以做到 $\mathcal{O}(n^2)$。</p>
+<p>我们考虑按照刚才说的方法对树进行分块。这里提一句，本题的块大小 $S$ 并非 $\mathcal{O}(\sqrt{n})$。</p>
+<p>然后，我们介绍两个引理：</p>
+<ol>
+<li>设点 $u$ 为不在当前块内的任意一个点，那么无论以块哪个点做为根，从点 $u$ 到根节点的路径上经过的第一个块内点 $v$ 是不变的（以下称为点 $u$ 对于当前块的最近块内祖先）。我们令所有对于当前块的最近块内祖先相同的 $u$ 共同组成一类，那么至多有 $\mathcal{O}(S)$ 类；</li>
+<li>设点 $u$ 和 $v$ 为不在当前块内的两个同一类的点，它们的最近块内祖先为 $p$。那么以连通块内任意一点为根时，点 $u$ 到根的距离不大于点 $v$ 到根的距离当且仅当点 $u$ 到点 $p$ 的距离不大于点 $v$ 到点 $p$ 的距离。我们称点 $u$ 到点 $p$ 的距离为点 $u$ 的块内距离。</li>
+</ol>
+<p>有了这两个引理，我们可以将树遍历一遍，对于每个块计算出所有不在块内的点 $u$ 的块内距离 $dis_u$，然后对于每一类点按 $dis_u$ 从小到大排序。接着，我们枚举块内每个点做为根，分别计算答案。</p>
+<p>考虑二分答案，统计到根的距离小于等于 $mid$ 的点数，如果小于 $k$，那么我们提高二分下界，否则降低二分上界。具体地，对于当前枚举到的根节点，我们先求出块内其它节点 $v$ 到它的距离 $dis_v$，然后，对于每一类节点，由于我们已经按照它们的块内距离将它们排好序了，因此我们可以在其中二分，求出块内距离小于等于 $mid - dis_u$ 的点的数量。</p>
+<p>按照上述算法，考虑排序的复杂度和块的大小，我们可以做到 $\mathcal{O}(n\log_2n + S^2 \log_2n \log_2 V)$ 求出一个块内的答案，其中 $V$ 为值域大小。如果我们把 $\log_2 n$ 和 $\log_2 V$ 看作同级，然后将块的个数考虑进去，那么实际的复杂度应该为 $\mathcal{O}(\frac{n^2}{S} \log_2 n + n S \log_2^2 n)$。</p>
+<p>如果利用均值不等式分析，那么可以发现当 $\displaystyle S = \sqrt{\frac{n}{\log_2 n}}$ 时有最优的复杂度 $\mathcal{O}(n\log_2n\sqrt{n\log_2n})$。</p>
+<p>注意一个点可能存在于多个块中，它们不应该被计算多次答案。这也是这种分块方法的劣势之一。</p>
+<h3 id="分块与预处理"><a href="#分块与预处理" class="headerlink" title="分块与预处理"></a>分块与预处理</h3><p>预处理是指维护一个数据集合时，在所有询问操作以前对数据进行一些处理，往往记录许多附加信息，在询问时利用已处理过的信息提高时间效率。</p>
+<p>如果将分块思想与预处理相结合，能够高效地解决一类范围很广的集合查询问题。下面也将重点讨论在线性序列和树形结构中预处理的一般方法。</p>
+<h4 id="线性序列的预处理"><a href="#线性序列的预处理" class="headerlink" title="线性序列的预处理"></a>线性序列的预处理</h4><p>首先我们需要对序列分块，设块的大小为 $S$，那么一共存在 $\mathcal{O}(\frac{n}{S})$ 个块。</p>
+<p>假设我们有办法在 $\mathcal{O}(S)$ 的时间内处理一个块的信息，并且对于已经处理完的子段 $[l, r]$，我们可以在 $\mathcal{O}(S)$ 的时间内得到子段 $[l, r + S]$ 的信息（即扩展一个块的信息），那么我们可以在 $\mathcal{O}(\frac{n^2}{S})$ 的时间内处理完所有左端为块的左端点，右端为块的右端点的子段（我们称之为整块）的信息。</p>
+<p>具体来说，整块显然是由若干个连续块组成的。那么，我们可以 $\mathcal{O}(\frac{n}{S})$ 地枚举整块的左端块 $A$，在计算出 $A$ 的信息后，我们再从 $A$ 开始枚举右端块 $B$，每次将 $B$ 右移一个块，然后 $\mathcal{O}(S)$ 地求出 $A$ 与 $B$ 之间（包括这两个块）之间的整块的信息即可。总的复杂度为 $\mathcal{O}(\frac{n^2}{S})$。</p>
+<p>预处理出整块后，如果我们能够在 $\mathcal{O}(1)$ 的时间内加入一个位置的信息，那么对于每一个子段 $[l, r]$，我们都可以把它分成 $1$ 个整块和左右两侧的 $\mathcal{O}(S)$ 个散块。在这种情况下，显然 $S$ 为 $\sqrt{n}$ 的情况最优。</p>
+<p>当然，可能会存在一个块的信息无法 $\mathcal{O}(S)$ 处理，或是无法在 $\mathcal{O}(S)$ 的时间内扩展一个整块，或是无法 $\mathcal{O}(1)$ 加入一个位置的信息，那么 $S$ 就需要用均值不等式分析了。</p>
+<ul>
+<li>例题 $3$：</li>
+</ul>
+<p>给定一个长度为 $n$ 的序列，每个数是 $1 \sim n$ 之间的整数。你需要回答 $n$ 次询问，每次询问给定 $l, r, k$，求子段 $[l, r]$ 中出现了恰好 $k$ 次的数的数目。强制在线。</p>
+<p>$\operatorname{Data~Range}$：$n \le 1 \times 10^5$。</p>
+<ul>
+<li>题解</li>
+</ul>
+<p>显然对于 $k &gt; \sqrt{n}$ 的情况，可能对答案产生贡献的数最多也不超过 $\mathcal{O}(\sqrt{n})$ 个。我们可以直接记录下这些数，询问时 $\mathcal{O}(1)$ 地求出它们的出现次数即可。</p>
+<p>其它的情况，我们可以利用前缀和的思想，维护每个数在前缀整块的出现次数，时空复杂度为 $\mathcal{O}(\frac{n^2}{S})$。</p>
+<p>然后，我们对于所有的整块，维护出现次数在 $1 \sim \sqrt{n}$ 之间的数的数目，接着扫描散块，用数组维护一下即可。时间复杂度为 $\mathcal{O}(\sqrt{n} + S)$。</p>
+<p>取 $S$ 等于 $\sqrt{n}$ 时有最优的复杂度 $\mathcal{O}(n\sqrt{n})$。</p>
+<h4 id="树形结构的预处理"><a href="#树形结构的预处理" class="headerlink" title="树形结构的预处理"></a>树形结构的预处理</h4><p>实际上，一些需要用到分块解决的序列上问题同样也是可以转化为树上的路径上问题的，因为树上的两点之间有唯一的一条路径，实际上就相当于一个序列。</p>
+<p>下面介绍一种方式，在树上选取若干个关键点，使得每一条路径都可以变为常数条左右端点均为关键点的路径和常数个散点。</p>
+<p>对于一颗有根树，按照深度从大到小的顺序枚举树中的每一个点并判断是否将其标记为关键点。将点 $u$ 标记为关键点，当且仅当点 $u$ 的子树中存在一个点到点 $u$ 的路径上没有关键点且路径上有大于 $S$ 个非关键点。类似块长，$S$ 是可以自主设定的。</p>
+<p>这样，关键点不会超过 $\displaystyle \frac{n}{S}$ 个，因为每个关键点至少是 $S$ 个非关键点到根路径上的第一个关键点。</p>
+<p>实现的话，我们只要记录每个点的子树到它的所有非关键点组成的路径经过的点数的最大值，就能够判断是否需要标记它。</p>
+<p>在这种构建关键点的方式上，我们可以得到一些定理：</p>
+<ul>
+<li>若设根节点深度为 $0$，那么任意一个深度大于等于 $S$ 的点最近的 $S + 1$ 个祖先（包含该点）中至少有一个是关键点。</li>
+<li>对于树中任意一条经过点数大于 $3 \cdot S$ 的简单路径，设点 $u$ 和点 $v$ 分别是路径的两个端点。则点 $u$ 到路径上最近的关键点经过的边数不超过 $2\cdot S - 2$，点 $u$ 与点 $v$ 分别到路径上最近的关键点经过的边数之和不超过 $3\cdot S - 3$。</li>
+</ul>
+<p>如果我们可以在 $\mathcal{O}(S)$ 的时间复杂度内处理一条链，并且可以在 $\mathcal{O}(S)$ 的时间内扩展一条链，那么总的预处理复杂度就是 $\mathcal{O}(\frac{n^2}{S})$。一条链除去预处理的部分后，剩下的点数是 $\mathcal{O}(S)$ 级别的。</p>
+<ul>
+<li>例题 $4$（<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4074">$\operatorname{WC}~2013$ 糖果公园</a>）：</li>
+</ul>
+<p>给定一个 $n$ 个点的树，每个结点的颜色是 $1 \sim m$ 之间的一个整数。</p>
+<p>定义从树上任意点 $u$ 到点 $v$ 的旅行收益为 $\displaystyle\sum<em>{i = 1}^m\sum</em>{j = 1}^{cnt<em>i} V_iW_j$，其中 $i$ 是每种颜色，$V_i$ 是颜色 $i$ 的权值，$cnt_i$ 是颜色 $i$ 在点 $u$ 到点 $v$ 的简单路径上出现的次数，而 $W</em>{1\sim n}$ 是给定的不上升序列。所有 $V_i$ 和 $W_i$ 均为正整数。</p>
+<p>你需要执行 $q$ 次操作，分为两种类型：</p>
+<ul>
+<li>给定 $u$ 和 $c$，修改点 $u$ 的颜色为 $c$；</li>
+<li>给定 $u$ 和 $v$，查询两点间路径的旅行收益。</li>
+</ul>
+<p>$\operatorname{Data~Range}$：$n,m,q \le 1 \times 10^5, 1 \le V_i, W_i \le 1 \times 10^6$。</p>
+<ul>
+<li>题解</li>
+</ul>
+<p>下面设块长为 $n^{\frac{2}{3}}$，我们可以预处理出任意两个关键点之间的路径中颜色 $1 \sim m$ 的出现次数和旅行收益，那么时间复杂度为 $\mathcal{O}(n^{\frac{5}{3}})$。</p>
+<p>对于查询两点间路径旅行收益的操作，我们可以先找出 $u, v$ 两点的 $\operatorname{LCA}$，然后就可以让两点在路径上移动，这样我们一定可以找到两个关键点（当然也有可能路径上没有任何关键点，不过这样路径上的点数也是 $\mathcal{O}(S)$ 级别的），而它们之间路径的答案是已经被预处理出来了的。至于剩下的部分，可以发现答案是可以 $\mathcal{O}(1)$ 更新的，于是我们就可以在 $\mathcal{O}(n^{\frac{2}{3}})$ 的时间复杂度内完成一次询问了。</p>
+<p>不过，不要忘记了还有修改操作。对于将要被修改的点 $u$，我们可以找出所有包含它的预处理路径，这样的路径一共有 $\mathcal{O}(n^{\frac{2}{3}})$ 条，然后把每一条路径的信息修改一下即可。</p>
+<p>总的时间复杂度为 $\mathcal{O}(n^{\frac{5}{3}})$。</p>
+<h3 id="分块与离线算法"><a href="#分块与离线算法" class="headerlink" title="分块与离线算法"></a>分块与离线算法</h3><p>有些数据处理问题并不要求对每次询问即时得到答案，而是一次给出大量的询问，要求程序尽快计算出这些询问的结果并统一反馈。离线算法就是指预先知道所有询问的内容因而一起解决所有询问的算法。<br>在离线问题中，因为已经得知所有询问，我们可以把询问按一定的方式组织起来，从而充分利用询问之间的重叠信息。实际上是将所有询问作为数据集合的一部分处理，于是可以用原来处理数据集合的方法处理询问。</p>
+<ul>
+<li>例题 $5$：</li>
+</ul>
+<p>同例题 $3$，但不要求强制在线。</p>
+<ul>
+<li>题解</li>
+</ul>
+<p>将序列分块，每个块的大小 $S$ 定为 $\sqrt{n}$，那么块的数目为 $\mathcal{O}(\sqrt{n})$。</p>
+<p>一次性读入所有询问后，按照左端点所在的块将所有询问分为 $\mathcal{O}(\sqrt{n})$ 类，然后分别处理每一类询问。</p>
+<p>我们设两个指针 $l, r$ 表示当前处理的信息对应的区间的左右端点。显然我们能够 $\mathcal{O}(1)$ 地处理信息的加入或删除，那么对于所有询问，总的时间复杂度就等于指针移动的复杂度。</p>
+<p>我们把所有询问先按照左端点所在的块从小到大排序，对于左端点在同一个块内的询问，我们将它们按照右端点从小到大排序。</p>
+<p>对于左端点，由于相邻两次询问间左端点的移动次数是 $\mathcal{O}(\sqrt{n})$ 级别的，所以左端点移动的总时间复杂度为 $\mathcal{O}(n\sqrt{n})$。</p>
+<p>对于右端点，移动分为两种情况：对于所有左端点在同一个块内的所有询问，右端点的移动次数是 $\mathcal{O}(n)$ 级别的，而块的个数是 $\mathcal{O}(\sqrt{n})$ 的，所以这部分的右端点移动复杂度为 $\mathcal{O}(n\sqrt{n})$；对于相邻两次左端点不在同一个块内的询问，右端点的移动次数是 $\mathcal{O}(n)$ 级别的，而这种询问的个数也是 $\mathcal{O}(\sqrt{n})$ 的。所以右端点移动的总时间复杂度为 $\mathcal{O}(n\sqrt{n})$。</p>
+<p>如此一来，这总的时间复杂度即为 $\mathcal{O}(n\sqrt{n})$。</p>
+<p>（顺带一提，这种算法由队爷莫涛发明，所以也称莫队算法。）</p>
+<ul>
+<li>例题 $6$（<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/SP10707">$\operatorname{Sphere~Online~Judge~10707~Count~on~a~tree~II}$</a>）：</li>
+</ul>
+<p>给定一个 $n$ 个点的数，每个点有一个小于 $2^{31}$ 的非负整数权。你需要回答 $m$ 次询问，每次查询 $u, v$ 两点间路径上出现的不同点权的数目。</p>
+<p>$\operatorname{Data~Range}$：$1 \le n \le 4 \times 10^4, 1 \le m \le 1 \times 10 ^5$。</p>
+<ul>
+<li>题解</li>
+</ul>
+<p>首先由于权值过大，可以将其离散化。</p>
+<p>我们可以采用前文在树上标记关键点的方法，令 $S = \sqrt{n}$，那么关键点的数目为 $\mathcal{O}(\sqrt{n})$。根据前文的定理，每个点与最近的关键点的距离为 $\mathcal{O}(\sqrt{n})$。</p>
+<p>对于所有询问，我们类似莫队算法，将它们按照离点 $u$ 最近的关键点分为 $\mathcal{O}(\sqrt{n})$ 类，然后分别处理每一类。</p>
+<p>假设当前处理的关键点为 $root$，那么我们以 $root$ 为根做一遍 $\operatorname{DFS}$，维护当前在栈中的所有点中每个权值的出现次数和不同权值的数目。</p>
+<p>实际上访问到节点 $v$ 时，栈中的所有点即为 $root$ 到点 $v$ 路径上的所有点。如果距离 $v$ 所在的询问对应的点 $u$ 最近的关键点为 $root$，那么我们就需要处理这次询问。具体地，我们枚举 $u$ 到 $root$ 的路径上的所有节点 $p$，然后分三种情况讨论：</p>
+<ul>
+<li>如果 $p$ 为点 $u$ 和点 $v$ 的 $\operatorname{LCA}$，我们不做任何处理；</li>
+<li>如果 $p$ 在 $\operatorname{LCA}$ 到 $root$ 的路径上，我们删去点 $p$ 的信息；</li>
+<li>如果 $p$ 在点 $u$ 到 $\operatorname{LCA}$ 的路径上，我们加入点 $p$ 的信息。</li>
+</ul>
+<p>由于 $p$ 的个数为 $\mathcal{O}(\sqrt{n})$，所以总的复杂度为 $\mathcal{O}(n\sqrt{n})$。</p>
+<p>不过，如果这题要求强制在线，该怎么办？</p>
+<p>下面就简单来讲一下该题的一种在线算法，时间复杂度亦为 $\mathcal{O}(n\sqrt{n})$。</p>
+<p>我们可以考虑使用到上面讲到的在树上标记关键点的方法。</p>
+<p>那么对于一条路径，我们可以把它剖为一个整块 $S$ 和至多两个散块 $T_1, T_2$，那么根据容斥原理，由于我们要求的是三个块集合的并集，所以答案即为：</p>
+<script type="math/tex; mode=display">
+|S| + |T_1|+|T_2|-|S \cap T_1| - |S \cap T_2| - |T_1 \cap T_2| + |S \cap T_1 \cap T_2|</script><p>整块的答案以及整块与单个散块的交的答案可以预处理，散块的答案和散块与散块的交的答案可以 $\mathcal{O}(\sqrt{n})$ 求。剩下的，就是整块与两个散块的交的答案。</p>
+<p>在预处理整块与单个散块的交的答案时，对于枚举到的散块端点，我们可以对其开一个大小为 $\sqrt{n}$ 的数组，表示该散块与整块的交集中有没有包含当前端点的颜色。</p>
+<p>那么在求整块与两个散块的交的答案时，我们只要 $\mathcal{O}(\sqrt{n})$ 地先扫描出其中一个散块和整块的交集，然后和另一个散块取交集即可。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>形象地说，分块思想的实质是将复杂度为 $\mathcal{O}(f(n))$ 的朴素算法转化为复杂度为 $\mathcal{O}(g(S) + h(\frac{n}{S}))$ 的算法。其中 $S$ 为块的规模，$\displaystyle \frac{n}{S}$ 是块的数量级（$f(n), g(n), h(n)$ 均表示关于 $n$ 的函数），只是在不同的问题中由于三个函数的一些不同，复杂度也会有一些出入。</p>
+<p>本文讲述了对线性序列和树形结构分块的基本模式，无论是在线或是离线算法，对于一大类问题都是很有效的。但实际上，分块思想并不局限于对数据集的分块。以例题 $1$ 为例，这道题目的参考算法中有一处对数据进行分块思想：对于 $d \le \sqrt{n}$ 的修改和 $d &gt; \sqrt{n}$ 的修改分别用两种算法维护。不仅如此，今后遇到的整除分块、根号分治（即该题）等经典算法也和分块思想有密不可分的联系。</p>
+<p>不过，究竟应该如何应用分块思想是因题而异的，我们不应当拘泥于这里给出的几种形式，而要勇于创新。当然，如果存在比分块的方法更高效的算法，也要学会选择，不能墨守成规。希望这些例题能对读者有所启发。</p>
+<p>（由于本篇论文总结较为详细，所以下面的课件和论文总结就会讲得比较简略了。）</p>
+<hr>
+<ul>
+<li>$\operatorname{Source}$：<a target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/blob/master/Articles/%E5%9B%BD%E5%AE%B6%E9%9B%86%E8%AE%AD%E9%98%9F%202020%20%E8%AE%BA%E6%96%87%E9%9B%86%20%E6%B5%85%E8%B0%88%E5%88%A9%E7%94%A8%E5%88%86%E6%95%A3%E5%B1%82%E5%8F%A0%E7%AE%97%E6%B3%95%E5%AF%B9%E7%BB%8F%E5%85%B8%E5%88%86%E5%9D%97%E9%97%AE%E9%A2%98%E7%9A%84%E4%BC%98%E5%8C%96%20%E8%92%8B%E6%98%8E%E6%B6%A6.pdf">国家集训队 $2020$ 论文集 浅谈利用分散层叠算法对经典分块问题的优化 蒋明润</a> $\&amp;$ <a target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/blob/master/Articles/%E6%B5%85%E8%B0%88%E5%88%A9%E7%94%A8%E5%88%86%E6%95%A3%E5%B1%82%E5%8F%A0%E7%AE%97%E6%B3%95%E5%AF%B9%E7%BB%8F%E5%85%B8%E5%88%86%E5%9D%97%E9%97%AE%E9%A2%98%E7%9A%84%E4%BC%98%E5%8C%96%20%E5%88%98%E6%8C%AF%E8%A5%BF.pdf">浅谈利用分散层叠算法对经典分块问题的优化 刘振西</a></li>
+</ul>
+<h3 id="前言-1"><a href="#前言-1" class="headerlink" title="前言"></a>前言</h3><p>分散层叠算法已经产生了 $20$ 多年，但是尚未在算法竞赛界得到广泛应用。本文试图利用该算法对经典分块问题进行优化，希望在算法竞赛中引入分散层叠算法。本文第一节介绍了分散层叠算法及其意义，第二节介绍经典分块题及其常用解法，第三节则利用分散层叠算法对经典分块题进行了算法优化，并与传统算法进行了比较，同时对经典题进行了扩展。</p>
+<h3 id="分散层叠"><a href="#分散层叠" class="headerlink" title="分散层叠"></a>分散层叠</h3><p>本节将介绍了分散层叠（$\operatorname{Fractional~Cascading}$）算法。并将通过一个具体的例子来说明该<br>算法的含义。</p>
+<h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><p>在计算机科学中，分散层叠是一种在多个按一定规律组织的数列中对一个数进行加速二分查找的技术。</p>
+<p>其中，第一次查找是普通的二分查找，时间复杂度为 $\mathcal{O}(\log_2 n)$，而后面的二分查找会比第一次更快。</p>
+<p>顾名思义，$\operatorname{Fractional}$ 是指 “零碎的、微小的”，而 $\operatorname{Cascade}$ 则是一个比喻，指 “像小瀑布一样层叠的”。</p>
+<p>该算法最早由 $\operatorname{Chazelle}$ 和 $\operatorname{Guibas}$ 在 $1986$ 年发表的两篇文章中提出。本文所讲解的论文中给出了<a target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/blob/master/img/bg/%E5%88%86%E6%95%A3%E5%B1%82%E5%8F%A0.png">原文的一幅图画</a>，它相当形象地揭示了这个名词背后的深刻含义：像瀑布一样从高到低逐渐分散成越来越细的支流，再层层叠叠地覆盖。</p>
+<h4 id="举例说明"><a href="#举例说明" class="headerlink" title="举例说明"></a>举例说明</h4><ul>
+<li>例题 $1$：</li>
+</ul>
+<p>给出一个长度和为 $n$ 的 $k$ 个单调不下降的数列，第 $i$ 个数列记作 $L_i$，要求建立一个数据结构，支持对同一个数 $q$ 在 $k$ 个数列中分别进行二分查找（这里特指查询第一个大于等于 $q$ 的数的位置。当然只要是二分查找和单调性有关的信息，分散层叠算法大多数都能够支持）。</p>
+<p>例如下面的数据，$n = 17, k = 4$：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+L_1 &= \{24,64,65,80,93\}
+\\
+L_2 &= \{23, 25, 26\}
+\\
+L_3 &= \{13, 44, 62, 66\}
+\\
+L_4 &= \{11, 35, 46, 79, 81\}
+\end{aligned}</script><p>当 $q = 36$ 时，答案即为 $1, 3, 1, 2$（位置从 $0$ 开始标号）。</p>
+<ul>
+<li>题解</li>
+</ul>
+<p>最简单的算法当然是把 $k$ 个序列分开存放，那么有 $\mathcal{O}(n)$ 的空间复杂度。不过最坏情况下，$k$ 个序列长度相等，需要 $\mathcal{O}(k \log_2 \frac{n}{k})$ 的时间复杂度。</p>
+<p>还有一种算法支持更快的查询，但是有更高的空间复杂度：</p>
+<p>把 $k$ 个数列合并为一个大的序列 $L$，然后我们用 $val[pos<em>1, pos_2, pos_3, \cdots, pos_k]$ 的方式记录一个元素的信息，其中 $val$ 表示的是元素的具体值，$pos</em>{i}$ 表示第 $i$ 个数列中该元素二分到的位置。这个可以在 $\mathcal{O}(n)$ 的时间内用多路归并的思想完成。</p>
+<p>例如上面的数据：</p>
+<script type="math/tex; mode=display">
+L = \{11[0, 0, 0, 0], 13[0, 0, 0, 1], 23[0, 0, 1, 1], 24[0, 1, 1, 1], 25[1, 1, 1, 1], 26[1, 2, 1, 1], 35[1, 3, 1, 1], 44[1, 3, 1, 2], 46[1, 3, 2, 2], 62[1, 3, 2, 3], 64[1, 3, 3, 3], 65[2, 3, 3, 3], 66[3, 3, 3, 3], 79[3, 3, 4, 3], 80[3, 3, 4, 4], 81[4, 3, 4, 4], 93[4, 3, 4, 5]\}</script><p>那么维护好之后，我们就可以做到 $\mathcal{O}(k + \log<em>2 n)$ 查询了：直接在 $L$ 中二分查找出第一个大于等于 $q$ 的元素，然后其对应的 $pos</em>{1\sim k}$ 即为答案。</p>
+<p>可惜的是，这个算法的空间复杂度是 $\mathcal{O}(nk)$ 的，它并不够优秀。</p>
+<p>而分散层叠算法就是一种能够支持 $\mathcal{O}(n)$ 空间和 $\mathcal{O}(k + \log_2 n)$ 时间的一种算法。</p>
+<p>我们考虑建立 $k$ 个新的单调上升序列，第 $i$ 个记作 $M_i$，其中有 $L_k$ 和 $M_k$ 相同。</p>
+<p>而对于 $i &lt; k$ 的每一个序列 $M<em>i$ 都由 $L_i$ 和 $M</em>{i + 1}$ 的所有奇数项（偶数项亦可，不过奇数项的数目更少）归并而来，并且，对于 $M<em>i$ 中的每一个元素，我们都记录下它在 $L_i$ 和 $M</em>{i + 1}$ 中二分到的位置。</p>
+<p>例如上面的数据：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+M_1 &= \{24[0, 1], 25[1, 1], 35[1, 3], 64[1, 5], 65[2, 5], 79[3, 5], 80[3, 6], 93[4, 6]\}
+\\
+M_2 &= \{23[0, 1], 25[1, 1], 26[2, 1], 35[3, 1], 62[3, 3], 79[3, 5]\}
+\\
+M_3 &= \{13[0, 1], 35[1, 1], 44[1, 2], 62[2, 3], 66[3, 3], 79[4, 3]\}
+\\
+M_4 &= \{11[0, 0], 35[1, 0], 46[2, 0], 79[3, 0], 81[4, 0]\}
+\end{aligned}</script><p>如果我们想查询 $q = 36$，我们先在 $M<em>1$ 中查询，得到 $64[1, 5]$，其中 $1$ 表示 $q$ 在 $L_1$ 中二分查找的结果是 $1$ 号位置，$5$ 表示在 $M_2$ 中进行二分查找的结果大致在 $5$ 号位置。准确地说，是 $5$ 号位置的 $79[3, 5]$，或是前一个位置（即 $4$ 号位置）的 $62[3, 3]$。将 $q$ 和 $62[3, 3]$ 可知正确的查找结构为 $62[3, 3]$。以此类推，我们可以得到 $q$ 在 $L</em>{1 \sim k}$ 的所有答案。</p>
+<p>更一般地说，我们先在 $M<em>1$ 中二分查找，然后对于任意一个 $i$，我们都可以通过 $q$ 在 $M_i$ 中的位置定位出 $q$ 在 $L_i$ 和 $M</em>{i + 1}$ 中的位置。$q$ 在 $M<em>i$ 中查询结果指向的 $M</em>{i + 1}$ 中的位置，要么是 $q<em>i$ 在 $M</em>{i + 1}$ 中的查询结果，要么是查询结果的后一位，所以只需比较一次即可确定结果。总的时间复杂度为 $\mathcal{O}(k + \log_2n)$。</p>
+<p>而对于空间复杂度，一般来说，$M<em>i$ 的长度不超过 $\displaystyle |L_i| + \frac{1}{2}|L</em>{i + 1}| + \frac{1}{4}|L<em>{i + 2}| + \cdots$，所以所有 $M_i$ 的长度总和不超过 $\displaystyle \sum</em>{i = 1}^k |L_i|(1 + \frac{1}{2} + \frac{1}{4} + \cdots) = 2 \cdot n$，即空间复杂度为 $\mathcal{O}(n)$，实际上这也说明了构建这一结构的时间复杂度也为 $\mathcal{O}(n)$。</p>
+<h4 id="普遍情况"><a href="#普遍情况" class="headerlink" title="普遍情况"></a>普遍情况</h4><ul>
+<li>例题 $2$：</li>
+</ul>
+<p>给出一张 $\operatorname{DAG}$，每个节点的入度和出度都不超过给定的常数 $d$，每个节点 $u$ 上存有一个有序序列 $L_u$。一次查询需要对一个数 $q$ 在任意一条路径上的所有节点 $u$ 上存有的序列 $L_u$ 中进行二分查找。</p>
+<ul>
+<li>题解</li>
+</ul>
+<p>做法实际上是大同小异的。我们只需要对于每一个节点 $u$ 建立一个新的序列 $M_u$，那么如果 $u$ 为 $\operatorname{DAG}$ 的汇点，则 $M_u$ 即为 $L_u$，否则 $M_u$ 就应由以下两部分归并而来：</p>
+<ul>
+<li>点 $u$ 所存序列 $L_u$；</li>
+<li>点 $u$ 的所有后继 $v$ 所存序列 $M<em>v$ 的第 $k\cdot(d + 1) - 1~(k \in N</em>+)$ 项（对于前面的例子，$d = 1$，选择的即为第 $2 \cdot k - 1~(k \in N_+)$ 项即所有奇数项）。</li>
+</ul>
+<p>（实际上，对于第二个部分，我们只需要按照一定比例 $\displaystyle r &lt; \frac{1}{d}$ 均匀选取元素即可，具体原因可以参考复杂度证明。$r$ 一般取 $\displaystyle \frac{1}{d + 1}$，而按照上面那种方法选出的元素个数是最少的，数目为 $\displaystyle \lfloor\frac{n}{d + 1}\rfloor$。）</p>
+<p>对于一次查询，我们先在起点 $u$ 上建立的序列 $M_u$ 中进行一次 $\mathcal{O}(\log_2 n)$ 的二分查找，那么我们可以仿照上面的方法，在点 $u$ 的链上后继点 $v$ 中查找答案。只不过，由于我们选取的比例为 $\displaystyle \frac{1}{d + 1}$，所以我们需要在 $d + 1$ 个位置中查找确切的答案（你甚至可以用二分将这部分复杂度变为一个 $\log$）。</p>
+<p>设链长为 $k$，若将 $d$ 看作常数，则单次查询时间复杂度仍然为 $\mathcal{O}(k + \log_2 n)$。空间复杂度仍为 $\mathcal{O}(n)$。</p>
+<p>可以发现，如果 $\operatorname{DAG}$ 为一颗树（外向树和内向树均可），那么也可以支持子树查询答案，只需要在子树的根 $u$ 上二分后查找其每一个后继 $v$ 的答案即可。</p>
+<h3 id="经典分块题"><a href="#经典分块题" class="headerlink" title="经典分块题"></a>经典分块题</h3><ul>
+<li>例题 $3$：（<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5356">$\operatorname{Ynoi~2017}$ 由乃打扑克</a>）</li>
+</ul>
+<p>给定一个长度为 $n$ 的序列，有 $n$ 次操作：</p>
+<ul>
+<li>给定 $l, r, d$，给子段 $[l, r]$ 整体加 $x$；</li>
+<li>给定 $l,r,d$，求子段 $[l, r]$ 中小于等于 $x$ 的数的数量。</li>
+</ul>
+<p>$\operatorname{Data~Range}$：$n \le 1 \times 10^5$。</p>
+<ul>
+<li>题解</li>
+</ul>
+<p>先给出一种经典的分块解法，时间复杂度 $\mathcal{O}(n\sqrt{n\log_2n})$。</p>
+<p>设块大小为 $S$，假设每一个块内的所有元素都已经被排好序，那么查询时可以枚举每个整块后二分，然后再枚举散块统计答案。单次操作时间复杂度为 $\mathcal{O}(\frac{n}{S} \log_2n + S)$，当 $S$ 取 $\sqrt{n\log_2n}$ 时复杂度最优。</p>
+<p>那么现在我们考虑如何维护每个块内元素的有序性。</p>
+<p>如果修改的子段覆盖了一个整块，那么我们给这个整块打上一个加法标记，二分时将 $x$ 减去这个加法标记即可。</p>
+<p>否则，我们考虑重构整个块：把需要修改的部分加上 $x$，然后再和不需要修改的部分归并即可。</p>
+<p>由于每次最多只有两个块会被重构，所以重构的总复杂度为 $\mathcal{O}(n\sqrt{n\log_2n})$。</p>
+<p>这种方法十分简洁，也容易实现，只不过复杂度带了一个 $\log$，而其瓶颈则在于二分查找。</p>
+<p>所以我们需要考虑优化这个二分，有两种方法：</p>
+<ul>
+<li>优化多次询问在一个块中进行的二分查找；</li>
+<li>优化单次询问在多个块中进行的二分查找。</li>
+</ul>
+<p>其中第二种做法的优化将要用到分散层叠算法。这里着重讲第一种。</p>
+<p>（注意，这种方法要求值均为整数且大小和 $n$ 同级，并且不能够强制在线，时间复杂度为 $\mathcal{O}(n\sqrt{n})$。）</p>
+<p>设 $S = \sqrt{n}$，那么重构的总复杂度变为 $\mathcal{O}(\sqrt{n})$，现在考虑如何优化二分。</p>
+<p>可以发现，如果块没有被重构，那么我们将询问的 $x$ 排序后，可以做到单次询问均摊 $\mathcal{O}(1)$ 的复杂度。</p>
+<p>考虑以 $S$ 为底对询问的 $x$ 进行基数排序，简单分析一下时间复杂度为 $\mathcal{O}(n \sqrt{n})$。</p>
+<h3 id="基于分散层叠的算法"><a href="#基于分散层叠的算法" class="headerlink" title="基于分散层叠的算法"></a>基于分散层叠的算法</h3><p><del>（正文开始）</del></p>
+<p>对于上面的那道题，这里再提供一个基于分散层叠的 $\mathcal{O}(n\sqrt{n\log_2\log_2 n})$ 算法。</p>
+<p>我们考虑每 $T$ 个块一组，在每一个块中按 $\displaystyle \frac{1}{T}$ 的比例选取数，组成 $T$ 个新数列，将它们构建分散层叠。一共有 $\displaystyle \frac{n}{S\cdot T}$ 组。</p>
+<p>这样构建的话，在知道每个数列的答案后，可以通过二分 $\mathcal{O}(\log_2T)$ 地求出一个块的确切答案。</p>
+<p>如何处理修改呢？如果一组分散层叠被 $[l, r]$ 覆盖，那么打加法标记即可。否则，至多只有两组分散层叠的结构会被破坏，重构即可。</p>
+<p>由于构建一组分散层叠会涉及到 $T$ 个块，并且每个块仅会有 $\displaystyle \lfloor\frac{S}{T}\rfloor$ 个元素在分散层叠中，所以重构一个分散层叠的时间复杂度为 $\mathcal{O}(S)$。</p>
+<p>询问时对于一组分散层叠，我们可以做到 $\mathcal{O}(T + \log_2S)$ 的复杂度，同时对于每个块我们需要 $\mathcal{O}(\log_2T)$ 地进行二分查找。算上散块，单次询问复杂度为 $\mathcal{O}(\frac{n}{ST}\log_2S + \frac{n}{S} \log_2 T + S)$。</p>
+<p>总的时间复杂度为 $\mathcal{O}(\frac{n^2}{ST}\log_2S + \frac{n^2}{S} \log_2 T + nS)$，当 $S = \sqrt{n \log_2 \log_2n},T = \log_2 n$ 时有最优复杂度 $\mathcal{O}(n\sqrt{n\log_2\log_2n})$。</p>
+<p>这种做法已经难以继续优化了，其根源在于上面的分散层叠算法的合并方式还没有达到最优化。下面我们考虑更换一种合并方式。</p>
+<p>考虑建立一棵有 $\displaystyle \frac{n}{S}$ 个叶节点的线段树，线段树的叶节点依次存放每个块中维护的排序后的序列，非叶节点存放的序列由两个子节点所存放的序列中分别按一定比例均匀选取元素得到的序列归并而成，并记录下每个元素在两个子节点所存的序列中二分查找的结果。可以发现线段树类似上文提到的 $\operatorname{DAG}$ 的特殊情况：外向树。</p>
+<p>对于修改操作，由于线段树的性质，最多只有 $\mathcal{O}(\log_2 \frac{n}{S})$ 个区间不会被完全覆盖。由于完全覆盖的区间分散层叠的结构不会改变，因此我们只需要重新构建这 $\mathcal{O}(\log_2 \frac{n}{S})$ 个不被完全覆盖的区间即可。</p>
+<p>如果选取的比例为 $\displaystyle \frac{1}{2}$，那么线段树上每个节点的序列长度均为 $S$，单次修改复杂度为 $\mathcal{O}(S \log<em>2 \frac{n}{S})$。但是，如果选取的比例更小（例如 $\displaystyle\frac{1}{3}$），那么线段树上每层节点的序列长度都将是更低一层序列长度的 $\displaystyle \frac{2}{3}$。由于每层不完全覆盖的区间数为 $\mathcal{O}(1)$，而 $\displaystyle \sum</em>{i = 0}^{\infty} (\frac{2}{3})^i = 3$，所以单次修改的时间复杂度降为 $\mathcal{O}(S)$。</p>
+<p>对于询问操作，我们可以直接用上面提到的普遍情况的算法：先在根节点二分查找，然后 $\mathcal{O}(1)$ 确定两个子节点的答案。把散块的处理算进来，那么单次询问时间复杂度为 $\mathcal{O}(S + \frac{n}{S} + \log_2 n)$。</p>
+<p>显然 $S = \sqrt{n}$ 时有最优的复杂度 $\mathcal{O}(n\sqrt{n})$。</p>
+<p>当然，分散层叠算法在分块中的应用肯定不止于上面的经典分块题，下面就再来讲两道分块题，并用分散层叠算法加以优化。</p>
+<ul>
+<li>例题 $4$（<a target="_blank" rel="noopener" href="https://cometoj.com/contest/52/problem/F?problem_id=2426">$\operatorname{Comet~OJ~Contest~7~F}$ 最简单的题</a>）：</li>
+</ul>
+<p>给定一个序列，有 $n$ 次操作：</p>
+<ul>
+<li>给定 $l, r, x$，给子段 $[l, r]$ 加上 $x$；</li>
+<li>给定 $l, r, x$，求子段 $[l, r]$ 中有多少子段 $[l’, r’] \subseteq [l, r]$ 且 $[l’, r’]$ 中所有元素均不超过 $x$（即原题中的 $\max$ 小于等于 $x$）。</li>
+</ul>
+<p>$\operatorname{Data~Range}$：$n \le 1 \times 10^5$。</p>
+<ul>
+<li>题解</li>
+</ul>
+<p>如果对于两个子段 $[l, mid]$ 和 $[mid + 1, r]$，它们的答案以及第一个和最后一个大于 $x$ 的位置我们都知道，我们就可以 $\mathcal{O}(1)$ 地求出 $[l, r]$ 的答案。</p>
+<p>将序列分块，设 $S$ 为块长，那么对于一次询问，我们将其拆为 $\displaystyle \frac{n}{S}$ 个整块和 $\mathcal{O}(1)$ 个散块。</p>
+<p>对于整块，我们考虑预处理两样东西：</p>
+<ol>
+<li>整个块按照从小到大的顺序排序后得到的序列；</li>
+<li>块中每一个元素做为 $x$ 时整个块的答案。</li>
+</ol>
+<p>后者该如何预处理呢？</p>
+<p>考虑按照递增的顺序处理，将所有大于 $x$ 的元素按照位置从左到右的顺序放进链表中（为了方便，可以在块的左右两端插入一个无限大的数），那么随着 $x$ 增大，我们需要删去一些节点，那么我们就需要考虑删去这些节点后对答案造成的影响。很显然，删去一个节点后对答案造成的影响即为所有包含该节点且不包含该节点前驱与后继的区间。实际上，对于每一个 $x$，我们同样可以通过左右两端的无限大的数的指针求出每个块中第一个和最后一个大于 $x$ 的位置。</p>
+<p>预处理之后，对于一个询问 $x$，我们只要对每个块二分出第一个小于等于 $x$ 的位置，那么就可以对 $\mathcal{O}(\frac{n}{S})$ 个块进行合并，得到最终的答案了。而这个问题可以用到上面讲到的分散层叠算法优化，所以算法的总时间复杂度为 $\mathcal{O}(n \sqrt{n})$。</p>
+<ul>
+<li>例题 $5$：（<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4118">$\operatorname{Ynoi~2018}$ 末日时在做什么？有没有空？可以来拯救吗？</a>）</li>
+</ul>
+<p>给定一个序列，有 $n$ 次操作：</p>
+<ul>
+<li>给定 $l, r, x$，给子段 $[l, r]$ 加上 $x$；</li>
+<li>给定 $l, r, x$，求在子段 $[l, r]$ 中的所有子段 $[l’, r’] \subseteq [l, r]$ 中，子段和最大为多少。</li>
+</ul>
+<p>$\operatorname{Data~Range}$：$n \le 1 \times 10^5$。</p>
+<ul>
+<li>题解</li>
+</ul>
+<p>类似上题，我们仍然可以采取一种方式，将两个块的信息进行合并，维护的信息有块内最大子段和、块内最大前缀和、块内最大后缀和以及块内所有数的总和（由于总和维护过于平凡，因此下文不会讲述总和如何维护）。</p>
+<p>仍然考虑分块，那么先来考虑一个整块内加上同一个数 $x$ 所造成的影响。</p>
+<p>显然一个块内的信息是一个关于 $x$ 的分段一次函数（实际上是一个下凸壳），所以我们可以考虑用线段树进行维护。对于一个节点，我们维护区间内所有数加上同一个数 $x$ 时区间的信息，合并时只需要将左右两子树的信息相加或取 $\max$ 即可。由于分段函数的段数和线段树上节点表示的区间长度是同阶的，因此，构建一颗线段树的复杂度为 $\mathcal{O}(S \log_2 S)$。</p>
+<p>但是这么做还存在一些问题：</p>
+<ol>
+<li>散块直接重构的复杂度为 $\mathcal{O}(S\log_2S)$，不够优秀；</li>
+<li>查询时整块都需要用到 $\mathcal{O}(\log_2 S)$ 的二分查找。</li>
+</ol>
+<p>对于第一个问题，我们显然不能够直接重构。注意到在线段树上修改时，对于完全覆盖的节点，分段函数所受到的影响仅仅只是整体沿 $x$ 轴进行平移，我们仅需打标记便可 $\mathcal{O}(1)$ 处理；而对于不完全覆盖的节点，我们直接重构，复杂度实际上是 $\mathcal{O}(S + \frac{1}{2} S + \frac{1}{4}S + \cdots) = \mathcal{O}(S)$ 的。</p>
+<p>第二个问题对于我们来说就好解决多了，官方题解是采用上文所述的基数排序做法，当然我们还可以利用分散层叠算法优化。两种算法复杂度均为 $\mathcal{O}(n \sqrt{n})$。</p>
+<h3 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h3><p>分散层叠算法虽然已经有 $20$ 多年的历史，是一种常见的算法，但目前在信息学竞赛中应用还不广泛。本文介绍了分散层叠算法，并将该算法和其他算法进行了对比，应用于信息学竞赛中的一些题目，特别是在解决这类经典分块问题中进行了算法优化。希望对大家有所帮助。<br>但这一领域研究者不多，限于笔者水平有限，很多问题尚未解决。希望本文能抛砖引玉，吸引更多的同仁来研究这个算法。</p>
+<hr>
+<ul>
+<li>$\operatorname{Source}$：<a target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/blob/master/Articles/%E6%AD%A3%E7%9D%BF%20OI%202022%20%E5%88%86%E5%9D%97%20%E7%BD%97%E6%81%BA.pdf">正睿 $\operatorname{OI}$ $2022$ 分块 罗恺</a></li>
+</ul>
+<p>（本文不会有题面描述，下文同样不会。）</p>
+<p>例题 $1$：（$\operatorname{BZOJ~3337~ORZJRY~I}$）</p>
+<p>块状链表的模板题，有时间的话可以写一写。</p>
+<p>下面分别讲讲每种操作。</p>
+<p>维护两条块状链表，一条表示原序列，一条表示每个块从小到大排序形成的序列。注意后者合并时需要归并。</p>
+<p>操作 $1,2$：块状链表的基本操作；</p>
+<p>操作 $3$：将遍历到的所有块都翻转过来，然后散块直接翻转，整块打翻转标记；</p>
+<p>操作 $4$：相当于交换两个区间，直接交换后处理一下接口的合并与分裂即可；</p>
+<p>操作 $5, 6,7$：块状链表常规操作，散块直接做，整块打标记；</p>
+<p>操作 $8$：分别求出每个块的最大值然后取 $\max$，最小值同理，相减即可；</p>
+<p>操作 $9,11$：在递增的序列上二分即可；</p>
+<p>操作 $10$：二分答案，然后同操作 $9, 11$ 一样二分即可。</p>
+<p>操作 $10$ 单次复杂度为 $\mathcal{O}(\sqrt{n}\log_2^2n)$，所以根号平衡后总体复杂度为 $\mathcal{O}(n\sqrt{n} \log_2n)$。</p>
+<hr>
+<ul>
+<li>$\operatorname{Source}$：<a target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/blob/master/Articles/APIO%202021%20%E6%B5%85%E8%B0%88%E5%88%86%E5%9D%97%E7%9A%84%E5%90%84%E7%B1%BB%E5%BA%94%E7%94%A8%20%E4%B8%81%E6%99%93%E6%BC%AB.pdf">$\operatorname{APIO}$ $2021$ 浅谈分块的各类应用 丁晓漫</a></li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/OI/">OI</a>
+                    
+                      <a class="hover-with-bg" href="/categories/OI/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/05/15/%E6%AF%8F%E5%A4%A9%E4%B8%80%E4%B8%AA%E5%8E%9F%E5%9C%B0%E5%8E%BB%E4%B8%96%E5%B0%8F%E6%8A%80%E5%B7%A7/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">每天一个原地去世小技巧</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/04/28/%E5%9B%BE%E8%AE%BA%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95%E5%B0%8F%E7%BB%93/">
+                        <span class="hidden-mobile">图论常见算法小结</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        loader: {
+          load: ['ui/lazy']
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+</html>
