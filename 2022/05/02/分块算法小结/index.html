@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://reclouds.github.io/img/bg/17.jpeg">
 <meta property="article:published_time" content="2022-05-02T07:53:34.000Z">
-<meta property="article:modified_time" content="2022-05-13T10:38:24.000Z">
+<meta property="article:modified_time" content="2022-05-16T12:50:00.930Z">
 <meta property="article:author" content="Recalling_Clouds">
 <meta property="article:tag" content="学习笔记">
 <meta name="twitter:card" content="summary_large_image">
@@ -685,7 +685,7 @@ T_1 \cap T_2|
 求。剩下的，就是整块与两个散块的交的答案。</p>
 <p>在预处理整块与单个散块的交的答案时，对于枚举到的散块端点，我们可以对其开一个大小为
 <span class="math inline">\(\sqrt{n}\)</span>
-的数组，表示该散块与整块的交集中有没有包含当前端点的颜色。</p>
+的数组，表示该散块与整块的交集中是否包含当前端点的颜色，且该颜色在该端点到整块的路径上是否第一次出现。</p>
 <p>那么在求整块与两个散块的交的答案时，我们只要 <span
 class="math inline">\(\mathcal{O}(\sqrt{n})\)</span>
 地先扫描出其中一个散块和整块的交集，然后和另一个散块取交集即可。</p>
