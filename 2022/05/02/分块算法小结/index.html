@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://reclouds.github.io/img/bg/17.jpeg">
 <meta property="article:published_time" content="2022-05-02T07:53:34.000Z">
-<meta property="article:modified_time" content="2022-05-16T12:50:00.930Z">
+<meta property="article:modified_time" content="2022-05-20T13:48:09.095Z">
 <meta property="article:author" content="Recalling_Clouds">
 <meta property="article:tag" content="学习笔记">
 <meta name="twitter:card" content="summary_large_image">
@@ -205,7 +205,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      18k 字
+      23k 字
     </span>
   
 
@@ -214,7 +214,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      152 分钟
+      193 分钟
     </span>
   
 
@@ -1169,8 +1169,9 @@ target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github
 class="math inline">\(2022\)</span> 分块 罗恺</a></li>
 </ul>
 <p>（本文不会有题面描述，下文同样不会。）</p>
-<p>例题 <span class="math inline">\(1\)</span>：（<span
-class="math inline">\(\operatorname{BZOJ~3337~ORZJRY~I}\)</span>）</p>
+<p>例题 <span class="math inline">\(1\)</span>：（<a
+target="_blank" rel="noopener" href="https://darkbzoj.cc/problem/3337"><span
+class="math inline">\(\operatorname{BZOJ~3337~ORZJRY~I}\)</span></a>）</p>
 <p>块状链表的模板题，有时间的话可以写一写。</p>
 <p>下面分别讲讲每种操作。</p>
 <p>维护两条块状链表，一条表示原序列，一条表示每个块从小到大排序形成的序列。注意后者合并时需要归并。</p>
@@ -1193,6 +1194,287 @@ class="math inline">\(9,11\)</span>：在递增的序列上二分即可；</p>
 class="math inline">\(\mathcal{O}(\sqrt{n}\log_2^2n)\)</span>，所以根号平衡后总体复杂度为
 <span class="math inline">\(\mathcal{O}(n\sqrt{n}
 \log_2n)\)</span>。</p>
+<p>例题 <span class="math inline">\(2\)</span>：（<a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4396"><span
+class="math inline">\(\operatorname{AHOI~2013}\)</span> 作业</a>）</p>
+<p>考虑莫队，那么我们需要用到一个支持在值域上 <span
+class="math inline">\(\mathcal{O}(1)\)</span> 修改，<span
+class="math inline">\(\mathcal{O}(\sqrt{n})\)</span>
+查询的数据结构，值域分块即可。</p>
+<p>例题 <span class="math inline">\(3\)</span>：（<a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5046"><span
+class="math inline">\(\operatorname{Ynoi~2019}\)</span> 模拟赛 <span
+class="math inline">\(\operatorname{Yuno~loves~sqrt~technology~I}\)</span></a>
+<span class="math inline">\(\&amp;\)</span> <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5047"><span
+class="math inline">\(\operatorname{Ynoi~2019}\)</span> 模拟赛 <span
+class="math inline">\(\operatorname{Yuno~loves~sqrt~technology~II}\)</span></a>）</p>
+<p>在线怎么做？</p>
+<p>考虑对序列分块，以 <span class="math inline">\(\sqrt{n}\)</span>
+作为块长。</p>
+<p>我们维护以下东西：</p>
+<ul>
+<li><p><span class="math inline">\(f_{i, j}\)</span>：前 <span
+class="math inline">\(i\)</span> 个位置与第 <span
+class="math inline">\(j\)</span> 个块产生的逆序对数（不包括第 <span
+class="math inline">\(j\)</span> 个块内的逆序对数）；</p></li>
+<li><p><span class="math inline">\(g_{i, j}\)</span>：第 <span
+class="math inline">\(i\)</span> 至第 <span
+class="math inline">\(j\)</span> 个块内部的逆序对数；</p></li>
+<li><p><span class="math inline">\(pre_i\)</span> 和 <span
+class="math inline">\(suf_i\)</span>：第 <span
+class="math inline">\(i\)</span>
+个位置到所在块的左或右端点的逆序对数；</p></li>
+<li><p><span class="math inline">\(L_i\)</span> 和 <span
+class="math inline">\(R_i\)</span>：第 <span
+class="math inline">\(i\)</span> 个块的左右端点；</p></li>
+<li><p><span class="math inline">\(in_i\)</span>：第 <span
+class="math inline">\(i\)</span> 个数所在的块。</p></li>
+</ul>
+<p>后两者是分块的常规操作，不再赘述。</p>
+<p>对于 <span class="math inline">\(f_{i,
+j}\)</span>，我们可以先把整个序列排序，然后再依次对每个块进行排序，再依次归并即可。归并时我们分别考虑小于
+<span class="math inline">\(L_j\)</span> 和大于 <span
+class="math inline">\(R_j\)</span>
+的位置，计算出每个位置的贡献后做一遍前缀和即可。</p>
+<p>对于 <span class="math inline">\(g_{i, j}\)</span>，我们有区间 <span
+class="math inline">\(\operatorname{DP}\)</span> 方程：<span
+class="math inline">\(g_{i, j} = g_{i, j - 1} + g_{i + 1, j - 1} - g_{i
++ 1, j - 1} + (f_{R_i, j} - f_{L_i - 1, j})\)</span>，最后一项即为第
+<span class="math inline">\(i\)</span> 块和第 <span
+class="math inline">\(j\)</span> 块之间的逆序对数。</p>
+<p>对于 <span class="math inline">\(pre_i\)</span> 和 <span
+class="math inline">\(suf_i\)</span>，直接扫一遍每个块，配合树状数组计算即可。</p>
+<p>那么对于询问，我们可以先通过 <span class="math inline">\(pre_i,
+suf_i, g_{i, j}\)</span> 求出散块内部和整块内部的答案。然后，我们通过
+<span class="math inline">\(f_{i, j}\)</span>
+求出两个散块与整块之间的答案。最后就是两个散块之间的答案，由于先前我们已经对于每个块排过一遍序，因此我们直接把散块所代表的部分在排好序的序列中提取出来，然后归并即可。</p>
+<p>总时间复杂度为 <span class="math inline">\(\mathcal{O}(n\sqrt{n} +
+n\log_2n)\)</span>。</p>
+<p>离线怎么做？</p>
+<p>如果直接莫队，带上树状数组，复杂度为 <span
+class="math inline">\(\mathcal{O}(n\sqrt{n}\log_2n)\)</span>。</p>
+<p>考虑怎么把这个 <span class="math inline">\(\log\)</span> 提出来。</p>
+<p>下面介绍一个名为莫队二次离线的套路。</p>
+<p><span class="math inline">\(\log\)</span> 的来源为 <span
+class="math inline">\(\mathcal{O}(n \sqrt{n})\)</span> 次地求一个子段
+<span class="math inline">\([l, r]\)</span> 内小于或大于某个 <span
+class="math inline">\(a_i\)</span>
+的数的个数，显然这个询问具有差分性质，于是问题又变为求一个前缀 <span
+class="math inline">\([1, r]\)</span> 内小于或大于某个 <span
+class="math inline">\(a_i\)</span> 的数的个数。</p>
+<p>这样的话，我们可以对 <span class="math inline">\(r\)</span>
+进行扫描线，然后就变成了 <span
+class="math inline">\(\mathcal{O}(n)\)</span> 次修改和 <span
+class="math inline">\(\mathcal{O}(n\sqrt{n})\)</span>
+次询问。只需要用到值域分块就可以做到 <span
+class="math inline">\(\mathcal{O}(n\sqrt{n})\)</span> 的时间复杂度。</p>
+<p>然而这个算法的空间复杂度为 <span
+class="math inline">\(\mathcal{O}(n\sqrt{n})\)</span>，考虑如何优化。</p>
+<p>我们发现，在莫队指针移动的过程中有一些良好的性质，比如在执行
+<code>++r</code>
+的移动时，左指针是始终不动的，同时这些指针的移动产生的若干询问中，<span
+class="math inline">\(a_i\)</span> 中的 <span
+class="math inline">\(i\)</span> 都等于 <span class="math inline">\(r -
+1\)</span>。</p>
+<p>那么 <span class="math inline">\(a_i\)</span> 在前缀 <span
+class="math inline">\([1, i - 1]\)</span>
+中的答案显然是可以预处理的。对于剩下的部分，由于前缀 <span
+class="math inline">\([1, l - 1]\)</span>
+不变，且每次询问右指针移动的范围是一个区间，那么我们直接把这个区间挂在
+<span class="math inline">\(l - 1\)</span>
+上，在扫描线的过程中处理，这样就做到了 <span
+class="math inline">\(\mathcal{O}(n)\)</span> 的空间复杂度。</p>
+<p>总的时间复杂度为 <span class="math inline">\(\mathcal{O}(n\sqrt{n} +
+n \log_2 n)\)</span>。</p>
+<p>例题 <span class="math inline">\(4\)</span>：（<a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5072"><span
+class="math inline">\(\operatorname{Ynoi~2015}\)</span>
+盼君勿忘</a>）</p>
+<p>考虑莫队。</p>
+<p>可以发现，在一个子段中，出现次数相同的数，贡献的系数是相同的。</p>
+<p>比如在长度为 <span class="math inline">\(len\)</span> 的子段中 <span
+class="math inline">\(x, y\)</span> 均出现了 <span
+class="math inline">\(t\)</span> 次，那么他们的总贡献和即为 <span
+class="math inline">\((x + y) \cdot (2^{len} - 2^{len -
+t})\)</span>。</p>
+<p>那么我们可以对出现次数根号分治，如果出现次数小于等于 <span
+class="math inline">\(\sqrt{n}\)</span>，那么直接维护；否则，全局出现次数大于
+<span class="math inline">\(\sqrt{n}\)</span> 的数不会超过 <span
+class="math inline">\(\sqrt{n}\)</span> 个，对它们单独维护即可。</p>
+<p>用快速幂会使复杂度带一个 <span
+class="math inline">\(\log\)</span>，用光速幂即可。</p>
+<p>例题 <span class="math inline">\(5\)</span>：（<a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5386"><span
+class="math inline">\(\operatorname{Cnoi~2019}\)</span>
+数字游戏</a>）</p>
+<p>考虑在值域上莫队。</p>
+<p>假设当前询问为 <span class="math inline">\((l, r, x,
+y)\)</span>，那么当指针移动到 <span class="math inline">\([x,
+y]\)</span> 时，由于 <span class="math inline">\(a_i\)</span>
+为排列，所以该值域必定在序列上对应了若干个互不相同的位置。假设在值域中的数的位置权值为
+<span class="math inline">\(1\)</span>，其他位置权值为 <span
+class="math inline">\(0\)</span>，那么显然合法的子段必定属于一个极长全
+<span class="math inline">\(1\)</span> 子段。所以，我们只要维护 <span
+class="math inline">\([l, r]\)</span> 间极长全 <span
+class="math inline">\(1\)</span> 子段即可。</p>
+<p>那么我们需要考虑维护一个 <span
+class="math inline">\(\mathcal{O}(1)\)</span> 修改和 <span
+class="math inline">\(\mathcal{O}(\sqrt{n})\)</span>
+查询的数据结构，对序列分块即可。不过由于删除操作很难支持 <span
+class="math inline">\(\mathcal{O}(1)\)</span>，那么用回滚不删除莫队即可。</p>
+<p>例题 <span class="math inline">\(6\)</span>：（<a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3591"><span
+class="math inline">\(\operatorname{POI~2015~ODW}\)</span></a>）</p>
+<p>考虑根号分治。</p>
+<p>若 <span class="math inline">\(k &gt; \sqrt{n}\)</span>，求出树上
+<span class="math inline">\(k\)</span> 级祖先后暴力跳即可。</p>
+<p>若 <span class="math inline">\(k \le
+\sqrt{n}\)</span>，我们可以预处理出每个点向上跳 <span
+class="math inline">\(k\)</span>
+级祖先一直跳到根节点的答案，然后树上差分即可。</p>
+<p>时空复杂度 <span
+class="math inline">\(\mathcal{O}(n\sqrt{n})\)</span>。</p>
+<p>例题 <span class="math inline">\(7\)</span>：（<a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5309"><span
+class="math inline">\(\operatorname{Ynoi~2011}\)</span> 初始化</a>）</p>
+<p>（在本文所讲解的第一篇论文中，例题 <span
+class="math inline">\(1\)</span> 即为该题弱化版。）</p>
+<p>考虑序列分块，同时考虑根号分治。</p>
+<p>如果 <span class="math inline">\(x &gt;
+\sqrt{n}\)</span>，暴力加即可。</p>
+<p>否则 <span class="math inline">\(x \le \sqrt{n}\)</span>，那么对于
+<span class="math inline">\(x, y\)</span>
+相同的修改，我们实际上可以累加贡献。</p>
+<p>但是如果遍历 <span class="math inline">\(x, y\)</span>，时间复杂度是
+<span class="math inline">\(\mathcal{O}(n)\)</span> 的。</p>
+<p>我们考虑对于 <span class="math inline">\(x\)</span>，维护 <span
+class="math inline">\(y\)</span> 的前后缀和。单次修改复杂度为 <span
+class="math inline">\(\mathcal{O}(\sqrt{n})\)</span>。</p>
+<p>那么对于一次询问，我们 <span
+class="math inline">\(\mathcal{O}(\sqrt{n})\)</span> 地遍历 <span
+class="math inline">\(x\)</span>，则整个子段相当于被我们分成了若干个长度为
+<span class="math inline">\(x\)</span> 的块，并且整块中 <span
+class="math inline">\(y\)</span>
+的出现次数是相等的，所以整块的贡献是可以轻松算的。对于散块，我们直接通过
+<span class="math inline">\(y\)</span> 的前后缀和算即可。</p>
+<p>总的时间复杂度为 <span
+class="math inline">\(\mathcal{O}(n\sqrt{n})\)</span>，空间复杂度为
+<span class="math inline">\(\mathcal{O}(n)\)</span>。</p>
+<p>例题 <span class="math inline">\(8\)</span>：（<a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF896E"><span
+class="math inline">\(\operatorname{CF896E~Welcome~home,~Chtholly}\)</span></a>）</p>
+<p>考虑在序列上分块。</p>
+<p>值域很小，那么我们可以在上面搞点大新闻。</p>
+<p>维护 <span class="math inline">\(f_{i, j}\)</span> 表示第 <span
+class="math inline">\(i\)</span> 个块中 <span
+class="math inline">\(j\)</span> 的出现次数。</p>
+<p>修改操作，对于散块我们直接重构，对于整块我们维护整块最大值 <span
+class="math inline">\(mx\)</span>，然后分类讨论：</p>
+<ol type="1">
+<li><p>若 <span class="math inline">\(mx \le 2 \cdot
+x\)</span>，我们直接将 <span class="math inline">\([x + 1, mx]\)</span>
+合并到 <span class="math inline">\([1, mx - x]\)</span> 即可；</p></li>
+<li><p>否则，我们直接将 <span class="math inline">\([1, x]\)</span>
+合并到 <span class="math inline">\([x + 1, 2\cdot
+x]\)</span>，然后打上全局减标记即可。</p></li>
+</ol>
+<p>合并操作我们只需要用并查集即可做到 <span
+class="math inline">\(\mathcal{O}(1)\)</span>
+复杂度。同时，我们也可以用并查集 <span
+class="math inline">\(\mathcal{O}(1)\)</span>
+得到每个位置具体的值（把值保存在并查集的根节点上，查询后取根节点的值即可）。</p>
+<p>可以发现，每个块的操作相当于用 <span
+class="math inline">\(\mathcal{O}(1)\)</span>
+复杂度给每个块的最大值减去了 <span
+class="math inline">\(1\)</span>。而由于所有块的最大值最多被减去 <span
+class="math inline">\(\mathcal{O}(n\sqrt{n})\)</span>
+次，所以复杂度是正确的。</p>
+<p>查询就不多赘述了，散块直接扫描，整块直接查询即可。</p>
+<p>例题 <span class="math inline">\(9\)</span>：（<a
+target="_blank" rel="noopener" href="https://loj.ac/p/2461">集训队互测 <span
+class="math inline">\(2018\)</span> 完美的队列</a>）</p>
+<p>先来考虑暴力怎么做。</p>
+<p>如果对于第 <span class="math inline">\(i\)</span>
+次加入操作，我们能够计算出这一次操作加入的所有数全部被弹出的时刻 <span
+class="math inline">\(ed_i\)</span>，那么我们可以简单扫描线得出答案。</p>
+<p>那么 <span class="math inline">\(\mathcal{O}(nm)\)</span>
+的暴力做法就出来了：我们直接计算出每一个 <span
+class="math inline">\(ed_i\)</span>，然后扫描线即可。</p>
+<p><span class="math inline">\(ed_i\)</span>
+如何暴力计算？可以发现如果第 <span class="math inline">\(i\)</span>
+次和第 <span class="math inline">\(j\)</span>
+次操作所涉及的区间完全相同，那么必然有 <span class="math inline">\(i
+&lt; j \Rightarrow ed_i &lt; ed_j\)</span>。</p>
+<p>对于 <span class="math inline">\(ed_i\)</span> 有公式 <span
+class="math inline">\(\displaystyle ed_i = \max_{j = l_i}^{r_i} lst_{i,
+j}\)</span>，其中 <span class="math inline">\(lst_{i, j}\)</span> 表示第
+<span class="math inline">\(i\)</span> 次操作在第 <span
+class="math inline">\(j\)</span>
+个队列加入的数会在该时刻弹出。显然对于同一个 <span
+class="math inline">\(j\)</span>，<span class="math inline">\(lst_{i,
+j}\)</span> 随 <span class="math inline">\(i\)</span> 增大而增大。</p>
+<p>那么问题就在于求 <span class="math inline">\(lst_{i,
+j}\)</span>。我们可以用 <span
+class="math inline">\(\operatorname{two-pointers}\)</span> 做：</p>
+<ul>
+<li><p>对于队列 <span class="math inline">\(k\)</span> 维护时间上的指针
+<span class="math inline">\(l, r\)</span> 和变量 <span
+class="math inline">\(cnt\)</span>，初始时 <span class="math inline">\(l
+= r = 0\)</span>，<span class="math inline">\(cnt =
+a_k\)</span>；</p></li>
+<li><p>每次将 <span class="math inline">\(l\)</span>
+右移一位，并检查右移后的 <span class="math inline">\(l\)</span>
+的操作区间是否覆盖了 <span class="math inline">\(k\)</span>，是则执行
+<code>++cnt</code>；</p></li>
+<li><p>然后一直右移 <span
+class="math inline">\(r\)</span>，并检查右移后的 <span
+class="math inline">\(r\)</span> 的操作区间是否覆盖了 <span
+class="math inline">\(k\)</span>，是则执行 <code>--cnt</code>；</p></li>
+<li><p>若某次右移后（或没有右移之前）有 <span class="math inline">\(cnt
+= 0\)</span>，那么此时若 <span class="math inline">\(l\)</span>
+操作区间覆盖了 <span class="math inline">\(k\)</span>，则有 <span
+class="math inline">\(lst_{l, k} = r\)</span>。</p></li>
+</ul>
+<p>上述算法的原理在于第 <span class="math inline">\(i\)</span>
+次操作在第 <span class="math inline">\(k\)</span> 个队列中加入的数将会在
+<span class="math inline">\(a_k\)</span> 次覆盖后于第 <span
+class="math inline">\(i + a_k\)</span> 次对第 <span
+class="math inline">\(k\)</span> 个队列的操作时刻被弹出。</p>
+<p>这样，我们就在 <span class="math inline">\(\mathcal{O}(nm)\)</span>
+的时间内求出了所有 <span class="math inline">\(lst_{i,
+j}\)</span>，并求出了所有 <span
+class="math inline">\(ed_i\)</span>，然后通过 <span
+class="math inline">\(\mathcal{O}(m)\)</span> 的扫描线得到了答案。</p>
+<p>那么现在的问题就在于如何优化前半部分。</p>
+<p>根据前半部分的性质，若两次操作涉及的区间完全相同，那么两次操作的
+<span class="math inline">\(ed_i\)</span> 同操作次序是正相关的。</p>
+<p>并且一次操作完全可以拆分为若干次操作，所以我们可以考虑序列分块。此时
+<span class="math inline">\(ed_i\)</span> 就变为了整块与散块 <span
+class="math inline">\(lst_{i, j}\)</span> 的最大值。</p>
+<p>那么我们分开讨论一下：</p>
+<ol type="1">
+<li>整块</li>
+</ol>
+<p>显然一次对整块的操作被弹完的时刻只与整个块最大的剩余覆盖次数有关。</p>
+<p>那么我们对于每个整块，从前往后枚举每一个操作。如果某操作完全覆盖该块，那么直接将最大剩余覆盖次数减少即可；否则，直接重构该块，并重新求出最大剩余覆盖次数。</p>
+<ol start="2" type="1">
+<li>散块</li>
+</ol>
+<p>我们对每一个散块内的点分开处理。记一次操作完全覆盖一个散点，当且仅当该操作覆盖到的整块中包含该散点；记一次操作不完全覆盖一个散点，当且仅当该操作覆盖到的散块中包含该散点。</p>
+<p>我们在整块的操作时维护 <span class="math inline">\(s_{i, j}\)</span>
+表示前 <span class="math inline">\(i\)</span> 次操作完全覆盖了第 <span
+class="math inline">\(j\)</span> 个块多少次，同时维护 <span
+class="math inline">\(c_{i, j}\)</span> 表示第 <span
+class="math inline">\(j\)</span> 次完全覆盖第 <span
+class="math inline">\(i\)</span> 个块的操作编号。</p>
+<p>接着我们记不完全覆盖一个散点的操作序列为 <span
+class="math inline">\(p_{1 \sim k}\)</span>，由于所有散点的 <span
+class="math inline">\(p\)</span>
+序列总长度在可以接受的范围内，那么我们就可以只在 <span
+class="math inline">\(p_i\)</span> 序列上做 <span
+class="math inline">\(\operatorname{two-pointers}\)</span>
+即可得到答案。</p>
 <hr />
 <ul>
 <li><span class="math inline">\(\operatorname{Source}\)</span>：<a
