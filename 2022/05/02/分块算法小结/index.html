@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://reclouds.github.io/img/bg/17.jpeg">
 <meta property="article:published_time" content="2022-05-02T07:53:34.000Z">
-<meta property="article:modified_time" content="2022-05-20T13:48:09.095Z">
+<meta property="article:modified_time" content="2022-05-21T08:11:33.974Z">
 <meta property="article:author" content="Recalling_Clouds">
 <meta property="article:tag" content="学习笔记">
 <meta name="twitter:card" content="summary_large_image">
@@ -205,7 +205,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      23k 字
+      25k 字
     </span>
   
 
@@ -214,7 +214,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      193 分钟
+      209 分钟
     </span>
   
 
@@ -1475,6 +1475,128 @@ class="math inline">\(p\)</span>
 class="math inline">\(p_i\)</span> 序列上做 <span
 class="math inline">\(\operatorname{two-pointers}\)</span>
 即可得到答案。</p>
+<p>例题 <span class="math inline">\(10\)</span>：（<a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1545F"><span
+class="math inline">\(\operatorname{CF1545F~AquaMoon~and~Potatoes}\)</span></a>）</p>
+<p>为了方便，我们可以重新开两个序列 <span
+class="math inline">\(b&#39;_i\)</span> 和 <span
+class="math inline">\(c&#39;_i\)</span>，满足 <span
+class="math inline">\(b&#39;_i = b_{a_i}\)</span> 和 <span
+class="math inline">\(c&#39;_i = c_{a_i}\)</span>。那么每次修改相当于在
+<span class="math inline">\(a, b&#39;, c&#39;\)</span>
+三个序列上单点修改，查询相当于查找三元组 <span class="math inline">\((i,
+j, k)\)</span> 满足 <span class="math inline">\(b&#39;_i = a_j =
+c&#39;_k\)</span>。</p>
+<p>对序列分块，那么一个询问就变成了左侧的整块和右侧的散块，那么贡献分为四个部分：</p>
+<ol type="1">
+<li><p><span class="math inline">\(i, j, k\)</span>
+全部在整块内；</p></li>
+<li><p><span class="math inline">\(i, j\)</span> 在整块内，<span
+class="math inline">\(k\)</span> 在散块内；</p></li>
+<li><p><span class="math inline">\(i\)</span> 在整块内，<span
+class="math inline">\(j,k\)</span> 在散块内；</p></li>
+<li><p><span class="math inline">\(i, j, k\)</span>
+全部在散块内。</p></li>
+</ol>
+<p><span class="math inline">\(1\)</span> 部分可以设 <span
+class="math inline">\(sum_i\)</span> 表示有多少个三元组的 <span
+class="math inline">\(k\)</span> 位于第 <span
+class="math inline">\(i\)</span>
+个块，那么可以通过前缀和求出整块的贡献。</p>
+<p><span class="math inline">\(2\)</span> 部分可以设 <span
+class="math inline">\(cntba_{i, j}\)</span> 表示前 <span
+class="math inline">\(i\)</span> 个块中的满足条件 <span
+class="math inline">\(b&#39;_x = a_y = j\)</span> 的二元组 <span
+class="math inline">\((x, y)\)</span> 的数量，那么枚举 <span
+class="math inline">\(k\)</span>，则 <span
+class="math inline">\(cntba_{i, c_k}\)</span> 即为贡献。</p>
+<p><span class="math inline">\(3\)</span> 部分可以设 <span
+class="math inline">\(cntb_{i, j}\)</span> 表示前 <span
+class="math inline">\(i\)</span> 个块中有多少个 <span
+class="math inline">\(i\)</span> 满足 <span
+class="math inline">\(b&#39;_i = j\)</span>，然后枚举 <span
+class="math inline">\(k\)</span>，用 <span
+class="math inline">\(cntb_{i, c_k}\)</span> 乘上散块中 <span
+class="math inline">\(a_j = c_k\)</span>
+的数量即可。后者可以在扫描散块时得到。</p>
+<p><span class="math inline">\(4\)</span>
+部分可以在扫描散块时维护一些量，然后简单 <span
+class="math inline">\(\operatorname{DP}\)</span> 搞定。</p>
+<p>那么现在考虑如何修改。</p>
+<p><span class="math inline">\(cntb_{i, j}\)</span> 的修改平凡。</p>
+<p><span class="math inline">\(cntba_{i, j}\)</span>
+的修改也比较简单平凡。我们可以通过被修改位置左侧满足 <span
+class="math inline">\(b&#39;_k = j\)</span> 的 <span
+class="math inline">\(k\)</span> 的数量算出一次修改的影响，后者可以用
+<span class="math inline">\(cntb_{i, j}\)</span>
+配合扫描散块维护。当然右侧满足 <span class="math inline">\(a_k =
+j\)</span> 的 <span class="math inline">\(k\)</span>
+的数量也会有影响，我们同样可以维护一个 <span
+class="math inline">\(cnta_{i, j}\)</span> 配合扫描散块维护。</p>
+<p><span class="math inline">\(sum_i\)</span> 的修改是比较复杂的。对
+<span class="math inline">\(a_i\)</span> 的修改会导致 <span
+class="math inline">\(b&#39;_i\)</span> 和 <span
+class="math inline">\(c&#39;_i\)</span>
+一同修改。那么我们接下来讨论三者的贡献。</p>
+<ol type="1">
+<li><span class="math inline">\(b&#39;_i\)</span> 的贡献</li>
+</ol>
+<p>我们钦定 <span class="math inline">\(k\)</span> 所在的块 <span
+class="math inline">\(Z\)</span>，那么我们需要计算满足条件且 <span
+class="math inline">\(k \in Z\)</span> 的二元组 <span
+class="math inline">\((j, k)\)</span> 的个数。</p>
+<p>当 <span class="math inline">\(j\)</span> 在块 <span
+class="math inline">\(Z\)</span> 外时，维护是平凡的，通过上面讲到的
+<span class="math inline">\(cnta_{i, j}\)</span>
+配合扫描散块计数即可（同时我们也求出 <span
+class="math inline">\(Z\)</span> 内满足条件的 <span
+class="math inline">\(k\)</span> 的数量，用一个 <span
+class="math inline">\(cntc_{i, j}\)</span> 维护即可）。</p>
+<p>现在考虑 <span class="math inline">\(j\)</span> 在块 <span
+class="math inline">\(Z\)</span> 内部的情况。我们维护一个 <span
+class="math inline">\(cntac_{i, j}\)</span> 表示第 <span
+class="math inline">\(i\)</span> 个块中满足条件 <span
+class="math inline">\(a_x = c_y = j\)</span> 的二元组 <span
+class="math inline">\((x, y)\)</span>
+数量（它的修改是平凡的），那么贡献即为 <span
+class="math inline">\(cntac_{Z, b&#39;_i}\)</span>。</p>
+<ol start="2" type="1">
+<li><span class="math inline">\(a_i\)</span> 的贡献</li>
+</ol>
+<p>这个比较简单，我们求出 <span class="math inline">\(i\)</span> 左侧和
+<span class="math inline">\(a_i\)</span> 相等的 <span
+class="math inline">\(b&#39;_i\)</span> 数量，然后对于右侧逐块求出和
+<span class="math inline">\(a_i\)</span> 相等的 <span
+class="math inline">\(c&#39;_i\)</span>
+数量，相乘即为贡献（注意后者在散块中统计时需要直接扫描）。</p>
+<ol start="3" type="1">
+<li><span class="math inline">\(c&#39;_i\)</span> 的贡献</li>
+</ol>
+<p>这部分的影响时固定的，因为它只会影响到 <span
+class="math inline">\(Z\)</span> 块。</p>
+<p>我们前面维护了 <span class="math inline">\(cntba_{i,
+j}\)</span>，那么 <span class="math inline">\(Z\)</span>
+块前的整块贡献就很显然了。散块直接扫描即可。</p>
+<p>离线下来逐块处理可以做到线性空间。</p>
+<p>例题 <span class="math inline">\(11\)</span>：（<a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1588F"><span
+class="math inline">\(\operatorname{CF1588F~Jumping~Through~the~Array}\)</span></a>）</p>
+<p>对操作分块，那么每个块中仅有 <span
+class="math inline">\(\mathcal{O}(\sqrt{n})\)</span>
+个点被修改，对于剩下的点我们考虑缩点，那么总共只会有 <span
+class="math inline">\(\mathcal{O}(\sqrt{n})\)</span> 个点。</p>
+<p>修改时我们直接给涉及到的环打加法标记即可。</p>
+<p>询问时我们对于每一个点，计算出在区间 <span class="math inline">\([l,
+r]\)</span> 内的点权和以及点的个数并对后者乘上加法标记。</p>
+<p>交换时直接交换即可，不会影响到任何维护的量。</p>
+<p>在 <span class="math inline">\(\mathcal{O}(\sqrt{n})\)</span>
+次操作后，我们 <span class="math inline">\(\mathcal{O}(n)\)</span>
+地求出所有点的实际权值，然后进入下一个块即可。</p>
+<p>如何维护一个点在区间 <span class="math inline">\([l, r]\)</span>
+内的点权和以及点的个数呢？</p>
+<p>我们对这 <span class="math inline">\(\mathcal{O}(\sqrt{n})\)</span>
+个点各维护一个大小为 <span class="math inline">\(n\)</span>
+的数组，表示该点在一个前缀内的点权和以及点的个数，查询时将前缀和相减即可。</p>
 <hr />
 <ul>
 <li><span class="math inline">\(\operatorname{Source}\)</span>：<a
