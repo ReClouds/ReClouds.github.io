@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://reclouds.github.io/img/bg/17.jpeg">
 <meta property="article:published_time" content="2022-05-02T07:53:34.000Z">
-<meta property="article:modified_time" content="2022-05-26T14:31:01.111Z">
+<meta property="article:modified_time" content="2022-05-28T08:28:28.356Z">
 <meta property="article:author" content="Recalling_Clouds">
 <meta property="article:tag" content="学习笔记">
 <meta name="twitter:card" content="summary_large_image">
@@ -1584,16 +1584,18 @@ class="math inline">\(\operatorname{CF1588F~Jumping~Through~the~Array}\)</span><
 <p>考虑操作分块。</p>
 <p>我们发现每个块中 <span class="math inline">\(2, 3\)</span>
 操作最多会涉及到 <span
-class="math inline">\(\mathcal{O}(n)\)</span>，那么我们考虑把一些链缩为一点。</p>
+class="math inline">\(\mathcal{O}(\sqrt{n})\)</span>
+个点，那么我们考虑把一些链缩为一点。</p>
 <p>具体的，我们以一个被修改点的后继为起点，一直走到一个被修改点，那么走过的所有点（包括最后走的这个被修改点）作为一条链。</p>
-<p>这样，每个块中仅有 <span
-class="math inline">\(\mathcal{O}(\sqrt{n})\)</span> 个点。</p>
+<p>这样，每个操作块中我们仅需在一个有 <span
+class="math inline">\(\mathcal{O}(\sqrt{n})\)</span>
+个点的图上操作。</p>
 <p>修改时我们直接给涉及到的环打加法标记即可。</p>
 <p>询问时我们对于每一个点，计算出在区间 <span class="math inline">\([l,
 r]\)</span> 内的点权和以及点的个数并对后者乘上加法标记。</p>
 <p>交换时直接交换即可，不会影响到任何维护的量。</p>
-<p>如何维护一个点在区间 <span class="math inline">\([l, r]\)</span>
-内的点权和以及点的个数呢？</p>
+<p>如何维护一条链在区间 <span class="math inline">\([l, r]\)</span>
+内点的个数呢？</p>
 <p>直接维护时空都会炸。所以我们可以把这些询问离线下来，用类似归并的方法预处理即可。</p>
 <hr />
 <ul>
