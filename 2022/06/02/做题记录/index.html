@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://reclouds.github.io/img/bg/19.jpeg">
 <meta property="article:published_time" content="2022-06-02T11:15:11.000Z">
-<meta property="article:modified_time" content="2022-06-02T11:44:26.928Z">
+<meta property="article:modified_time" content="2022-06-02T12:43:43.476Z">
 <meta property="article:author" content="Recalling_Clouds">
 <meta property="article:tag" content="做题记录">
 <meta name="twitter:card" content="summary_large_image">
@@ -205,7 +205,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      551 字
+      3.7k 字
     </span>
   
 
@@ -214,7 +214,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      5 分钟
+      32 分钟
     </span>
   
 
@@ -247,15 +247,14 @@
             
             <div class="markdown-body">
               <ol type="1">
-<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF896E"><span
-class="math inline">\(\operatorname{CF896E~Welcome~home,~Chtholly}\)</span></a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF896E">CF896E Welcome
+home, Chtholly</a></li>
 </ol>
 <ul>
 <li><p>通过时间：<span class="math inline">\(2022.5.22\)</span></p></li>
-<li><p>难度：<span style="color:#000080;"> <span
-class="math inline">\(\operatorname{NOI/NOI+/CTSC}\)</span>
+<li><p>难度：<span style="color:#000080;"> NOI/NOI+/CTSC
 </span></p></li>
-<li><p>算法：分块、并查集</p></li>
+<li><p>算法：分块，并查集</p></li>
 <li><p>做法：</p></li>
 </ul>
 <p>首先对序列分块，那么显然每个块最大值是不增的。</p>
@@ -281,9 +280,261 @@ class="math inline">\(\mathcal{O}(n\sqrt{n})\)</span>。</p>
 <p>注意重构前 <span class="math inline">\(cnt\)</span> 和 <span
 class="math inline">\(hd\)</span> 数组的清空。</p>
 <ul>
-<li>代码：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF896E"><span
-class="math inline">\(\operatorname{CF896E~Welcome~home,~Chtholly}\)</span></a></li>
+<li>代码：<a
+target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/blob/master/Codes/%E6%96%B0%E9%A2%98%E7%9B%AE/CF896E%20Welcome%20home%2C%20Chtholly.cpp">CF896E
+Welcome home, Chtholly</a></li>
 </ul>
+<hr />
+<ol start="2" type="1">
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4557">P4557 [JSOI2018]
+战争</a></li>
+</ol>
+<ul>
+<li><p>通过时间：<span class="math inline">\(2022.5.28\)</span></p></li>
+<li><p>难度：<span style="color:#000080;"> NOI/NOI+/CTSC
+</span></p></li>
+<li><p>算法：闵可夫斯基和</p></li>
+<li><p>做法：</p></li>
+</ul>
+<p>设询问的向量为 <span
+class="math inline">\(v\)</span>，可以发现答案即为询问第一个凸包和第二个凸包中是否分别存在一个向量
+<span class="math inline">\(a\)</span> 和 <span
+class="math inline">\(b\)</span>，满足 <span class="math inline">\(a = b
++ v\)</span>，转化一下即为 <span class="math inline">\(v = a -
+b\)</span>，那么我们把第二个凸包取反，与第一个凸包做闵可夫斯基和，剩下的问题即为判断
+<span class="math inline">\(v\)</span> 是否在闵可夫斯基和上。</p>
+<p>我们只需要把向量平移到闵可夫斯基和的初始点上，二分出向量的延长线与凸包的左右两侧的交点，然后通过一些转化，用叉积的正负判断向量是否在闵可夫斯基和内即可。</p>
+<p>注意要判断一下向量 <span class="math inline">\(v\)</span>
+是否在边界外。</p>
+<p>时间复杂度为 <span class="math inline">\(\mathcal{O}(n \log_2
+n)\)</span>，瓶颈在于求凸包。</p>
+<ul>
+<li>备注：</li>
+</ul>
+<p>注意闵可夫斯基和的初始点是两个凸包的初始点之和，而非两个凸包的初始向量之和。</p>
+<ul>
+<li>代码：<a
+target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/blob/master/Codes/%E6%96%B0%E9%A2%98%E7%9B%AE/P4557%20%5BJSOI2018%5D%20%E6%88%98%E4%BA%89.cpp">P4557
+[JSOI2018] 战争</a></li>
+</ul>
+<hr />
+<ol start="3" type="1">
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1588F">CF1588F Jumping
+Through the Array</a></li>
+</ol>
+<ul>
+<li><p>通过时间：<span class="math inline">\(2022.5.28\)</span></p></li>
+<li><p>难度：<span style="color:#000080;"> NOI/NOI+/CTSC
+</span></p></li>
+<li><p>算法：操作分块</p></li>
+<li><p>做法：</p></li>
+</ul>
+<p>考虑将操作分块。</p>
+<p>那么对于一个块，我们可以发现：有一些链是不会改变形状的。对于这些链我们可以考虑将它们缩点。</p>
+<p>我们将操作 <span class="math inline">\(2\)</span> 中的点 <span
+class="math inline">\(v\)</span> 和操作 <span
+class="math inline">\(3\)</span> 中的点 <span
+class="math inline">\(x\)</span> 与点 <span
+class="math inline">\(y\)</span>
+标为关键点，然后我们遍历每一个关键点。设其后继为 <span
+class="math inline">\(u\)</span>，那么我们就从点 <span
+class="math inline">\(u\)</span> 不断向后跳，直到跳到一个关键点 <span
+class="math inline">\(v\)</span>，则我们将点 <span
+class="math inline">\(u\)</span> 到点 <span
+class="math inline">\(v\)</span> 的一条链缩为一点。</p>
+<p>对于操作 <span
+class="math inline">\(2\)</span>，我们可以直接在缩点后的图上对这些点打加法标记。</p>
+<p>对于操作 <span
+class="math inline">\(3\)</span>，我们直接执行即可。</p>
+<p>对于操作 <span
+class="math inline">\(1\)</span>，我们先求出除去所有操作 <span
+class="math inline">\(2\)</span> 之外的贡献，然后对于操作 <span
+class="math inline">\(2\)</span>
+的贡献，我们只需要知道每条链在给定范围内有多少个点。那么我们直接将范围差分后离线下来，用类似归并的方法处理即可。</p>
+<p>时间复杂度为 <span
+class="math inline">\(\mathcal{O}(n\sqrt{n})\)</span>。</p>
+<ul>
+<li>备注：</li>
+</ul>
+<p>注意在操作 <span class="math inline">\(2\)</span>
+修改时应该在缩点后的图上遍历需要修改的点并打标记。</p>
+<ul>
+<li>代码：<a
+target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/blob/master/Codes/%E6%96%B0%E9%A2%98%E7%9B%AE/CF1588F%20Jumping%20Through%20the%20Array.cpp">CF1588F
+Jumping Through the Array</a></li>
+</ul>
+<hr />
+<ol start="4" type="1">
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF19E">CF19E
+Fairy</a></li>
+</ol>
+<ul>
+<li><p>通过时间：<span class="math inline">\(2022.5.28\)</span></p></li>
+<li><p>难度：<span style="color:#9400D3;"> 省选/NOI- </span></p></li>
+<li><p>算法：分块</p></li>
+<li><p>做法：</p></li>
+</ul>
+<p>先考虑暴力怎么做：枚举每一条边，然后将其它的边依次加入可撤销并查集，如果出现奇环则说明枚举的边不能作为答案，反之则说明枚举的边可以作为答案。</p>
+<p>我们发现这个做法中有一些边被重复加了太多次，所以我们需要考虑平衡。</p>
+<p>考虑对边分块，每次先将块外的每条边加入，再枚举块内的每一条边并加入块内其它的边，然后用前面说到的方法判断枚举的边是否可以作为答案。</p>
+<p>为了保证复杂度，对于块内的其它边，我们用可撤销并查集将这些边的加入撤销即可。</p>
+<p>平衡后的时间复杂度为 <span
+class="math inline">\(\mathcal{O}(n\sqrt{n\log_2n})\)</span>。</p>
+<ul>
+<li>备注：</li>
+</ul>
+<p>注意操作栈需要及时清空。</p>
+<ul>
+<li>代码：<a
+target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/blob/master/Codes/%E6%96%B0%E9%A2%98%E7%9B%AE/CF19E%20Fairy.cpp">CF19E
+Fairy</a></li>
+</ul>
+<hr />
+<ol start="5" type="1">
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/SP2940">SP2940 UNTITLE1 -
+Untitled Problem II</a></li>
+</ol>
+<ul>
+<li><p>通过时间：<span class="math inline">\(2022.5.29\)</span></p></li>
+<li><p>难度：<span style="color:#000080;"> NOI/NOI+/CTSC
+</span></p></li>
+<li><p>算法：分块，凸包</p></li>
+<li><p>做法：</p></li>
+</ul>
+<p>可以发现区间 <span class="math inline">\([l, r]\)</span> 的所有 <span
+class="math inline">\(s_i\)</span> 都会有 <span
+class="math inline">\([1, l - 1]\)</span>
+的子段和这一部分贡献，所以问题可以转化为区间 <span
+class="math inline">\([l, r]\)</span> 的最大前缀和加上 <span
+class="math inline">\([1, l - 1]\)</span> 的子段和。</p>
+<p>我们考虑对序列分块，那么询问时对于所有整块和散块，我们仅需求出每一块的最大前缀和以及子段和，便可以遍历所有块，依次
+<span class="math inline">\(\mathcal{O}(1)\)</span> 合并求出答案。</p>
+<p>散块的最大前缀和、子段和以及整块的子段和维护都很平凡，现在的问题是如何维护整块的最大前缀和。</p>
+<p>我们发现，若给整个块加上一个值 <span
+class="math inline">\(x\)</span>，那么每一个前缀的和相当于一个关于 <span
+class="math inline">\(x\)</span>
+的一次函数，所以我们可以对每一个块维护一个下凸壳，询问时通过该块的加法标记二分查询答案即可。</p>
+<p>时间复杂度为 <span
+class="math inline">\(\mathcal{O}(n\sqrt{n\log_2n})\)</span>，可以用分散层叠等方法做到
+<span class="math inline">\(\mathcal{O}(n\sqrt{n})\)</span>。</p>
+<ul>
+<li>备注：</li>
+</ul>
+<p>注意所有和值有关的变量都需要开 <span
+class="math inline">\(\operatorname{long~long}\)</span>。</p>
+<ul>
+<li>代码：<a
+target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/blob/master/Codes/%E6%96%B0%E9%A2%98%E7%9B%AE/SP2940%20UNTITLE1%20-%20Untitled%20Problem%20II.cpp">SP2940
+UNTITLE1 - Untitled Problem II</a></li>
+</ul>
+<hr />
+<ol start="6" type="1">
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5046">P5046 [Ynoi2019
+模拟赛] Yuno loves sqrt technology I</a></li>
+</ol>
+<ul>
+<li><p>通过时间：<span class="math inline">\(2022.5.30\)</span></p></li>
+<li><p>难度：<span style="color:#000080;"> NOI/NOI+/CTSC
+</span></p></li>
+<li><p>算法：分块</p></li>
+<li><p>做法：</p></li>
+</ul>
+<p>对序列分块，考虑维护以下几个量：</p>
+<p><span class="math inline">\(\alpha\)</span>：维护 <span
+class="math inline">\(f_{i, j}\)</span> 表示前 <span
+class="math inline">\(i\)</span> 个位置与第 <span
+class="math inline">\(j\)</span> 个块之间的逆序对个数（注意第 <span
+class="math inline">\(j\)</span>
+个块内部的逆序对个数不算在其中），可以通过对整个序列和第 <span
+class="math inline">\(j\)</span> 个块排序后做双指针得到。</p>
+<p><span class="math inline">\(\beta\)</span>：维护 <span
+class="math inline">\(g_{i, j}\)</span> 表示第 <span
+class="math inline">\(i\)</span> 个块和第 <span
+class="math inline">\(j\)</span>
+个块之间的子段（包括这两块）内部的逆序对个数，可以通过区间 <span
+class="math inline">\(\operatorname{DP}\)</span> 方程 <span
+class="math inline">\(g_{i, j} = g_{i, j - 1} + g_{i + 1, j} - g_{i + 1,
+j - 1} + w_{i, j}\)</span> 得到（<span class="math inline">\(w_{i,
+j}\)</span> 表示第 <span class="math inline">\(i\)</span> 个块和第 <span
+class="math inline">\(j\)</span> 个块之间的逆序对数）。</p>
+<p><span class="math inline">\(\gamma\)</span>：维护 <span
+class="math inline">\(pre_i\)</span> 和 <span
+class="math inline">\(suf_i\)</span>，前者表示序列的第 <span
+class="math inline">\(i\)</span>
+个位置到其所在块的左端点的子段内部的逆序对个数，后者同理，二者均可通过树状数组在
+<span class="math inline">\(\mathcal{O}(n \log_2 n)\)</span>
+时间内得到。</p>
+<p>询问时先通过 <span class="math inline">\(pre_i\)</span> 和 <span
+class="math inline">\(suf_i\)</span> 以及 <span
+class="math inline">\(g_{i, j}\)</span> 得到散块与整块内部的答案，在通过
+<span class="math inline">\(f_{i, j}\)</span>
+得到散块与整块之间的答案，最后在通过双指针得出两个散块之间的答案即可。</p>
+<p>对于询问的 <span class="math inline">\(l\)</span> 和 <span
+class="math inline">\(r\)</span> 在同一个块内的情况，我们先令 <span
+class="math inline">\(ans = pre_r - pre_{l -
+1}\)</span>，剩下的问题就在于求出块的左端点到 <span
+class="math inline">\(l - 1\)</span> 以及 <span
+class="math inline">\(l\)</span> 到 <span
+class="math inline">\(r\)</span> 这两个子段之间的答案，双指针即可。</p>
+<p>时间复杂度 <span
+class="math inline">\(\mathcal{O}(n\sqrt{n})\)</span>。</p>
+<ul>
+<li>备注：</li>
+</ul>
+<p>需要卡常的话，可以考虑以下几点：</p>
+<p><span class="math inline">\(\alpha\)</span>：把 <span
+class="math inline">\(f_{i, j}\)</span>
+做二维前缀和，那么求散块与整块之间的贡献时就可以做到 <span
+class="math inline">\(\mathcal{O}(1)\)</span>。</p>
+<p><span
+class="math inline">\(\beta\)</span>：做双指针时不一定要把两个序列都求出来，可以只求一个数列，然后直接扫描另一个数列即可。</p>
+<ul>
+<li>代码：<a
+target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/blob/master/Codes/%E6%96%B0%E9%A2%98%E7%9B%AE/P5046%20%5BYnoi2019%20%E6%A8%A1%E6%8B%9F%E8%B5%9B%5D%20Yuno%20loves%20sqrt%20technology%20I.cpp">P5046
+[Ynoi2019 模拟赛] Yuno loves sqrt technology I</a></li>
+</ul>
+<hr />
+<ol start="7" type="1">
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3546">P3546
+[POI2012]PRE-Prefixuffix</a></li>
+</ol>
+<ul>
+<li><p>通过时间：<span class="math inline">\(2022.5.31\)</span></p></li>
+<li><p>难度：<span style="color:#9400D3;"> 省选/NOI- </span></p></li>
+<li><p>算法：字符串 <span
+class="math inline">\(\operatorname{Hash}\)</span>，<span
+class="math inline">\(\operatorname{Border}\)</span> 理论</p></li>
+<li><p>做法：</p></li>
+</ul>
+<p>发现合法的答案实际上是类似 <span class="math inline">\(ABCBA\)</span>
+的形式。</p>
+<p>可以发现，假设 <span class="math inline">\(f_i =
+\operatorname{Border}_{i, n - i + 1}\)</span>（后者表示子段 <span
+class="math inline">\([i, n - i + 1]\)</span> 最长的 <span
+class="math inline">\(\operatorname{Border}\)</span>），那么有 <span
+class="math inline">\(f_i &lt;= f_{i - 1} +
+2\)</span>，所以可以配合字符串 <span
+class="math inline">\(\operatorname{Hash}\)</span> 在 <span
+class="math inline">\(\mathcal{O}(n)\)</span> 时间内求出所有的 <span
+class="math inline">\(f_i\)</span>。</p>
+<p>最后，我们用字符串 <span
+class="math inline">\(\operatorname{Hash}\)</span> 暴力扫出原串的所有
+<span class="math inline">\(\operatorname{Border}\)</span>，假设长度为
+<span class="math inline">\(i\)</span>，那么我们将答案与 <span
+class="math inline">\(i + f_{i + 1}\)</span> 取 <span
+class="math inline">\(\max\)</span> 即可。</p>
+<ul>
+<li>备注：</li>
+</ul>
+<p>注意本题会卡自然溢出哈希，建议哈希进制数取 <span
+class="math inline">\(131\)</span>，模数取 <span
+class="math inline">\(998244353\)</span>。</p>
+<ul>
+<li>代码：<a
+target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/blob/master/Codes/%E6%96%B0%E9%A2%98%E7%9B%AE/P3546%20%5BPOI2012%5D%20PRE-Prefixuffix.cpp">P3546
+[POI2012]PRE-Prefixuffix</a></li>
+</ul>
+<hr />
 <h2 id="operatornametobecontinuedcdotscdots"><span
 class="math inline">\(\operatorname{To~Be~Continued\cdots\cdots}\)</span></h2>
 
@@ -317,23 +568,6 @@ class="math inline">\(\operatorname{To~Be~Continued\cdots\cdots}\)</span></h2>
                   
                 </p>
               
-              
-                <div class="post-prevnext">
-                  <article class="post-prev col-6">
-                    
-                    
-                  </article>
-                  <article class="post-next col-6">
-                    
-                    
-                      <a href="/2022/05/15/%E6%AF%8F%E5%A4%A9%E4%B8%80%E4%B8%AA%E5%8E%9F%E5%9C%B0%E5%8E%BB%E4%B8%96%E5%B0%8F%E6%8A%80%E5%B7%A7/">
-                        <span class="hidden-mobile">每天一个原地去世小技巧</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
-                    
-                  </article>
-                </div>
               
             </div>
 
