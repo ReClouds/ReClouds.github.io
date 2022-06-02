@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://reclouds.github.io/img/bg/19.jpeg">
 <meta property="article:published_time" content="2022-06-02T11:15:11.000Z">
-<meta property="article:modified_time" content="2022-06-02T12:43:43.476Z">
+<meta property="article:modified_time" content="2022-06-02T13:48:25.727Z">
 <meta property="article:author" content="Recalling_Clouds">
 <meta property="article:tag" content="做题记录">
 <meta name="twitter:card" content="summary_large_image">
@@ -205,7 +205,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      3.7k 字
+      4.2k 字
     </span>
   
 
@@ -214,7 +214,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      32 分钟
+      36 分钟
     </span>
   
 
@@ -529,6 +529,46 @@ class="math inline">\(\max\)</span> 即可。</p>
 <p>注意本题会卡自然溢出哈希，建议哈希进制数取 <span
 class="math inline">\(131\)</span>，模数取 <span
 class="math inline">\(998244353\)</span>。</p>
+<ul>
+<li>代码：<a
+target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/blob/master/Codes/%E6%96%B0%E9%A2%98%E7%9B%AE/P3546%20%5BPOI2012%5D%20PRE-Prefixuffix.cpp">P3546
+[POI2012]PRE-Prefixuffix</a></li>
+</ul>
+<hr />
+<ol start="8" type="1">
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF427D">CF427D Match &amp;
+Catch</a></li>
+</ol>
+<ul>
+<li><p>通过时间：<span class="math inline">\(2022.6.2\)</span></p></li>
+<li><p>难度：<span style="color:#9400D3;"> 省选/NOI- </span></p></li>
+<li><p>算法：字符串 <span
+class="math inline">\(\operatorname{Hash}\)</span>，<span
+class="math inline">\(\operatorname{Z}\)</span> 函数</p></li>
+<li><p>做法：</p></li>
+</ul>
+<p>考虑构造一个字符串 <span class="math inline">\(s\)</span>，第一部分为
+<span class="math inline">\(a\)</span> 的前缀，第二、三部分分别为 <span
+class="math inline">\(a\)</span> 和 <span
+class="math inline">\(b\)</span>
+字符串本身，中间用分隔符相连。实际上，这样是为了统计每一个前缀的贡献。</p>
+<p>我们在 <span class="math inline">\(s\)</span> 上跑 <span
+class="math inline">\(\operatorname{Z}\)</span>
+函数，然后将前缀本身的贡献消去（即令 <span class="math inline">\(z_{|a|
++ 2} = 0\)</span>）。接着，我们统计每一种不同的 <span
+class="math inline">\(\operatorname{Z}\)</span> 函数值的出现次数。</p>
+<p>如果某一个 <span class="math inline">\(\operatorname{Z}\)</span>
+函数值在 <span class="math inline">\(b\)</span> 中出现过一次且在 <span
+class="math inline">\(a\)</span>
+中未出现过，那么它为合法答案，但并不一定最优。我们只需再找出一个次大值，满足它出现过，那么次大值加
+<span class="math inline">\(1\)</span> 即为该前缀的贡献。</p>
+<p>时间复杂度为 <span
+class="math inline">\(\mathcal{O}(n^2)\)</span>。</p>
+<ul>
+<li>备注：</li>
+</ul>
+<p>本题需要统计 <span class="math inline">\(\operatorname{Z}\)</span>
+函数的值分别在两个字符串内的出现次数，而非整个字符串。</p>
 <ul>
 <li>代码：<a
 target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/blob/master/Codes/%E6%96%B0%E9%A2%98%E7%9B%AE/P3546%20%5BPOI2012%5D%20PRE-Prefixuffix.cpp">P3546
