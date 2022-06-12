@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://reclouds.github.io/img/bg/19.jpeg">
 <meta property="article:published_time" content="2022-06-02T11:15:11.000Z">
-<meta property="article:modified_time" content="2022-06-11T03:32:54.550Z">
+<meta property="article:modified_time" content="2022-06-12T09:39:11.762Z">
 <meta property="article:author" content="Recalling_Clouds">
 <meta property="article:tag" content="做题记录">
 <meta name="twitter:card" content="summary_large_image">
@@ -205,7 +205,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      11k 字
+      13k 字
     </span>
   
 
@@ -214,7 +214,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      94 分钟
+      106 分钟
     </span>
   
 
@@ -903,8 +903,9 @@ class="math inline">\(pre_i\)</span>。</p>
 class="math inline">\(len\)</span>，将所有被 <span
 class="math inline">\(len\)</span> 整除的 <span
 class="math inline">\(i\)</span>
-标为关键点。枚举相邻的两个关键点，计算二者所代表后缀的 <span
-class="math inline">\(\operatorname{LCP}\)</span> 和所代表前缀的 <span
+标为关键点。枚举相邻的两个关键点，计算它们所代表后缀的 <span
+class="math inline">\(\operatorname{LCP}\)</span>
+和它们的前一个位置所代表前缀的 <span
 class="math inline">\(\operatorname{LCS}\)</span>，如果它们拼接起来可以覆盖两点中间的串，那么我们把两个关键点左右两侧的
 <span class="math inline">\(\operatorname{LCP}\)</span> 和 <span
 class="math inline">\(\operatorname{LCS}\)</span>
@@ -913,6 +914,8 @@ class="math inline">\(\operatorname{LCS}\)</span>
 class="math inline">\(T\)</span> 的两端，就会有一些对 <span
 class="math inline">\(pre_i\)</span> 和 <span
 class="math inline">\(suf_i\)</span> 的贡献，用差分维护一下即可。</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n\ln n + n
+\log_2n)\)</span>。</p>
 <ul>
 <li>备注：</li>
 </ul>
@@ -1186,8 +1189,105 @@ class="math inline">\(\mathcal{O}(n^3)\)</span>
 的，并且带上了计算若干三角函数的大常数，所以可能会有点小卡常。</p>
 <p>不过，本题只要求保留两位小数，不需要将精度卡得很高，所以还是推荐第一种做法，写起来会更加简单。</p>
 <ul>
-<li>代码：<a href="P4207%20%5BNOI2005%5D%20月下柠檬树.cpp">P4207
+<li>代码：<a
+target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/blob/master/Codes/%E6%96%B0%E9%A2%98%E7%9B%AE/P4207%20%5BNOI2005%5D%20%E6%9C%88%E4%B8%8B%E6%9F%A0%E6%AA%AC%E6%A0%91.cpp">P4207
 [NOI2005] 月下柠檬树</a></li>
+</ul>
+<hr />
+<ol start="28" type="1">
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/SP687">SP687 REPEATS -
+Repeats</a></li>
+</ol>
+<ul>
+<li><p>通过时间：<span class="math inline">\(2022.6.11\)</span></p></li>
+<li><p>难度：<font color="#000080"> NOI/NOI+/CTSC </font></p></li>
+<li><p>算法：后缀数组</p></li>
+<li><p>做法：</p></li>
+</ul>
+<p>这个题的思路和 <a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1117">P1117</a> 是差不多的。</p>
+<p>考虑枚举重复串长度 <span
+class="math inline">\(k\)</span>，然后把所有满足是 <span
+class="math inline">\(k\)</span> 的倍数的 <span
+class="math inline">\(i\)</span>
+标记为关键点。接着，枚举两个相邻的关键点，求出它们所代表后缀的 <span
+class="math inline">\(\operatorname{LCP}\)</span>
+和它们的前一个位置所代表前缀的 <span
+class="math inline">\(\operatorname{LCS}\)</span>，那么 <span
+class="math inline">\((\operatorname{LCP} + \operatorname{LCS}) / k +
+1\)</span> 即为一个可能的最优答案。</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n\ln n + n
+\log_2n)\)</span>。</p>
+<ul>
+<li>备注：</li>
+</ul>
+<p>注意计算答案的式子是 <span class="math inline">\((\operatorname{LCP}
++ \operatorname{LCS}) / k + 1\)</span>，不要漏掉了最后的 <span
+class="math inline">\(+1\)</span>。</p>
+<ul>
+<li>代码：<a href="SP687%20REPEATS%20-%20Repeats.cpp">SP687 REPEATS -
+Repeats</a></li>
+</ul>
+<hr />
+<ol start="29" type="1">
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5286">P5286 [HNOI2019]
+鱼</a></li>
+</ol>
+<ul>
+<li><p>通过时间：<span class="math inline">\(2022.6.12\)</span></p></li>
+<li><p>难度：<font color="#000080"> NOI/NOI+/CTSC </font></p></li>
+<li><p>算法：计算几何</p></li>
+<li><p>做法：</p></li>
+</ul>
+<p>这个做法基于一个比较冷门的结论：平面上 <span
+class="math inline">\(n\)</span> 个不重点组成的等腰三角形个数是 <span
+class="math inline">\(\mathcal{O}(n^{2.137})\)</span>
+级别的（证明这个结论的论文在<a
+target="_blank" rel="noopener" href="https://link.springer.com/article/10.1007/s003730200063">这里</a>）。</p>
+<p>首先我们考虑找出所有等腰三角形。我们可以枚举点 <span
+class="math inline">\(i\)</span>，然后以 <span
+class="math inline">\(i\)</span> 为极点极角排序，将到 <span
+class="math inline">\(i\)</span>
+点距离相等的点分为一类，那么由于两条长度相等的边必定对应一个等腰三角形，所以直接枚举即可。</p>
+<p>找出所有等腰三角形后，由于整个鱼实际上是由三个等腰三角形拼接而成的，所以我们可以先枚举点
+<span class="math inline">\(D\)</span>，再枚举顶点为 <span
+class="math inline">\(D\)</span> 的等腰三角形（即鱼尾），那么 <span
+class="math inline">\(AD\)</span>
+的斜率必然在一个区间内，我们二分求得答案即可。</p>
+<p>现在考虑怎样求四边形 <span
+class="math inline">\(ABDC\)</span>（即鱼头）的个数。</p>
+<p>在求等腰三角形的同时，我们统计底边为 <span
+class="math inline">\(BC\)</span>，顶点在 <span
+class="math inline">\(BC\)</span>
+左侧或右侧的等腰三角形个数。求出这个后，我们可以枚举每一个等边三角形，以它的顶点作为点
+<span
+class="math inline">\(D\)</span>，通过底边另一侧的等腰三角形个数即可求出这个等腰三角形的贡献。</p>
+<p>这个做法的时间复杂度为 <span
+class="math inline">\(\mathcal{O}(n^{2.137} \log_2 n)\)</span> 的。不过
+<span class="math inline">\(n^{2.137}\)</span>
+仅仅是一个上界，实际上的等腰三角形个数比这个上界小很多，所以这个做法的常数很小（目前在
+<span class="math inline">\(\operatorname{O2}\)</span>
+环境下拿到了洛谷最优解）。</p>
+<ul>
+<li>备注：</li>
+</ul>
+<p>当然这题还有另一种做法。</p>
+<p>考虑枚举 <span class="math inline">\(D\)</span>，求出它的贡献。</p>
+<p>枚举点 <span
+class="math inline">\(A\)</span>，那么鱼尾的数量是可以用双指针套上类似莫队的做法求出的。现在考虑怎样求鱼头。</p>
+<p>考虑预处理。枚举一条边 <span
+class="math inline">\(BC\)</span>，求出它的中垂线的斜率的最简分数，然后按照斜率分类后，再在每一类中按照
+<span class="math inline">\(BC\)</span>
+中点的位置（可以用截距的最简分数表示）再分类。那么查询时我们先求出 <span
+class="math inline">\(AD\)</span>
+斜率的最简分数，然后二分求出所在的类，再在该类中二分求出在 <span
+class="math inline">\(AD\)</span> 上的一类 <span
+class="math inline">\(BC\)</span> 中点的个数，这个就是鱼头的个数。</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n^2
+\log_2n)\)</span>。</p>
+<ul>
+<li>代码：<a href="P5286%20%5BHNOI2019%5D%20鱼.cpp">P5286 [HNOI2019]
+鱼</a></li>
 </ul>
 <hr />
 <h2 id="operatornametobecontinuedcdotscdots"><span
