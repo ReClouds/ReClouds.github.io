@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://reclouds.github.io/img/bg/19.jpeg">
 <meta property="article:published_time" content="2022-06-02T11:15:11.000Z">
-<meta property="article:modified_time" content="2022-06-20T03:35:07.057Z">
+<meta property="article:modified_time" content="2022-06-20T08:26:22.519Z">
 <meta property="article:author" content="Recalling_Clouds">
 <meta property="article:tag" content="做题记录">
 <meta name="twitter:card" content="summary_large_image">
@@ -205,7 +205,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      14k 字
+      15k 字
     </span>
   
 
@@ -214,7 +214,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      114 分钟
+      125 分钟
     </span>
   
 
@@ -1362,6 +1362,95 @@ class="math inline">\(1\)</span>。</p>
 <li>代码：<a
 target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/blob/master/Codes/%E6%96%B0%E9%A2%98%E7%9B%AE/P4688%20%5BYnoi2016%5D%20%E6%8E%89%E8%BF%9B%E5%85%94%E5%AD%90%E6%B4%9E.cpp">P4688
 [Ynoi2016] 掉进兔子洞</a></li>
+</ul>
+<hr />
+<ol start="32" type="1">
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/AT4995">AT4995 [AGC034E]
+Complete Compress</a></li>
+</ol>
+<ul>
+<li><p>通过时间：<span class="math inline">\(2022.6.20\)</span></p></li>
+<li><p>难度：<font color="#9400D3"> 省选/NOI- </font></p></li>
+<li><p>算法：树形 <span
+class="math inline">\(\operatorname{DP}\)</span></p></li>
+<li><p>做法：</p></li>
+</ul>
+<p>可以发现，如果我们钦定一个点 <span
+class="math inline">\(u\)</span>，使得所有棋子最终都落在点 <span
+class="math inline">\(u\)</span>
+上，那么最优的方案的答案是确定的：所有有棋子的节点到点 <span
+class="math inline">\(u\)</span> 的距离之和除以 <span
+class="math inline">\(2\)</span>。因为可以证明，如果存在合法方案，那么最优方案一定可以做到每一步都使得两个棋子向点
+<span class="math inline">\(u\)</span> 靠近一步。</p>
+<p>（具体地，如果存在一步使得某个点 <span
+class="math inline">\(a\)</span> 向点 <span
+class="math inline">\(u\)</span> 远离一步，同时造成的影响是点 <span
+class="math inline">\(b\)</span> 朝点 <span
+class="math inline">\(u\)</span>
+更近了一步，那么必定还需要有一步，让另一个点 <span
+class="math inline">\(c\)</span> 将点 <span
+class="math inline">\(a\)</span> 向点 <span
+class="math inline">\(u\)</span> 拉回一步。而这一步不如直接让点 <span
+class="math inline">\(c\)</span> 将点 <span
+class="math inline">\(b\)</span> 拉近点 <span
+class="math inline">\(u\)</span>
+一步。所以，若存在一步使得某个点远离了点 <span
+class="math inline">\(u\)</span>，那么这一步是不优的。）</p>
+<p>所以现在最关键的问题，是对于当前钦定的根 <span
+class="math inline">\(rt\)</span>，求出是否有合法方案。</p>
+<p>据说存在这样一个经典模型：有 <span class="math inline">\(sum\)</span>
+个节点被分成了若干个集合，每次要找到不在同一集合内的两个节点并将这对节点抹消。结论是：设最大的集合大小为
+<span class="math inline">\(mx\)</span>，那么当 <span
+class="math inline">\(sum \ge mx \cdot 2\)</span> 时，最多可以消去 <span
+class="math inline">\(\displaystyle \lfloor \frac{sum}{2}
+\rfloor\)</span> 对节点；否则，最少会剩下 <span class="math inline">\(mx
+\cdot 2 - sum\)</span> 个节点，最多有 <span class="math inline">\(sum -
+mx\)</span> 对节点会被抹消。</p>
+<p>我们发现每个点都只是向上走，那么我们可以利用树形 <span
+class="math inline">\(\operatorname{DP}\)</span>
+的方法套上这个模型。</p>
+<p>具体地，我们对于以点 <span class="math inline">\(u\)</span>
+为根的子树内的每一个节点 <span
+class="math inline">\(v\)</span>，我们把它拆分为 <span
+class="math inline">\(dis(u, v)\)</span> 个节点。然后，我们设 <span
+class="math inline">\(f_u\)</span> 为以点 <span
+class="math inline">\(u\)</span>
+为根的子树中最多可以消去多少对节点。按照上面的模型，我们把点 <span
+class="math inline">\(u\)</span>
+的每一个儿子所代表的子树看作一个集合，然后按照上面的方法进行分讨：设最大的子树为
+<span class="math inline">\(v\)</span>，大小为 <span
+class="math inline">\(mx\)</span>，那么如果 <span
+class="math inline">\(sum \ge mx \cdot 2\)</span>，就有 <span
+class="math inline">\(\displaystyle f_u = \lfloor \frac{sum}{2}
+\rfloor\)</span>；否则，有 <span class="math inline">\(\displaystyle f_u
+= sum - mx + \lfloor \frac{\min(f_v \cdot 2, mx \cdot 2 - sum)}{2}
+\rfloor\)</span>。</p>
+<p>（注意贡献中加上的这个部分：<span class="math inline">\(\displaystyle
+\lfloor \frac{\min(f_v \cdot 2, mx \cdot 2 - sum)}{2}
+\rfloor\)</span>。它表示最大子树即以 <span
+class="math inline">\(v\)</span> 为根的子树的贡献。由于以 <span
+class="math inline">\(v\)</span> 为根的子树中必然存在抹消 <span
+class="math inline">\([0, f_v]\)</span> 对节点的方案，同时在消去了 <span
+class="math inline">\(sum - mx\)</span> 对节点后，以 <span
+class="math inline">\(v\)</span> 为根的子树中还剩下 <span
+class="math inline">\(mx \cdot 2 - sum\)</span>
+个节点，所以贡献为上述形式。）</p>
+<p>最后还需判断所有元素是否消完，将 <span
+class="math inline">\(f_{rt}\)</span> 和前面所说的固定的答案
+“所有有棋子的节点到点 <span class="math inline">\(u\)</span>
+的距离之和除以 <span class="math inline">\(2\)</span>” 相比较即可。</p>
+<p>时间复杂度为 <span
+class="math inline">\(\mathcal{O}(n^2)\)</span>。</p>
+<ul>
+<li>备注：</li>
+</ul>
+<p>注意计算最大子树的贡献时，<span class="math inline">\(\min\)</span>
+函数中的 <span class="math inline">\(f_v\)</span> 要乘以 <span
+class="math inline">\(2\)</span>，表示最多可以消去的点数。</p>
+<ul>
+<li>代码：<a
+target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/blob/master/Codes/%E6%96%B0%E9%A2%98%E7%9B%AE/AT4995%20%5BAGC034E%5D%20Complete%20Compress.cpp">AT4995
+[AGC034E] Complete Compress</a></li>
 </ul>
 <hr />
 <h2 id="operatornametobecontinuedcdotscdots"><span
