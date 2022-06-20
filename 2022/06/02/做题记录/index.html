@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://reclouds.github.io/img/bg/19.jpeg">
 <meta property="article:published_time" content="2022-06-02T11:15:11.000Z">
-<meta property="article:modified_time" content="2022-06-20T01:09:36.009Z">
+<meta property="article:modified_time" content="2022-06-20T03:35:07.057Z">
 <meta property="article:author" content="Recalling_Clouds">
 <meta property="article:tag" content="做题记录">
 <meta name="twitter:card" content="summary_large_image">
@@ -205,7 +205,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      13k 字
+      14k 字
     </span>
   
 
@@ -214,7 +214,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      109 分钟
+      114 分钟
     </span>
   
 
@@ -1323,6 +1323,45 @@ class="math inline">\(\operatorname{SAM}\)</span> 上节点打上标记。</p>
 <li>代码：<a
 target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/blob/master/Codes/%E6%96%B0%E9%A2%98%E7%9B%AE/CF235C%20Cyclical%20Quest.cpp">CF235C
 Cyclical Quest</a></li>
+</ul>
+<hr />
+<ol start="31" type="1">
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4688">P4688 [Ynoi2016]
+掉进兔子洞</a></li>
+</ol>
+<ul>
+<li><p>通过时间：<span class="math inline">\(2022.6.20\)</span></p></li>
+<li><p>难度：<font color="#9400D3"> 省选/NOI- </font></p></li>
+<li><p>算法：莫队，<span
+class="math inline">\(\operatorname{bitset}\)</span></p></li>
+<li><p>做法：</p></li>
+</ul>
+<p>发现求交集很难搞，所以可以考虑使用 <span
+class="math inline">\(\operatorname{bitset}\)</span>。</p>
+<p>离散化时，如果我们不执行 <span
+class="math inline">\(\operatorname{unique}\)</span>
+函数去重，那么莫队时，每一个数的每一次出现就都可以被 <span
+class="math inline">\(\operatorname{bitset}\)</span>
+上的每一位唯一表示，所以对于一个询问，直接将三个子段对应的 <span
+class="math inline">\(\operatorname{bitset}\)</span>
+取交集是没有问题的。</p>
+<p>注意直接开 <span class="math inline">\(\operatorname{bitset}\)</span>
+会开不下。我们仅需将询问分成若干组，每组分别做莫队即可。</p>
+<ul>
+<li>备注：</li>
+</ul>
+<p>判断某个询问的 <span
+class="math inline">\(\operatorname{bitset}\)</span>
+是否已经被取过交集，用 <span
+class="math inline">\(\operatorname{count}\)</span>
+函数计算是错的，正确的做法是打一个 <span
+class="math inline">\(vis\)</span> 标记，或者初始化时将整个 <span
+class="math inline">\(\operatorname{bitset}\)</span> 全部赋值为 <span
+class="math inline">\(1\)</span>。</p>
+<ul>
+<li>代码：<a
+target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/blob/master/Codes/%E6%96%B0%E9%A2%98%E7%9B%AE/P4688%20%5BYnoi2016%5D%20%E6%8E%89%E8%BF%9B%E5%85%94%E5%AD%90%E6%B4%9E.cpp">P4688
+[Ynoi2016] 掉进兔子洞</a></li>
 </ul>
 <hr />
 <h2 id="operatornametobecontinuedcdotscdots"><span
