@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://reclouds.github.io/img/bg/19.jpeg">
 <meta property="article:published_time" content="2022-06-02T11:15:11.000Z">
-<meta property="article:modified_time" content="2022-06-12T09:44:11.291Z">
+<meta property="article:modified_time" content="2022-06-20T01:09:36.009Z">
 <meta property="article:author" content="Recalling_Clouds">
 <meta property="article:tag" content="做题记录">
 <meta name="twitter:card" content="summary_large_image">
@@ -214,7 +214,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      106 分钟
+      109 分钟
     </span>
   
 
@@ -1292,6 +1292,39 @@ target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github
 [HNOI2019] 鱼</a></li>
 </ul>
 <hr />
+<ol start="30" type="1">
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF235C">CF235C Cyclical
+Quest</a></li>
+</ol>
+<ul>
+<li><p>通过时间：<span class="math inline">\(2022.6.20\)</span></p></li>
+<li><p>难度：<font color="#9400D3"> 省选/NOI- </font></p></li>
+<li><p>算法：后缀自动机</p></li>
+<li><p>做法：</p></li>
+</ul>
+<p>先将询问串复制一遍到串尾。</p>
+<p>维护左右指针，先将整个串在 <span
+class="math inline">\(\operatorname{SAM}\)</span>
+上跑一遍，求出右指针为询问串长度时的最远的左指针，然后不断移动右指针，同时求出每一个右指针所对应的最远左指针，如果二者之间距离大于等于询问串长度，就将这个串的贡献加入答案。</p>
+<p>可以发现，移动右指针就相当于走转移边，移动左指针就相当于跳后缀链接，所以上述操作直接在
+<span class="math inline">\(\operatorname{SAM}\)</span>
+上跑即可。注意移动左指针时不能仅求出最远的左指针，应该跳到长度区间恰好包含询问串长度的
+<span class="math inline">\(\operatorname{endpos}\)</span>
+等价类，这个类的贡献才是对的。</p>
+<p>时间复杂度和输入是同级的。</p>
+<ul>
+<li>备注：</li>
+</ul>
+<p>注意可能存在重复的循环同构串，解决方法是利用 <span
+class="math inline">\(\operatorname{KMP}\)</span>
+算法找到字符串周期，或者对已经存在贡献的 <span
+class="math inline">\(\operatorname{SAM}\)</span> 上节点打上标记。</p>
+<ul>
+<li>代码：<a
+target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/blob/master/Codes/%E6%96%B0%E9%A2%98%E7%9B%AE/CF235C%20Cyclical%20Quest.cpp">CF235C
+Cyclical Quest</a></li>
+</ul>
+<hr />
 <h2 id="operatornametobecontinuedcdotscdots"><span
 class="math inline">\(\operatorname{To~Be~Continued\cdots\cdots}\)</span></h2>
 
@@ -1325,6 +1358,23 @@ class="math inline">\(\operatorname{To~Be~Continued\cdots\cdots}\)</span></h2>
                   
                 </p>
               
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/05/15/%E6%AF%8F%E5%A4%A9%E4%B8%80%E4%B8%AA%E5%8E%9F%E5%9C%B0%E5%8E%BB%E4%B8%96%E5%B0%8F%E6%8A%80%E5%B7%A7/">
+                        <span class="hidden-mobile">每天一个原地去世小技巧</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
               
             </div>
 
