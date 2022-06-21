@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://reclouds.github.io/img/bg/19.jpeg">
 <meta property="article:published_time" content="2022-06-02T11:15:11.000Z">
-<meta property="article:modified_time" content="2022-06-20T08:26:22.519Z">
+<meta property="article:modified_time" content="2022-06-21T01:14:05.420Z">
 <meta property="article:author" content="Recalling_Clouds">
 <meta property="article:tag" content="做题记录">
 <meta name="twitter:card" content="summary_large_image">
@@ -205,7 +205,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      15k 字
+      16k 字
     </span>
   
 
@@ -214,7 +214,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      125 分钟
+      137 分钟
     </span>
   
 
@@ -1451,6 +1451,85 @@ class="math inline">\(2\)</span>，表示最多可以消去的点数。</p>
 <li>代码：<a
 target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/blob/master/Codes/%E6%96%B0%E9%A2%98%E7%9B%AE/AT4995%20%5BAGC034E%5D%20Complete%20Compress.cpp">AT4995
 [AGC034E] Complete Compress</a></li>
+</ul>
+<hr />
+<ol start="33" type="1">
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4228">P4228
+[清华集训2017] 榕树之心</a></li>
+</ol>
+<ul>
+<li><p>通过时间：<span class="math inline">\(2022.6.21\)</span></p></li>
+<li><p>难度：<font color="#000080"> NOI/NOI+/CTSC </font></p></li>
+<li><p>算法：树形 <span
+class="math inline">\(\operatorname{DP}\)</span></p></li>
+<li><p>做法：</p></li>
+</ul>
+<p>首先考虑 <span
+class="math inline">\(\operatorname{Subtask}~3\)</span>。</p>
+<p>有一个很显然的性质：假设当前树心在节点 <span
+class="math inline">\(u\)</span>，那么选择生长分属点 <span
+class="math inline">\(u\)</span>
+两个不同子树的节点，不会对树心所在的节点造成影响。这又对应了上文所谈的经典模型。</p>
+<p>考虑树形 <span class="math inline">\(\operatorname{DP}\)</span>
+那么我们设 <span class="math inline">\(f_u\)</span> 为以点 <span
+class="math inline">\(u\)</span>
+为根的子树中，最多可以有多少对节点被抹消。</p>
+<p>转移方程？回想上面所讲的经典模型，那么我们需要找出最大的集合 ——
+我们可以找出点 <span class="math inline">\(u\)</span> 的重儿子 <span
+class="math inline">\(v\)</span>。设点 <span
+class="math inline">\(u\)</span> 为根的子树大小为 <span
+class="math inline">\(si_u\)</span>，那么有如下转移方程：</p>
+<ul>
+<li><p>如果 <span class="math inline">\(si_v - f_v \cdot 2 \le si_u - 1
+- si_v\)</span>，那么有 <span class="math inline">\(\displaystyle f_u =
+\lfloor \frac{si_u - 1}{2}
+\rfloor\)</span>，即如果重儿子的子树中未被抹消的节点可以被其它子树中的节点尽数抹消，那么
+<span class="math inline">\(f_u\)</span>
+就等于整颗子树所有可以被抹消的节点所组成的对数。</p></li>
+<li><p>否则，<span class="math inline">\(f_u = f_v + si_u - 1 -
+si_v\)</span>，即如果重儿子的子树中的所有节点无法被尽数抹消，那么我们转而把其他子树中的节点尽数抹消即可。</p></li>
+</ul>
+<p>这样，我们就可以判断 <span class="math inline">\(1\)</span>
+号点是否能够做为终止节点了，只需要用分讨中第一种情况中的式子 <span
+class="math inline">\(si_v - f_v \cdot 2 \le si_u - 1 - si_v\)</span>
+判断一下即可。当然，还需要判断一下 <span class="math inline">\(n -
+1\)</span> 的奇偶性，当 <span class="math inline">\(n - 1\)</span>
+为奇数时也是无解的。</p>
+<p>这题的 <span class="math inline">\(\operatorname{Subtask}~4\)</span>
+允许 <span
+class="math inline">\(\mathcal{O}(n^2)\)</span>的做法。然而，这题的树心初始时只能在
+<span class="math inline">\(1\)</span>
+号点，所以，如果我们以每个节点为根做这个树形 <span
+class="math inline">\(\operatorname{DP}\)</span>，那么得出的答案将是不符合逻辑的。</p>
+<p>但是我们发现，如果我们将 <span class="math inline">\(1 \to i\)</span>
+的路径缩为一点，把路径上所有点的不在这条路径上的子树连接到这个点上，那么我们再在这个树上跑一遍刚才所讲的树形
+<span class="math inline">\(\operatorname{DP}\)</span>，就可以验证点
+<span class="math inline">\(i\)</span> 是否能够作为终止节点。</p>
+<p>（合法性证明：可以发现如果存在合法方案，那么 “选择一对节点将其抹消”
+这个操作的顺序是无关紧要的，因为我们可以通过若干调整使方案合法化。具体地，我们先假设我们已经走完了
+<span class="math inline">\(1 \to i\)</span>
+这条路径，再在根节点的所有子树中选出分属两个不同子树的节点将其抹消。如果这两颗子树本来连接的是两个节点
+<span class="math inline">\(u\)</span> 和 <span
+class="math inline">\(v\)</span>，那么当走在 <span
+class="math inline">\(u \to v\)</span> 或 <span class="math inline">\(v
+\to u\)</span>
+的路径上时，我们抹消这一对节点不会对棋子的位置造成任何影响。当然，也会存在
+<span class="math inline">\(u = v\)</span> 的情况，此时我们直接在点
+<span class="math inline">\(u\)</span>
+将这对点抹消即可。综上所述，缩点的操作是合法的。）</p>
+<p>缩点后直接做树形 <span
+class="math inline">\(\operatorname{DP}\)</span> 便可以做到 <span
+class="math inline">\(\mathcal{O}(n^2)\)</span>。</p>
+<p>如何优化？我们发现比较重要的一点就是要求出这个被缩的点的重儿子。这一步我们可以在树形
+<span class="math inline">\(\operatorname{DP}\)</span> 的 <span
+class="math inline">\(\operatorname{DFS}\)</span>
+过程中完成。当然，<span class="math inline">\(1 \to i\)</span>
+路径上某些点的重儿子会因为在这条连上而变得不合法，所以我们对于每个节点，多维护一个次重儿子即可。</p>
+<ul>
+<li><p>备注：</p></li>
+<li><p>代码：<a
+target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/blob/master/Codes/%E6%96%B0%E9%A2%98%E7%9B%AE/P4228%20%5B%E6%B8%85%E5%8D%8E%E9%9B%86%E8%AE%AD2017%5D%20%E6%A6%95%E6%A0%91%E4%B9%8B%E5%BF%83.cpp">P4228
+[清华集训2017] 榕树之心</a></p></li>
 </ul>
 <hr />
 <h2 id="operatornametobecontinuedcdotscdots"><span
