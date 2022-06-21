@@ -1,0 +1,621 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/bg/logo.jpeg">
+  <link rel="icon" href="/img/bg/logo.jpeg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Recalling_Clouds">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Luogu P5319 [BJOI2019]奥术神杖 题解">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【题解】Luogu P5319 BJOI2019 奥术神杖">
+<meta property="og:url" content="https://reclouds.github.io/2022/03/26/%E3%80%90%E9%A2%98%E8%A7%A3%E3%80%91Luogu%20P5319%20BJOI2019%20%E5%A5%A5%E6%9C%AF%E7%A5%9E%E6%9D%96/index.html">
+<meta property="og:site_name" content="ReClouds&#39; Blog">
+<meta property="og:description" content="Luogu P5319 [BJOI2019]奥术神杖 题解">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://reclouds.github.io/img/bg/13.jpeg">
+<meta property="article:published_time" content="2022-03-26T01:22:26.000Z">
+<meta property="article:modified_time" content="2022-06-21T14:03:49.278Z">
+<meta property="article:author" content="Recalling_Clouds">
+<meta property="article:tag" content="题解">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://reclouds.github.io/img/bg/13.jpeg">
+  
+  
+  <title>【题解】Luogu P5319 BJOI2019 奥术神杖 - ReClouds&#39; Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"reclouds.github.io","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.1"><link rel="alternate" href="/atom.xml" title="ReClouds' Blog" type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>凌云の小屋</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/bg/13.jpeg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="【题解】Luogu P5319 BJOI2019 奥术神杖">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      Recalling_Clouds
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-03-26 09:22" pubdate>
+        2022年3月26日 上午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      17 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">【题解】Luogu P5319 BJOI2019 奥术神杖</h1>
+            
+            <div class="markdown-body">
+              <p><a
+href="https://reclouds.github.io/2022/03/26/Luogu%20P5319%20BJOI2019%20%E5%A5%A5%E6%9C%AF%E7%A5%9E%E6%9D%96%20%E9%A2%98%E8%A7%A3/">更好的阅读体验</a></p>
+<h3 id="题意"><strong>题意</strong></h3>
+<p>给定一个长为 <span class="math inline">\(n\)</span> 的字符串 <span
+class="math inline">\(S\)</span>，其每一位为数字 <span
+class="math inline">\(0\sim 9\)</span> 或一个 <span
+class="math inline">\(.\)</span>
+符号，后者表示该位可以为<strong>任何数字</strong>。</p>
+<p>再给定 <span class="math inline">\(m\)</span> 个字符串 <span
+class="math inline">\(T_i\)</span>，每个字符串有其对应的权值 <span
+class="math inline">\(V_i\)</span>。</p>
+<p>初始时有变量 <span class="math inline">\(\operatorname{Magic} = 1,
+\operatorname{Count} = 0\)</span>。</p>
+<p>每当 <span class="math inline">\(T_i\)</span> 在 <span
+class="math inline">\(S\)</span>
+中出现一次（即<strong>不同位置出现算作多次</strong>），我们就将 <span
+class="math inline">\(\operatorname{Magic}\)</span> 乘上 <span
+class="math inline">\(V_i\)</span> ，将 <span
+class="math inline">\(\operatorname{Count}\)</span> 加 <span
+class="math inline">\(1\)</span>。</p>
+<p>最终的答案为 <span class="math inline">\(\operatorname{Answer} =
+\sqrt[\operatorname{Count}]{\operatorname{Magic}}\)</span>。</p>
+<p>要求找到一种填充字符串 <span class="math inline">\(.\)</span>
+位置的方案，使得 <span
+class="math inline">\(\operatorname{Answer}\)</span>
+最大，输出任意一种<strong>最终字符串</strong>即可。</p>
+<p><span class="math inline">\(\operatorname{Data~Range}: 1 \le n, m \le
+1501, 1 \le V_i \le 10^9, 1 \le \displaystyle{\sum_{i = 1}^m} |T_i| \le
+1501\)</span></p>
+<hr />
+<h3 id="题解"><strong>题解</strong></h3>
+<p><del>（你真的会高精度开任意次方根吗？）</del></p>
+<p>所以这题显然不能直接做。</p>
+<p>和乘积有关的题目，一个好的思路是化乘为加。所以我们把每个 <span
+class="math inline">\(V_i\)</span> 求 <span
+class="math inline">\(\ln\)</span>，就可以把 <span
+class="math inline">\(\operatorname{Magic}\)</span>
+由求积转化为求和了，并且这样的转化并不会影响答案之间的大小关系。</p>
+<p>而 <span
+class="math inline">\(\displaystyle{\sqrt[\operatorname{Count}]{}}\)</span>
+这个部分，可以发现它直接变成了 <span
+class="math inline">\(\dfrac{1}{\operatorname{Count}}\)</span>，所以原式就化为了
+<span
+class="math inline">\(\dfrac{\operatorname{Magic}}{\operatorname{Count}}\)</span>。</p>
+<p>我们再重新审视一遍 <span
+class="math inline">\(\operatorname{Magic}\)</span> 和 <span
+class="math inline">\(\operatorname{Count}\)</span>：每次当前者加上一个
+<span class="math inline">\(V_i\)</span> 时，后者就会伴随着加上一个
+<span
+class="math inline">\(1\)</span>，而又因为两者的贡献是呈分数形式的，所以算法的大致轮廓大致就出来了
+—— <span class="math inline">\(0/1\)</span> 分数规划。</p>
+<p>我们知道，<span class="math inline">\(0/1\)</span> 分数规划关于
+“解的存在性” 具有单调性。所以，我们可以考虑二分一个答案 <span
+class="math inline">\(mid\)</span>，那么有： <span
+class="math display">\[
+\begin{matrix}
+\dfrac{\displaystyle{\sum_{i = 1}^{\operatorname{Count}}
+V_i}}{\operatorname{Count}} &gt; mid
+\\
+\displaystyle{\sum_{i = 1}^{\operatorname{Count}}} V_i &gt;
+{\operatorname{Count}} * mid
+\\
+\displaystyle{\sum_{i = 1}^{\operatorname{Count}}} (V_i - mid) &gt; 0
+\end{matrix}
+\]</span></p>
+<p>（注意到大于号 <span class="math inline">\(&gt;\)</span>
+了吗？这里并非大于等于号 <span
+class="math inline">\(\ge\)</span>，因为当贡献最大值为 <span
+class="math inline">\(0\)</span> 时，二分到的 <span
+class="math inline">\(mid\)</span> 并非一个可行答案。当然，也会存在
+<span class="math inline">\(\operatorname{Answer}\)</span> 为 <span
+class="math inline">\(0\)</span>
+的情况，此时任意一个合法的字符串均为答案。）</p>
+<p>推导到这里，可以发现，只要给每一个权值减去一个 <span
+class="math inline">\(mid\)</span>，那么这个式子的值和 <span
+class="math inline">\(\operatorname{Count}\)</span>
+的具体值已经没有关系了。</p>
+<p>剩下的部分，就是求出左侧式子的最大值，然后和 <span
+class="math inline">\(0\)</span> 比较了。</p>
+<p>而我们要如何求这个最大值呢？可以发现它和普通的 <span
+class="math inline">\(0/1\)</span> 分数规划不太一样：每个位置是 <span
+class="math inline">\(0\)</span> 还是 <span
+class="math inline">\(1\)</span> 并不能自由决定。</p>
+<p>我们再重新审视一遍这个问题：填充 <span
+class="math inline">\(S\)</span> 的所有 <span
+class="math inline">\(.\)</span> 字符，使得出现的所有 <span
+class="math inline">\(T_i\)</span> 的权值和最大。</p>
+<p>这个问题显然涉及到了字符串的多模匹配问题，因此我们考虑用 <span
+class="math inline">\(\operatorname{AC}\)</span>
+自动机来解决这个问题。</p>
+<p>我们可以设状态 <span class="math inline">\(f_{i,
+j}\)</span>，表示走到自动机的 <span class="math inline">\(i\)</span>
+号节点，同时 <span class="math inline">\(S\)</span> 串已经填完第 <span
+class="math inline">\(j\)</span> 个字符的最大权值。</p>
+<p>转移很简单，由于自动机具有优美的结构，因此我们仅需每次枚举下一个字符进行转移即可。</p>
+<p>（注意由于我们需要输出最终字符串，因此转移时需要记录前驱状态和转移时枚举的字符。）</p>
+<p>最后一个问题来了：如何处理自动机上每个点的贡献？</p>
+<p>显然，对于一个点，如果它对应了一个 <span
+class="math inline">\(T_i\)</span>，那么在 <span
+class="math inline">\(\operatorname{Fail}\)</span>
+树中以它为根的子树都需要加上他的权值（因为都会匹配到这个串）。所以，对于每一个
+<span
+class="math inline">\(mid\)</span>，我们利用树上差分重构一遍自动机上每个点的贡献即可。</p>
+<p><a
+target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/tree/master/Codes/Luogu%20P5319%20BJOI2019%20奥术神杖%20题解/Luogu%20P5319%20BJOI2019%20奥术神杖.cpp">放上代码（在我的
+<span class="math inline">\(\operatorname{github}\)</span>
+仓库中查看）</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/OI/">OI</a>
+                    
+                      <a class="hover-with-bg" href="/categories/OI/%E5%AD%97%E7%AC%A6%E4%B8%B2/">字符串</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E9%A2%98%E8%A7%A3/">题解</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/03/29/%E3%80%90%E9%A2%98%E8%A7%A3%E3%80%91CF1634D%20Finding%20Zero/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【题解】CF1634D Finding Zero</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/03/09/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E5%87%BD%E6%95%B0%E7%9A%84%E5%8F%8D%E6%BC%94%E5%8F%98%E6%8D%A2/">
+                        <span class="hidden-mobile">【学习笔记】函数的反演变换</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        loader: {
+          load: ['ui/lazy']
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+</html>

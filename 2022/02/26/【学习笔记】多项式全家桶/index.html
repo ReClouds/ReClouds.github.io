@@ -1,0 +1,1443 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/bg/logo.jpeg">
+  <link rel="icon" href="/img/bg/logo.jpeg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Recalling_Clouds">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="本文所有知识均属数学范畴，包括拉格朗日插值、多项式的乘法、除法、求逆、开根、自然对数（求 ln)、牛顿迭代、指数函数（求 exp）和快速幂运算。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【学习笔记】多项式全家桶">
+<meta property="og:url" content="https://reclouds.github.io/2022/02/26/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E5%A4%9A%E9%A1%B9%E5%BC%8F%E5%85%A8%E5%AE%B6%E6%A1%B6/index.html">
+<meta property="og:site_name" content="ReClouds&#39; Blog">
+<meta property="og:description" content="本文所有知识均属数学范畴，包括拉格朗日插值、多项式的乘法、除法、求逆、开根、自然对数（求 ln)、牛顿迭代、指数函数（求 exp）和快速幂运算。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://reclouds.github.io/img/bg/1.jpeg">
+<meta property="article:published_time" content="2022-02-26T06:08:46.000Z">
+<meta property="article:modified_time" content="2022-06-21T14:02:08.993Z">
+<meta property="article:author" content="Recalling_Clouds">
+<meta property="article:tag" content="学习笔记">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://reclouds.github.io/img/bg/1.jpeg">
+  
+  
+  <title>【学习笔记】多项式全家桶 - ReClouds&#39; Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"reclouds.github.io","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.1"><link rel="alternate" href="/atom.xml" title="ReClouds' Blog" type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>凌云の小屋</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/bg/1.jpeg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="【学习笔记】多项式全家桶">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      Recalling_Clouds
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-02-26 14:08" pubdate>
+        2022年2月26日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      24k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      197 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">【学习笔记】多项式全家桶</h1>
+            
+            <div class="markdown-body">
+              <h2 id="前言">前言</h2>
+<p>本文略去多项式的定义，毕竟初中数学都讲过。</p>
+<p>本文会出现一些可能没有见过的表达：</p>
+<ul>
+<li>对于一个关于 <span class="math inline">\(x\)</span> 的多项式 <span
+class="math inline">\(f(x)\)</span>，有时也称其最高次项次数为 <span
+class="math inline">\(f(x)\)</span> 的<strong>度数</strong>。</li>
+<li>多项式同样定义了四则运算，包括<strong>常数与多项式的四则运算</strong>和<strong>多项式之间的四则运算</strong>，同时也衍生出了同余符号
+<span class="math inline">\(\equiv\)</span>、对数函数 <span
+class="math inline">\(\ln(f(x))\)</span>，指数函数 <span
+class="math inline">\(\exp(f(x))\)</span> 等等。</li>
+<li>下文一般采用 <span class="math inline">\(f(x)~\bmod x^n\)</span>
+来表示多项式 <span class="math inline">\(f(x)\)</span> 的所有次数小于
+<span class="math inline">\(n\)</span> 的项之和。</li>
+<li>下文有时会采用 <span class="math inline">\([x^k]f(x)\)</span>
+表示多项式次数为 <span class="math inline">\(k\)</span> 的项。</li>
+</ul>
+<p>注意：本文的知识<strong>环环相扣</strong>，<strong>请勿乱序阅读</strong>。</p>
+<hr />
+<h2 id="拉格朗日插值">拉格朗日插值</h2>
+<p><strong>插值</strong>，通俗地讲，就是指通过<strong>多项式在某些点的值</strong>求出<strong>整个多项式的表达式</strong>。</p>
+<p>而<strong>拉格朗日插值</strong>就是计算插值的一种方法，它支持通过
+<span class="math inline">\(n + 1\)</span> 个点插出一个度数为 <span
+class="math inline">\(n\)</span> 的多项式。</p>
+<p>按惯例，献上<a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4781">模板题</a>。</p>
+<p>首先对于多项式 <span class="math inline">\(f(x)\)</span>，必然满足
+<span class="math inline">\(f(x) \equiv f(a)~(\bmod (x -
+a))\)</span>。</p>
+<p>证明：</p>
+<p>转化为 <span class="math inline">\(f(x) - f(a) \equiv 0~(\bmod~(x -
+a))\)</span>。</p>
+<p>设左侧的多项式为 <span
+class="math inline">\(g(x)\)</span>，显然其常数项为 <span
+class="math inline">\(0\)</span>。</p>
+<p>又因为其第 <span class="math inline">\(i\)</span> 项为 <span
+class="math inline">\(p_i(x^i - a^i)\)</span>（<span
+class="math inline">\(p_i\)</span> 为系数），并且 <span
+class="math inline">\(x^i - a^i\)</span> 必定可以分解为 <span
+class="math inline">\((x - a) \cdot q(x)\)</span> 的形式（<span
+class="math inline">\(q(x)\)</span> 为另一个多项式），所以得证。</p>
+<p>所以我们可以得到一个关于 <span class="math inline">\(f(x)\)</span>
+线性同余方程组： <span class="math display">\[
+\left\{
+\begin{matrix}
+f(x) \equiv y_1~(\bmod (x - x_1))
+\\
+f(x) \equiv y_2~(\bmod (x - x_2))
+\\
+f(x) \equiv y_3~(\bmod (x - x_3))
+\\
+\vdots
+\\
+f(x) \equiv y_n~(\bmod (x - x_n))
+\end{matrix}
+\right.
+\]</span>
+这里可以使用<strong>中国剩余定理</strong>解方程组（这里就没有必要关注它们是否互质了）。</p>
+<p>我们可以设 <span class="math inline">\(M = \prod_{i = 1}^n (x -
+x_i)\)</span>，<span class="math inline">\(M_i = \frac{M}{(x - x_i)} =
+\prod_{j \ne i} (x - x_j)\)</span>。</p>
+<p>则 <span class="math inline">\(M_i\)</span> 在模 <span
+class="math inline">\(x - x_i\)</span> 意义下的逆元为 <span
+class="math inline">\(\prod_{j \ne i}\frac{1}{x_i - x_j}\)</span>。</p>
+<p>（因为 <span class="math inline">\(M_i M_i^{-1} = \prod_{j \ne
+i}\frac{x - x_j}{x_i - x_j} \equiv 1~(\bmod (x -
+x_i))\)</span>，则对于每一个 <span class="math inline">\(j \ne
+i\)</span> 都存在 $ x - x_j x_i - x_j~((x - x_i))$，移项可得 <span
+class="math inline">\(x - x_i \equiv 0~(\bmod (x -
+x_i))\)</span>，这显然是成立的。）</p>
+<p>所以有 <span class="math inline">\(f(x) = \sum_{i = 1}^n y_i\prod_{j
+\ne i} \frac{x - x_j}{x_i -
+x_j}~(\bmod~M)\)</span>，它在模意义下是唯一的。</p>
+<p>（实际上有另外的证明方式证明了其在通常意义下也是唯一的，这里略去。）</p>
+<p>本题中，我们只需要代入 <span class="math inline">\(k\)</span>
+求解即可，时间复杂度为 <span
+class="math inline">\(\mathcal{O}(n^2)\)</span>。不过更多时候，我们需要求出其所有系数，也可以做到
+<span
+class="math inline">\(\mathcal{O}(n^2)\)</span>，甚至还存在更低的复杂度，这里就不展开介绍了。</p>
+<hr />
+<h2 id="多项式乘法">多项式乘法</h2>
+<p>多项式乘法的定义，这里就不必多言了，初中数学都讲过。</p>
+<p>代数形式：</p>
+<p>设有多项式 <span class="math inline">\(f(x) = a_0 + a_1 x+ a_2x^2 +
+\cdots+ a_nx_n\)</span>，<span class="math inline">\(g(x) = b_0 + b_1 x+
+b_2x^2 + \cdots+ b_mx_m\)</span>。</p>
+<p>则它们的乘法积为 <span class="math inline">\(t(x) = c_0 + c_1 x + c_2
+x^2 + \cdots +c_{n + m}x^{n + m}\)</span>。</p>
+<p>其中，对于 <span class="math inline">\(t(x)\)</span> 的系数 <span
+class="math inline">\(c_k\)</span> 有公式：<span
+class="math inline">\(c_k = \sum_{i = 0}^k a_i b_{k - i}\)</span>。</p>
+<p>可以发现这个公式的形式十分类似卷积。但请注意：它们不是同一个东西，不要弄混淆了。</p>
+<p>事实上，多项式乘法就是用于求卷积的。如果您对卷积感兴趣，建议百度。</p>
+<hr />
+<p>现在，给出两个多项式 <span class="math inline">\(f(x)\)</span> 和
+<span class="math inline">\(g(x)\)</span> 的系数，求出它们的乘法积 <span
+class="math inline">\(t(x)\)</span>。<span
+class="math inline">\(f(x)\)</span> 和 <span
+class="math inline">\(g(x)\)</span> 的次数小于 <span
+class="math inline">\(10^5\)</span>。</p>
+<p>根据上面的公式，我们可以得到一个 <span
+class="math inline">\(\mathcal{O}(n^2)\)</span>
+的<del>优秀</del>算法。</p>
+<p>我们考虑换一种思想计算这个乘法积。</p>
+<p>众所周知，有这样一条著名的定理：任意 <span
+class="math inline">\(k\)</span> 个点可以唯一确定一个至多为 <span
+class="math inline">\(k - 1\)</span> 次的多项式。</p>
+<p>所以我们得到了一个新的思路：先求出足够多的 <span
+class="math inline">\(f(x)\)</span> 和 <span
+class="math inline">\(g(x)\)</span> 的点值，将它们用 <span
+class="math inline">\(\mathcal{O}(n)\)</span>
+的复杂度乘起来（横坐标不变，纵坐标相乘），再将这些点转化为一个多项式（上面提到了这样的过程叫做插值）。</p>
+<p>这种方法叫做<strong>离散傅里叶变换</strong>（即著名的 <span
+class="math inline">\(\operatorname{DFT}\)</span>）。</p>
+<p>问题是，如果钦定一些 <span class="math inline">\(x\)</span>
+去求对应的 <span class="math inline">\(f(x)\)</span>
+的值，时间复杂度还是 <span
+class="math inline">\(\mathcal{O}(n^2)\)</span> 的。</p>
+<p>所以，下面介绍<strong>快速傅里叶变换</strong>，同时会介绍<strong>快速数论变换</strong>（即著名的
+<span class="math inline">\(\operatorname{FFT}\)</span> 和 <span
+class="math inline">\(\operatorname{NTT}\)</span>）。</p>
+<hr />
+<p>前置知识：<a
+target="_blank" rel="noopener" href="https://baike.baidu.com/item/单位根/10927387?fr=aladdin">单位根</a>，<a
+target="_blank" rel="noopener" href="https://baike.baidu.com/item/原根">原根</a>。</p>
+<p>还记得二次函数 <span class="math inline">\(y = x^2\)</span>
+的性质吗？</p>
+<p>它关于 <span class="math inline">\(y\)</span>
+轴对称，所以我们如果代入 <span class="math inline">\(x =
+k\)</span>，同样可以得到 <span class="math inline">\(x = -k\)</span> 时
+<span class="math inline">\(y\)</span> 的值。</p>
+<p>这启发我们，可以选取一些特殊的 <span
+class="math inline">\(x\)</span>，使得我们可以在求出一些点值的同时，<strong>快速地求出另外的一些点值</strong>。</p>
+<p>这个时候，<strong>单位根</strong>就派上用场了。</p>
+<p>先讲一些使得单位根能够应用于此的性质：</p>
+<ul>
+<li>记 <span class="math inline">\(\omega_n\)</span> 为 <span
+class="math inline">\(n\)</span> 阶单位根，即满足 <span
+class="math inline">\(\omega_n^k = e^{\frac{2k\pi i}{n}}\)</span>，而
+<span class="math inline">\(e^{\frac{2k\pi i}{n}}=\cos \frac{2k\pi}{n} +
+i \sin \frac{2k\pi}{n}\)</span>，<span class="math inline">\(i\)</span>
+为虚数单位。</li>
+</ul>
+<p>（注意 <span class="math inline">\(n\)</span> 次单位根的 <span
+class="math inline">\(n\)</span> 一般取 <span
+class="math inline">\(2\)</span> 的正整数次幂，而下文皆如此。）</p>
+<p>这个计算公式不仅可以让我们计算出单位根的具体数值，并且可以得出以下性质：</p>
+<ul>
+<li><span class="math inline">\(\omega_n^n = \cos 2\pi + i \sin 2\pi = 1
+= \omega_n^0\)</span>。</li>
+</ul>
+<p>这条性质说明 <span class="math inline">\(n\)</span>
+次单位根存在长度为 <span class="math inline">\(n\)</span>
+的指数循环节；</p>
+<ul>
+<li><span class="math inline">\(\omega_n^{\frac{n}{2}} = \cos \pi + i
+\sin \pi= -1\)</span>。</li>
+</ul>
+<p>这条性质间接地证明了 <span class="math inline">\(n\)</span>
+次单位根的最小指数循环节长度为 <span
+class="math inline">\(n\)</span>，同时为下文折半引理的证明做了铺垫。</p>
+<ul>
+<li>单位根消去引理：<span class="math inline">\(\omega_{2n}^{2k} =
+\omega_n^k\)</span>。</li>
+</ul>
+<p>根据公式有 <span class="math inline">\(\omega_{2n}^{2k}=
+e^{\frac{4k\pi i}{2n}} = e^{\frac{2k\pi i}{n}} =
+\omega_{n}^k\)</span>，得证。</p>
+<p>这条性质可以做为沟通<strong>不同次单位根</strong>的桥梁，同时也证明了
+<span class="math inline">\(n\)</span> 次单位根的值域是 <span
+class="math inline">\(2n\)</span>
+次单位根值域的<strong>真子集</strong>。</p>
+<ul>
+<li>单位根折半引理：<span class="math inline">\(\omega_n^{k+\frac{n}{2}}
+= -\omega_{n}^k\)</span>。</li>
+</ul>
+<p>根据上面的性质有 <span class="math inline">\(\omega_n^{k +
+\frac{n}{2}} = \omega_n^k \cdot \omega_n^{\frac{n}{2}} =
+-\omega_n^k\)</span>，得证。</p>
+<p>这条性质可以做为沟通<strong>同次不同指数的单位根</strong>的桥梁，为
+<span class="math inline">\(\operatorname{DFT}\)</span>
+的<strong>分治优化</strong>创造了可能。</p>
+<p>而我们该如何运用单位根的这些性质呢？</p>
+<p>我们将 <span class="math inline">\(f(x) = a_0 + a_1 x + a_2 x^2 +
+a_3x^3\)</span> 做一个小小的改动： <span class="math display">\[
+\begin{aligned}
+f(x) &amp;= a_0 + a_1 x + a_2 x^2 + a_3x^3
+\\
+&amp;=a_0 + a_2 x^2 + a_1 x + a_3x^3
+\\
+&amp;= (a_0 + a_2 x^2) + x(a_1 + a_3 x^2)
+\\
+&amp;= f_1(x^2) + xf_2(x^2)
+\end{aligned}
+\]</span>
+可以发现，这样的变换，会使得原多项式被拆分为<strong>两个规模缩小了一半多项式</strong>。</p>
+<p>所以，我们又有了一个新的算法模型：</p>
+<p>我们考虑将 <span class="math inline">\(f(x)\)</span>
+拆分为两个规模缩小了一半的多项式 <span class="math inline">\(f_1(x),
+f_2(x)\)</span>，然后对它们进行分治，接着，我们可以用 <span
+class="math inline">\(f_1(x),f_2(x)\)</span> 在 <span
+class="math inline">\(x = k^2\)</span> 处的点值计算出 <span
+class="math inline">\(f(x)\)</span> 在 <span class="math inline">\(x =
+k\)</span> 处的点值。如果分治时每一层的复杂度都能够做到 <span
+class="math inline">\(\mathcal{O}(n)\)</span>，那么总的时间复杂度就是
+<span class="math inline">\(\mathcal{O}(n \log_2 n)\)</span>。</p>
+<p>接下来，我们考虑利用单位根的性质，将每一层转化点值的操作复杂度变为
+<span class="math inline">\(\mathcal{O}(n)\)</span>。</p>
+<p>如果我们将单位根 <span class="math inline">\(\omega_{n}^k\)</span> 和
+<span class="math inline">\(\omega_n^{k + \frac{n}{2}}\)</span>
+分别代入多项式 <span class="math inline">\(f(x)\)</span>： <span
+class="math display">\[
+\begin{matrix}
+f(\omega_{n}^{k}) = f_1(\omega_n^{2k}) + \omega_n^kf_2(\omega_n^{2k}) =
+f_1(\omega_{\frac{n}{2}}^{k}) + \omega_n^kf_2(\omega_{\frac{n}{2}}^{k})
+\\
+f(\omega_{n}^{k + \frac{n}{2}}) = f_1(\omega_n^{2k + n}) + \omega_n^{k +
+\frac{n}{2}}f_2(\omega_n^{2k + n}) = f_1(\omega_{\frac{n}{2}}^{k}) -
+\omega_n^kf_2(\omega_{\frac{n}{2}}^{k})
+\end{matrix}
+\]</span> 可以发现，只要我们求出了 <span
+class="math inline">\(f_1(x),f_2(x)\)</span> 在 <span
+class="math inline">\(x = \omega_{\frac{n}{2}}^k\)</span>
+处的点值，我们就可以直接得出 <span class="math inline">\(f(x)\)</span>
+在 <span class="math inline">\(x = \omega_n^k,x = \omega_n^{k +
+\frac{n}{2}}\)</span> 两处的点值！</p>
+<p>具体来说，我们只要在所有长度为 <span class="math inline">\(n\)</span>
+的多项式中求出在所有 <span class="math inline">\(n\)</span>
+次单位根处的点值即可。</p>
+<p>这样，每一层做到 <span class="math inline">\(\mathcal{O}(n)\)</span>
+的复杂度已经易如反掌了。</p>
+<p>我们再来理一遍这个算法吧：（同时加入了<del>一些</del>很多细节）</p>
+<ul>
+<li>我们找到一个 <span class="math inline">\(p\)</span>，使得 <span
+class="math inline">\(p\)</span> 是 <span
+class="math inline">\(2\)</span> 的正整数次幂且 <span
+class="math inline">\(p \ge n + m + 1\)</span>。</li>
+</ul>
+<p>这一步操作之前没有提到，但是很有必要，它为分治算法的进行提供了方便，这样我们就<strong>无需考虑多项式的度数</strong>；同时，这一步操作不会影响到点值的大小，也不会影响到最终插出的多项式的度数
+<del>（想一想，为什么）</del>。</p>
+<p>代码：（<span class="math inline">\(q\)</span> 的作用下文会提及）</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-type">int</span> p = <span class="hljs-number">1</span>, q = <span class="hljs-number">-1</span>;<br><span class="hljs-keyword">while</span>(p &lt;= n + m) ++q, p &lt;&lt;= <span class="hljs-number">1</span>;<br></code></pre></td></tr></table></figure>
+<ul>
+<li>接着，我们对两个多项式 <span class="math inline">\(f(x)\)</span> 和
+<span class="math inline">\(g(x)\)</span> 分别跑 <span
+class="math inline">\(\operatorname{FFT}\)</span>。在 <span
+class="math inline">\(\operatorname{FFT}\)</span>
+运行过程中，如果当前多项式长度为 <span
+class="math inline">\(1\)</span>，<strong>直接返回系数</strong>；否则，将当前的多项式
+<span class="math inline">\(f(x)\)</span>
+按照<strong>系数底数的奇偶性</strong>将项分类（这里请读者自己想一想为什么不可以直接对半分类），将其拆分为两个多项式，然后分治。</li>
+</ul>
+<p>但是，如果这一步直接采用递归，时间似乎会有些吃不消。</p>
+<p>我们不妨来探讨一下系数究竟是怎样分配的：（以 <span
+class="math inline">\(n = 8\)</span> 为例） <span
+class="math display">\[
+\begin{matrix}
+\{a_0, a_1, a_2, a_3, a_4, a_5, a_6, a_7\}
+\\
+\downarrow
+\\
+\{a_0,a_2,a_4,a_6\}~\{a_1,a_3,a_5,a_7\}
+\\
+\downarrow
+\\
+\{a_0, a_4\}~\{a_2, a_6\}~\{a_1, a_5\}~\{a_3, a_7\}
+\\
+\downarrow
+\\
+\{a_0\}~\{a_4\}~\{a_2\}~\{a_6\}~\{a_1\}~\{a_5\}~\{a_3\}~\{a_7\}
+\end{matrix}
+\]</span> 把每个系数的底数分离：</p>
+<p><span class="math display">\[
+0, 4, 2, 6, 1, 5, 3, 7
+\]</span></p>
+<p>转换成二进制：</p>
+<p><span class="math display">\[
+000, 100, 010, 110, 001, 101, 011, 111
+\]</span></p>
+<p>我们再把它们翻转过来： <span class="math display">\[
+000, 001, 010, 011, 100, 101, 110, 111
+\]</span></p>
+<p>这不就是从小到大排序的吗？</p>
+<p>所以我们就有了如下代码：（设 <span class="math inline">\(r_i\)</span>
+为分配完系数后第 <span class="math inline">\(i\)</span>
+个位置上的系数）</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; p; i++) r[i] = (r[i &gt;&gt; <span class="hljs-number">1</span>] &gt;&gt; <span class="hljs-number">1</span>) | ((i &amp; <span class="hljs-number">1</span>) &lt;&lt; q);<br></code></pre></td></tr></table></figure>
+<p>解释一下：第 <span class="math inline">\(i\)</span> 个位置的 <span
+class="math inline">\(r\)</span>，不就等于第 <span
+class="math inline">\(\lfloor\frac{i}{2}\rfloor\)</span> 个位置的 <span
+class="math inline">\(r\)</span> 右移一位吗？</p>
+<p>如果 <span class="math inline">\(i\)</span>
+是奇数，我们再在最高位补上一个 <span class="math inline">\(1\)</span>
+即可（<span class="math inline">\(q\)</span> 的作用就在这里）。</p>
+<p>以上过程称为 <span
+class="math inline">\(\operatorname{Rader}\)</span> 排序。</p>
+<ul>
+<li>用拆分出的两个多项式的点值，求出当前多项式的点值。</li>
+</ul>
+<p>代码：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">typedef</span> complex&lt;<span class="hljs-type">double</span>&gt; complex;<br><br><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-type">void</span> <span class="hljs-title">FFT</span><span class="hljs-params">(complex *f, <span class="hljs-type">int</span> n)</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++) <span class="hljs-keyword">if</span>(i &lt; rev[i]) <span class="hljs-built_in">swap</span>(f[i], f[rev[i]]);<br>	<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> len = <span class="hljs-number">2</span>; len &lt;= n; len &lt;&lt;= <span class="hljs-number">1</span>)<br>	&#123;<br>	   	<span class="hljs-type">int</span> k = len &gt;&gt; <span class="hljs-number">1</span>;<br>		complex _w(<span class="hljs-built_in">cos</span>(PI / k), t * <span class="hljs-built_in">sin</span>(PI / k));<br>		<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i += len)<br>		&#123;<br>			<span class="hljs-function">complex <span class="hljs-title">w</span><span class="hljs-params">(<span class="hljs-number">1.0</span>, <span class="hljs-number">0.0</span>)</span></span>;<br>			<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> j = <span class="hljs-number">0</span>; j &lt; k; j++)<br>			&#123;<br>				complex u = f[i + j], v = w * f[i + j + k];<br>				f[i + j] = u + v;<br>				f[i + j + k] = u - v;<br>           	    w = w * _w;<br>			&#125;<br>		&#125;<br>	&#125;<br>	<span class="hljs-keyword">return</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<ul>
+<li>接着，我们将 <span class="math inline">\(f(x)\)</span> 和 <span
+class="math inline">\(g(x)\)</span> 对应的点值相乘，时间复杂度为 <span
+class="math inline">\(\mathcal{O}(n)\)</span>。</li>
+</ul>
+<p>你以为结束了？并没有，我们还有第五步：</p>
+<ul>
+<li>最后，我们将多项式插值出每一项的系数，算法结束。我们称这一步叫 <span
+class="math inline">\(\operatorname{IFFT}\)</span>。</li>
+</ul>
+<p><del>“算法结束” 四个字就在这里，近在咫尺，却又远在天边。</del></p>
+<p>如果用拉格朗日插值计算，时间复杂度还是 <span
+class="math inline">\(\mathcal{O}(n^2)\)</span>，功亏一篑。</p>
+<p>难道前面的分析过程都只能打水漂？</p>
+<p>不不不，我们冷静分析一波。</p>
+<p>看看下面这张图：</p>
+<p><img
+src="https://cdn.luogu.com.cn/upload/image_hosting/hkg28nx9.png" srcset="/img/loading.gif" lazyload /></p>
+<p>多项式乘法的过程实际上类似上图中的矩阵乘法。</p>
+<p>那么我们想得到后面的系数矩阵，不就只要把中间的这个矩阵<strong>求逆</strong>就行了吗！</p>
+<p>而这个逆矩阵非常特殊：</p>
+<p><img
+src="https://cdn.luogu.com.cn/upload/image_hosting/00kulkg5.png" srcset="/img/loading.gif" lazyload /></p>
+<p>它等于原矩阵的每个值求倒数，再乘上一个 <span
+class="math inline">\(\frac{1}{n}\)</span>。</p>
+<p><del>（然而笔者线性代数太菜了，无法解释其原因。）</del></p>
+<p>既然无法解释，那就考虑推式子证明吧：</p>
+<p>设 <span class="math inline">\(y_{k}\)</span> 是 <span
+class="math inline">\(f(x),g(x)\)</span> 在傅里叶变换后，在 <span
+class="math inline">\(x = \omega_p^k\)</span> 处点值相乘的结果。</p>
+<p>我们设多项式 <span class="math inline">\(s(x) = y_0 + y_1 x + y_2 x^2
++ \cdots + y_{p - 1} x ^{p - 1}\)</span> 在 <span
+class="math inline">\(x = \omega_n^{0}, \omega_n^{-1},
+\cdots\cdots,\omega_n^{-(p - 1)}\)</span> 处的点值分别为 <span
+class="math inline">\(u_{0 \sim p - 1}\)</span>，即满足： <span
+class="math display">\[
+u_k = \sum_{i = 0}^{p - 1} y_i(\omega_p^{-k})^i
+\]</span> 现在我们要用它证明等式 <span class="math inline">\(c_k =
+\frac{u_k}{p}\)</span> 成立，其中 <span
+class="math inline">\(c_k\)</span> 指最终 <span
+class="math inline">\(f(x)\)</span> 和 <span
+class="math inline">\(g(x)\)</span> 的乘法积的系数。</p>
+<p>我们直接莽式子： <span class="math display">\[
+\begin{aligned}
+u_k &amp;= \sum_{i = 0}^{p - 1} y_i(\omega_p^{-k})^i
+\\
+&amp;= \sum_{i = 0}^{p - 1} (\sum_{j = 0}^{p -
+1}c_j(\omega_p^i)^j)(\omega_p^{-k})^i
+\\
+&amp;= \sum_{i = 0}^{p - 1} \sum_{j = 0}^{p - 1}c_j(\omega_p^{j - k})^i
+\\
+&amp;=  \sum_{j = 0}^{p - 1}c_j \sum_{i = 0}^{p - 1} (\omega_p^{j -
+k})^i
+\end{aligned}
+\]</span> 然后对 <span class="math inline">\(\sum_{i = 0}^{p - 1}
+(\omega_p^{j - k})^i\)</span> 这一部分分讨，设 <span
+class="math inline">\(v = j - k\)</span>，则该式等于 <span
+class="math inline">\(\sum_{i = 0}^{p - 1} (\omega_p^v)^i\)</span>。</p>
+<p>在这个式子的意义下，这就是一个等比数列求和。</p>
+<p>如果公比 <span class="math inline">\(\omega_p^v = 1\)</span>，即
+<span class="math inline">\(v = 0\)</span>，则此时原式等于 <span
+class="math inline">\(p\)</span>；</p>
+<p>否则，套用等比数列公式，原式等于： <span class="math display">\[
+\begin{aligned}
+&amp;\frac{(\omega^v)^p - 1}{\omega_p^v - 1}
+\\
+=&amp;\frac{(\omega^p)^v - 1}{\omega_p^v - 1}
+\\
+=&amp;\frac{1 - 1}{\omega_p^v - 1}
+\\
+=&amp; 0
+\end{aligned}
+\]</span> 故当且仅当 <span class="math inline">\(v = j - k =
+0\)</span>，即 <span class="math inline">\(j = k\)</span>
+时，后面的这一部分才会产生贡献，则有 <span class="math inline">\(u_k =
+pc_k\)</span>，即 <span class="math inline">\(c_k =
+\frac{1}{p}u_k\)</span>。</p>
+<p>得证。</p>
+<p>（这里提一句，上面的证明本质上是<strong>单位根反演</strong>，感兴趣的读者可以自行查阅相关资料。）</p>
+<p>然后可以发现，<span class="math inline">\(\operatorname{FFT}\)</span>
+和 <span class="math inline">\(\operatorname{IFFT}\)</span>
+的代码可以合为一份：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-type">void</span> <span class="hljs-title">FFT</span><span class="hljs-params">(complex *f, <span class="hljs-type">int</span> n, <span class="hljs-type">double</span> t = <span class="hljs-number">1.0</span>)</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++) <span class="hljs-keyword">if</span>(i &lt; rev[i]) <span class="hljs-built_in">swap</span>(f[i], f[rev[i]]);<br>	<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> len = <span class="hljs-number">2</span>; len &lt;= n; len &lt;&lt;= <span class="hljs-number">1</span>)<br>	&#123;<br>		<span class="hljs-type">int</span> k = len &gt;&gt; <span class="hljs-number">1</span>;<br>		complex _w(<span class="hljs-built_in">cos</span>(PI / k), t * <span class="hljs-built_in">sin</span>(PI / k));<br>		<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i += len)<br>		&#123;<br>			<span class="hljs-function">complex <span class="hljs-title">w</span><span class="hljs-params">(<span class="hljs-number">1.0</span>, <span class="hljs-number">0.0</span>)</span></span>;<br>			<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> j = <span class="hljs-number">0</span>; j &lt; k; j++)<br>			&#123;<br>				complex u = f[i + j], v = w * f[i + j + k];<br>				f[i + j] = u + v;<br>				f[i + j + k] = u - v;<br>				w = w * _w;<br>			&#125;<br>		&#125;<br>	&#125;<br>   	<span class="hljs-keyword">if</span>(t == <span class="hljs-number">-1</span>) <span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++) f[i] /= n;<br>	<span class="hljs-keyword">return</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>当运行 <span class="math inline">\(\operatorname{FFT}\)</span>
+时，我们令 <span class="math inline">\(t = 1\)</span> 即可；当运行 <span
+class="math inline">\(\operatorname{IFFT}\)</span> 时，我们令 <span
+class="math inline">\(t = -1\)</span> 即可。</p>
+<p>（注意：由于 <span class="math inline">\(\cos\)</span> 和 <span
+class="math inline">\(\sin\)</span>
+的精度本身就十分地不稳定，加上复数乘法的运算次数较多，我们最后计算答案的时候需要处理这个误差。）</p>
+<p>这样，算法真正大功告成啦！</p>
+<hr />
+<p>实际上，<span class="math inline">\(\operatorname{IFFT}\)</span>
+还有一种写法：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-type">void</span> <span class="hljs-title">FFT</span><span class="hljs-params">(complex *f, <span class="hljs-type">int</span> n, <span class="hljs-type">double</span> t = <span class="hljs-number">1.0</span>)</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-keyword">if</span>(t == <span class="hljs-number">-1.0</span>) <span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> i = <span class="hljs-number">1</span>; i &lt; n; i++) <span class="hljs-keyword">if</span>(i &lt; n - i) <span class="hljs-built_in">swap</span>(f[i], f[n - i]);<br>	<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++) <span class="hljs-keyword">if</span>(i &lt; rev[i]) <span class="hljs-built_in">swap</span>(f[i], f[rev[i]]);<br>	<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> len = <span class="hljs-number">2</span>; len &lt;= n; len &lt;&lt;= <span class="hljs-number">1</span>)<br>	&#123;<br>		<span class="hljs-type">int</span> k = len &gt;&gt; <span class="hljs-number">1</span>;<br>		complex _w(<span class="hljs-built_in">cos</span>(PI / k), <span class="hljs-built_in">sin</span>(PI / k));<br>		<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i += len)<br>		&#123;<br>			<span class="hljs-function">complex <span class="hljs-title">w</span><span class="hljs-params">(<span class="hljs-number">1.0</span>, <span class="hljs-number">0.0</span>)</span></span>;<br>			<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> j = <span class="hljs-number">0</span>; j &lt; k; j++)<br>			&#123;<br>				complex u = f[i + j], v = w * f[i + j + k];<br>				f[i + j] = u + v;<br>				f[i + j + k] = u - v;<br>				w = w * _w;<br>			&#125;<br>		&#125;<br>	&#125;<br>   	<span class="hljs-keyword">if</span>(t == <span class="hljs-number">-1</span>) <span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++) f[i] /= n;<br>	<span class="hljs-keyword">return</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>也就是把整个点值序列除了 <span class="math inline">\(0\)</span>
+之外的位置翻转过来，然后做和 <span
+class="math inline">\(\operatorname{FFT}\)</span> 一样的变换。</p>
+<p>接下来证明其正确性：</p>
+<p>我们依旧考虑证明 <span class="math inline">\(c_k =
+\frac{u_k}{p}\)</span>，条件是这个等式：</p>
+<p><span class="math display">\[
+u_k = y_0+\sum_{i = 1}^{p - 1} y_{p - i}(\omega_p^{k})^i
+\]</span></p>
+<p>我们继续莽式子：</p>
+<p><span class="math display">\[
+\begin{aligned}
+u_k &amp;= y_0+\sum_{i = 1}^{p - 1} y_{p - i}(\omega_p^{k})^i
+\\
+&amp;= \sum_{i = 0}^{p - 1} y_i(\omega_p^{k})^{p - i}
+\\
+&amp;= \sum_{i = 0}^{p - 1} y_i(\omega_p^{k})^{p - i}
+\\
+&amp;= \sum_{i = 0}^{p - 1} y_i(\omega_p^{k})^{-i}
+\\
+&amp;= \sum_{i = 0}^{p - 1} y_i(\omega_p^{-k})^{i}
+\end{aligned}
+\]</span></p>
+<p>然后就是和上面一模一样的情况了。</p>
+<hr />
+<p>当然，<span class="math inline">\(\operatorname{FFT}\)</span>
+还存在很大的优化空间：</p>
+<ul>
+<li>减小变换次数</li>
+</ul>
+<p>可以发现，对于一个复数 <span class="math inline">\(a +
+bi\)</span>，有 <span class="math inline">\((a + bi)^2 = (a^2 - b^2) +
+2abi\)</span>。</p>
+<p>如果我们把 <span class="math inline">\(g(x)\)</span> 放到 <span
+class="math inline">\(f(x)\)</span> 的虚部上，对 <span
+class="math inline">\(f(x)\)</span> 跑一次 <span
+class="math inline">\(\operatorname{FFT}\)</span>，然后将 <span
+class="math inline">\(f(x)\)</span> 的每个点值变为其平方。那么，虚部除以
+<span class="math inline">\(2\)</span> 不就是我们想要的值吗？</p>
+<p>这样，我们就可以只跑一遍 <span
+class="math inline">\(\operatorname{FFT}\)</span>，一遍 <span
+class="math inline">\(\operatorname{IFFT}\)</span>
+即可，常数优化至原来的 <span
+class="math inline">\(\frac{2}{3}\)</span>。</p>
+<ul>
+<li>预处理单位根</li>
+</ul>
+<p>首先我们都知道单位根的消去引理：<span
+class="math inline">\(\omega_{2n}^{2k} = \omega_n^k\)</span>。</p>
+<p>在 <span class="math inline">\(\operatorname{FFT}\)</span>
+的过程中，枚举的 <span class="math inline">\(n\)</span>
+是逐级倍增的，也就是说，我们用到的单位根会越来越多，<strong>并且每一阶单位根的每一个都会被用到</strong>。</p>
+<p>由消去引理可以发现， <span class="math inline">\(n\)</span>
+阶单位根的第 <span class="math inline">\(k\)</span> 个，实际上就等于
+<span class="math inline">\(2n\)</span> 阶单位根的第 <span
+class="math inline">\(2k\)</span> 个。</p>
+<p>所以，每当 <span class="math inline">\(n\)</span> 倍增为 <span
+class="math inline">\(2n\)</span>，会有 <span
+class="math inline">\(n\)</span> 个单位根是已经用到过的，剩下的 <span
+class="math inline">\(n\)</span> 个单位根则是新出现的。</p>
+<p>如果把这个过程反过来看，即 <span class="math inline">\(2n\)</span>
+变为 <span class="math inline">\(n\)</span>，那么可以发现：所有 <span
+class="math inline">\(n\)</span> 阶单位根都被包含在 <span
+class="math inline">\(2n\)</span> 阶单位根中！</p>
+<p>综上，我们对于最大的 <span class="math inline">\(n\)</span>，把所有
+<span class="math inline">\(n\)</span> 阶单位根预处理出来，做 <span
+class="math inline">\(\operatorname{FFT}\)</span>
+时就不需要每一层都重新处理一遍单位根了。这不仅大大减小了常数，貌似还会提高一些精度。</p>
+<hr />
+<p>然而，<span class="math inline">\(\operatorname{FFT}\)</span>
+的精度仍然是一个令人头疼的问题。我们想考虑一种方式，使得整个运算建立在整数域上。</p>
+<p>整数，想到数论，有一个东西恰好符合其所有要求——<strong>原根</strong>。</p>
+<p>关于原根的定义和性质，可以参考我的博客<a
+href="https://reclouds.github.io/2022/02/23/%E6%95%B4%E9%99%A4%E5%92%8C%E5%90%8C%E4%BD%99%E7%9B%B8%E5%85%B3%E7%90%86%E8%AE%BA/">《整除和同余相关理论》</a>。</p>
+<p>可以发现，使得单位根可用于 <span
+class="math inline">\(\operatorname{FFT}\)</span>
+的性质，原根同样满足：</p>
+<ul>
+<li><span class="math inline">\(n\)</span> 次原根计算公式为 <span
+class="math inline">\(g_n^k = g^{\frac{k(p - 1)}{n}}
+\bmod~p\)</span>，其中 <span class="math inline">\(p\)</span>
+为模数，<span class="math inline">\(g\)</span> 特指模 <span
+class="math inline">\(p\)</span> 的<strong>最小原根</strong>。</li>
+</ul>
+<p>这里的 <span class="math inline">\(p\)</span> 一般取 <span
+class="math inline">\(998244353\)</span>，它的最小原根等于 <span
+class="math inline">\(3\)</span>，并且有 <span
+class="math inline">\(998244353 = 2^{23}\times 7\times 17 +
+1\)</span>，其中 <span class="math inline">\(2^{23} =
+8388608\)</span>，其大小完全可以满足我们的需求。</p>
+<p>同样，我们也可以得出 <span class="math inline">\(g_n^n = g_n^0 \equiv
+1~(\bmod ~p)\)</span> 和 <span class="math inline">\(g_n^{\frac{n}{2}}
+\equiv -1~(\bmod ~p)\)</span> 以及它们的推论。</p>
+<ul>
+<li>原根同样存在消去引理和折半引理。</li>
+</ul>
+<p>所以，在 <span class="math inline">\(\operatorname{FFT}\)</span>
+中对多项式的变换，在 <span
+class="math inline">\(\operatorname{NTT}\)</span>
+中同样适用。同时，也需要 <span
+class="math inline">\(\operatorname{Rader}\)</span> 排序。</p>
+<p>同理，对于 <span
+class="math inline">\(\operatorname{INTT}\)</span>，原根同样可以在原来的基础上求倒数再乘
+<span class="math inline">\(\frac{1}{n}\)</span>，只需要求逆元即可。</p>
+<p>代码：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">define</span> MOD 998244353</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> Min_G 3</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> Inv_Min_G 332748118</span><br><br><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-type">int</span> <span class="hljs-title">Get_MOD</span><span class="hljs-params">(<span class="hljs-type">int</span> k)</span> </span>&#123; <span class="hljs-keyword">if</span>(k &gt;= MOD) k -= MOD; <span class="hljs-keyword">return</span> k; &#125;<br><br><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-type">int</span> <span class="hljs-title">Pow</span><span class="hljs-params">(<span class="hljs-type">int</span> a, <span class="hljs-type">int</span> b)</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-type">int</span> res = <span class="hljs-number">1</span>;<br>	<span class="hljs-keyword">while</span>(b)<br>	&#123;<br>		<span class="hljs-keyword">if</span>(b &amp; <span class="hljs-number">1</span>) res = <span class="hljs-number">1LL</span> * res * a % MOD;<br>		a = <span class="hljs-number">1LL</span> * a * a % MOD;<br>		b &gt;&gt;= <span class="hljs-number">1</span>;<br>    &#125;	<br>	<span class="hljs-keyword">return</span> res;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-type">void</span> <span class="hljs-title">NTT</span><span class="hljs-params">(<span class="hljs-type">int</span> *f, <span class="hljs-type">int</span> n, <span class="hljs-type">bool</span> Inverse = <span class="hljs-literal">false</span>)</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++) <span class="hljs-keyword">if</span>(i &lt; rev[i]) <span class="hljs-built_in">swap</span>(f[i], f[rev[i]]);<br>	<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> len = <span class="hljs-number">2</span>; len &lt;= n; len &lt;&lt;= <span class="hljs-number">1</span>)<br>	&#123;<br>		<span class="hljs-type">int</span> k = (len &gt;&gt; <span class="hljs-number">1</span>), g = <span class="hljs-built_in">Pow</span>(Inverse ? Inv_Min_G : Min_G, (MOD - <span class="hljs-number">1</span>) / len);<br>		<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i += len)<br>		&#123;<br>			<span class="hljs-type">int</span> w = <span class="hljs-number">1</span>;<br>			<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> j = <span class="hljs-number">0</span>; j &lt; k; j++)<br>			&#123;<br>				<span class="hljs-type">int</span> u = f[i + j], v = <span class="hljs-number">1LL</span> * w * f[i + j + k] % MOD;<br>				f[i + j] = <span class="hljs-built_in">Get_MOD</span>(u + v);<br>				f[i + j + k] = <span class="hljs-built_in">Get_MOD</span>(u - v + MOD); <br>				w = <span class="hljs-number">1LL</span> * w * g % MOD;<br>			&#125;<br>		&#125;<br>	&#125;<br>	<span class="hljs-keyword">if</span>(Inverse) <br>	&#123;<br>		<span class="hljs-type">int</span> Inv_N = <span class="hljs-built_in">Pow</span>(n, MOD - <span class="hljs-number">2</span>);<br>		<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++) f[i] = <span class="hljs-number">1LL</span> * f[i] * Inv_N % MOD;<br>	&#125;<br>	<span class="hljs-keyword">return</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<hr />
+<h2 id="多项式全家桶">多项式全家桶</h2>
+<p>到这里，正文才刚刚开始。。。</p>
+<p>首先我们要知道一点<strong>求导</strong>和<strong>积分</strong>的前置知识。</p>
+<p>对于要用到的结论，这里就直接摆出来了： <span class="math display">\[
+\begin{aligned}
+&amp; f(x) = e^x \Rightarrow f&#39;(x) = e^x
+\\
+&amp; f(x) = \operatorname{ln} x \Rightarrow f&#39;(x) = \frac{1}{x}
+\\
+&amp; f(x) = ax^b \Rightarrow f&#39;(x) = abx^{b - 1}
+\\
+&amp; (f(x) \pm g(x))&#39; = f&#39;(x) \pm g&#39;(x)
+\\
+&amp;
+(f(g(x))&#39; = f&#39;(g(x)) * g&#39;(x)
+\end{aligned}
+\]</span> 其中 <span class="math inline">\(&#39;\)</span> 表示求导。</p>
+<p>所以我们可以推出多项式求导公式： <span class="math display">\[
+f(x) = \sum_{i = 0}^n a_i x^i \Rightarrow f&#39;(x) = \sum_{i = 0}^{n -
+1}(i + 1)a_{i + 1} x^i
+\]</span> 当然，如果知道了多项式的导数，我们也可以用积分求出原多项式：
+<span class="math display">\[
+f&#39;(x) = \sum_{i = 0}^na_ix^i \Rightarrow f(x) = \sum_{i = 1}^{n +
+1}\frac{a_{i - 1}x^i}{i}
+\]</span>
+注意：多项式积分是不能得到正确的常数项的。不过大部分题目在数据上做了保证，可以直接认为其为
+<span class="math inline">\(0\)</span>。</p>
+<p>这两个过程的代码写起来就很简单了，时间复杂度都是 <span
+class="math inline">\(\mathcal{O}(n)\)</span> 的：</p>
+<p>求导：（把度数为 <span class="math inline">\(n-1\)</span> 的多项式
+<span class="math inline">\(f(x)\)</span> 求导，结果为 <span
+class="math inline">\(g(x)\)</span>）</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-type">void</span> <span class="hljs-title">Get_Derivative</span><span class="hljs-params">(<span class="hljs-type">int</span> *f, <span class="hljs-type">int</span> *g, <span class="hljs-type">int</span> n)</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> i = <span class="hljs-number">1</span>; i &lt; n; i++)<br>        g[i - <span class="hljs-number">1</span>] = <span class="hljs-number">1LL</span> * i * f[i] % MOD;<br>	<span class="hljs-keyword">return</span> g[n - <span class="hljs-number">1</span>] = <span class="hljs-number">0</span>, <span class="hljs-built_in">void</span>();<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>积分：（把多项式 <span class="math inline">\(f(x)\)</span>
+求积分，结果为度数为 <span class="math inline">\(n-1\)</span> 的多项式
+<span class="math inline">\(g(x)\)</span>）</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-type">void</span> <span class="hljs-title">Get_Integral</span><span class="hljs-params">(<span class="hljs-type">int</span> *f, <span class="hljs-type">int</span> *g, <span class="hljs-type">int</span> n)</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> i = n - <span class="hljs-number">1</span>; i &gt;= <span class="hljs-number">1</span>; i--)<br>        g[i] = <span class="hljs-number">1LL</span> * f[i - <span class="hljs-number">1</span>] * <span class="hljs-built_in">Pow</span>(i, MOD - <span class="hljs-number">2</span>) % MOD;<br>	<span class="hljs-keyword">return</span> g[<span class="hljs-number">0</span>] = <span class="hljs-number">0</span>, <span class="hljs-built_in">void</span>();<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>在文章后面的部分，有很多地方会把一些式子通过求导变成方便计算的形式，然后再用积分求出答案。</p>
+<hr />
+<p>以上结论已经能够满足大部分 <span
+class="math inline">\(\operatorname{OI}\)</span> 题目的需求了。</p>
+<p>如果对证明感兴趣，或者想知道更加严谨的结论，可以查找更多资料学习。<del>（显然笔者也只会结论。。。）</del></p>
+<hr />
+<h3 id="多项式乘法逆元">多项式乘法逆元</h3>
+<p>给出一个度数为 <span class="math inline">\(n - 1\)</span> 的多项式
+<span class="math inline">\(f(x)\)</span>，求出一个度数同为 <span
+class="math inline">\(n - 1\)</span> 多项式 <span
+class="math inline">\(g(x)\)</span>，满足 <span
+class="math inline">\(f(x)*g(x) \equiv 1~(\bmod x^n)\)</span>。</p>
+<p>其中 <span class="math inline">\(*\)</span> 表示多项式乘法。系数对
+<span class="math inline">\(998244353\)</span> 取模。</p>
+<hr />
+<p>先给出算法：倍增。</p>
+<p>假如我们已经求出了一个多项式 <span
+class="math inline">\(t\)</span>，满足 <span class="math inline">\(f(x)
+* t(x) \equiv 1~(\bmod~x^{\lceil\frac{n}{2}\rceil})\)</span>。</p>
+<p>又因为 <span class="math inline">\(f(x)*g(x)\equiv 1~(\bmod
+x^n)\)</span>，说明其前 <span class="math inline">\(n\)</span>
+项除常数项为 <span class="math inline">\(1\)</span> 之外其余项均为 <span
+class="math inline">\(0\)</span>。</p>
+<p>那么显然有 <span class="math inline">\(f(x) * g(x) \equiv
+1~(\bmod~x^{\lceil\frac{n}{2}\rceil})\)</span>。</p>
+<p>所以 <span class="math inline">\(f(x) * (g(x) - t(x)) \equiv
+0~(\bmod~x^{\lceil\frac{n}{2}\rceil})\)</span>。</p>
+<p><span class="math inline">\(f(x)\)</span> 由于要求逆元，所以不可能为
+<span class="math inline">\(0\)</span>，那么有 <span
+class="math inline">\(g(x) - t(x) \equiv
+0~(\bmod~x^{\lceil\frac{n}{2}\rceil})\)</span>。</p>
+<p>然后推一波式子：</p>
+<p><span class="math display">\[
+\begin{matrix}
+g^2(x) \equiv 2 * g(x) * t(x) - t^2(x)~(\bmod~x^{n})
+\\
+\Downarrow
+\\
+f(x) * g^2(x) \equiv 2 * f(x) * g(x) * t(x) - f(x) *
+t^2(x)~(\bmod~x^{n})
+\\
+\Downarrow
+\\
+g(x) \equiv 2 * t(x) - f(x) * t^2(x)~(\bmod~x^{n})
+\end{matrix}
+\]</span></p>
+<p>我们知道 <span class="math inline">\(f(x)\)</span> 和 <span
+class="math inline">\(t(x)\)</span>，那么自然也可以求出 <span
+class="math inline">\(g(x)\)</span> 了。</p>
+<p>对于常数项，直接求出其逆元即可。</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n
+\log_2n)\)</span>。</p>
+<p>贴上代码：（注意数组之间的覆盖与清零）</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-type">void</span> <span class="hljs-title">Init</span><span class="hljs-params">(<span class="hljs-type">int</span> n)</span></span><br><span class="hljs-function"></span>&#123;<br>	p = <span class="hljs-number">1</span>, q = <span class="hljs-number">-1</span>;<br>	<span class="hljs-keyword">while</span>(p &lt; n) p &lt;&lt;= <span class="hljs-number">1</span>, ++q;<br>	<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; p; i++) rev[i] = (rev[i &gt;&gt; <span class="hljs-number">1</span>] &gt;&gt; <span class="hljs-number">1</span>) | ((i &amp; <span class="hljs-number">1</span>) &lt;&lt; q);<br>	<span class="hljs-keyword">return</span>;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-type">void</span> <span class="hljs-title">Get_Operation_Sequence</span><span class="hljs-params">(<span class="hljs-type">int</span> n, <span class="hljs-type">int</span> *seq)</span></span><br><span class="hljs-function"></span>&#123;<br>	seq[<span class="hljs-number">0</span>] = <span class="hljs-number">0</span>;<br>	<span class="hljs-keyword">while</span>(n != <span class="hljs-number">1</span>)<br>	&#123;<br>		seq[++seq[<span class="hljs-number">0</span>]] = n;<br>		n = (n + <span class="hljs-number">1</span>) &gt;&gt; <span class="hljs-number">1</span>;<br>	&#125;<br>	seq[++seq[<span class="hljs-number">0</span>]] = <span class="hljs-number">1</span>;<br>	<span class="hljs-keyword">return</span>;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-type">void</span> <span class="hljs-title">Get_Inverse_Element</span><span class="hljs-params">(<span class="hljs-type">int</span> *f, <span class="hljs-type">int</span> *g, <span class="hljs-type">int</span> n)</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-built_in">Get_Operation_Sequence</span>(n, seq[<span class="hljs-number">0</span>]);<br>	<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> k = seq[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>]; k &gt;= <span class="hljs-number">1</span>; k--)<br>	&#123;<br>		<span class="hljs-type">int</span> m = seq[<span class="hljs-number">0</span>][k];<br>		<span class="hljs-keyword">if</span>(m == <span class="hljs-number">1</span>)<br>		&#123;<br>			g[<span class="hljs-number">0</span>] = <span class="hljs-built_in">Pow</span>(f[<span class="hljs-number">0</span>], MOD - <span class="hljs-number">2</span>);<br>			<span class="hljs-keyword">continue</span>;<br>		&#125;<br>		<span class="hljs-built_in">Init</span>(m &lt;&lt; <span class="hljs-number">1</span>);<br>		<span class="hljs-built_in">memcpy</span>(t, f, <span class="hljs-built_in">sizeof</span>(<span class="hljs-type">int</span>) * m);<br>		<span class="hljs-built_in">fill</span>(t + m, t + p, <span class="hljs-number">0</span>);<br>		<span class="hljs-built_in">NTT</span>(t, p), <span class="hljs-built_in">NTT</span>(g, p);<br>		<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; p; i++) g[i] = <span class="hljs-number">1LL</span> * g[i] * <span class="hljs-built_in">Get_MOD</span>(<span class="hljs-number">2LL</span> - <span class="hljs-number">1LL</span> * t[i] * g[i] % MOD + MOD) % MOD;<br>		<span class="hljs-built_in">NTT</span>(g, p, <span class="hljs-literal">true</span>), <span class="hljs-built_in">fill</span>(g + m, g + p, <span class="hljs-number">0</span>);<br>		<span class="hljs-keyword">continue</span>;<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<hr />
+<h3 id="多项式除法">多项式除法</h3>
+<p>（话说多项式除法的地位和多项式乘法比起来为何如此卑微。。。）</p>
+<p>给出一个度数为 <span class="math inline">\(n - 1\)</span> 的多项式
+<span class="math inline">\(f(x)\)</span> 和一个度数为 <span
+class="math inline">\(m - 1\)</span> 多项式 <span
+class="math inline">\(g(x)\)</span>，请求出多项式 <span
+class="math inline">\(q(x)\)</span> 和 <span
+class="math inline">\(r(x)\)</span>。</p>
+<p>满足：</p>
+<ul>
+<li><span class="math inline">\(f(x) = g(x) * q(x) +
+r(x)\)</span>；</li>
+<li><span class="math inline">\(q(x)\)</span> 度数为 <span
+class="math inline">\(n - m\)</span>，<span
+class="math inline">\(r(x)\)</span> 度数小于 <span
+class="math inline">\(m - 1\)</span>；</li>
+</ul>
+<p>所有系数对 <span class="math inline">\(998244353\)</span> 取模。</p>
+<hr />
+<p>没记错的话，初中数学老师讲过一种 “大除法”。</p>
+<p>不过本题是在模意义下计算的，所以说这种方法不是很适用。</p>
+<p>接下来，我们需要考虑用先前学过的知识</p>
+<p>那么这操作就很关键了：<strong>系数翻转</strong>。</p>
+<p>（为了方便，下文设 <span class="math inline">\(f(x)\)</span> 度数为
+<span class="math inline">\(n\)</span>，设 <span
+class="math inline">\(g(x)\)</span> 度数为 <span
+class="math inline">\(m\)</span>，其余的度数变化同理。）</p>
+<p>我们设对 <span class="math inline">\(f(x)\)</span> 的第 <span
+class="math inline">\(0\sim n\)</span> 个系数翻转后为 <span
+class="math inline">\(f^{r(n)}(x)\)</span>。</p>
+<p>（注意下文不会刻意地区分 <span
+class="math inline">\(f^{r(n)}(x)\)</span> 中 <span
+class="math inline">\(r(n)\)</span> 和余数 <span
+class="math inline">\(r(x)\)</span> 的区别。）</p>
+<p>那么可以发现有： <span class="math display">\[
+f^{r(n)}(x) = \sum_{i = 0}^{n} a_{n - i} x^i
+\\
+\Downarrow
+\\
+f^{r(n)}(x) = x^{n} f(\frac{1}{x})
+\]</span> 又因为 <span class="math inline">\(f(\frac{1}{x}) =
+g(\frac{1}{x}) * q(\frac{1}{x}) + r(\frac{1}{x})\)</span>，所以： <span
+class="math display">\[
+\begin{aligned}
+f^{r(n)}(x) &amp;= x^n * (g(x) * q(x) + r(x))
+\\
+&amp;= x^n * (g(x) * q(x)) + x^n r(x)
+\\
+&amp;= x^m * g(x) * x^{n - m} * q(x) + x^nr(x)
+\\
+&amp;= g^{r(m)}(x) * q^{r(n - m)}(x) + r^{r(n)}(x)
+\end{aligned}
+\]</span> 然后，既然 <span class="math inline">\(r(x)\)</span>
+的度数小于 <span class="math inline">\(m\)</span>，那么翻转过后，<span
+class="math inline">\(r^{r(n)}(x)\)</span> 的前 <span
+class="math inline">\(n - m\)</span> 个系数就必然为 <span
+class="math inline">\(0\)</span>。</p>
+<p>所以，如果我们在 <span class="math inline">\(\bmod~x^{n - m +
+1}\)</span> 意义下做上述运算，不仅可以去掉余数 <span
+class="math inline">\(r(x)\)</span>
+的影响，同时我们还可以发现，这样完美地保留了 <span
+class="math inline">\(q(x)\)</span>。</p>
+<p>那么有： <span class="math display">\[
+\begin{matrix}
+f^{r(n)}(x) \equiv g^{r(m)}(x) * q^{r(n - m)}(x)~(\bmod~x^{n - m + 1})
+\\
+\Downarrow
+\\
+q^{r(n - m)}(x) \equiv \frac{g^{r(m)}(x)}{f^{r(n)}(x)} ~(\bmod~x^{n - m
++ 1})
+\\
+\Downarrow
+\\
+q(x) = (\frac{g^{r(m)}(x)}{f^{r(n)}(x)})^{r(n - m)} ~(\bmod~x^{n - m +
+1})
+\end{matrix}
+\]</span> 至于余数，我们直接把 <span class="math inline">\(g(x)\)</span>
+和 <span class="math inline">\(q(x)\)</span> 乘起来，再用 <span
+class="math inline">\(f(x)\)</span> 减去即可。</p>
+<p>代码：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-type">void</span> <span class="hljs-title">Multiply</span><span class="hljs-params">(<span class="hljs-type">int</span> *f, <span class="hljs-type">int</span> n, <span class="hljs-type">int</span> *g, <span class="hljs-type">int</span> m, <span class="hljs-type">int</span> *v)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-built_in">Init</span>(n + m - <span class="hljs-number">1</span>);<br>	<span class="hljs-built_in">memcpy</span>(h, f, <span class="hljs-built_in">sizeof</span>(<span class="hljs-type">int</span>) * n), <span class="hljs-built_in">fill</span>(h + n, h + p, <span class="hljs-number">0</span>);<br>	<span class="hljs-built_in">memcpy</span>(s, g, <span class="hljs-built_in">sizeof</span>(<span class="hljs-type">int</span>) * m), <span class="hljs-built_in">fill</span>(s + m, s + p, <span class="hljs-number">0</span>);<br>	<span class="hljs-built_in">NTT</span>(h, p), <span class="hljs-built_in">NTT</span>(s, p);<br>	<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; p; i++) v[i] = <span class="hljs-number">1LL</span> * h[i] * s[i] % MOD;<br>	<span class="hljs-keyword">return</span> <span class="hljs-built_in">NTT</span>(v, p, <span class="hljs-literal">true</span>), <span class="hljs-built_in">fill</span>(v + n + m - <span class="hljs-number">1</span>, v + p, <span class="hljs-number">0</span>), <span class="hljs-built_in">void</span>();<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-type">void</span> <span class="hljs-title">Divide</span><span class="hljs-params">(<span class="hljs-type">int</span> *f, <span class="hljs-type">int</span> n, <span class="hljs-type">int</span> *g, <span class="hljs-type">int</span> m, <span class="hljs-type">int</span> *v)</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-built_in">memcpy</span>(s, g, <span class="hljs-built_in">sizeof</span>(<span class="hljs-type">int</span>) * m);<br>	<span class="hljs-built_in">reverse</span>(s, s + m);<br>	<span class="hljs-built_in">Get_Inverse_Element</span>(s, r, n - m + <span class="hljs-number">1</span>);<br>	<span class="hljs-built_in">memcpy</span>(t, f, <span class="hljs-built_in">sizeof</span>(<span class="hljs-type">int</span>) * n);<br>	<span class="hljs-built_in">reverse</span>(t, t + n);<br>	<span class="hljs-built_in">Multiply</span>(t, n, r, n - m + <span class="hljs-number">1</span>, v);<br>	<span class="hljs-keyword">return</span> <span class="hljs-built_in">reverse</span>(v, v + n - m + <span class="hljs-number">1</span>);<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-type">void</span> <span class="hljs-title">Get_Remainder</span><span class="hljs-params">(<span class="hljs-type">int</span> *f, <span class="hljs-type">int</span> n, <span class="hljs-type">int</span> *g, <span class="hljs-type">int</span> m, <span class="hljs-type">int</span> *v, <span class="hljs-type">int</span> *x)</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-built_in">Multiply</span>(g, m, v, n - m + <span class="hljs-number">1</span>, x);<br>	<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; m; i++) x[i] = <span class="hljs-built_in">Get_MOD</span>(f[i] - x[i] + MOD);<br>	<span class="hljs-keyword">return</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<hr />
+<h3 id="多项式开根">多项式开根</h3>
+<p>给出一个度数为 <span class="math inline">\(n - 1\)</span> 的多项式
+<span class="math inline">\(f(x)\)</span>，求出一个度数同为 <span
+class="math inline">\(n - 1\)</span> 多项式 <span
+class="math inline">\(g(x)\)</span>，满足 <span
+class="math inline">\(g^2(x) \equiv f(x)~(\bmod x^n)\)</span>。</p>
+<p>保证有 <span class="math inline">\([x^0]f(x) = 1\)</span>。系数对
+<span class="math inline">\(998244353\)</span> 取模。</p>
+<hr />
+<p>我们还是用倍增法来做。</p>
+<p>临界条件：<span class="math inline">\(n = 1\)</span> 时，<span
+class="math inline">\([x^0]g(x) = 1\)</span>。</p>
+<p>设已经求出了一个多项式 <span
+class="math inline">\(t(x)\)</span>，满足 <span
+class="math inline">\(t^2(x) \equiv
+f(x~(\bmod~x^{\lceil\frac{n}{2}\rceil})\)</span>。</p>
+<p>同时设 <span class="math inline">\(g(x)^2\equiv f(x)~(\bmod
+x^n)\)</span>。</p>
+<p>然后又是一波推式子： <span class="math display">\[
+\begin{aligned}
+&amp; t^2(x) \equiv f(x)~(\bmod~x^{\lceil\frac{n}{2}\rceil})
+\\
+&amp; t^2(x) - f(x)\equiv 0~(\bmod~x^{\lceil\frac{n}{2}\rceil})
+\\
+&amp; (t^2(x) - f(x))^2 \equiv 0~(\bmod~x^n)
+\\
+&amp; (t^2(x) + f(x))^2 \equiv 4* t^2(x) * f(x)~(\bmod~x^n)
+\\
+&amp; (\frac{t^2(x) + f(x)}{2*t(x)})^2 \equiv f(x)~(\bmod~x^n)
+\\
+&amp; \frac{t^2(x) + f(x)}{2*t(x)} \equiv g(x)~(\bmod~x^n)
+\\
+&amp; \frac{t(x)}{2} + \frac{f(x)}{2 * t(x)} \equiv g(x)~(\bmod~x^n)
+\end{aligned}
+\]</span> 推到这里式子就好做了。时间复杂度 <span
+class="math inline">\(\mathcal{O}(n \log_2n)\)</span>。</p>
+<p>当然还有一种常数较小的写法：在维护 <span
+class="math inline">\(t(x)\)</span> 的同时维护 <span
+class="math inline">\(\frac{1}{t(x)}\)</span>，因为开根的递归结构和求逆是一样的。</p>
+<p>贴上代码：（没有写这种常数较小的写法）</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-type">void</span> <span class="hljs-title">Get_Sqrt</span><span class="hljs-params">(<span class="hljs-type">int</span> *f, <span class="hljs-type">int</span> *g, <span class="hljs-type">int</span> n)</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-built_in">Get_Operation_Sequence</span>(n, seq[<span class="hljs-number">1</span>]);<br>	<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> k = seq[<span class="hljs-number">1</span>][<span class="hljs-number">0</span>]; k &gt;= <span class="hljs-number">1</span>; k--)<br>	&#123;<br>		<span class="hljs-type">int</span> m = seq[<span class="hljs-number">1</span>][k];<br>		<span class="hljs-keyword">if</span>(m == <span class="hljs-number">1</span>)<br>		&#123;<br>			g[<span class="hljs-number">0</span>] = Quadratic_Residue :: <span class="hljs-built_in">Solve</span>(f[<span class="hljs-number">0</span>]);<br>			<span class="hljs-keyword">continue</span>;<br>		&#125;<br>		<span class="hljs-built_in">Init</span>(m &lt;&lt; <span class="hljs-number">1</span>);<br>		<span class="hljs-built_in">memset</span>(h, <span class="hljs-number">0</span>, <span class="hljs-built_in">sizeof</span>(<span class="hljs-type">int</span>) * p);<br>		<span class="hljs-built_in">Get_Inverse_Element</span>(g, h, m);<br>		<span class="hljs-built_in">memcpy</span>(s, f, <span class="hljs-built_in">sizeof</span>(<span class="hljs-type">int</span>) * m);<br>		<span class="hljs-built_in">fill</span>(s + m, s + p, <span class="hljs-number">0</span>);<br>		<span class="hljs-built_in">NTT</span>(g, p), <span class="hljs-built_in">NTT</span>(h, p), <span class="hljs-built_in">NTT</span>(s, p);<br>		<span class="hljs-type">int</span> Inv2 = <span class="hljs-built_in">Pow</span>(<span class="hljs-number">2</span>, MOD - <span class="hljs-number">2</span>);<br>		<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; p; i++) g[i] = <span class="hljs-number">1LL</span> * Inv2 * <span class="hljs-built_in">Get_MOD</span>(g[i] + <span class="hljs-number">1LL</span> * h[i] * s[i] % MOD) % MOD;<br>		<span class="hljs-built_in">NTT</span>(g, p, <span class="hljs-literal">true</span>), <span class="hljs-built_in">fill</span>(g + m, g + p, <span class="hljs-number">0</span>);<br>		<span class="hljs-keyword">continue</span>;<br>	&#125;<br>	<span class="hljs-keyword">return</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<hr />
+<p>当然，还可以去做一下<a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5277">加强版</a>，仅需要在求常数项时套上一个二次剩余即可。</p>
+<p>写好二次剩余后，就只需要改 <code>Get_Sqrt</code>
+函数的第一行即可。</p>
+<p>代码就不放出来了。</p>
+<hr />
+<h3 id="多项式对数函数">多项式对数函数</h3>
+<p>给出一个度数为 <span class="math inline">\(n - 1\)</span> 的多项式
+<span class="math inline">\(f(x)\)</span>，求出一个度数同为 <span
+class="math inline">\(n - 1\)</span> 多项式 <span
+class="math inline">\(g(x)\)</span>，满足 <span
+class="math inline">\(g(x) \equiv \operatorname{ln}(f(x))~(\bmod
+x^n)\)</span>。</p>
+<p>保证有 <span class="math inline">\([x^0]f(x) = 1\)</span>。系数对
+<span class="math inline">\(998244353\)</span> 取模。</p>
+<hr />
+<p>看到这里，大多数读者应该都是一脸懵：怎么对一个多项式求自然对数啊？</p>
+<p>不要急，还记得前置知识吗？<strong>求导</strong>和<strong>积分</strong>。</p>
+<p>前面还提到了一句话：<strong>把一些式子通过求导变成方便计算的形式，然后再用积分求出答案</strong>。</p>
+<p>那么，做法已经呼之欲出了：</p>
+<p>对 <span class="math inline">\(g(x)\)</span> 求导有：<span
+class="math inline">\(g&#39;(x) \equiv \operatorname{ln}&#39;(f(x)) *
+f&#39;(x) \equiv \frac{f&#39;(x)}{f(x)}~(\bmod~x^n)\)</span>。</p>
+<p>这不就是求一个导数和一个逆元吗？</p>
+<p>最后积分回去就好啦。</p>
+<p>对于常数项，显然有 <span class="math inline">\(e^0 = 1\)</span>，即
+<span class="math inline">\(\ln 1 = 0\)</span>，所以保证了 <span
+class="math inline">\([x^0]f(x) = 1\)</span>，否则是很难做的。</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n
+\log_2n)\)</span>。</p>
+<p>贴上代码：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-type">void</span> <span class="hljs-title">Get_Ln</span><span class="hljs-params">(<span class="hljs-type">int</span> *f, <span class="hljs-type">int</span> *g, <span class="hljs-type">int</span> n)</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-built_in">Get_Inverse_Element</span>(f, g, n);<br>	<span class="hljs-built_in">memset</span>(t, <span class="hljs-number">0</span>, <span class="hljs-built_in">sizeof</span>(<span class="hljs-type">int</span>) * p);<br>	<span class="hljs-built_in">Get_Derivative</span>(f, t, n);<br>	<span class="hljs-built_in">NTT</span>(g, p), <span class="hljs-built_in">NTT</span>(t, p);<br>	<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; p; i++) g[i] = <span class="hljs-number">1LL</span> * g[i] * t[i] % MOD;<br>	<span class="hljs-keyword">return</span> <span class="hljs-built_in">NTT</span>(g, p, <span class="hljs-literal">true</span>), <span class="hljs-built_in">Get_Integral</span>(g, g, n), <span class="hljs-built_in">void</span>();<br>&#125;<br></code></pre></td></tr></table></figure>
+<hr />
+<h3 id="多项式牛顿迭代">多项式牛顿迭代</h3>
+<p>给出一个度数为 <span class="math inline">\(n - 1\)</span> 的多项式
+<span class="math inline">\(f(x)\)</span>，求出一个度数同为 <span
+class="math inline">\(n - 1\)</span> 多项式 <span
+class="math inline">\(g(x)\)</span>，满足 <span
+class="math inline">\(f(g(x)) \equiv 0~(\bmod~x^n)\)</span>。</p>
+<p>（注意此处的 <span class="math inline">\(\bmod~x^n\)</span> 会同时对
+<span class="math inline">\(f(x)\)</span> 和 <span
+class="math inline">\(g(x)\)</span> 取模。）</p>
+<p>保证有 <span class="math inline">\([x^0]f(x) = 0\)</span>。系数对
+<span class="math inline">\(998244353\)</span> 取模。</p>
+<hr />
+<p>首先需要知道前置知识：<strong>泰勒展开</strong>。</p>
+<p>对于多项式 <span
+class="math inline">\(f(x)\)</span>，如果我们已经知道了 <span
+class="math inline">\(f(x_0)\)</span> 的值，那么 <span
+class="math inline">\(f(x)\)</span> 的值可以用如下方法表示： <span
+class="math display">\[
+f(x) = \sum_{i = 0}^{\infty} (\frac{f^{(i)}(x_0)}{i!} * (x - x_0)^i) =
+f(x_0) + \sum_{i = 1}^{\infty} (\frac{f^{(i)}(x_0)}{i!} * (x - x_0)^i)
+\]</span> 其中 <span class="math inline">\(f^{(i)}(x_0)\)</span>
+指的是多项式 <span class="math inline">\(f(x)\)</span> 在 <span
+class="math inline">\(x_0\)</span> 处的 <span
+class="math inline">\(i\)</span> 阶导数，简单来讲就是对它求 <span
+class="math inline">\(i\)</span> 次导数得出的值。</p>
+<p>这个公式的证明和其它用法大可不必知道，我们只会用它做一些最基本的操作，不会超出我们的认知范围。</p>
+<hr />
+<p>还是考虑倍增。</p>
+<p>设求出了一个多项式 <span class="math inline">\(t(x)\)</span>，满足
+<span class="math inline">\(f(t(x)) \equiv
+0~(\bmod~x^{\lceil\frac{n}{2}\rceil})\)</span>。</p>
+<p>那么我们要求多项式 <span class="math inline">\(g(x)\)</span>，满足
+<span class="math inline">\(f(g(x)) \equiv
+0~(\bmod~x^{n})\)</span>。</p>
+<p>如果我们将 <span class="math inline">\(f(x)\)</span> 在 <span
+class="math inline">\(t(x)\)</span> 处进行泰勒展开，得到：</p>
+<p><span class="math display">\[
+f(g(x)) \equiv f(t(x)) + \sum_{i = 1}^{\infty} (\frac{f^{(i)}(t(x))}{i!}
+* (g(x) - t(x))^i) \equiv 0~(\bmod ~x^{n})
+\]</span></p>
+<p>又由于 <span class="math inline">\(f(g(x)) \equiv
+0~(\bmod~x^{\lceil\frac{n}{2}\rceil})\)</span>。</p>
+<p>所以 <span class="math inline">\(g(x)\)</span> 和 <span
+class="math inline">\(t(x)\)</span> 的前 <span
+class="math inline">\(\lceil\frac{n}{2}\rceil\)</span> 项相同，也就是说
+<span class="math inline">\(g(x) - t(x) \equiv
+0~(\bmod~x^{\lceil\frac{n}{2}\rceil})\)</span>。</p>
+<p>那么我们可以发现，在 <span class="math inline">\((g(x) -
+t(x))^i\)</span> 这个式子中，当 <span class="math inline">\(i\ge
+2\)</span> 时，前 <span class="math inline">\(n\)</span> 位必然为 <span
+class="math inline">\(0\)</span>。</p>
+<p>所以整个式子就等于： <span class="math display">\[
+f(g(x)) \equiv f(t(x)) + f&#39;(t(x)) * (g(x) - t(x)) \equiv
+0~(\bmod~x^{n})
+\]</span> 稍加推导一下就有： <span class="math display">\[
+g(x) = t(x) - \frac{f(t(x))}{f&#39;(t(x))}~(\bmod~x^{n})
+\]</span> 这样就可以倍增求出 <span class="math inline">\(g(x)\)</span>
+了。时间复杂度 <span class="math inline">\(\mathcal{O}(n
+\log_2n)\)</span>。</p>
+<hr />
+<h3 id="多项式指数函数">多项式指数函数</h3>
+<p>给出一个度数为 <span class="math inline">\(n - 1\)</span> 的多项式
+<span class="math inline">\(f(x)\)</span>，求出一个度数同为 <span
+class="math inline">\(n - 1\)</span> 多项式 <span
+class="math inline">\(g(x)\)</span>，满足 <span
+class="math inline">\(g(x) \equiv e^{f(x)}~(\bmod x^n)\)</span>。</p>
+<p>保证有 <span class="math inline">\([x^0]f(x) = 0\)</span>。系数对
+<span class="math inline">\(998244353\)</span> 取模。</p>
+<hr />
+<p>显然把 <span class="math inline">\(e^{f(x)}\)</span>
+求导不会有任何变化。</p>
+<p>所以，我们考虑用刚刚学到的牛顿迭代法做这道题。</p>
+<p>我们构造出一个多项式（不管它的实际系数）<span
+class="math inline">\(h(g(x)) \equiv \operatorname{ln}(g(x)) -
+f(x)~(\bmod~x^n)\)</span>。</p>
+<p>那么把 <span class="math inline">\(g(x) \equiv e^{f(x)}~(\bmod
+x^n)\)</span> 代入就有： <span class="math display">\[
+h(g(x)) \equiv \operatorname{ln}(g(x)) -
+f(x)\equiv\operatorname{ln}(e^{f(x)}) - f(x) \equiv f(x) -
+f(x)\equiv0~(\bmod~x^n)
+\]</span> 然后我们就可以套用上面的多项式牛顿迭代了： <span
+class="math display">\[
+g(x) \equiv t(x) -
+\frac{\operatorname{ln}(t(x))-f(x)}{\frac{1}{t(x)}}\equiv t(x) - t(x) *
+(\operatorname{ln}(t(x)) - f(x))~(\bmod~x^{n})
+\]</span> 注意一点：<span class="math inline">\(f(x)\)</span>
+在求导的时候是被看作常数的。</p>
+<p>对于常数项，可以参考上文《多项式对数函数》的证明。</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n
+\log_2n)\)</span>。</p>
+<p>代码：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-type">void</span> <span class="hljs-title">Get_Exp</span><span class="hljs-params">(<span class="hljs-type">int</span> *f, <span class="hljs-type">int</span> *g, <span class="hljs-type">int</span> n)</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-built_in">Get_Operation_Sequence</span>(n, seq[<span class="hljs-number">2</span>]);<br>	<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> k = seq[<span class="hljs-number">2</span>][<span class="hljs-number">0</span>]; k &gt;= <span class="hljs-number">1</span>; k--)<br>	&#123;<br>		<span class="hljs-type">int</span> m = seq[<span class="hljs-number">2</span>][k];<br>		<span class="hljs-keyword">if</span>(m == <span class="hljs-number">1</span>)<br>		&#123;<br>			g[<span class="hljs-number">0</span>] = <span class="hljs-number">1</span>;<br>			<span class="hljs-keyword">continue</span>;<br>		&#125;<br>		<span class="hljs-built_in">Get_Ln</span>(g, h, m);<br>		<span class="hljs-built_in">Init</span>(m &lt;&lt; <span class="hljs-number">1</span>);<br>		<span class="hljs-built_in">fill</span>(h + m, h + p, <span class="hljs-number">0</span>);<br>		<span class="hljs-built_in">memcpy</span>(s, f, <span class="hljs-built_in">sizeof</span>(<span class="hljs-type">int</span>) * m);<br>		<span class="hljs-built_in">fill</span>(s + m, s + p, <span class="hljs-number">0</span>);<br>		<span class="hljs-built_in">NTT</span>(g, p), <span class="hljs-built_in">NTT</span>(h, p), <span class="hljs-built_in">NTT</span>(s, p);<br>		<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; p; i++) g[i] = <span class="hljs-number">1LL</span> * g[i] * <span class="hljs-built_in">Get_MOD</span>(<span class="hljs-built_in">Get_MOD</span>(<span class="hljs-number">1LL</span> - h[i] + MOD) + s[i]) % MOD;<br>		<span class="hljs-built_in">NTT</span>(g, p, <span class="hljs-literal">true</span>), <span class="hljs-built_in">fill</span>(g + m, g + p, <span class="hljs-number">0</span>), <span class="hljs-built_in">memset</span>(h, <span class="hljs-number">0</span>, <span class="hljs-built_in">sizeof</span>(<span class="hljs-type">int</span>) * p), <span class="hljs-built_in">void</span>();<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<hr />
+<p>学完了这里，您可以尝试用其去推一推多项式求逆和多项式开根的式子，可以发现和原来推出来的式子是一样的。</p>
+<hr />
+<h3 id="多项式快速幂">多项式快速幂</h3>
+<p>给出一个度数为 <span class="math inline">\(n - 1\)</span> 的多项式
+<span class="math inline">\(f(x)\)</span> 和一个正整数 <span
+class="math inline">\(k\)</span>，其中 <span class="math inline">\(k \le
+10^{10^5}\)</span>，求出一个度数同为 <span class="math inline">\(n -
+1\)</span> 多项式 <span class="math inline">\(g(x)\)</span>，满足 <span
+class="math inline">\(g(x) \equiv e^{f(x)}~(\bmod x^n)\)</span>。</p>
+<p>保证有 <span class="math inline">\([x^0]f(x) = 1\)</span>。系数对
+<span class="math inline">\(998244353\)</span> 取模。</p>
+<hr />
+<p>如果刷高中数学题刷得有感觉，应该可以一眼看出这里可以求 <span
+class="math inline">\(\ln\)</span> 后求 <span
+class="math inline">\(\exp\)</span>。</p>
+<p>所以，我们求出 <span class="math inline">\(t(x) =
+\ln(f(x))\)</span>，那么有 <span class="math inline">\(\ln(g(x)) = k *
+t(x)\)</span>。</p>
+<p>于是我们把 <span class="math inline">\(t(x)\)</span>
+的每一项的系数乘上一个 <span class="math inline">\(k\)</span>，最后对
+<span class="math inline">\(t(x)\)</span> 求 <span
+class="math inline">\(\exp\)</span>，得到的即为 <span
+class="math inline">\(g(x)\)</span>。</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n
+\log_2n)\)</span>。</p>
+<hr />
+<p>不过在贴代码前，有一个地方需要思考：<span
+class="math inline">\(k\)</span> 在读入时应该对什么取模？</p>
+<p>可能会有人脱口而出是 <span
+class="math inline">\(\varphi(998244353)\)</span>。但是，需要郑重声明的是：<strong>欧拉定理在多项式的运算意义下是不成立的</strong>，正确的模数应当为
+<span class="math inline">\(998244353\)</span>
+本身（阅读完下文后，可以发现这也是规定了 <span
+class="math inline">\([x^0]f(x) = 1\)</span> 的原因）。</p>
+<p>证明：</p>
+<p>不失一般性地，我们考虑证明：<span class="math inline">\(f^p(x) \equiv
+f(x^p)~(\bmod~p)\)</span>。</p>
+<p>由二项式定理和 <span
+class="math inline">\(\operatorname{Lucas}\)</span> 定理可以得出：<span
+class="math inline">\((a + b)^p \equiv a^p +
+b^p~(\bmod~p)\)</span>。</p>
+<p>考虑数学归纳法，由费马小定理可以得出，结论在度数为 <span
+class="math inline">\(0\)</span> 的多项式中必然成立。</p>
+<p>我们设 <span class="math inline">\(f(x)\)</span> 度数为 <span
+class="math inline">\(k\)</span> 且 <span class="math inline">\(f(x) =
+g(x) + a_kx^k\)</span>，同时上述结论对于度数为 <span
+class="math inline">\(k - 1\)</span> 的多项式成立。</p>
+<p>则有 <span class="math inline">\(f^p(x) \equiv g^p(x) + a_k^px^{kp}
+\equiv g(x^p) + a_kx^{kp}\equiv f(x^p)~(\bmod~p)\)</span>。</p>
+<p>在这道题中，由于 <span class="math inline">\(n &lt;
+p\)</span>，又因为 <span class="math inline">\([x^0]f(x) =
+1\)</span>，所以在模 <span class="math inline">\(p\)</span> 意义下有
+<span class="math inline">\(f^p(x)\equiv f(x^p) \equiv
+1~(\bmod~x^n)\)</span></p>
+<p>因此，指数必须对 <span class="math inline">\(998244353\)</span> 而非
+<span class="math inline">\(\varphi(998244353)\)</span> 取模。</p>
+<hr />
+<p>代码：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-type">int</span> <span class="hljs-title">Read_Get_MOD</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-type">int</span> res = <span class="hljs-number">0</span>; <span class="hljs-type">char</span> c = <span class="hljs-built_in">getchar</span>();<br>	<span class="hljs-keyword">while</span>(!<span class="hljs-built_in">isdigit</span>(c)) c = <span class="hljs-built_in">getchar</span>();<br>	<span class="hljs-keyword">while</span>(<span class="hljs-built_in">isdigit</span>(c))<br>	&#123;<br>		res = (<span class="hljs-number">10LL</span> * res + (c - <span class="hljs-string">&#x27;0&#x27;</span>)) % MOD; <br>		c = <span class="hljs-built_in">getchar</span>();<br>	&#125;<br>	<span class="hljs-keyword">return</span> res;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-type">void</span> <span class="hljs-title">Get_Quick_Pow</span><span class="hljs-params">(<span class="hljs-type">int</span> *f, <span class="hljs-type">int</span> *g, <span class="hljs-type">int</span> n, <span class="hljs-type">int</span> k)</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-built_in">Get_Ln</span>(f, r, n);<br>	<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; p; i++) r[i] = <span class="hljs-number">1LL</span> * r[i] * k % MOD;<br>	<span class="hljs-keyword">return</span> <span class="hljs-built_in">Get_Exp</span>(r, g, n);<br>&#125;<br></code></pre></td></tr></table></figure>
+<hr />
+<p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5273">加强版</a>不保证
+<span class="math inline">\([x^0]f(x) = 1\)</span>？</p>
+<p>我们如果把所有数除去常数项，就可以仿照上述方法了。当然，不要忘记在最后把这个除掉的数乘回去（注意这个数是整数，根据费马小定理，它的指数需要对
+<span class="math inline">\(\varphi(998244353)\)</span> 取模）。</p>
+<p>不过，当然会存在常数项为 <span class="math inline">\(0\)</span>
+的情况。这也很好解决，我们只要找到第一个 <span
+class="math inline">\(a_t\)</span>（系数）不为 <span
+class="math inline">\(0\)</span> 的 <span
+class="math inline">\(t\)</span>，就可以套用如下公式： <span
+class="math display">\[
+f^k(x) = x^{tk} * (\frac{f(x)}{x^t})^k
+\]</span> 从本质上讲，这个操作就是降次之后升次。</p>
+<p>注意这个式子中的 <span class="math inline">\(k\)</span> 还是对 <span
+class="math inline">\(998244353\)</span> 取模。</p>
+<p>贴上代码：（由于常数过大，不吸氧只有 <span
+class="math inline">\(80\)</span> 分，不过笔者实在是卡不动了。。。）</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-type">void</span> <span class="hljs-title">Read_Get_MOD</span><span class="hljs-params">(<span class="hljs-type">int</span> &amp;k1, <span class="hljs-type">int</span> &amp;k2, <span class="hljs-type">int</span> &amp;k3)</span></span><br><span class="hljs-function"></span>&#123;<br>	k1 = k2 = k3 = <span class="hljs-number">0</span>;<br>	<span class="hljs-type">char</span> c = <span class="hljs-built_in">getchar</span>();<br>	<span class="hljs-keyword">while</span>(!<span class="hljs-built_in">isdigit</span>(c)) c = <span class="hljs-built_in">getchar</span>();<br>	<span class="hljs-keyword">while</span>(<span class="hljs-built_in">isdigit</span>(c))<br>	&#123;<br>		k1 = (<span class="hljs-number">10LL</span> * k1 + (c - <span class="hljs-string">&#x27;0&#x27;</span>)) % MOD; <br>		k2 = (<span class="hljs-number">10LL</span> * k2 + (c - <span class="hljs-string">&#x27;0&#x27;</span>)) % (MOD - <span class="hljs-number">1</span>);<br>		<span class="hljs-keyword">if</span>(k3 &lt; n) k3 = <span class="hljs-number">10</span> * k3 + (c - <span class="hljs-string">&#x27;0&#x27;</span>); <br>		c = <span class="hljs-built_in">getchar</span>();<br>	&#125;<br>	<span class="hljs-keyword">return</span>;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-type">void</span> <span class="hljs-title">Get_Quick_Pow</span><span class="hljs-params">(<span class="hljs-type">int</span> *f, <span class="hljs-type">int</span> *g, <span class="hljs-type">int</span> n, <span class="hljs-type">int</span> k1, <span class="hljs-type">int</span> k2)</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-type">int</span> st = <span class="hljs-number">0</span>;<br>	<span class="hljs-keyword">while</span>(st &lt; n &amp;&amp; f[st] == <span class="hljs-number">0</span>) ++st;<br>	<span class="hljs-keyword">if</span>(st == n || <span class="hljs-number">1LL</span> * st * k1 &gt; n)<br>	&#123;<br>		<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++) <span class="hljs-built_in">putchar</span>(<span class="hljs-string">&#x27;0&#x27;</span>), <span class="hljs-built_in">putchar</span>(<span class="hljs-string">&#x27; &#x27;</span>);<br>		<span class="hljs-built_in">putchar</span>(<span class="hljs-string">&#x27;\n&#x27;</span>);<br>		<span class="hljs-keyword">return</span>;<br>	&#125;<br>	<span class="hljs-type">int</span> inv = <span class="hljs-built_in">Pow</span>(f[st], MOD - <span class="hljs-number">2</span>), mul = <span class="hljs-built_in">Pow</span>(f[st], k2);<br>	<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++) f[i] = <span class="hljs-number">1LL</span> * f[i + st] * inv % MOD;<br>	<span class="hljs-built_in">Get_Ln</span>(f, r, n);<br>	<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; p; i++) r[i] = <span class="hljs-number">1LL</span> * r[i] * k1 % MOD;<br>	<span class="hljs-built_in">Get_Exp</span>(r, g, n);<br>	<span class="hljs-type">int</span> tk = st * k1;<br>	<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; tk; i++) <span class="hljs-built_in">putchar</span>(<span class="hljs-string">&#x27;0&#x27;</span>), <span class="hljs-built_in">putchar</span>(<span class="hljs-string">&#x27; &#x27;</span>);<br>	<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> i = tk; i &lt; n; i++) <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%lld &quot;</span>, <span class="hljs-number">1LL</span> * g[i - tk] * mul % MOD);<br>	<span class="hljs-built_in">putchar</span>(<span class="hljs-string">&#x27;\n&#x27;</span>);<br>	<span class="hljs-keyword">return</span>;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-type">void</span> <span class="hljs-title">Run</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-type">int</span> k1, k2, k3;<br>	<span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%d&quot;</span>, &amp;n);<br>	<span class="hljs-built_in">Read_Get_MOD</span>(k1, k2, k3);<br>	<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++) <span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%d &quot;</span>, f + i);<br>	<span class="hljs-keyword">if</span>(f[<span class="hljs-number">0</span>] == <span class="hljs-number">0</span> &amp;&amp; k3 &gt;= n)<br>	&#123;<br>		<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++) <span class="hljs-built_in">putchar</span>(<span class="hljs-string">&#x27;0&#x27;</span>), <span class="hljs-built_in">putchar</span>(<span class="hljs-string">&#x27; &#x27;</span>);<br>		<span class="hljs-built_in">putchar</span>(<span class="hljs-string">&#x27;\n&#x27;</span>);<br>		<span class="hljs-keyword">return</span>;<br>	&#125;<br>	<span class="hljs-built_in">Get_Quick_Pow</span>(f, g, n, k1, k2);<br>	<span class="hljs-keyword">return</span>;	<br>&#125;<br></code></pre></td></tr></table></figure>
+<hr />
+<p>最后，附上这篇文章的<a
+target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/tree/master/Codes/多项式全家桶/多项式全家桶.cpp">总代码</a>。</p>
+<p>除快速幂的加强版需要吸氧之外，上文提到的所有模板题均可通过，仅需改写
+<code>Run()</code> 函数即可。</p>
+<hr />
+<h2 id="operatornameend"><span
+class="math inline">\(\operatorname{END}\)</span></h2>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/OI/">OI</a>
+                    
+                      <a class="hover-with-bg" href="/categories/OI/%E6%95%B0%E5%AD%A6/">数学</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/02/28/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%96%AF%E7%89%B9%E6%9E%97%E7%9A%84%E8%AF%95%E7%82%BC/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【学习笔记】斯特林的试炼</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/02/24/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E7%A7%AF%E6%80%A7%E5%87%BD%E6%95%B0%E7%9A%84%E7%AD%9B%E6%B3%95/">
+                        <span class="hidden-mobile">【学习笔记】积性函数的筛法</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        loader: {
+          load: ['ui/lazy']
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+</html>

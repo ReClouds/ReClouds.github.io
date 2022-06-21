@@ -1,0 +1,1163 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/bg/logo.jpeg">
+  <link rel="icon" href="/img/bg/logo.jpeg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Recalling_Clouds">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="本文所有知识均属数学范畴，包括第一类斯特林数和第二类斯特林数的定义与性质。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【学习笔记】斯特林的试炼">
+<meta property="og:url" content="https://reclouds.github.io/2022/02/28/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E6%96%AF%E7%89%B9%E6%9E%97%E7%9A%84%E8%AF%95%E7%82%BC/index.html">
+<meta property="og:site_name" content="ReClouds&#39; Blog">
+<meta property="og:description" content="本文所有知识均属数学范畴，包括第一类斯特林数和第二类斯特林数的定义与性质。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://reclouds.github.io/img/bg/9.jpeg">
+<meta property="article:published_time" content="2022-02-28T05:36:17.000Z">
+<meta property="article:modified_time" content="2022-06-21T14:01:08.576Z">
+<meta property="article:author" content="Recalling_Clouds">
+<meta property="article:tag" content="学习笔记">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://reclouds.github.io/img/bg/9.jpeg">
+  
+  
+  <title>【学习笔记】斯特林的试炼 - ReClouds&#39; Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"reclouds.github.io","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.1"><link rel="alternate" href="/atom.xml" title="ReClouds' Blog" type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>凌云の小屋</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/bg/9.jpeg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="【学习笔记】斯特林的试炼">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      Recalling_Clouds
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-02-28 13:36" pubdate>
+        2022年2月28日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      13k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      111 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">【学习笔记】斯特林的试炼</h1>
+            
+            <div class="markdown-body">
+              <h2 id="前言">前言</h2>
+<p>由于式子较多，为增强直观性，笔者将一改以往的笔风，用 <span
+class="math inline">\(\displaystyle\binom{n}{m}\)</span> 表示组合数
+<span class="math inline">\(C_n^m\)</span>。</p>
+<p>同理，笔者会用如下的形式：</p>
+<p><span class="math display">\[
+\begin{bmatrix}n \\ k\end{bmatrix}
+\]</span></p>
+<p>以及： <span class="math display">\[
+\begin{Bmatrix}n \\ k\end{Bmatrix}
+\]</span> 分别表示第一类斯特林数 <span class="math inline">\(s(n,
+k)\)</span> 和第二类斯特林数 <span class="math inline">\(S(n,
+k)\)</span>。</p>
+<p>注意：这些符号的定义下文不会再次提及。</p>
+<p>阅读这篇文章前，您需要较为熟练地掌握组合数、排列数（特别是<strong>圆排列</strong>）的定义和公式，以及常见的组合恒等式。</p>
+<hr />
+<h2 id="前置知识">前置知识</h2>
+<h3 id="上升幂和下降幂">上升幂和下降幂</h3>
+<ul>
+<li>定义 <span class="math inline">\(x^{\overline{n}}\)</span> 为 <span
+class="math inline">\(x\)</span> 的 <span
+class="math inline">\(n\)</span>
+次<strong>上升阶乘幂</strong>，又称上升幂。它的值等于 <span
+class="math inline">\(\prod_{i = 0}^{n - 1} (x + i)\)</span>。</li>
+<li>定义 <span class="math inline">\(x^{\underline{n}}\)</span> 为 <span
+class="math inline">\(x\)</span> 的 <span
+class="math inline">\(n\)</span>
+次<strong>下降阶乘幂</strong>，又称下降幂。它的值等于 <span
+class="math inline">\(\prod_{i = 0}^{n - 1} (x - i)\)</span>。</li>
+</ul>
+<p>上升幂和下降幂的转换公式（请读者自主完成证明）： <span
+class="math display">\[
+\begin{matrix}
+(-x)^{\overline{n}} = (-1)^n x^{\underline{n}}
+\\
+(-x)^{\underline{n}} = (-1)^n x^{\overline{n}}
+\end{matrix}
+\]</span>
+实际上，上升幂和下降幂与普通幂之间也有转换公式，不过由于公式中存在斯特林数，因此将在下文提及。</p>
+<h3 id="普通生成函数">普通生成函数</h3>
+<p>通俗的讲，对于一个数列 <span
+class="math inline">\(a_n\)</span>，它的普通生成函数（简称 <span
+class="math inline">\(\operatorname{OGF}\)</span>）为一个多项式： <span
+class="math display">\[
+f(x) = \sum_{i = 0}^{\infty} a_ix^i
+\]</span> （严谨地讲，<span class="math inline">\(f(x)\)</span>
+应该叫做形式幂级数，不过笔者并不了解其确切定义，因此这里用更通俗的方式解释。）</p>
+<p>也就是说，对于多项式 <span class="math inline">\(f(x)\)</span>，有
+<span class="math inline">\(a_n = [x^n]f(x)\)</span>。</p>
+<p>如果我们能够得到这个多项式，那么我们也可以<strong>从它的系数中获取到这个序列</strong>。</p>
+<p>同时，如果我们要对数列间做一些运算（如卷积），也可以通过<strong>对这个多项式做运算</strong>得到最终的结果。</p>
+<hr />
+<h2 id="第一类斯特林数">第一类斯特林数</h2>
+<p>把 <span class="math inline">\(n\)</span> 个互不相同的数分为 <span
+class="math inline">\(k\)</span>
+个<strong>圆排列</strong>，这样的方案数称为<strong>第一类斯特林数</strong>，也叫<strong>斯特林轮换数</strong>。</p>
+<h3 id="递推式">递推式</h3>
+<p>我们知道，如果在一个长为 <span class="math inline">\(n\)</span>
+的圆排列中插入一个数（一共有 <span class="math inline">\(n\)</span>
+个位置可以插入），形成的 <span class="math inline">\(n\)</span> 种长为
+<span class="math inline">\(n + 1\)</span>
+的圆排列是<strong>互不相同</strong>的，因为<strong>它们互相之间不可以通过轮换得到</strong>。</p>
+<p>所以，第一类斯特林数有递推公式： <span class="math display">\[
+\begin{bmatrix}n \\ k\end{bmatrix} = \begin{bmatrix}n - 1 \\ k -
+1\end{bmatrix} + (n - 1) \begin{bmatrix}n - 1 \\ k\end{bmatrix}
+\]</span>
+考虑从组合意义去证明：加入一个数，要么自己单独构成一个圆排列，要么插入已有的圆排列。前面说过，后者的方案数为
+<span class="math inline">\(n -
+1\)</span>。所以，根据加法原理，即可得到该递推式。</p>
+<p>当然，该递推式也存在边界条件： <span class="math display">\[
+\begin{bmatrix}n \\ 0\end{bmatrix} = [n = 0]
+\]</span>
+由于第一类斯特林数不存在通项公式，这个递推式就显得尤为重要了，它将辅助证明下面的诸多结论。</p>
+<h3 id="常用公式">常用公式</h3>
+<h4 id="和阶乘的关系">1. 和阶乘的关系：</h4>
+<p><span class="math display">\[
+n! = \sum_{i = 0}^n \begin{bmatrix}n \\ i\end{bmatrix}
+\]</span></p>
+<p>前者实际上是指 <span class="math inline">\(1\sim n\)</span>
+的全排列。由于<strong>每一种排列中，圆排列的个数是一定的</strong>，那么我们可以考虑枚举所有的圆排列个数，把对应的第一类斯特林数相加即为答案。</p>
+<h4 id="和上升幂的关系上升幂转普通幂">2.
+和上升幂的关系（上升幂转普通幂）：</h4>
+<p><span class="math display">\[
+x^{\overline{n}} = \sum_{i = 0}^n \begin{bmatrix}n \\ i\end{bmatrix} x^i
+\]</span></p>
+<p>证明：</p>
+<p>第一种，考虑构造生成函数： <span class="math display">\[
+f_n(x) = \sum_{i = 0}^\infty \begin{bmatrix}n \\ i\end{bmatrix} x^i
+\]</span> 证明如下： <span class="math display">\[
+\begin{aligned}
+&amp;\because  f_n(x) = xf_{n - 1}(x) + (n - 1)f_{n - 1}(x)
+\\
+&amp;\therefore f_n(x) = (x + n - 1)f_{n - 1}(x)
+\\
+&amp;\because f_1(x) = x
+\\
+&amp;\therefore f_n(x) = \sum_{i = 0}^n \begin{bmatrix}n \\
+i\end{bmatrix} x^i = x^{\overline{n}}
+\end{aligned}
+\]</span></p>
+<p>以上证明过程也说明了：所有 <span class="math inline">\(n\)</span>
+相同的第一类斯特林数（也叫第 <span class="math inline">\(n\)</span>
+行第一类斯特林数）的生成函数是 <span
+class="math inline">\(x^{\overline{n}}\)</span>。</p>
+<p>第二种，受上面过程的启发，我们还可以考虑用数学归纳法证明。</p>
+<p>显然当 <span class="math inline">\(n = 0\)</span> 或 <span
+class="math inline">\(n = 1\)</span> 时，原式左右两边相等。</p>
+<p>设当前结论满足 <span class="math inline">\(n = m\)</span>
+的情况，求证当前结论也满足 <span class="math inline">\(n = m +
+1\)</span> 的情况。</p>
+<p>问题转化为证明： <span class="math display">\[
+\sum_{i = 0}^{n + 1} \begin{bmatrix}n + 1 \\ i\end{bmatrix} x^i = (x  +
+n) \sum_{i = 0}^n \begin{bmatrix}n \\ i\end{bmatrix} x^i
+\]</span> 过程如下： <span class="math display">\[
+\begin{aligned}
+&amp;\sum_{i = 0}^{n + 1} \begin{bmatrix}n + 1 \\ i\end{bmatrix} x^i
+\\
+= &amp;\sum_{i = 0}^{n + 1} (\begin{bmatrix}n \\ i - 1\end{bmatrix} +
+n\cdot\begin{bmatrix}n \\ i\end{bmatrix}) x^i
+\\
+= &amp;\sum_{i = 0}^{n + 1} \begin{bmatrix}n \\ i - 1\end{bmatrix} x^i
++  \sum_{i = 0}^{n + 1} n\cdot\begin{bmatrix}n \\ i\end{bmatrix} x^i
+\\
+= &amp;\sum_{i = 0}^{n} \begin{bmatrix}n \\ i\end{bmatrix} x^{i + 1}
++  n \cdot\sum_{i = 0}^{n}\begin{bmatrix}n \\ i\end{bmatrix} x^i
+\\
+= &amp;x\cdot\sum_{i = 0}^{n} \begin{bmatrix}n \\ i\end{bmatrix} x^{i}
++  n \cdot\sum_{i = 0}^{n}\begin{bmatrix}n \\ i\end{bmatrix} x^i
+\\
+= &amp;(x  + n) \sum_{i = 0}^n \begin{bmatrix}n \\ i\end{bmatrix} x^i
+\end{aligned}
+\]</span></p>
+<h3 id="同一行第一类斯特林数的求法">同一行第一类斯特林数的求法</h3>
+<p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5408">模板题</a></p>
+<p>根据递推公式，我们可以得到一个 <span
+class="math inline">\(\mathcal{O}(n^2)\)</span> 的做法。</p>
+<p>根据上面的结论（第 <span class="math inline">\(n\)</span>
+行第一类斯特林数的生成函数是 <span
+class="math inline">\(x^{\overline{n}}\)</span>），我们有 <span
+class="math inline">\(\mathcal{O}(n \log_2^2 n)\)</span> 的做法：</p>
+<p>因为上升幂本质上是<strong>若干个二项式相乘</strong>，所以我们分治后直接跑
+<span class="math inline">\(\operatorname{NTT}\)</span> 即可。</p>
+<p>有没有更快的做法？当然有！</p>
+<p>考虑倍增（它是多项式内容里的常客），当前求出了 <span
+class="math inline">\(x^{\overline{n}}\)</span>，要求 <span
+class="math inline">\(x^{\overline{2n}}\)</span>。</p>
+<p>因为 <span class="math inline">\(x^{\overline{2n}} = x^{\overline{n}}
+(x + n)^{\overline{n}}\)</span>，所以我们只要能够求出 <span
+class="math inline">\((x + n)^{\overline{n}}\)</span>，就能够做到 <span
+class="math inline">\(\mathcal{O}(n \log_2 n)\)</span> 了。</p>
+<p>考虑生成函数的展开形式：已知 <span class="math inline">\(f(x) =
+\sum_{i = 0}^n a_ix^i\)</span>，要求 <span class="math inline">\(f(x +
+n) = \sum_{i = 0}^n a_i(x + n)^i\)</span>。</p>
+<p>我们对后面的这个式子做二项式展开： <span class="math display">\[
+\begin{aligned}
+&amp;\sum_{i = 0}^n a_i(x + n)^i
+\\
+= &amp;\sum_{i = 0}^n a_i\sum_{j = 0}^i\displaystyle\binom{i}{j}x^jn^{i
+- j}
+\\
+= &amp;\sum_{i = 0}^n a_i\sum_{j = 0}^i\frac{i!}{j!(i - j)!}x^jn^{i - j}
+\\
+= &amp;\sum_{j = 0}^n\frac{x_j}{j!}\sum_{i = j}^n a_ii!\frac{n^{i -
+j}}{(i - j)!}
+\\
+= &amp;\sum_{j = 0}^n\frac{x_j}{j!}\sum_{i = 0}^{n - j} a_{i + j}(i +
+j)!\frac{n^{i}}{i!}
+\end{aligned}
+\]</span> 不看左边，我们设右边的式子为 <span
+class="math inline">\(c_j\)</span>，发现其很像卷积形式，但是用 <span
+class="math inline">\(\operatorname{NTT}\)</span> 是不能直接做的。</p>
+<p>没关系，我们还是可以用 <span
+class="math inline">\(\operatorname{NTT}\)</span>
+做的，只不过有一个小技巧：<strong>颠倒系数</strong>。</p>
+<p>什么意思？</p>
+<p>正常的卷积形式是 <span class="math inline">\(\sum_{i = 0}^j f_i g_{j
+- i}\)</span>。</p>
+<p>如果我们把 <span class="math inline">\(f_i\)</span>
+这个数列翻转过来，还是做正常的卷积，得到的结果应该是：<span
+class="math inline">\(\sum_{i = 0}^jf_{n - i} g_{j - i}\)</span>。</p>
+<p>或者把 <span class="math inline">\(g_i\)</span>
+这个数列翻转过来，也做正常的卷积，得到的结果是：<span
+class="math inline">\(\sum_{i = 0}^jf_i g_{n - j + i}\)</span>。</p>
+<p>可以发现，在原来的卷积中，<span class="math inline">\(f\)</span>
+的下标里的 <span class="math inline">\(i\)</span> 和 <span
+class="math inline">\(g\)</span> 的下标里的 <span
+class="math inline">\(i\)</span>
+是以<strong>相反数</strong>的形式出现的。不过在颠倒系数后，<span
+class="math inline">\(f\)</span> 的下标里的 <span
+class="math inline">\(i\)</span> 和 <span
+class="math inline">\(g\)</span> 的下标里的 <span
+class="math inline">\(i\)</span>
+是以<strong>同符号</strong>形式出现的。</p>
+<p>我们再看看 <span class="math inline">\(c_j\)</span>，如果设 <span
+class="math inline">\(f_i = a_i i!\)</span>，设 <span
+class="math inline">\(g_i = \frac{n^i}{i!}\)</span>，那么有 <span
+class="math inline">\(c_j = \sum_{i = 0}^{n - j} f_{i+j}
+g_{i}\)</span>，下标中的 <span class="math inline">\(i\)</span>
+也是以同符号形式出现的！</p>
+<p>所以，算法的大体框架已经出来了：我们只要求出 <span
+class="math inline">\(f_i\)</span> 和 <span
+class="math inline">\(g_i\)</span>，然后颠倒其中的一个，再把它们做一遍
+<span class="math inline">\(\operatorname{NTT}\)</span>。</p>
+<p>当然，做完 <span class="math inline">\(\operatorname{NTT}\)</span>
+后的答案并不是我们想要的答案，只不过是形式对应了而已。</p>
+<p>如果将 <span class="math inline">\(f_i\)</span> 颠倒，即 <span
+class="math inline">\(f&#39;_i = f_{n - i}\)</span>，则对 <span
+class="math inline">\(f&#39;\)</span> 和 <span
+class="math inline">\(g\)</span> 卷积后的结果为：</p>
+<p><span class="math display">\[
+c&#39;_j = \sum_{i = 0}^jf_{n - j  + i} g_{j}
+\]</span></p>
+<p>那么有对应关系：</p>
+<p><span class="math display">\[
+\begin{aligned}
+c_j&amp;=\sum_{i = 0}^{n - j} f_{i+j} g_{i}
+\\
+&amp;=\sum_{i = 0}^{n - j} f_{n - (n - j) +i} g_{i}
+\\
+&amp;= c&#39;_{n - j}
+\end{aligned}
+\]</span></p>
+<p>所以只要再把求出的 <span class="math inline">\(c&#39;\)</span>
+颠倒即为答案。</p>
+<p>如果将 <span class="math inline">\(g_i\)</span> 颠倒，即 <span
+class="math inline">\(g&#39;_i = g_{n - i}\)</span>，则对 <span
+class="math inline">\(f\)</span> 和 <span
+class="math inline">\(g&#39;\)</span> 卷积后的结果为：</p>
+<p><span class="math display">\[
+c&#39;_j = \sum_{i = 0}^jf_{i} g_{n - j + i}
+\]</span></p>
+<p>那么有对应关系：</p>
+<p><span class="math display">\[
+\begin{aligned}
+c_j &amp;= \sum_{i = 0}^{n - j} f_{i+j} g_{i}
+\\
+&amp;= \sum_{i = j}^nf_ig_{i - j}
+\\
+&amp;= \sum_{i = 0}^{n + j} f_ig_{n - (n + j) + i}
+\\
+&amp;= c&#39;_{j + n}
+\end{aligned}
+\]</span></p>
+<p>（注意：由于 <span class="math inline">\(f\)</span> 和 <span
+class="math inline">\(g\)</span> 都只有第 <span class="math inline">\(0
+\sim n\)</span> 位不为 <span
+class="math inline">\(0\)</span>，所以推导的第三步加入的所有贡献均为
+<span class="math inline">\(0\)</span>。）</p>
+<p>所以只要把求出的 <span class="math inline">\(c&#39;\)</span>
+整体向<strong>低位</strong>移动 <span class="math inline">\(n\)</span>
+位即为答案。</p>
+<p>求出 <span class="math inline">\((x + n)^{\overline{n}}\)</span>
+后，我们再将其和 <span class="math inline">\(x^{\overline{n}}\)</span>
+做卷积即可。</p>
+<p>注意要特判奇数的情况，此时还要再乘上一个 <span
+class="math inline">\(x + 2n\)</span>，直接 <span
+class="math inline">\(\mathcal{O}(n)\)</span> 乘即可。</p>
+<p>放上<a
+target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/tree/master/Codes/斯特林的试炼/第一类斯特林数·行.cpp">代码</a>（写的是第一种，即颠倒
+<span class="math inline">\(f_i\)</span>）。</p>
+<hr />
+<h3 id="例题">例题</h3>
+<ul>
+<li><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4609">[FJOI2016]建筑师</a></li>
+</ul>
+<p>题解：</p>
+<p>做组合数学的题，光有推式子能力还不行，还得通过组合意义列出答案的式子。</p>
+<p>例如这道题目，我们要思考的是，如何在其中加入组合意义。</p>
+<p>可以发现，无论是从左边还是从右边，都可以并且一定会看到最高的楼。</p>
+<p>然后，我们如果设 <span class="math inline">\(\lambda\)</span>
+为能够看到的楼，<span class="math inline">\(.\)</span>
+为不能够看到的楼，<span class="math inline">\(H\)</span>
+为最高的楼，那么建筑一定是这种形式： <span class="math display">\[
+\lambda....\lambda..\lambda..\lambda...H.\lambda.....\lambda..\lambda
+\]</span> 我们来从左侧的角度解释一下这个图的一些细节（右侧同理）：</p>
+<ul>
+<li><span class="math inline">\(H\)</span> 左侧的 <span
+class="math inline">\(\lambda\)</span> 数量为 <span
+class="math inline">\(A - 1\)</span>；</li>
+<li>左侧要么不存在 <span
+class="math inline">\(\lambda\)</span>，要么第一个字符即为 <span
+class="math inline">\(\lambda\)</span>，每一个 <span
+class="math inline">\(\lambda\)</span> 的右边存在若干个 <span
+class="math inline">\(.\)</span>，这个 <span
+class="math inline">\(\lambda\)</span> 的高度高于这些 <span
+class="math inline">\(.\)</span>；</li>
+<li>对于左侧的一个 <span class="math inline">\(\lambda\)</span>，右侧的
+<span class="math inline">\(.\)</span> <strong>顺序随意</strong>。</li>
+</ul>
+<p>“顺序随意”
+给了我们一定的启发，如果耐心把式子列出来，可以发现：如果我们把一个 <span
+class="math inline">\(\lambda\)</span> 和其右侧的 <span
+class="math inline">\(m\)</span> 个 <span
+class="math inline">\(.\)</span> 看作一个整体，那么由于一共有 <span
+class="math inline">\((m - 1)!\)</span> 种排列方式。</p>
+<p>如果你对排列数十分敏感，可以一眼看出——这就是圆排列。</p>
+<p>圆排列！我们能想到什么？第一类斯特林数！</p>
+<p>所以，我们只要在 <span class="math inline">\(n - 1\)</span>
+个数中选出 <span class="math inline">\(A + B - 2\)</span>
+个圆排列，并任选 <span class="math inline">\(A-1\)</span> 个放在 <span
+class="math inline">\(H\)</span> 的左边，<span class="math inline">\(B -
+1\)</span> 个放在 <span class="math inline">\(H\)</span>
+的右边，即为一种方案。</p>
+<p>那么，答案就呼之欲出了： <span class="math display">\[
+\begin{bmatrix}n - 1 \\ A + B - 2\end{bmatrix} \cdot
+\displaystyle\binom{A + B - 2}{A - 1}
+\]</span> 直接预处理即可，时间在可承受范围内。</p>
+<p>代码就不贴了。</p>
+<hr />
+<h2 id="第二类斯特林数">第二类斯特林数</h2>
+<p>把 <span class="math inline">\(n\)</span> 个互不相同的数划分为 <span
+class="math inline">\(k\)</span>
+个<strong>互不区分、互不相交的集合</strong>，这样的方案数称为<strong>第二类斯特林数</strong>。</p>
+<p>第二类斯特林数相对于第一类的用处会更加广泛。</p>
+<hr />
+<h3 id="递推式-1">递推式</h3>
+<p><span class="math display">\[
+\begin{Bmatrix}n \\ k\end{Bmatrix} = \begin{Bmatrix}n - 1 \\ k -
+1\end{Bmatrix} + k\cdot \begin{Bmatrix}n - 1 \\ k\end{Bmatrix}
+\]</span></p>
+<p>还是考虑从组合意义去证明：加入一个数，要么自己单独构成一个集合，要么加入已有的
+<span class="math inline">\(k\)</span> 个集合。</p>
+<p>边界条件同样是： <span class="math display">\[
+\begin{Bmatrix}n \\ 0\end{Bmatrix} = [n = 0]
+\]</span></p>
+<h3 id="通项公式">通项公式</h3>
+<p>第二类斯特林数是存在通项公式的： <span class="math display">\[
+\begin{Bmatrix}n \\ k\end{Bmatrix} = \frac{1}{k!}\sum_{i =
+0}^k(-1)^i\displaystyle\binom{k}{i} (k - i)^n = \sum_{i = 0}^k
+\frac{(-1)^i}{i!} \cdot \frac{(k - i)^n}{(k - i)!} = \sum_{i =
+0}^k\frac{(-1)^{k - i}}{(k - i)!} \cdot \frac{i^n}{i!}
+\]</span> （上面把推式子可能会用到的三种形式都写出来了。）</p>
+<p>证明：</p>
+<p>设 <span class="math inline">\(n\)</span> 个互不相同的数划分为 <span
+class="math inline">\(k\)</span> 个互不相同的集合的方案数为 <span
+class="math inline">\(f_k,
+g_k\)</span>，前者允许空集，后者不允许空集。</p>
+<p>那么有： <span class="math display">\[
+\begin{matrix}
+f_k = k^n
+\\
+f_k = \sum_{i = 0}^k\displaystyle\binom{k}{i} g_i
+\end{matrix}
+\]</span> 考虑二项式反演： <span class="math display">\[
+g_k = \sum_{i = 0}^k (-1)^{k - i}\displaystyle\binom{k}{i} f_i = \sum_{i
+= 0}^k(-1)^i\displaystyle\binom{k}{i} (k - i)^n
+\]</span> 由于 <span class="math inline">\(g_k\)</span>
+在统计过程中，集合之间相互区分，所以：</p>
+<p><span class="math display">\[
+\begin{Bmatrix}n \\ k\end{Bmatrix} = \frac{1}{k!} g_k =
+\frac{1}{k!}\sum_{i = 0}^k(-1)^i\displaystyle\binom{k}{i} (k - i)^n
+\]</span></p>
+<h3 id="常用公式-1">常用公式</h3>
+<h4
+id="和下降幂的关系普通幂转下降幂">和下降幂的关系（普通幂转下降幂）：</h4>
+<p><span class="math display">\[
+x^n = \sum_{i = 0}^x \displaystyle\binom{x}{i}\begin{Bmatrix}n \\
+i\end{Bmatrix} i! = \sum_{i = 0}^n \begin{Bmatrix}n \\
+i\end{Bmatrix}x^{\underline{i}}
+\]</span></p>
+<p>证明：</p>
+<p>考虑组合意义，等式左侧即为 <span class="math inline">\(n\)</span>
+个互不相同的数划分为 <span class="math inline">\(x\)</span>
+个互不相同的可空集合的方案数，等式右侧即选出 <span
+class="math inline">\(i\)</span> 个集合强制非空的方案数。</p>
+<p>当然，你也可以考虑用上面的数学归纳法证明，这里就留给读者当作练习吧。</p>
+<h3 id="同一行第二类斯特林数的求法">同一行第二类斯特林数的求法</h3>
+<p>据说有一种用 <span
+class="math inline">\(\operatorname{EGF}\)</span>（指数型生成函数）做的方法，但是由于笔者能力有限，加上其速度较慢，故此处不讲解这种方法。</p>
+<p>其实非常简单，我们再一次观察通项公式： <span class="math display">\[
+\begin{Bmatrix}n \\ k\end{Bmatrix} = \sum_{i = 0}^k \frac{(-1)^i}{i!}
+\cdot \frac{(k - i)^n}{(k - i)!}
+\]</span> 可以发现这就是一个卷积的形式，<span
+class="math inline">\(\operatorname{NTT}\)</span> 即可。</p>
+<p>放上<a
+target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/tree/master/Codes/斯特林的试炼/第二类斯特林数·行.cpp">代码</a>。</p>
+<hr />
+<h3 id="例题-1">例题</h3>
+<ul>
+<li>BZOJ5093 图的价值</li>
+</ul>
+<p>“简单无向图” 是指无重边、无自环的无向图（不一定连通）。</p>
+<p>一个带标号的图的价值定义为每个点度数的 <span
+class="math inline">\(k\)</span> 次方的和。</p>
+<p>给定 <span class="math inline">\(n\)</span> 和 <span
+class="math inline">\(k\)</span>，请计算所有 <span
+class="math inline">\(n\)</span>
+个点的带标号的简单无向图的价值之和。</p>
+<p>答案对 <span class="math inline">\(998233353\)</span> 取模。</p>
+<p><span class="math inline">\(1 \le n \le 10^9, 1\le k\le 2\times
+10^5\)</span>。</p>
+<p>题解：</p>
+<p>显然每个点对答案的贡献是相同的，所以我们只需要算出一个点对答案的贡献，最后乘上
+<span class="math inline">\(n\)</span> 即可。</p>
+<p>我们枚举一个点的度数，那么有： <span class="math display">\[
+Answer =  n \cdot 2^{\binom{n - 1}{2}} \sum_{i = 0}^{n -
+1}i^k\displaystyle\binom{n - 1}{i}
+\]</span> 这个时候，如果只用一般的方法，大概率会无从下手。</p>
+<p>回顾普通幂转化为第二类斯特林数的公式，我们可以得到： <span
+class="math display">\[
+\begin{aligned}
+Answer &amp;= n \cdot 2^{\binom{n - 1}{2}} \sum_{i = 0}^{n -
+1}i^k\displaystyle\binom{n - 1}{i}
+\\
+&amp;= n \cdot 2^{\binom{n - 1}{2}} \sum_{i = 0}^{n -
+1}\displaystyle\binom{n - 1}{i} \sum_{j = 0}^{\min(i,
+k)}\displaystyle\binom{i}{j} \begin{Bmatrix}k \\ j\end{Bmatrix} j!
+\\
+&amp;=n \cdot 2^{\binom{n - 1}{2}} \sum_{j = 0}^{\min(n - 1, k)}
+\begin{Bmatrix}k \\ j\end{Bmatrix} j! \sum_{i = j}^{n - 1}
+\displaystyle\binom{n - 1}{i}\displaystyle\binom{i}{j}
+\\
+&amp;= n \cdot 2^{\binom{n - 1}{2}} \sum_{j = 0}^{\min(n - 1, k)}
+\begin{Bmatrix}k \\ j\end{Bmatrix} j! \displaystyle\binom{n - 1}{j}
+\sum_{i = j}^{n - 1} \displaystyle\binom{n - j - 1}{i - j}
+\\
+&amp;= n \cdot 2^{\binom{n - 1}{2}} \sum_{j = 0}^{\min(n - 1, k)}
+\begin{Bmatrix}k \\ j\end{Bmatrix} j! \displaystyle\binom{n - 1}{j}
+\sum_{i = 0}^{n - j - 1} \displaystyle\binom{n - j - 1}{i}
+\\
+&amp;= n \cdot 2^{\binom{n - 1}{2}} \sum_{j = 0}^{\min(n - 1, k)}
+\begin{Bmatrix}k \\ j\end{Bmatrix} j! \displaystyle\binom{n - 1}{j} 2^{n
+- j - 1}
+\end{aligned}
+\]</span> 放上<a
+target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/tree/master/Codes/斯特林的试炼/BZOJ5093%20图的价值.cpp">代码</a>。</p>
+<hr />
+<h2 id="斯特林反演">斯特林反演</h2>
+<h3 id="常用公式-2">常用公式</h3>
+<p>在前面的学习中，我们知道有如下两个等式： <span
+class="math display">\[
+\begin{matrix}
+(-x)^{\overline{n}} = (-1)^n x^{\underline{n}}
+\\
+x^{\overline{n}} = \sum_{i = 0}^n \begin{bmatrix}n \\ i\end{bmatrix} x^i
+\end{matrix}
+\]</span> 那么有： <span class="math display">\[
+(-x)^{\overline{n}} = \sum_{i = 0}^n \begin{bmatrix}n \\ i\end{bmatrix}
+(-x)^i
+\]</span> 即： <span class="math display">\[
+(-1)^nx^{\underline{n}} = \sum_{i = 0}^n \begin{bmatrix}n \\
+i\end{bmatrix} (-1)^ix^i
+\]</span> 所以有： <span class="math display">\[
+x^{\underline{n}} = \sum_{i = 0}^n \begin{bmatrix}n \\ i\end{bmatrix}
+(-1)^{n - i}x^i
+\]</span> 类似的，我们可以由如下两个公式： <span class="math display">\[
+\begin{matrix}
+(-x)^{\underline{n}} = (-1)^n x^{\overline{n}}
+\\
+x^n = \sum_{i = 0}^n \begin{Bmatrix}n \\ i\end{Bmatrix}x^{\underline{i}}
+\end{matrix}
+\]</span> 推入如下的公式： <span class="math display">\[
+x^n = \sum_{i = 0}^n \begin{Bmatrix}n \\ i\end{Bmatrix} (-1)^{n -
+i}x^{\overline{i}}
+\]</span> 请读者自行推导。</p>
+<p>总结一下，我们已经得到了所有的六个上升幂、下降幂和普通幂之间的转换公式：
+<span class="math display">\[
+\begin{matrix}
+(-x)^{\overline{n}} = (-1)^n x^{\underline{n}}
+\\
+(-x)^{\underline{n}} = (-1)^n x^{\overline{n}}
+\\
+x^{\overline{n}} = \sum_{i = 0}^n \begin{bmatrix}n \\ i\end{bmatrix} x^i
+\\
+x^n = \sum_{i = 0}^n \begin{Bmatrix}n \\ i\end{Bmatrix}x^{\underline{i}}
+\\
+x^{\underline{n}} = \sum_{i = 0}^n \begin{bmatrix}n \\ i\end{bmatrix}
+(-1)^{n - i}x^i
+\\
+x^n = \sum_{i = 0}^n \begin{Bmatrix}n \\ i\end{Bmatrix} (-1)^{n -
+i}x^{\overline{i}}
+\end{matrix}
+\]</span> 下文有可能会分别称它们为公式一～公式六。</p>
+<p>如果我们将公式三代入公式六，可以得到： <span class="math display">\[
+\begin{aligned}
+x^n &amp;= \sum_{i = 0}^n \begin{Bmatrix}n \\ i\end{Bmatrix} (-1)^{n -
+i}x^{\overline{i}}
+\\
+&amp;= \sum_{i = 0}^n \begin{Bmatrix}n \\ i\end{Bmatrix} (-1)^{n -
+i}\sum_{j = 0}^i
+\begin{bmatrix}i \\ j\end{bmatrix} x^j
+\\
+&amp;= \sum_{j = 0}^nx^j\sum_{i = j}^n\begin{Bmatrix}n \\ i\end{Bmatrix}
+\begin{bmatrix}i \\ j\end{bmatrix} (-1)^{n - i}
+\end{aligned}
+\]</span> 可以发现有： <span class="math display">\[
+\sum_{i = j}^n\begin{Bmatrix}n \\ i\end{Bmatrix} \begin{bmatrix}i \\
+j\end{bmatrix} (-1)^{n - i} = [j = n]
+\]</span>
+类似地，将公式四代入公式五也可以得到十分类似的结果，这里就把结论摆出来了：
+<span class="math display">\[
+\sum_{i = j}^n\begin{bmatrix}n \\ i\end{bmatrix} \begin{Bmatrix}i \\
+j\end{Bmatrix} (-1)^{n - i} = [j = n]
+\]</span> 这俩公式合称<strong>反转公式</strong>。</p>
+<p>注意一点：<span class="math inline">\(-1\)</span> 的指数 <span
+class="math inline">\(n - i\)</span> 也可以写成 <span
+class="math inline">\(j + i\)</span>。当 <span class="math inline">\(j =
+n\)</span> 时，这样不会有任何影响；当 <span class="math inline">\(j \ne
+n\)</span> 时，整个式子的值为 <span
+class="math inline">\(0\)</span>，也不会受到影响。</p>
+<p>当 <span class="math inline">\(j = 1\)</span> 时有： <span
+class="math display">\[
+\sum_{i = 1}^n(-1)^{n - 1}(i - 1)!\begin{Bmatrix}n \\ i\end{Bmatrix} =
+[n = 1]
+\]</span> 这个公式在斯特林反演中会经常用到。</p>
+<p>由反转公式，我们还可以得到斯特林反演的另一种形式： <span
+class="math display">\[
+\begin{matrix}
+f_n = \sum_{i = 0}^n \begin{Bmatrix}n \\ i\end{Bmatrix} g_i
+\\
+\Downarrow
+\\
+g_n = \sum_{i = 0}^n(-1)^{n -i} \begin{bmatrix}n \\ i\end{bmatrix} f_i
+\end{matrix}
+\]</span> 这个形式十分类似二项式反演，显得有许些亲切感。</p>
+<hr />
+<h3 id="例题-2">例题</h3>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://hydro.ac/d/bzoj/p/4671">BZOJ4671 异或图</a></li>
+</ul>
+<p>题解：</p>
+<p>直接判连通并不好入手。相反，强制不联通却简单得多。</p>
+<p>考虑容斥，设 <span class="math inline">\(f_i\)</span> 为把 <span
+class="math inline">\(n\)</span> 个点划分为 <span
+class="math inline">\(i\)</span>
+个<strong>互相独立且互不相交的点集</strong>的方案数，<span
+class="math inline">\(g_i\)</span> 为图中恰好有 <span
+class="math inline">\(i\)</span> 个<strong>连通块</strong>的方案数。</p>
+<p>那么对于 <span class="math inline">\(g_j\)</span>，它对 <span
+class="math inline">\(f_i\)</span> 的贡献即为第二类斯特林数： <span
+class="math display">\[
+\begin{Bmatrix}j \\ i\end{Bmatrix}
+\]</span> 因为 <span class="math inline">\(g_j\)</span> 中的 <span
+class="math inline">\(j\)</span> 个连通块互不相同，同时 <span
+class="math inline">\(f_i\)</span> 中的 <span
+class="math inline">\(i\)</span>
+个点集又不考虑顺序，这恰好满足了第二类斯特林数的要求。</p>
+<p>即： <span class="math display">\[
+f_i = \sum_{j = i}^n \begin{Bmatrix}j \\ i\end{Bmatrix} g_j
+\]</span> 反演一下就有： <span class="math display">\[
+g_i = \sum_{j = i}^n(-1)^{j - i}\begin{bmatrix}j \\ i\end{bmatrix} f_j
+\]</span> 依照题意，现在我们只需求出 <span class="math inline">\(g_1 =
+\sum_{j = 1}^n (-1)^{j - 1}(j - 1)! f_j\)</span>，那么最大的问题是求
+<span class="math inline">\(f_j\)</span>。</p>
+<p>首先我们可以枚举子集划分（贝尔数级别，不会超时），然后我们强制让两个点集之间不连任何一条边。</p>
+<p>由于一条边的选择情况取决于包含这条边的图的选择情况，因此对于一条横跨两个点集的边
+<span class="math inline">\((u, v)\)</span>，我们设包含它的图为 <span
+class="math inline">\(G&#39;_{1\sim
+m}\)</span>，同时设每个图的选择情况为 <span
+class="math inline">\(x_{1\sim m}\)</span>（<span
+class="math inline">\(0\)</span> 表示不选，<span
+class="math inline">\(1\)</span> 表示选），那么我们可以列出方程： <span
+class="math display">\[
+\operatorname{xor}_{i = 1}^m x_i = 0
+\]</span>
+枚举完每条边之后，我们可以得到一个异或方程组，那么解的数量就是这个子集划分对
+<span class="math inline">\(f_j\)</span> 的贡献。</p>
+<p>求解方程组的办法当然是用<strong>高斯消元</strong>。不过，如何求异或方程组解的数量呢？</p>
+<p>如果您阅读过我的文章<a
+href="https://reclouds.github.io/2022/03/04/%E7%BA%BF%E6%80%A7%E7%A9%BA%E9%97%B4%E7%9A%84%E5%9F%BA%E5%9C%A8OI%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/">《线性空间的基在OI中的应用》</a>，那么这个问题是就易如反掌了。</p>
+<p>由于线性基的构建过程本质上是高斯消元，因此当我们把一个方程插入线性基后，这个方程<strong>会被自动进行高斯消元</strong>，并且由于增广矩阵是一个零向量，所以无论怎样消都是没有任何影响的。</p>
+<p>在插入所有方程后，我们可以发现，线性基中可能存在一些空的位置。这些空的位置，是高斯消元过程中<strong>可以被抵消掉的元</strong>，即<strong>自由元</strong>。这些自由元可以等于值域内的任意值（这里是
+<span class="math inline">\(0\)</span> 和 <span
+class="math inline">\(1\)</span>），并且<strong>所有自由元的取值同时也决定了剩下的主元的取值</strong>，也就是说，<strong>每一组自由元的取值都对应原方程的一组解</strong>。</p>
+<p>所以说，我们只要把方程转化为二进制数插入线性基，再统计有多少个位置等于
+<span class="math inline">\(0\)</span> 即可。设这个值为 <span
+class="math inline">\(cnt\)</span>，那么我们要求的答案就是 <span
+class="math inline">\(2^{cnt}\)</span>。</p>
+<p>当然，这道题线性基的构建方法不能使用高斯消元法（会被卡常），用普通的构建方法即可。</p>
+<p>放上<a
+target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/tree/master/Codes/斯特林的试炼/BZOJ4671%20异或图.cpp">代码</a>。</p>
+<hr />
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF961G">CF961G
+Partitions</a></li>
+</ul>
+<p>抛开 <span class="math inline">\(w_i\)</span>
+不谈，可以发现单个物品的贡献是一定的，所以我们只要把 <span
+class="math inline">\(w_i\)</span> 求和，乘上单个物品的贡献 <span
+class="math inline">\(\delta\)</span> 即可。</p>
+<p>现在考虑计算 <span class="math inline">\(\delta\)</span>： <span
+class="math display">\[
+\begin{aligned}
+\delta =&amp;\sum_{i = 1}^n i \displaystyle\binom{n - 1}{i - 1}
+\begin{Bmatrix}n - i \\ k - 1\end{Bmatrix}
+\\
+=&amp;\sum_{i = 1}^n i \displaystyle\binom{n - 1}{i - 1} \sum_{j = 0}^{k
+- 1}\frac{(-1)^{k - j - 1}}{(k - j - 1)!}\frac{j^{n - i}}{j!}
+\\
+=&amp;\sum_{j = 0}^{k - 1} \frac{(-1)^{k - j - 1}}{(k - j - 1)!
+j!}\sum_{i = 1}^ni j^{n - i}\displaystyle\binom{n - 1}{i - 1}
+\end{aligned}
+\]</span> 前面的式子没有什么问题，考虑如何求后面的式子： <span
+class="math display">\[
+\begin{aligned}
+&amp;\sum_{i = 1}^ni j^{n - i}\displaystyle\binom{n - 1}{i - 1}
+\\
+=&amp;\sum_{i = 1}^n(i - 1 + 1) j^{n - i}\displaystyle\binom{n - 1}{i -
+1}
+\\
+=&amp;\sum_{i = 1}^n(i - 1) j^{n - i}\displaystyle\binom{n - 1}{i - 1} +
+\sum_{i = 1}^nj^{n - i}\displaystyle\binom{n - 1}{i - 1}
+\\
+=&amp;\sum_{i = 1}^n(i - 1) j^{n - i}\displaystyle\binom{n - 1}{i - 1} +
+(j + 1)^{n - 1}
+\\
+=&amp;(n - 1)\sum_{i = 1}^n j^{n - i}\displaystyle\binom{n - 2}{i - 2} +
+(j + 1)^{n - 1}
+\\
+=&amp;(n - 1)(j + 1)^{n - 2} + (j + 1)^{n - 1}
+\\
+=&amp;(j + 1)^{n - 2}(n + j)
+\end{aligned}
+\]</span> 这样就做完了。</p>
+<p>不过，这可是 <span class="math inline">\(\operatorname{CF}\)</span>
+诶！有多少人能够在如此紧张的环境下推出这么一长串式子呢？</p>
+<p>有没有更简单的做法？当然有！</p>
+<blockquote>
+<p>组合意义天地灭，代数推导保平安。 ——<span
+class="math inline">\(\operatorname{tiger0133}\)</span></p>
+</blockquote>
+<p>我们从组合意义思考一下，集合大小的本质是什么？不就是集合里的每一个数都贡献
+<span class="math inline">\(1\)</span> 吗！</p>
+<p>所以说，还是考虑计算单个物品 <span class="math inline">\(i\)</span>
+的贡献：</p>
+<p>首先，总划分方案数为： <span class="math display">\[
+\begin{Bmatrix}n \\ k\end{Bmatrix}
+\]</span> 每个方案中，自己都会对自己造成 <span
+class="math inline">\(1\)</span> 的贡献。</p>
+<p>其次，对于其它的每一个物品 <span
+class="math inline">\(j\)</span>，抛开这个物品 <span
+class="math inline">\(j\)</span> 不谈，我们把剩下的 <span
+class="math inline">\(n - 1\)</span> 个物品分成 <span
+class="math inline">\(k\)</span> 组，再把物品 <span
+class="math inline">\(j\)</span> 加入到 <span
+class="math inline">\(i\)</span> 所在的组内，这样 <span
+class="math inline">\(j\)</span> 就对 <span
+class="math inline">\(i\)</span> 造成了 <span
+class="math inline">\(1\)</span> 的贡献。这样的方案数为： <span
+class="math display">\[
+\begin{Bmatrix}n - 1\\ k\end{Bmatrix}
+\]</span> 所以单个物品贡献为： <span class="math display">\[
+\begin{Bmatrix}n \\ k\end{Bmatrix} + (n - 1)\begin{Bmatrix}n - 1 \\
+k\end{Bmatrix}
+\]</span> 代码就不放了。</p>
+<hr />
+<h2 id="operatornameend"><span
+class="math inline">\(\operatorname{END}\)</span></h2>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/OI/">OI</a>
+                    
+                      <a class="hover-with-bg" href="/categories/OI/%E6%95%B0%E5%AD%A6/">数学</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/03/03/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E5%8D%9A%E5%BC%88%E8%AE%BA%E4%B9%8B%20SG%20%E5%87%BD%E6%95%B0/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【学习笔记】博弈论之 SG 函数</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/02/26/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E5%A4%9A%E9%A1%B9%E5%BC%8F%E5%85%A8%E5%AE%B6%E6%A1%B6/">
+                        <span class="hidden-mobile">【学习笔记】多项式全家桶</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        loader: {
+          load: ['ui/lazy']
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+</html>
