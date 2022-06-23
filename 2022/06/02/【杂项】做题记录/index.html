@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://reclouds.github.io/img/bg/19.jpeg">
 <meta property="article:published_time" content="2022-06-02T11:15:11.000Z">
-<meta property="article:modified_time" content="2022-06-23T03:09:30.472Z">
+<meta property="article:modified_time" content="2022-06-23T12:40:24.254Z">
 <meta property="article:author" content="Recalling_Clouds">
 <meta property="article:tag" content="杂项">
 <meta name="twitter:card" content="summary_large_image">
@@ -205,7 +205,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      21k 字
+      22k 字
     </span>
   
 
@@ -214,7 +214,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      172 分钟
+      185 分钟
     </span>
   
 
@@ -1762,7 +1762,7 @@ target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github
 PERIODNI</a></li>
 </ol>
 <ul>
-<li><p>通过时间：<span class="math inline">\(2022.6.22\)</span></p></li>
+<li><p>通过时间：<span class="math inline">\(2022.6.23\)</span></p></li>
 <li><p>难度：<font color="#00BFFF"> 提高+/省选- </font></p></li>
 <li><p>算法：笛卡尔树，树形背包</p></li>
 <li><p>做法：</p></li>
@@ -1775,6 +1775,8 @@ class="math inline">\(k\)</span> 个数的方案数为 <span
 class="math inline">\(\displaystyle W_{n, m, k} = \binom{n}{k} \cdot
 \binom{m}{k} \cdot k!\)</span>。</p>
 <p>那么我们可以把整个图形自底向上剖分为若干个极大子矩形，则所有的子矩形会构成一颗树形结构：<strong>笛卡尔树</strong>。</p>
+<p>（不过这题直接建笛卡尔树可能会有问题，最好改为模拟建笛卡尔树的过程，即每次在给定区间内找出最小值，然后把区间中所有等于最小值的位置拿出来作为笛卡尔树上的一个节点。这样会形成一颗多叉树结构，时间复杂度是
+<span class="math inline">\(\mathcal{O}(n^2)\)</span> 的。）</p>
 <p>所以，我们建立笛卡尔树，那么每个节点 <span
 class="math inline">\(u\)</span> 所代表矩形的长为 <span
 class="math inline">\(si_u\)</span>（笛卡尔树上以点 <span
@@ -1803,6 +1805,85 @@ class="math inline">\(\mathcal{O}(n^3)\)</span>。</p>
 <li>代码：<a
 target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/blob/master/Codes/%E6%96%B0%E9%A2%98%E7%9B%AE/P6453%20%5BCOCI2008-2009%234%5D%20PERIODNI.cpp">P6453
 [COCI2008-2009#4] PERIODNI</a></li>
+</ul>
+<hr />
+<ol start="38" type="1">
+<li><a target="_blank" rel="noopener" href="https://atcoder.jp/contests/agc026/tasks/agc026_d">AGC026D
+Histogram Coloring</a></li>
+</ol>
+<ul>
+<li><p>通过时间：<span class="math inline">\(2022.6.23\)</span></p></li>
+<li><p>难度：<font color="#9400D3"> 省选/NOI- </font></p></li>
+<li><p>算法：笛卡尔树，树形 <span
+class="math inline">\(\operatorname{DP}\)</span></p></li>
+<li><p>做法：</p></li>
+</ul>
+<p>首先讨论一个子问题：对于一个完整的矩形来说，如果我们已经确定了第一行所有格子的颜色，整个矩形有多少种红蓝染色的方法？</p>
+<p>显然，对于第 <span class="math inline">\(i\)</span> 行第 <span
+class="math inline">\(j\)</span> 列的格子，我们直接取与第 <span
+class="math inline">\(i - 1\)</span> 行第 <span
+class="math inline">\(j\)</span>
+列的格子不同的颜色即可。这是一种染色方法。</p>
+<p>当然，我们发现：如果第一行的颜色是红蓝相间的，那么我们对于第 <span
+class="math inline">\(i\)</span> 行第 <span
+class="math inline">\(j\)</span> 列的格子，我们直接取与第 <span
+class="math inline">\(i - 1\)</span> 行第 <span
+class="math inline">\(j\)</span>
+列的格子相同的颜色也可以。这是另一种染色方法。</p>
+<p>那么我们可以把整个图形自底向上剖分为若干个极大子矩形，则所有的子矩形会构成一颗树形结构：<strong>笛卡尔树</strong>。</p>
+<p>（不过这题直接建笛卡尔树可能会有问题，最好改为模拟建笛卡尔树的过程，即每次在给定区间内找出最小值，然后把区间中所有等于最小值的位置拿出来作为笛卡尔树上的一个节点。这样会形成一颗多叉树结构，时间复杂度是
+<span class="math inline">\(\mathcal{O}(n^2)\)</span> 的。）</p>
+<p><del>（反复鞭尸）</del></p>
+<p>我们设 <span class="math inline">\(f_{u, 0}\)</span> 表示以点 <span
+class="math inline">\(u\)</span>
+为根的子树所表示的区域的染色方案数，<span class="math inline">\(f_{u,
+1}\)</span> 表示以点 <span class="math inline">\(v\)</span>
+为根的子树所表示的区域的染色方案数，前提是满足最后一行的染色是红蓝相间的。</p>
+<p>那么转移方程如下：</p>
+<p>（注：设点 <span class="math inline">\(v\)</span> 为点 <span
+class="math inline">\(u\)</span> 的儿子，<span
+class="math inline">\(h\)</span> 为点 <span
+class="math inline">\(u\)</span> 所表示矩形的高度，<span
+class="math inline">\(cnt\)</span> 为笛卡尔树上点的大小。）</p>
+<p>一、<span class="math inline">\(\displaystyle f_{u, 1} = 2^h \cdot
+\prod_v f_{v, 1}\)</span>。</p>
+<p><span class="math inline">\(\displaystyle \prod_v f_{v, 1}\)</span>
+表示子树 <span class="math inline">\(v\)</span>
+中满足底部为红蓝相间的方案总数，而对于每一种方案，第一行都可以有两种方式
+“接应” 子树的方案（任选一颗子树，我们有两种方案 “接应”
+它，而确定了一个位置的颜色之后，一整行的颜色都可以确定）。如此向下，每一行都可以有两种方式
+“接应” 上一行的方案，所以总方案数为 <span
+class="math inline">\(\displaystyle 2^h \cdot \prod_v f_{v,
+1}\)</span>。</p>
+<p>二、<span class="math inline">\(\displaystyle f_{u, 0} = 2^{cnt}
+\cdot \prod_v (f_{v, 0} + f_{v, 1}) + (2^h - 2) \cdot \prod_v f_{v,
+1}\)</span>，。</p>
+<p>第一个部分表示点 <span class="math inline">\(u\)</span>
+所代表矩阵的第一行任意涂色的合法总方案数。<span
+class="math inline">\(2^{cnt}\)</span>
+表示不在子树内的列，它们不受子树的约束，因此可以任意涂色。而 <span
+class="math inline">\(\displaystyle \prod_v (f_{v, 0} + f_{v,
+1})\)</span> 表示在子树内的部分，<span class="math inline">\(f_{v,
+0}\)</span> 表示对于子树内的每一种方案，取相反的颜色即为合法方案，而
+<span class="math inline">\(f_{v, 1}\)</span>
+则表示对于子树所代表矩阵底部为红蓝相间的情况，取相同的颜色也为合法方案。
+对于下面的行，我们将它们全部与上一行取相反的颜色，那么第一行的合法总方案数即为第一个部分的合法总方案数。</p>
+<p>第二个部分和第一个转移方程的式子相似，但是为什么需要减去 <span
+class="math inline">\(2\)</span> 呢？这个部分表示的是点 <span
+class="math inline">\(u\)</span>
+所代表矩形的底部红蓝相间的方案数，而仅仅只有底部红蓝相间的方案数为 <span
+class="math inline">\(2\)</span>，这两种方案在第一部分的式子中恰好对应了两种第一行的染色方案。由于在第一部分中，我们计算出了第一行所有合法的染色方案，因此第二部分要将这两种方案都减去。</p>
+<p>时间复杂度为 <span class="math inline">\(\mathcal{O}(n^2 + n \log_2
+h_i)\)</span>。</p>
+<ul>
+<li>备注：</li>
+</ul>
+<p>用笛卡尔树解决和直方图有关的问题，这个 <span
+class="math inline">\(\operatorname{trick}\)</span> 不容忽视。</p>
+<ul>
+<li>代码：<a
+target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/blob/master/Codes/%E6%96%B0%E9%A2%98%E7%9B%AE/AGC026D%20Histogram%20Coloring.cpp">AGC026D
+Histogram Coloring</a></li>
 </ul>
 <hr />
 <h2 id="operatornametobecontinuedcdotscdots"><span
