@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://reclouds.github.io/img/bg/19.jpeg">
 <meta property="article:published_time" content="2022-06-02T11:15:11.000Z">
-<meta property="article:modified_time" content="2022-06-22T12:09:34.533Z">
+<meta property="article:modified_time" content="2022-06-23T03:09:30.472Z">
 <meta property="article:author" content="Recalling_Clouds">
 <meta property="article:tag" content="杂项">
 <meta name="twitter:card" content="summary_large_image">
@@ -205,7 +205,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      20k 字
+      21k 字
     </span>
   
 
@@ -214,7 +214,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      166 分钟
+      172 分钟
     </span>
   
 
@@ -1764,12 +1764,45 @@ PERIODNI</a></li>
 <ul>
 <li><p>通过时间：<span class="math inline">\(2022.6.22\)</span></p></li>
 <li><p>难度：<font color="#00BFFF"> 提高+/省选- </font></p></li>
-<li><p>算法：</p></li>
+<li><p>算法：笛卡尔树，树形背包</p></li>
 <li><p>做法：</p></li>
-<li><p>备注：</p></li>
-<li><p>代码：<a
+</ul>
+<p>据说这是个经典问题。</p>
+<p>我们发现在一个固定的矩形范围内填入若干个数的方案数是很好求的：在长为
+<span class="math inline">\(n\)</span> 高为 <span
+class="math inline">\(m\)</span> 的矩形中填入 <span
+class="math inline">\(k\)</span> 个数的方案数为 <span
+class="math inline">\(\displaystyle W_{n, m, k} = \binom{n}{k} \cdot
+\binom{m}{k} \cdot k!\)</span>。</p>
+<p>那么我们可以把整个图形自底向上剖分为若干个极大子矩形，则所有的子矩形会构成一颗树形结构：<strong>笛卡尔树</strong>。</p>
+<p>所以，我们建立笛卡尔树，那么每个节点 <span
+class="math inline">\(u\)</span> 所代表矩形的长为 <span
+class="math inline">\(si_u\)</span>（笛卡尔树上以点 <span
+class="math inline">\(u\)</span> 为根的子树大小），高为 <span
+class="math inline">\(h_i - h_{fa_i}\)</span>。</p>
+<p>那么我们考虑树形背包：设 <span class="math inline">\(f_{i,
+j}\)</span> 表示以 <span class="math inline">\(i\)</span>
+为根的子树中填入 <span class="math inline">\(j\)</span>
+个数的方案数。转移时先设初始状态 <span class="math inline">\(f_{i, 0} =
+1\)</span>，然后将 <span class="math inline">\(i\)</span> 的儿子 <span
+class="math inline">\(v\)</span> 向 <span
+class="math inline">\(i\)</span> 转移：<span
+class="math inline">\(\displaystyle f_{i, j} = \sum_{k = 0}^j f_{i, k}
+\cdot f_{v, j - k}\)</span>。最后，我们考虑点 <span
+class="math inline">\(i\)</span> 所代表子树的矩形的方案数，即 <span
+class="math inline">\(\displaystyle f_{i, j} = \sum_{k = 0}^j f_{i, k}
+\cdot W_{si_u - k, h_i - h_{fa_i}, j - k}\)</span>。</p>
+<p>时间复杂度为 <span
+class="math inline">\(\mathcal{O}(n^3)\)</span>。</p>
+<ul>
+<li>备注：</li>
+</ul>
+<p>注意组合数的范围最多会到 <span class="math inline">\(\displaystyle
+\max_{i = 1}^n h_i\)</span>，不要把数组开小了。</p>
+<ul>
+<li>代码：<a
 target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/blob/master/Codes/%E6%96%B0%E9%A2%98%E7%9B%AE/P6453%20%5BCOCI2008-2009%234%5D%20PERIODNI.cpp">P6453
-[COCI2008-2009#4] PERIODNI</a></p></li>
+[COCI2008-2009#4] PERIODNI</a></li>
 </ul>
 <hr />
 <h2 id="operatornametobecontinuedcdotscdots"><span
