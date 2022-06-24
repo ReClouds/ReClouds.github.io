@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://reclouds.github.io/img/bg/19.jpeg">
 <meta property="article:published_time" content="2022-06-02T11:15:11.000Z">
-<meta property="article:modified_time" content="2022-06-24T02:10:26.436Z">
+<meta property="article:modified_time" content="2022-06-24T13:16:11.704Z">
 <meta property="article:author" content="Recalling_Clouds">
 <meta property="article:tag" content="杂项">
 <meta name="twitter:card" content="summary_large_image">
@@ -205,7 +205,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      23k 字
+      24k 字
     </span>
   
 
@@ -214,7 +214,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      191 分钟
+      200 分钟
     </span>
   
 
@@ -1726,8 +1726,8 @@ class="math inline">\(i\)</span> 的最优答案。</p>
 <p>转移时，我们考虑枚举最小值位置 <span
 class="math inline">\(i\)</span>，那么有 <span
 class="math inline">\(\displaystyle f_{l, r, k} = \max_{l &lt; i &lt; r,
-a, b \ge k} f_{l, i - 1, a} + f_{i + 1, r, b} + k \cdot w_{l, r, i,
-k}\)</span>。其中，<span class="math inline">\(w_{l, r, i, k}\)</span>
+a, b \ge k} \{f_{l, i - 1, a} + f_{i + 1, r, b} + k \cdot w_{l, r, i, k}
+\}\)</span>。其中，<span class="math inline">\(w_{l, r, i, k}\)</span>
 表示满足 <span class="math inline">\(l \le a_j \le i \le b_j \le
 r\)</span> 且 <span class="math inline">\(c_j \ge k\)</span> 的消费者
 <span class="math inline">\(j\)</span>
@@ -1922,6 +1922,79 @@ class="math inline">\(\operatorname{DP}\)</span>
 <li>代码：<a
 target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/blob/master/Codes/%E6%96%B0%E9%A2%98%E7%9B%AE/LOJ2743%20%5BJOI%20Open%202016%5D%20%E6%91%A9%E5%A4%A9%E5%A4%A7%E6%A5%BC.cpp">LOJ2743
 [JOI Open 2016] 摩天大楼</a></li>
+</ul>
+<hr />
+<ol start="36" type="1">
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5853">P5853 [USACO19DEC]
+Tree Depth P</a></li>
+</ol>
+<ul>
+<li><p>通过时间：<span class="math inline">\(2022.6.24\)</span></p></li>
+<li><p>难度：<font color="#000080"> NOI/NOI+/CTSC </font></p></li>
+<li><p>算法：<span
+class="math inline">\(\operatorname{DP}\)</span></p></li>
+<li><p>做法：</p></li>
+</ul>
+<p>首先考虑一个问题：如何求逆序对数为 <span
+class="math inline">\(k\)</span> 的排列个数？</p>
+<p>据说这是一个经典问题：考虑从左到右枚举位置，枚举到位置 <span
+class="math inline">\(i\)</span> 时，我们考虑确定第 <span
+class="math inline">\(i\)</span>
+个位置和前面所有位置的相对大小关系，这样可以在位置 <span
+class="math inline">\(i\)</span> 上产生 <span class="math inline">\([0,
+i - 1]\)</span> 内的所有贡献。所以我们设 <span
+class="math inline">\(f_{i, j}\)</span> 表示前 <span
+class="math inline">\(i\)</span> 个位置个数为 <span
+class="math inline">\(j\)</span> 的排列个数，转移时前缀和优化可以做到
+<span class="math inline">\(\mathcal{O}(n^3)\)</span>。</p>
+<p>回到原问题上来。</p>
+<p>我们发现，点 <span class="math inline">\(u\)</span>
+在笛卡尔树上的深度实际上就等于笛卡尔树上点 <span
+class="math inline">\(u\)</span> 的祖先个数加 <span
+class="math inline">\(1\)</span>。加 <span
+class="math inline">\(1\)</span> 的贡献可以用 <span
+class="math inline">\(f_{i, j}\)</span>
+求出，那么现在的问题是统计在每一颗满足要求的笛卡尔树中，点 <span
+class="math inline">\(u\)</span> 的祖先个数之和。</p>
+<p>首先要知道，在笛卡尔树上，点 <span class="math inline">\(v\)</span>
+是点 <span class="math inline">\(u\)</span> 祖先的充要条件是 <span
+class="math inline">\(\displaystyle \min_{i = \min(u, v)}^{\max(u, v)}
+\{ p_i \} = p_v\)</span>。</p>
+<p>假设我们统计点 <span class="math inline">\(v\)</span> 做为点 <span
+class="math inline">\(u\)</span> 祖先的排列个数，那么我们考虑先从 <span
+class="math inline">\(u\)</span> 填到 <span
+class="math inline">\(v\)</span>，再填 <span
+class="math inline">\(u\)</span> 与 <span
+class="math inline">\(v\)</span>
+两侧的位置。可以发现，其它位置我们还是可以如上做 <span
+class="math inline">\(\operatorname{DP}\)</span>，唯独 <span
+class="math inline">\(v\)</span> 不可以，因为 <span
+class="math inline">\(u\)</span> 到 <span
+class="math inline">\(v\)</span> 的位置上的所有值与 <span
+class="math inline">\(v\)</span> 之间的相对大小关系是已经确定的。当
+<span class="math inline">\(u &lt; v\)</span> 时，这个贡献为 <span
+class="math inline">\(v - u\)</span>；当 <span class="math inline">\(u
+&gt; v\)</span> 时，这个贡献为 <span
+class="math inline">\(0\)</span>。所以，我们枚举 <span
+class="math inline">\(t = v - u\)</span>，然后在背包中撤销 <span
+class="math inline">\(t = v - u\)</span> 的贡献。设撤销贡献后的 <span
+class="math inline">\(\operatorname{DP}\)</span> 数组为 <span
+class="math inline">\(g_{j}\)</span>，那么对于一个位置 <span
+class="math inline">\(i\)</span>，它应得到的贡献即为 <span
+class="math inline">\(g_{k - t}\cdot[i + t \le n] + g_{k}\cdot[i &gt;
+t]\)</span>。</p>
+<p>时间复杂度为 <span
+class="math inline">\(\mathcal{O}(n^3)\)</span>。</p>
+<ul>
+<li>备注：</li>
+</ul>
+<p>实际上，这题前面的步骤大体上是一样的，后面这一步除了撤销贡献外，还可以维护前缀和后缀分别做
+<span class="math inline">\(\operatorname{DP}\)</span>
+得到的数组，然后对每个位置做一遍卷积（当然不要把整个数组全部卷起来，只需要知道几个会造成贡献的位置的值即可）。当然，也可以用生成函数配合多项式的操作做这一步。</p>
+<ul>
+<li>代码：<a
+target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/blob/master/Codes/%E6%96%B0%E9%A2%98%E7%9B%AE/P5853%20%5BUSACO19DEC%5D%20Tree%20Depth%20P.cpp">P5853
+[USACO19DEC] Tree Depth P</a></li>
 </ul>
 <hr />
 <h2 id="operatornametobecontinuedcdotscdots"><span
