@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://reclouds.github.io/img/bg/19.jpeg">
 <meta property="article:published_time" content="2022-06-02T11:15:11.000Z">
-<meta property="article:modified_time" content="2022-06-28T08:28:25.266Z">
+<meta property="article:modified_time" content="2022-06-28T13:56:11.466Z">
 <meta property="article:author" content="Recalling_Clouds">
 <meta property="article:tag" content="杂项">
 <meta name="twitter:card" content="summary_large_image">
@@ -214,7 +214,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      214 分钟
+      219 分钟
     </span>
   
 
@@ -2127,6 +2127,55 @@ class="math inline">\(\operatorname{bool}\)</span>
 数组表示一个位置的值是否为 <span
 class="math inline">\(+\infty\)</span>，然后对其进行 <span
 class="math inline">\(\operatorname{memset}\)</span>，这样常数会小很多。</p>
+<ul>
+<li>代码：<a
+target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/blob/master/Codes/%E6%96%B0%E9%A2%98%E7%9B%AE/P7962%20%5BNOIP2021%5D%20%E6%96%B9%E5%B7%AE.cpp">P7962
+[NOIP2021] 方差</a></li>
+</ul>
+<hr />
+<ol start="44" type="1">
+<li><a target="_blank" rel="noopener" href="https://hydro.ac/d/bzoj/p/3864">BZOJ3864 Hero meet
+devil</a></li>
+</ol>
+<ul>
+<li><p>通过时间：<span class="math inline">\(2022.6.28\)</span></p></li>
+<li><p>难度：<font color="#9400D3"> 省选/NOI- </font></p></li>
+<li><p>算法：<span class="math inline">\(\operatorname{DP}\)</span> 套
+<span class="math inline">\(\operatorname{DP}\)</span></p></li>
+<li><p>做法：</p></li>
+</ul>
+<p>考虑求 <span class="math inline">\(S\)</span> 和 <span
+class="math inline">\(T\)</span> 两个串 <span
+class="math inline">\(\operatorname{LCS}\)</span> 的 <span
+class="math inline">\(\operatorname{DP}\)</span>：设 <span
+class="math inline">\(f_{i, j}\)</span> 表示 <span
+class="math inline">\(S\)</span> 串前 <span
+class="math inline">\(i\)</span> 位和 <span
+class="math inline">\(T\)</span> 串前 <span
+class="math inline">\(j\)</span> 位的 <span
+class="math inline">\(\operatorname{LCS}\)</span>，转移方程即为 <span
+class="math inline">\(f_{i, j} = \max(f_{i - 1, j}, f_{i, j - 1}, f_{i -
+1, j - 1} + [S_i = T_j])\)</span>。</p>
+<p>显然可以证得：<span class="math inline">\(f_{i, j} - f_{i, j - 1} \le
+1\)</span>，所以我们可以对这个差分状压。</p>
+<p>具体地，设 <span class="math inline">\(g_{i, W}\)</span> 表示串 <span
+class="math inline">\(T\)</span> 的前 <span
+class="math inline">\(i\)</span> 位和 <span
+class="math inline">\(S\)</span> 匹配得到的 <span
+class="math inline">\(f_{i, j}\)</span> 数组差分为 <span
+class="math inline">\(W\)</span> 时的方案数。转移时，我们先预处理 <span
+class="math inline">\(tr_{W, c}\)</span> 表示 <span
+class="math inline">\(W\)</span> 在填了一个字符 <span
+class="math inline">\(c\)</span>
+后能够转移到的状态，这个可以用上面的转移方程求出。然后，我们枚举 <span
+class="math inline">\(T\)</span> 串每一位填什么，配合 <span
+class="math inline">\(tr_{W, c}\)</span> 转移即可。</p>
+<p>设 <span class="math inline">\(n = |S|\)</span>，单组数据时间复杂度为
+<span class="math inline">\(\mathcal{O}(m2^n)\)</span>。</p>
+<ul>
+<li>备注：</li>
+</ul>
+<p>注意滚动数组要滚动。。。</p>
 <ul>
 <li>代码：<a
 target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/blob/master/Codes/%E6%96%B0%E9%A2%98%E7%9B%AE/P7962%20%5BNOIP2021%5D%20%E6%96%B9%E5%B7%AE.cpp">P7962
