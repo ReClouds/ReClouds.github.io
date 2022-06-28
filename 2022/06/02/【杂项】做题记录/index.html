@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://reclouds.github.io/img/bg/19.jpeg">
 <meta property="article:published_time" content="2022-06-02T11:15:11.000Z">
-<meta property="article:modified_time" content="2022-06-28T03:40:50.266Z">
+<meta property="article:modified_time" content="2022-06-28T08:28:25.266Z">
 <meta property="article:author" content="Recalling_Clouds">
 <meta property="article:tag" content="杂项">
 <meta name="twitter:card" content="summary_large_image">
@@ -205,7 +205,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      25k 字
+      26k 字
     </span>
   
 
@@ -214,7 +214,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      208 分钟
+      214 分钟
     </span>
   
 
@@ -820,7 +820,7 @@ class="math inline">\(k\)</span>，费用为 <span
 class="math inline">\(0\)</span> 的边，同时从 <span
 class="math inline">\(S\)</span> 向 <span
 class="math inline">\(1\)</span> 连一条容量为 <span
-class="math inline">\(\operatorname{INF}\)</span>，费用为 <span
+class="math inline">\(+\infty\)</span>，费用为 <span
 class="math inline">\(0\)</span>
 的边以提供初始流量。对于每一个左闭右开区间 <span
 class="math inline">\([l, r)\)</span>，我们从 <span
@@ -1023,7 +1023,7 @@ Biologist</a></li>
 </ul>
 <p>可以对每个人每个猪圈建一个节点，然后按题意模拟建边即可。</p>
 <p>但是这样做点太多了。我们发现一个人的所有猪圈节点之间都互相连了容量为
-<span class="math inline">\(\operatorname{INF}\)</span>
+<span class="math inline">\(+\infty\)</span>
 的边，所以可以考虑缩点，然后把边用类似链式前向星的方法处理一下即可。</p>
 <ul>
 <li>备注：</li>
@@ -1079,7 +1079,7 @@ class="math inline">\(j\)</span>
 class="math inline">\(i &lt; j\)</span>，我们从 <span
 class="math inline">\(i\)</span> 的入点向 <span
 class="math inline">\(j\)</span> 的出点连一条容量为 <span
-class="math inline">\(\operatorname{INF}\)</span>，费用为 <span
+class="math inline">\(+\infty\)</span>，费用为 <span
 class="math inline">\(dis_{i, j}\)</span> 的边。</p>
 <p>接着，我们从 <span class="math inline">\(S\)</span> 到 <span
 class="math inline">\(0\)</span> 号点的入点连一条容量为 <span
@@ -2079,6 +2079,58 @@ class="math inline">\(\mathcal{O}(n^3mk)\)</span>。</p>
 <li>代码：<a
 target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/blob/master/Codes/%E6%96%B0%E9%A2%98%E7%9B%AE/P7961%20%5BNOIP2021%5D%20%E6%95%B0%E5%88%97.cpp">P7961
 [NOIP2021] 数列</a></li>
+</ul>
+<hr />
+<ol start="43" type="1">
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P7961">P7962 [NOIP2021]
+方差</a></li>
+</ol>
+<ul>
+<li><p>通过时间：<span class="math inline">\(2022.6.28\)</span></p></li>
+<li><p>难度：<font color="#9400D3"> 省选/NOI- </font></p></li>
+<li><p>算法：<span
+class="math inline">\(\operatorname{DP}\)</span></p></li>
+<li><p>做法：</p></li>
+</ul>
+<p>推一下式子，发现答案即为 <span class="math inline">\(\displaystyle n
+\cdot \sum_{i = 1}^n a_i^2 - (\sum_{i = 1}^n a_i)^2\)</span>。</p>
+<p>操作本质上是交换差分。可以发现，如果差分呈单谷状排列，那么所有数都会更加紧密地靠向平均值，此时的差分最小（具体可以用微扰证明）。</p>
+<p>那么我们将差分排序，然后设 <span class="math inline">\(f_{i,
+j}\)</span> 表示已经填了 <span class="math inline">\(i\)</span>
+个差分，当前的 <span class="math inline">\(\displaystyle \sum_{i = 1}^n
+a_i\)</span> 为 <span class="math inline">\(j\)</span> 时最小的 <span
+class="math inline">\(\displaystyle \sum_{i = 1}^n a_i^2\)</span>。</p>
+<p>转移时分讨填左边和填右边对上面两个式子的贡献，直接做即可。</p>
+<p>不过直接做是 <span class="math inline">\(\mathcal{O}(n^2
+a_i)\)</span> 的。但是由于 <span class="math inline">\(a_i\)</span>
+为不降序列且 <span class="math inline">\(a_i\)</span> 远小于 <span
+class="math inline">\(n\)</span>，所以差分数组中有很多的 <span
+class="math inline">\(0\)</span>，并且这些 <span
+class="math inline">\(0\)</span>
+在排序时全部在最前端，同时它们对上面的两个式子又没有贡献，因此做 <span
+class="math inline">\(\operatorname{DP}\)</span> 时跳过它们即可。</p>
+<p>时间复杂度为 <span
+class="math inline">\(\mathcal{O}(na_i^2)\)</span>。</p>
+<ul>
+<li>备注：</li>
+</ul>
+<p>注意以下两个卡常点：</p>
+<p><span
+class="math inline">\(\alpha\)</span>：每次转移时用填表法，记录下一次做
+<span class="math inline">\(\operatorname{DP}\)</span>
+时，状态第二维的最大值是多少。</p>
+<p><span class="math inline">\(\beta\)</span>：<span
+class="math inline">\(\operatorname{memset}\)</span> 一个 <span
+class="math inline">\(\operatorname{long~long}\)</span>
+的数组常数太大了，可以用 <span
+class="math inline">\(\operatorname{bool}\)</span>
+数组表示一个位置的值是否为 <span
+class="math inline">\(+\infty\)</span>，然后对其进行 <span
+class="math inline">\(\operatorname{memset}\)</span>，这样常数会小很多。</p>
+<ul>
+<li>代码：<a
+target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/blob/master/Codes/%E6%96%B0%E9%A2%98%E7%9B%AE/P7962%20%5BNOIP2021%5D%20%E6%96%B9%E5%B7%AE.cpp">P7962
+[NOIP2021] 方差</a></li>
 </ul>
 <hr />
 <h2 id="operatornametobecontinuedcdotscdots"><span
