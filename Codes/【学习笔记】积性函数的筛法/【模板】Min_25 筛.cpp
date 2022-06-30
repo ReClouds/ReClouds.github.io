@@ -6,18 +6,18 @@
 
 #define MAXN 200005
 
-using LL = long long;
+using i64 = long long;
 using namespace std;
 
 int len, m, pos1[MAXN], pos2[MAXN];
-LL n, s, Prime[MAXN], sum1[MAXN], sum2[MAXN], val[MAXN], g1[MAXN], g2[MAXN];
+i64 n, s, Prime[MAXN], sum1[MAXN], sum2[MAXN], val[MAXN], g1[MAXN], g2[MAXN];
 bool NotPrime[MAXN];
-const LL MOD = 1000000007LL, Inv2 = 500000004LL, Inv6 = 166666668LL;
+const i64 MOD = 1000000007LL, Inv2 = 500000004LL, Inv6 = 166666668LL;
 
-inline LL GetMOD(LL k) { if(k >= MOD) k -= MOD; return k; }
-inline LL Prefix1(LL k) { k %= MOD; return k * (k + 1LL) % MOD * Inv2 % MOD; }
-inline LL Prefix2(LL k) { k %= MOD; return k * (k + 1LL) % MOD * GetMOD(k * 2LL % MOD + 1LL) % MOD * Inv6 % MOD; }
-inline int GetPos(LL k) { if(k <= s) return pos1[k]; return pos2[n / k]; }
+inline i64 GetMOD(i64 k) { if(k >= MOD) k -= MOD; return k; }
+inline i64 Prefix1(i64 k) { k %= MOD; return k * (k + 1LL) % MOD * Inv2 % MOD; }
+inline i64 Prefix2(i64 k) { k %= MOD; return k * (k + 1LL) % MOD * GetMOD(k * 2LL % MOD + 1LL) % MOD * Inv6 % MOD; }
+inline int GetPos(i64 k) { if(k <= s) return pos1[k]; return pos2[n / k]; }
 
 inline void Sieve()
 {
@@ -39,13 +39,13 @@ inline void Sieve()
 	return;
 }
 
-inline LL S(LL k, int p)
+inline i64 S(i64 k, int p)
 {
 	if(Prime[p] > k) return 0LL;
-	LL res = GetMOD(GetMOD(g2[GetPos(k)] - g1[GetPos(k)] + MOD) - GetMOD(sum2[p] - sum1[p] + MOD) + MOD);
+	i64 res = GetMOD(GetMOD(g2[GetPos(k)] - g1[GetPos(k)] + MOD) - GetMOD(sum2[p] - sum1[p] + MOD) + MOD);
 	for(register int i = p + 1; i <= len && Prime[i] * Prime[i] <= k; i++)
 	{
-		LL pw = Prime[i];
+		i64 pw = Prime[i];
 		for(register int j = 1; pw <= k; pw = pw * Prime[i], j++) res = GetMOD(res + pw % MOD * GetMOD(pw % MOD - 1LL + MOD) % MOD * GetMOD(S(k / pw, i) + (j > 1)) % MOD);
 	}
 	return res;
@@ -53,11 +53,8 @@ inline LL S(LL k, int p)
 
 int main()
 {
-	#ifdef FILE
-		freopen("Input.in", "r", stdin);
-	#endif
-	scanf("%lld", &n), s = (LL)sqrt(n), Sieve();
-	for(register LL l = 1, r; l <= n; l = r + 1)
+	scanf("%lld", &n), s = (int)(sqrt(n)), Sieve();
+	for(register i64 l = 1, r; l <= n; l = r + 1)
 	{
 		r = n / (n / l), val[++m] = n / l;
 		g1[m] = GetMOD(Prefix1(val[m]) - 1LL + MOD), g2[m] = GetMOD(Prefix2(val[m]) - 1LL + MOD);

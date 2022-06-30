@@ -4,7 +4,7 @@
 #include<cassert>
 #include<unordered_map>
 
-#define MAXN 5000001
+#define MAXN 5000005
 
 using LL = long long;
 using namespace std;
@@ -72,9 +72,6 @@ inline LL Solve_Miu(int n)
 
 int main()
 {
-	#ifdef FILE
-		freopen("Input.in", "r", stdin);
-	#endif
 	Prework();
 	scanf("%d", &t);
 	while(t--)
