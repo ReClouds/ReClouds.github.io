@@ -4,12 +4,12 @@
 
 #define MAXN 50
 
-using LL = long long;
+using i64 = long long;
 using namespace std;
 
 int n, cnt;
 bool Zero;
-LL a[MAXN], b[MAXN], p[MAXN];
+i64 a[MAXN], b[MAXN], p[MAXN];
 
 inline void Build()
 {
@@ -36,11 +36,11 @@ inline void Build()
 	return;
 }
 
-inline LL Kth(LL k)
+inline i64 Kth(i64 k)
 {
 	if(Zero) --k;
 	if(!k) return 0LL;
-	LL res = 0LL;
+	i64 res = 0LL;
 	for(register int i = 0; i < cnt; i++) if(k >> i & 1LL) res ^= p[i];
 	return res;
 }

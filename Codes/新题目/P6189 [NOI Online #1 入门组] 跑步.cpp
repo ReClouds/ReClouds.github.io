@@ -3,6 +3,7 @@
 #include<cstdlib>
 #include<cctype>
 #include<cmath>
+#include<cstring>
 
 using namespace std;
 
@@ -42,13 +43,42 @@ using IO :: Write32;
 
 namespace Program
 {
-    int n, s, p;
+    const int MAXN = 100005;
+	const int MAXM = 405;
+
+    int n, p, s, f[MAXN][MAXM], a[MAXN], b[MAXN], ans;
+
+	inline int Get_MOD(int k) { return k - (k >= p) * p; }
 
     inline int Run()
     {
         n = Read32(), p = Read32(), s = (int)(sqrt(n));
-        
-        return 0;
+		for(register int i = 0; i <= s; i++) f[0][i] = 1;
+		a[0] = 1;
+		for(register int i = 1; i <= n; i++)
+		{
+			for(register int j = 1; j <= s; j++)
+			{
+				f[i][j] = f[i][j - 1];
+				if(i >= j) f[i][j] = Get_MOD(f[i][j] + f[i - j][j]);
+				if(j == s) a[i] = f[i][j];
+			}
+		}
+		memset(f, 0, sizeof f);
+		int c = (n - 1) / (s + 1) + 1;
+		f[s + 1][1] = 1, b[0] = 1;
+		for(register int i = 0; i <= n; i++)
+		{
+			for(register int j = 1; j <= c; j++)
+			{
+				if(i >= s + 1) f[i][j] = Get_MOD(f[i][j] + f[i - s - 1][j - 1]);
+				if(i >= j) f[i][j] = Get_MOD(f[i][j] + f[i - j][j]);
+			}
+		}
+		for(register int i = 1; i <= n; i++) for(register int j = 1; j <= c; j++) b[i] = Get_MOD(b[i] + f[i][j]);
+		ans = 0;
+		for(register int i = 0; i <= n; i++) ans = Get_MOD(ans + 1LL * a[i] * b[n - i] % p);
+        return Write32(ans), 0;
     }
 }
 

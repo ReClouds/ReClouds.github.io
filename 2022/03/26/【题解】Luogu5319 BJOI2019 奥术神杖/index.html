@@ -16,16 +16,16 @@
   <meta name="author" content="Recalling_Clouds">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Luogu P5319 [BJOI2019]奥术神杖 题解">
+    <meta name="description" content="Luogu5319 [BJOI2019]奥术神杖 题解">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【题解】Luogu P5319 BJOI2019 奥术神杖">
-<meta property="og:url" content="https://reclouds.github.io/2022/03/26/%E3%80%90%E9%A2%98%E8%A7%A3%E3%80%91Luogu%20P5319%20BJOI2019%20%E5%A5%A5%E6%9C%AF%E7%A5%9E%E6%9D%96/index.html">
+<meta property="og:url" content="https://reclouds.github.io/2022/03/26/%E3%80%90%E9%A2%98%E8%A7%A3%E3%80%91Luogu5319%20BJOI2019%20%E5%A5%A5%E6%9C%AF%E7%A5%9E%E6%9D%96/index.html">
 <meta property="og:site_name" content="ReClouds&#39; Blog">
-<meta property="og:description" content="Luogu P5319 [BJOI2019]奥术神杖 题解">
+<meta property="og:description" content="Luogu5319 [BJOI2019]奥术神杖 题解">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://reclouds.github.io/img/bg/13.jpeg">
 <meta property="article:published_time" content="2022-03-26T01:22:26.000Z">
-<meta property="article:modified_time" content="2022-06-21T14:03:49.278Z">
+<meta property="article:modified_time" content="2022-06-30T00:22:43.885Z">
 <meta property="article:author" content="Recalling_Clouds">
 <meta property="article:tag" content="题解">
 <meta name="twitter:card" content="summary_large_image">
@@ -214,7 +214,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      17 分钟
+      18 分钟
     </span>
   
 
@@ -246,9 +246,7 @@
             <h1 style="display: none">【题解】Luogu P5319 BJOI2019 奥术神杖</h1>
             
             <div class="markdown-body">
-              <p><a
-href="https://reclouds.github.io/2022/03/26/Luogu%20P5319%20BJOI2019%20%E5%A5%A5%E6%9C%AF%E7%A5%9E%E6%9D%96%20%E9%A2%98%E8%A7%A3/">更好的阅读体验</a></p>
-<h3 id="题意"><strong>题意</strong></h3>
+              <h3 id="题意"><strong>题意</strong></h3>
 <p>给定一个长为 <span class="math inline">\(n\)</span> 的字符串 <span
 class="math inline">\(S\)</span>，其每一位为数字 <span
 class="math inline">\(0\sim 9\)</span> 或一个 <span
@@ -286,10 +284,10 @@ class="math inline">\(\operatorname{Magic}\)</span>
 由求积转化为求和了，并且这样的转化并不会影响答案之间的大小关系。</p>
 <p>而 <span
 class="math inline">\(\displaystyle{\sqrt[\operatorname{Count}]{}}\)</span>
-这个部分，可以发现它直接变成了 <span
-class="math inline">\(\dfrac{1}{\operatorname{Count}}\)</span>，所以原式就化为了
-<span
-class="math inline">\(\dfrac{\operatorname{Magic}}{\operatorname{Count}}\)</span>。</p>
+这个部分，可以发现它直接变成了 <span class="math inline">\(\displaystyle
+\frac{1}{\operatorname{Count}}\)</span>，所以原式就化为了 <span
+class="math inline">\(\displaystyle
+\frac{\operatorname{Magic}}{\operatorname{Count}}\)</span>。</p>
 <p>我们再重新审视一遍 <span
 class="math inline">\(\operatorname{Magic}\)</span> 和 <span
 class="math inline">\(\operatorname{Count}\)</span>：每次当前者加上一个
@@ -350,7 +348,7 @@ class="math inline">\(\operatorname{Fail}\)</span>
 <span
 class="math inline">\(mid\)</span>，我们利用树上差分重构一遍自动机上每个点的贡献即可。</p>
 <p><a
-target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/tree/master/Codes/Luogu%20P5319%20BJOI2019%20奥术神杖%20题解/Luogu%20P5319%20BJOI2019%20奥术神杖.cpp">放上代码（在我的
+target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/tree/master/Codes/%E3%80%90%E9%A2%98%E8%A7%A3%E3%80%91Luogu5319%20BJOI2019%20%E5%A5%A5%E6%9C%AF%E7%A5%9E%E6%9D%96/Luogu5319%20BJOI2019%20%E5%A5%A5%E6%9C%AF%E7%A5%9E%E6%9D%96.cpp">放上代码（在我的
 <span class="math inline">\(\operatorname{github}\)</span>
 仓库中查看）</a></p>
 

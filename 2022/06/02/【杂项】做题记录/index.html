@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://reclouds.github.io/img/bg/19.jpeg">
 <meta property="article:published_time" content="2022-06-02T11:15:11.000Z">
-<meta property="article:modified_time" content="2022-06-29T07:53:21.097Z">
+<meta property="article:modified_time" content="2022-06-30T00:24:56.563Z">
 <meta property="article:author" content="Recalling_Clouds">
 <meta property="article:tag" content="杂项">
 <meta name="twitter:card" content="summary_large_image">
@@ -205,7 +205,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      26k 字
+      27k 字
     </span>
   
 
@@ -214,7 +214,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      220 分钟
+      228 分钟
     </span>
   
 
@@ -2031,7 +2031,7 @@ class="math inline">\(\mathcal{O}(n^3)\)</span>。</p>
 </ul>
 <p>最后一步本质上是生成函数。实际上，最后一步还可以预处理前缀和后缀的
 <span class="math inline">\(f_{i,
-j}\)</span>，然后对需要求的位置做卷积，时间复杂度是不变的。</p>
+j}\)</span>，然后对需要求的位置直接做，时间复杂度是不变的。</p>
 <ul>
 <li>代码：<a
 target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/blob/master/Codes/%E6%96%B0%E9%A2%98%E7%9B%AE/P5853%20%5BUSACO19DEC%5D%20Tree%20Depth%20P.cpp">P5853
@@ -2189,10 +2189,64 @@ Hero meet devil</a></li>
 <ul>
 <li><p>通过时间：<span class="math inline">\(2022.6.29\)</span></p></li>
 <li><p>难度：<font color="#9400D3"> 省选/NOI- </font></p></li>
-<li><p>算法：</p></li>
+<li><p>算法：<span
+class="math inline">\(\operatorname{DP}\)</span>，根号分治</p></li>
 <li><p>做法：</p></li>
-<li><p>备注：</p></li>
-<li><p>代码：<a href="">P6189 [NOI Online #1 入门组] 跑步</a></p></li>
+</ul>
+<p>本题实际上就是将正整数无序地划分为若干正整数，求方案数。</p>
+<p>可以得出两个 <span
+class="math inline">\(\operatorname{DP}\)</span>：</p>
+<ol type="1">
+<li><p>设 <span class="math inline">\(f_{i, j}\)</span> 表示将 <span
+class="math inline">\(i\)</span> 划分为若干不超过 <span
+class="math inline">\(j\)</span> 的数的方案数。转移为 <span
+class="math inline">\(f_{i, j} = f_{i, j - 1} + f_{i - j,
+j}\)</span>，即划分出的数不包括 <span class="math inline">\(j\)</span>
+和包括 <span class="math inline">\(j\)</span> 的方案数之和。</p></li>
+<li><p>设 <span class="math inline">\(g_{i, j}\)</span> 表示将 <span
+class="math inline">\(i\)</span> 划分为 <span
+class="math inline">\(j\)</span> 个数的方案数。转移为 <span
+class="math inline">\(g_{i, j} = g_{i - 1, j - 1} + g_{i - j,
+j}\)</span>，即划分出的数包含 <span class="math inline">\(1\)</span>
+和不包含 <span class="math inline">\(1\)</span> 的方案数之和。</p></li>
+</ol>
+<p>考虑根号分治。对于第一个 <span
+class="math inline">\(\operatorname{DP}\)</span>，我们跑到 <span
+class="math inline">\(j = \lfloor\sqrt{n}\rfloor\)</span>
+时停止，然后用一个数组 <span class="math inline">\(a_i = f_{i,
+\sqrt{n}}\)</span> 表示将 <span class="math inline">\(i\)</span>
+划分为若干个不超过 <span
+class="math inline">\(\lfloor\sqrt{n}\rfloor\)</span>
+的数的方案数。对于第二个 <span
+class="math inline">\(\operatorname{DP}\)</span>，我们考虑将转移方程中的第一部分
+<span class="math inline">\(g_{i - 1, j - 1}\)</span> 改为 <span
+class="math inline">\(g_{i -\lfloor\sqrt{n}\rfloor- 1, j
+-\lfloor\sqrt{n}\rfloor- 1}\)</span>，这样就保证了划分出的数大于 <span
+class="math inline">\(\lfloor\sqrt{n}\rfloor\)</span>，同时也保证了划分出的数的个数小于等于
+<span
+class="math inline">\(\lfloor\sqrt{n}\rfloor\)</span>，然后我们用另一个数组
+<span class="math inline">\(\displaystyle b_i = \sum_{j =
+1}^{\lfloor\sqrt{n}\rfloor} g_{i, j}\)</span> 表示将 <span
+class="math inline">\(i\)</span> 划分为若干个大于 <span
+class="math inline">\(\lfloor\sqrt{n}\rfloor\)</span> 的数的方案数。</p>
+<p>最后，可以发现将 <span class="math inline">\(a_i\)</span> 和 <span
+class="math inline">\(b_i\)</span> 做卷积后取 <span
+class="math inline">\(x^n\)</span> 的系数即为答案，当然没有必要用 <span
+class="math inline">\(\operatorname{NTT}\)</span>，直接做即可。</p>
+<p>时间复杂度为 <span
+class="math inline">\(\mathcal{O}(n\sqrt{n})\)</span>。</p>
+<ul>
+<li>备注：</li>
+</ul>
+<p>本题卡空间，可以 <span class="math inline">\(f_{i, j}\)</span> 和
+<span class="math inline">\(g_{i, j}\)</span>
+共用一个数组，毕竟最终求答案时仅需用 <span
+class="math inline">\(a_i\)</span> 和 <span
+class="math inline">\(b_i\)</span>。</p>
+<ul>
+<li>代码：<a
+target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/blob/master/Codes/%E6%96%B0%E9%A2%98%E7%9B%AE/P6189%20%5BNOI%20Online%20%231%20%E5%85%A5%E9%97%A8%E7%BB%84%5D%20%E8%B7%91%E6%AD%A5.cpp">P6189
+[NOI Online #1 入门组] 跑步</a></li>
 </ul>
 <hr />
 <h2 id="operatornametobecontinuedcdotscdots"><span
