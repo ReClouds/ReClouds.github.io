@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://reclouds.github.io/img/bg/19.jpeg">
 <meta property="article:published_time" content="2022-06-02T11:15:11.000Z">
-<meta property="article:modified_time" content="2022-06-30T08:20:57.284Z">
+<meta property="article:modified_time" content="2022-06-30T13:56:14.632Z">
 <meta property="article:author" content="Recalling_Clouds">
 <meta property="article:tag" content="杂项">
 <meta name="twitter:card" content="summary_large_image">
@@ -2023,7 +2023,7 @@ class="math inline">\(g_i\)</span>，那么有 <span
 class="math inline">\(\displaystyle f_{n, i} = \sum_{j = 0}^{t - 1} g_{i
 - j}\)</span>，则 <span class="math inline">\(\displaystyle g_i = f_{n,
 i} - \sum_{j = 1}^{t - 1} g_{i - j}\)</span>，用前缀和优化 <span
-class="math inline">\(\mathcal{O}(n)\)</span> 做一遍即可。</p>
+class="math inline">\(\mathcal{O}(n^2)\)</span> 做一遍即可。</p>
 <p>时间复杂度为 <span
 class="math inline">\(\mathcal{O}(n^3)\)</span>。</p>
 <ul>
@@ -2494,20 +2494,5 @@ class="math inline">\(\operatorname{To~Be~Continued\cdots\cdots}\)</span></h2>
 <script  src="/js/boot.js" ></script>
 
 
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>
