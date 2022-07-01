@@ -189,7 +189,6 @@
   
   
   
-  
     
     
     <div class="category row">
@@ -209,13 +208,11 @@
         
         
           
-          
   <div class="category-post-list">
     
     
   </div>
 
-          
   
   
     
@@ -236,7 +233,6 @@
       <div class="category-collapse collapse" id="collapse-6e34680b3da699e5c8e28d81d3e4f101" role="tabpanel" aria-labelledby="heading-6e34680b3da699e5c8e28d81d3e4f101">
         
         
-          
   <div class="category-post-list">
     
     
@@ -249,6 +245,7 @@
     
   </div>
 
+          
         
       </div>
     </div>
@@ -271,7 +268,6 @@
       <div class="category-collapse collapse" id="collapse-d08f425073cca127d4a21b6d39583634" role="tabpanel" aria-labelledby="heading-d08f425073cca127d4a21b6d39583634">
         
         
-          
   <div class="category-post-list">
     
     
@@ -284,6 +280,7 @@
     
   </div>
 
+          
         
       </div>
     </div>
@@ -306,7 +303,6 @@
       <div class="category-collapse collapse" id="collapse-cc4dd1da7e1a754534215f02fb9ba85d" role="tabpanel" aria-labelledby="heading-cc4dd1da7e1a754534215f02fb9ba85d">
         
         
-          
   <div class="category-post-list">
     
     
@@ -319,6 +315,7 @@
     
   </div>
 
+          
         
       </div>
     </div>
@@ -341,7 +338,6 @@
       <div class="category-collapse collapse" id="collapse-6e65831863dbf272b7a65cd8df1a440d" role="tabpanel" aria-labelledby="heading-6e65831863dbf272b7a65cd8df1a440d">
         
         
-          
   <div class="category-post-list">
     
     
@@ -388,6 +384,7 @@
         
   </div>
 
+          
         
       </div>
     </div>
@@ -410,7 +407,6 @@
       <div class="category-collapse collapse" id="collapse-0fea7c47d93da5689f31820ee525b367" role="tabpanel" aria-labelledby="heading-0fea7c47d93da5689f31820ee525b367">
         
         
-          
   <div class="category-post-list">
     
     
@@ -430,6 +426,7 @@
     
   </div>
 
+          
         
       </div>
     </div>
@@ -452,7 +449,6 @@
       <div class="category-collapse collapse" id="collapse-28726c40cc9246c7db10dfc4ca4f32be" role="tabpanel" aria-labelledby="heading-28726c40cc9246c7db10dfc4ca4f32be">
         
         
-          
   <div class="category-post-list">
     
     
@@ -472,13 +468,17 @@
     
   </div>
 
+          
         
       </div>
     </div>
   
+          
+          
         
       </div>
     </div>
+  
   
 </div>
 
@@ -604,5 +604,20 @@
 <script  src="/js/boot.js" ></script>
 
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>
