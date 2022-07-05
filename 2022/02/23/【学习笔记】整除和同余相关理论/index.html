@@ -205,7 +205,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      5.7k 字
+      5.3k 字
     </span>
   
 
@@ -214,7 +214,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      48 分钟
+      45 分钟
     </span>
   
 
@@ -246,340 +246,153 @@
             <h1 style="display: none">【学习笔记】整除和同余相关理论</h1>
             
             <div class="markdown-body">
-              <h2 id="operatornamelucas-定理"><span
-class="math inline">\(\operatorname{Lucas}\)</span> 定理</h2>
-<p>当 <span class="math inline">\(p\)</span>
-为<strong>质数</strong>时有：</p>
-<p><span class="math display">\[
-C_n^m \bmod p= C_{n / p}^{m / p} * C_{n~\bmod~p}^{m~\bmod~p} \bmod p
-\]</span></p>
-<hr />
-<p>如果 <span class="math inline">\(p\)</span> 不为质数呢？</p>
-<p>那么我们先用唯一分解定理将 <span class="math inline">\(p\)</span>
-分解： <span class="math display">\[
-p = \sum_{k_i \in \operatorname{Prime}} k_i^{\alpha_i}
-\]</span>
-然后把原式拆分为若干个同余方程，最后<strong>用中国剩余定理合并</strong>即可。</p>
-<p>现在我们讨论如何求 <span class="math inline">\(C_n^m \bmod
-k_i^{\alpha_i}\)</span>，而 <span class="math inline">\(C_n^m =
-\frac{n!}{m!(n -
-m)!}\)</span>，所以问题本质上是<strong>求阶乘的取模</strong>。</p>
-<p>设我们要求的是 <span class="math inline">\(P!
-\bmod~k_i^{\alpha_i}\)</span>，那么我们可以把 <span
-class="math inline">\(P!\)</span> 包含的所有 <span
-class="math inline">\(k_i\)</span>
-质因子取出，由于<strong>剩下的数与模数互质</strong>，所以我们就可以直接求逆元了。</p>
+              <h2 id="operatorname-Lucas-定理"><a href="#operatorname-Lucas-定理" class="headerlink" title="$\operatorname{Lucas}$ 定理"></a>$\operatorname{Lucas}$ 定理</h2><p>当 $p$ 为<strong>质数</strong>时有：</p>
+<script type="math/tex; mode=display">
+C_n^m \bmod p= C_{n / p}^{m / p} * C_{n~\bmod~p}^{m~\bmod~p} \bmod p</script><hr>
+<p>如果 $p$ 不为质数呢？</p>
+<p>那么我们先用唯一分解定理将 $p$ 分解：</p>
+<script type="math/tex; mode=display">
+p = \sum_{k_i \in \operatorname{Prime}} k_i^{\alpha_i}</script><p>然后把原式拆分为若干个同余方程，最后<strong>用中国剩余定理合并</strong>即可。</p>
+<p>现在我们讨论如何求 $C_n^m \bmod k_i^{\alpha_i}$，而 $C_n^m = \frac{n!}{m!(n - m)!}$，所以问题本质上是<strong>求阶乘的取模</strong>。</p>
+<p>设我们要求的是 $P! \bmod~k_i^{\alpha_i}$，那么我们可以把 $P!$ 包含的所有 $k_i$ 质因子取出，由于<strong>剩下的数与模数互质</strong>，所以我们就可以直接求逆元了。</p>
 <p>所以最终要求的问题是求：</p>
-<p><span class="math display">\[
-\frac{\frac{n!}{k_i^{\beta_1}}}{\frac{m!}{k_i^{\beta_2}} \cdot \frac{(n
-- m)!}{k_i^{\beta_3}}} \cdot k_i^{\beta_1 - \beta_2 - \beta_3}\bmod
-k_i^{\alpha_i}
-\]</span></p>
-<p>不过我们还是先从研究 <span class="math inline">\(P!
-\bmod~k_i^{\alpha_i}\)</span> 开始。</p>
-<p>同 <span class="math inline">\(OI-wiki\)</span>，我们用 <span
-class="math inline">\(22! \bmod 3^2\)</span> 举例。</p>
-<p>我们知道： <span class="math display">\[
-22! =
-1\times2\times3\times4\times5\times6\times7\times8\times9\times10\times11\times12\times13\times14\times15\times16\times17\times18\times19\times20\times21\times22.
-\]</span></p>
-<p>我们把 <span class="math inline">\(3\)</span>
-的倍数提出来，化简一下有： <span class="math display">\[
-22! = 3^7\times(1\times2\times3\times4\times5\times6\times7)
-\times(1\times2\times4\times5\times7\times8\times10\times11\times13\times14\times16\times17\times19\times20\times22)
-\]</span></p>
-<p>第一个部分是 <span class="math inline">\(k_i\)</span> 的 <span
-class="math inline">\(\lfloor\frac{P}{k_i}\rfloor\)</span>
-次幂，这个部分<strong>只需要记录指数，不需要求具体的值</strong>；</p>
-<p>第二个部分是 <span
-class="math inline">\(\lfloor\frac{P}{k_i}\rfloor!\)</span>，可以递归求解；</p>
-<p>第三个部分是 <span
-class="math inline">\(1\times2\times4\times5\times7\times8\times10\times11\times13\times14\times16\times17\)</span>，仔细观察可以发现：
-<span class="math display">\[
-1\times2\times4\times5\times7\times8
-\equiv10\times11\times13\times14\times16\times17~(\bmod~k_i^{\alpha_i})
-\]</span> 形式化地，有：（<span class="math inline">\(t \in
-Z_+\)</span>） <span class="math display">\[
-\prod_{i = 1,\gcd(i, k_i) = 1}^{k_i^{\alpha_i}} i \equiv \prod_{i =
-1,\gcd(i, k_i) = 1}^{k_i^{\alpha_i}} (i + tk_i^{\alpha_i}) ~(\bmod
-k_i^{\alpha_i})
-\]</span> 这个循环节一共循环了 <span
-class="math inline">\(\lfloor\frac{P}{k_i^{\alpha_i}}\rfloor\)</span>
-次，我们直接求出来之后快速幂即可。</p>
-<p>最后是 <span class="math inline">\(19 \times 20\times
-22\)</span>，循环节的余项，表示出来即为： <span class="math display">\[
-\prod_{i = 1,\gcd(i, k_i) = 1}^{P~\bmod~k_i^{\alpha_i}} i
-\]</span> 分步求解即可。</p>
-<p>如果多测并且模数相同，可以对模数的每一个质因子 <span
-class="math inline">\(k_i\)</span>，求出所有 <span
-class="math inline">\(P \le k_i^{\alpha_i}\)</span> 的 <span
-class="math inline">\(\prod_{i = 1, \gcd(i, k_i) = 1}^P i\)</span>。</p>
-<p>放上<a
-target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/tree/master/Codes/整除和同余相关理论/ExLucas.cpp">代码</a>。</p>
-<hr />
-<h2 id="operatornamebsgs-算法"><span
-class="math inline">\(\operatorname{BSGS}\)</span> 算法</h2>
-<p>当 <span class="math inline">\(a \perp p\)</span> 时有如下算法：</p>
-<p>设 <span class="math inline">\(t =
-\lfloor\sqrt{p}\rfloor\)</span>，则方程可以化为： <span
-class="math display">\[
-a^{it - k} \equiv b ~(\bmod~p)
-\]</span></p>
-<p>进一步有：</p>
-<p><span class="math display">\[
-(a^t)^i \equiv b a^k~(\bmod~p)
-\]</span></p>
-<p>因为 <span class="math inline">\(k \in [0,
-t)\)</span>，所以可以把同余式右侧的式子用哈希表存储（如有重复选择最大的
-<span class="math inline">\(k\)</span>
-即可），然后从小到大枚举同余式左侧的 <span
-class="math inline">\(i\)</span>，如果对于某个 <span
-class="math inline">\(i\)</span>，等式左边的值可以在哈希表中查到，那么此时的
-<span class="math inline">\(it - k\)</span> 就是最小的 <span
-class="math inline">\(x\)</span>。</p>
-<hr />
-<p>不过，当且仅当 <span class="math inline">\(a \perp p\)</span>
-成立时，上面的两个方程成立才互为充要条件。</p>
-<p>如果 <span class="math inline">\(a \perp p\)</span>
-不成立怎么办？</p>
-<p>根据<strong>模的分配律</strong>，我们设 <span class="math inline">\(g
-= \gcd(a, p)\)</span>，那么原方程可以变成： <span
-class="math display">\[
-a^{x - 1}\cdot\frac{a}{g} \equiv \frac{b}{g} ~(\bmod~\frac{p}{g})
-\]</span> 所以当 <span class="math inline">\(b \ne 1\)</span> 且 <span
-class="math inline">\(g \nmid b\)</span> 时，该方程无解。</p>
-<p>如果保证一直有解，那么我们将这个方程一直化开，直到 <span
-class="math inline">\(a \perp \frac{p}{\prod_{i = 1}^k
-g_i}\)</span>。</p>
-<p>此时有：（设 <span class="math inline">\(q = \prod_{i =
-1}^k\dfrac{a}{g_i}\)</span>） <span class="math display">\[
-a^{x - k} \equiv \frac{b}{q \prod_{i = 1}^k g_i} \equiv \frac{b}{a^k}
-~(\bmod~\frac{p}{\prod_{i = 1}^k g_i})
-\]</span> 这个时候就可以用 <span
-class="math inline">\(\operatorname{BSGS}\)</span>
-求解了，<strong>最后的答案记得要加上</strong> <span
-class="math inline">\(k\)</span>。</p>
-<p>当然，算法过程中还需要特判 <span class="math inline">\(q =
-\frac{b}{\prod_{i = 1}^k g_i}\)</span> 的情况，此时左侧 <span
-class="math inline">\(a\)</span> 的次数为 <span
-class="math inline">\(0\)</span>，答案即为 <span
-class="math inline">\(k\)</span>。</p>
-<p>放上<a
-target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/tree/master/Codes/整除和同余相关理论/ExBSGS.cpp">代码</a>。</p>
-<hr />
-<h2 id="中国剩余定理">中国剩余定理</h2>
-<p>如果保证所有的 <span class="math inline">\(p_i\)</span>
-之间<strong>两两互质</strong>，有如下算法：</p>
-<p>设 <span class="math inline">\(M = \prod_{i = 1}^mp_i\)</span>，<span
-class="math inline">\(M_i = \frac{M}{p_i}\)</span>，<span
-class="math inline">\(M_i^{-1}\)</span> 为 <span
-class="math inline">\(M_i\)</span> 在模 <span
-class="math inline">\(p_i\)</span> 意义下的逆元。</p>
-<p>设每个方程的特解为 <span
-class="math inline">\(x_i\)</span>，则方程组特解为 <span
-class="math inline">\(\sum_{i = 1}^m x_iM_iM_i^{-1}\)</span>。</p>
-<p>放上<a
-target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/tree/master/Codes/整除和同余相关理论/CRT.cpp">代码</a>。</p>
-<hr />
-<p>如果不保证 <span class="math inline">\(p_i\)</span>
-两两互质该怎么办？</p>
-<p>假设现在我们已经得出了前 <span class="math inline">\(i - 1\)</span>
-个方程的通解 <span class="math inline">\(x + kM~(k \in Z)\)</span>，其中
-<span class="math inline">\(M\)</span> 显然为 <span
-class="math inline">\(\operatorname{LCM}_{j = 1}^{i -
-1}~p_j\)</span>，那么对于第 <span class="math inline">\(i\)</span>
-个方程，我们就是要找到一个 <span class="math inline">\(k\)</span>
-满足：</p>
-<p><span class="math display">\[
-x + kM \equiv a_i ~(\bmod~p_i)
-\]</span></p>
-<p>显然这可以化为一个二元一次方程，用 <span
-class="math inline">\(\operatorname{exgcd}\)</span>
-求解即可（同时可以用<strong>裴蜀定理</strong>判断无解情况）。</p>
-<p>放上<a
-target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/tree/master/Codes/整除和同余相关理论/ExCRT.cpp">代码</a>（用上了龟速乘避免溢出）。</p>
-<hr />
-<h2 id="原根">原根</h2>
-<ul>
+<script type="math/tex; mode=display">
+\frac{\frac{n!}{k_i^{\beta_1}}}{\frac{m!}{k_i^{\beta_2}} \cdot \frac{(n - m)!}{k_i^{\beta_3}}} \cdot k_i^{\beta_1 - \beta_2 - \beta_3}\bmod k_i^{\alpha_i}</script><p>不过我们还是先从研究 $P! \bmod~k_i^{\alpha_i}$ 开始。</p>
+<p>同 $OI-wiki$，我们用 $22! \bmod 3^2$ 举例。</p>
+<p>我们知道：</p>
+<script type="math/tex; mode=display">
+22! = 1\times2\times3\times4\times5\times6\times7\times8\times9\times10\times11\times12\times13\times14\times15\times16\times17\times18\times19\times20\times21\times22.</script><p>我们把 $3$ 的倍数提出来，化简一下有：</p>
+<script type="math/tex; mode=display">
+22! = 3^7\times(1\times2\times3\times4\times5\times6\times7) \times(1\times2\times4\times5\times7\times8\times10\times11\times13\times14\times16\times17\times19\times20\times22)</script><p>第一个部分是 $k_i$ 的 $\lfloor\frac{P}{k_i}\rfloor$ 次幂，这个部分<strong>只需要记录指数，不需要求具体的值</strong>；</p>
+<p>第二个部分是 $\lfloor\frac{P}{k_i}\rfloor!$，可以递归求解；</p>
+<p>第三个部分是 $1\times2\times4\times5\times7\times8\times10\times11\times13\times14\times16\times17$，仔细观察可以发现：</p>
+<script type="math/tex; mode=display">
+1\times2\times4\times5\times7\times8 \equiv10\times11\times13\times14\times16\times17~(\bmod~k_i^{\alpha_i})</script><p>形式化地，有：（$t \in Z_+$）</p>
+<script type="math/tex; mode=display">
+\prod_{i = 1,\gcd(i, k_i) = 1}^{k_i^{\alpha_i}} i \equiv \prod_{i = 1,\gcd(i, k_i) = 1}^{k_i^{\alpha_i}} (i + tk_i^{\alpha_i}) ~(\bmod k_i^{\alpha_i})</script><p>这个循环节一共循环了 $\lfloor\frac{P}{k_i^{\alpha_i}}\rfloor$ 次，我们直接求出来之后快速幂即可。</p>
+<p>最后是 $19 \times 20\times 22$，循环节的余项，表示出来即为：</p>
+<script type="math/tex; mode=display">
+\prod_{i = 1,\gcd(i, k_i) = 1}^{P~\bmod~k_i^{\alpha_i}} i</script><p>分步求解即可。</p>
+<p>如果多测并且模数相同，可以对模数的每一个质因子 $k<em>i$，求出所有 $P \le k_i^{\alpha_i}$ 的 $\prod</em>{i = 1, \gcd(i, k_i) = 1}^P i$。</p>
+<p>放上<a target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/tree/master/Codes/整除和同余相关理论/ExLucas.cpp">代码</a>。</p>
+<hr>
+<h2 id="operatorname-BSGS-算法"><a href="#operatorname-BSGS-算法" class="headerlink" title="$\operatorname{BSGS}$ 算法"></a>$\operatorname{BSGS}$ 算法</h2><p>当 $a \perp p$ 时有如下算法：</p>
+<p>设 $t = \lfloor\sqrt{p}\rfloor$，则方程可以化为：</p>
+<script type="math/tex; mode=display">
+a^{it - k} \equiv b ~(\bmod~p)</script><p>进一步有：</p>
+<script type="math/tex; mode=display">
+(a^t)^i \equiv b a^k~(\bmod~p)</script><p>因为 $k \in [0, t)$，所以可以把同余式右侧的式子用哈希表存储（如有重复选择最大的 $k$ 即可），然后从小到大枚举同余式左侧的 $i$，如果对于某个 $i$，等式左边的值可以在哈希表中查到，那么此时的 $it - k$ 就是最小的 $x$。</p>
+<hr>
+<p>不过，当且仅当 $a \perp p$ 成立时，上面的两个方程成立才互为充要条件。</p>
+<p>如果 $a \perp p$ 不成立怎么办？</p>
+<p>根据<strong>模的分配律</strong>，我们设 $g = \gcd(a, p)$，那么原方程可以变成：</p>
+<script type="math/tex; mode=display">
+a^{x - 1}\cdot\frac{a}{g} \equiv \frac{b}{g} ~(\bmod~\frac{p}{g})</script><p>所以当 $b \ne 1$ 且 $g \nmid b$ 时，该方程无解。</p>
+<p>如果保证一直有解，那么我们将这个方程一直化开，直到 $a \perp \frac{p}{\prod_{i = 1}^k g_i}$。</p>
+<p>此时有：（设 $q = \prod_{i = 1}^k\dfrac{a}{g_i}$）</p>
+<script type="math/tex; mode=display">
+a^{x - k} \equiv \frac{b}{q \prod_{i = 1}^k g_i} \equiv \frac{b}{a^k} ~(\bmod~\frac{p}{\prod_{i = 1}^k g_i})</script><p>这个时候就可以用 $\operatorname{BSGS}$ 求解了，<strong>最后的答案记得要加上</strong> $k$。</p>
+<p>当然，算法过程中还需要特判 $q = \frac{b}{\prod_{i = 1}^k g_i}$ 的情况，此时左侧 $a$ 的次数为 $0$，答案即为 $k$。</p>
+<p>放上<a target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/tree/master/Codes/整除和同余相关理论/ExBSGS.cpp">代码</a>。</p>
+<hr>
+<h2 id="中国剩余定理"><a href="#中国剩余定理" class="headerlink" title="中国剩余定理"></a>中国剩余定理</h2><p>如果保证所有的 $p_i$ 之间<strong>两两互质</strong>，有如下算法：</p>
+<p>设 $M = \prod_{i = 1}^mp_i$，$M_i = \frac{M}{p_i}$，$M_i^{-1}$ 为 $M_i$ 在模 $p_i$ 意义下的逆元。</p>
+<p>设每个方程的特解为 $x<em>i$，则方程组特解为 $\sum</em>{i = 1}^m x_iM_iM_i^{-1}$。</p>
+<p>放上<a target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/tree/master/Codes/整除和同余相关理论/CRT.cpp">代码</a>。</p>
+<hr>
+<p>如果不保证 $p_i$ 两两互质该怎么办？</p>
+<p>假设现在我们已经得出了前 $i - 1$ 个方程的通解 $x + kM~(k \in Z)$，其中 $M$ 显然为 $\operatorname{LCM}_{j = 1}^{i - 1}~p_j$，那么对于第 $i$ 个方程，我们就是要找到一个 $k$ 满足：</p>
+<script type="math/tex; mode=display">
+x + kM \equiv a_i ~(\bmod~p_i)</script><p>显然这可以化为一个二元一次方程，用 $\operatorname{exgcd}$ 求解即可（同时可以用<strong>裴蜀定理</strong>判断无解情况）。</p>
+<p>放上<a target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/tree/master/Codes/整除和同余相关理论/ExCRT.cpp">代码</a>（用上了龟速乘避免溢出）。</p>
+<hr>
+<h2 id="原根"><a href="#原根" class="headerlink" title="原根"></a>原根</h2><ul>
 <li>定义部分</li>
 </ul>
-<p>设 <span class="math inline">\(a，p\)</span> 互质且 <span
-class="math inline">\(p &gt; 1\)</span>，则使得同余式 <span
-class="math inline">\(a^n \equiv 1~(\bmod~p)\)</span> 成立的最小的正整数
-<span class="math inline">\(n\)</span> 被称为 <span
-class="math inline">\(a\)</span> 模 <span
-class="math inline">\(p\)</span> 的阶，记为 <span
-class="math inline">\(\delta_p(a)\)</span>。</p>
-<p>由欧拉定理 <span class="math inline">\(a^{\varphi(p)} \equiv 1~(\bmod
-p)\)</span>，可知 <span
-class="math inline">\(\delta_p(a)~|~\varphi(p)\)</span>。</p>
-<p>若存在 <span class="math inline">\(g \perp p\)</span> 使得 <span
-class="math inline">\(\delta_p(g) = \varphi(p)\)</span>，则称 <span
-class="math inline">\(g\)</span> 为模 <span
-class="math inline">\(p\)</span> 的原根。</p>
+<p>设 $a，p$ 互质且 $p &gt; 1$，则使得同余式 $a^n \equiv 1~(\bmod~p)$ 成立的最小的正整数 $n$ 被称为 $a$ 模 $p$ 的阶，记为 $\delta_p(a)$。</p>
+<p>由欧拉定理 $a^{\varphi(p)} \equiv 1~(\bmod p)$，可知 $\delta_p(a)~|~\varphi(p)$。</p>
+<p>若存在 $g \perp p$ 使得 $\delta_p(g) = \varphi(p)$，则称 $g$ 为模 $p$ 的原根。</p>
 <ul>
 <li>原根存在定理</li>
 </ul>
-<p>一个大于 <span class="math inline">\(1\)</span> 的整数 <span
-class="math inline">\(n\)</span> 存在原根，当且仅当 <span
-class="math inline">\(n = 2,4,p^\alpha, 2p^\alpha\)</span>（其中 <span
-class="math inline">\(p\)</span> 为奇素数，<span
-class="math inline">\(\alpha\)</span> 为正整数）。</p>
+<p>一个大于 $1$ 的整数 $n$ 存在原根，当且仅当 $n = 2,4,p^\alpha, 2p^\alpha$（其中 $p$ 为奇素数，$\alpha$ 为正整数）。</p>
 <p><del>（由于笔者太菜，这里的证明省去。事实上，这里的证明的确十分复杂，并不建议深究。）</del></p>
 <ul>
 <li>原根个数</li>
 </ul>
-<p>若 <span class="math inline">\(n\)</span> 有原根，其个数为 <span
-class="math inline">\(\varphi(\varphi(n))\)</span>。</p>
+<p>若 $n$ 有原根，其个数为 $\varphi(\varphi(n))$。</p>
 <p>如何证明？</p>
-<p>设任一原根为 <span class="math inline">\(g\)</span>，而阶存在性质
-<span class="math inline">\(\delta_n(g^k) =
-\frac{\delta_n(g)}{\gcd(\delta_n(g), k)}\)</span>
-<del>（这里也略去证明，感兴趣的可以上网查找）</del>，说明如果 <span
-class="math inline">\(k \perp \varphi(n)\)</span>，那么 <span
-class="math inline">\(\delta_n(g^k) = \delta_n(g) =
-\varphi(n)\)</span>，即 <span class="math inline">\(g^k\)</span> 也为
-<span class="math inline">\(n\)</span> 的原根。</p>
-<p>可以发现这样的 <span class="math inline">\(k\)</span> 恰好有 <span
-class="math inline">\(\varphi(\varphi(n))\)</span>
-个，并且<strong>由于原根的定义，这些数互不相同</strong>。</p>
+<p>设任一原根为 $g$，而阶存在性质 $\delta_n(g^k) = \frac{\delta_n(g)}{\gcd(\delta_n(g), k)}$ <del>（这里也略去证明，感兴趣的可以上网查找）</del>，说明如果 $k \perp \varphi(n)$，那么 $\delta_n(g^k) = \delta_n(g) = \varphi(n)$，即 $g^k$ 也为 $n$ 的原根。</p>
+<p>可以发现这样的 $k$ 恰好有 $\varphi(\varphi(n))$ 个，并且<strong>由于原根的定义，这些数互不相同</strong>。</p>
 <p>得证。</p>
 <ul>
 <li>原根求法</li>
 </ul>
-<p>我们先枚举求出 <span class="math inline">\(n\)</span> 的最小原根
-<span class="math inline">\(g\)</span>。</p>
-<p>如何判定一个数 <span class="math inline">\(g\)</span> 是否为 <span
-class="math inline">\(n\)</span> 的原根呢？</p>
-<p>如果 <span class="math inline">\(n = 2\)</span>，原根只能为 <span
-class="math inline">\(1\)</span>，可以直接判定。</p>
-<p>否则，<span class="math inline">\(g\)</span> 为模 <span
-class="math inline">\(n\)</span> 的原根的充要条件是：对于 <span
-class="math inline">\(\varphi(n)\)</span> 的每个<strong>质因数</strong>
-<span class="math inline">\(d\)</span>，都不满足 <span
-class="math inline">\(g^{\frac{\varphi(n)}{d}} \equiv 1
-~(\bmod~n)\)</span>。<del>（再次略去证明）</del></p>
-<p>这样，我们就可以先把 <span class="math inline">\(\varphi(n)\)</span>
-分解质因数，然后暴力枚举判断了。</p>
+<p>我们先枚举求出 $n$ 的最小原根 $g$。</p>
+<p>如何判定一个数 $g$ 是否为 $n$ 的原根呢？</p>
+<p>如果 $n = 2$，原根只能为 $1$，可以直接判定。</p>
+<p>否则，$g$ 为模 $n$ 的原根的充要条件是：对于 $\varphi(n)$ 的每个<strong>质因数</strong> $d$，都不满足 $g^{\frac{\varphi(n)}{d}} \equiv 1 ~(\bmod~n)$。<del>（再次略去证明）</del></p>
+<p>这样，我们就可以先把 $\varphi(n)$ 分解质因数，然后暴力枚举判断了。</p>
 <p>为什么暴力枚举不会超时？</p>
 <ul>
-<li>我国数学家王元于 <span class="math inline">\(1959\)</span>
-年证明了若 <span class="math inline">\(n\)</span>
-有原根，其最小原根是不超过 <span class="math inline">\(n^{0.25}\)</span>
-级别的。所以枚举的时间复杂度在可承受范围内。</li>
+<li>我国数学家王元于 $1959$ 年证明了若 $n$ 有原根，其最小原根是不超过 $n^{0.25}$ 级别的。所以枚举的时间复杂度在可承受范围内。</li>
 </ul>
-<p>然后对于所有与 <span class="math inline">\(\varphi(n)\)</span> 互质的
-<span class="math inline">\(k \in [1, \varphi(n))\)</span>， <span
-class="math inline">\(g^k \bmod n\)</span> 均为 <span
-class="math inline">\(n\)</span> 的原根。</p>
-<p>贴上<a
-target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/tree/master/Codes/整除和同余相关理论/原根.cpp">洛谷模板题代码</a>。</p>
-<hr />
-<h2 id="二次剩余">二次剩余</h2>
-<p>下文仅介绍 <span class="math inline">\(p\)</span>
-为<strong>奇素数</strong>时的 <span
-class="math inline">\(\operatorname{Cipolla}\)</span> 算法。</p>
-<p>如无特殊情况，所有的定义、运算都是在 <span
-class="math inline">\(\bmod~p\)</span> 意义下的。</p>
-<hr />
+<p>然后对于所有与 $\varphi(n)$ 互质的 $k \in [1, \varphi(n))$， $g^k \bmod n$ 均为 $n$ 的原根。</p>
+<p>贴上<a target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/tree/master/Codes/整除和同余相关理论/原根.cpp">洛谷模板题代码</a>。</p>
+<hr>
+<h2 id="二次剩余"><a href="#二次剩余" class="headerlink" title="二次剩余"></a>二次剩余</h2><p>下文仅介绍 $p$ 为<strong>奇素数</strong>时的 $\operatorname{Cipolla}$ 算法。</p>
+<p>如无特殊情况，所有的定义、运算都是在 $\bmod~p$ 意义下的。</p>
+<hr>
 <ul>
 <li>定义部分</li>
 </ul>
-<p>如果对于非 <span class="math inline">\(0\)</span> 整数 <span
-class="math inline">\(n\)</span>，使得 <span class="math inline">\(x ^ 2
-\equiv n ~(\bmod~p)\)</span> 无解，称 <span
-class="math inline">\(n\)</span> 为二次非剩余，否则为二次剩余。</p>
+<p>如果对于非 $0$ 整数 $n$，使得 $x ^ 2 \equiv n ~(\bmod~p)$ 无解，称 $n$ 为二次非剩余，否则为二次剩余。</p>
 <p>否则，我们来讨论一下解的情况。</p>
-<p>设有一组不等的解为 <span class="math inline">\(x_1,x_2\)</span>，则有
-<span class="math inline">\(x_1^2 \equiv x_2^2\)</span>，移项后有 <span
-class="math inline">\((x_1 - x_2)(x_1 + x_2) \equiv
-0\)</span>，而前者不等于 <span class="math inline">\(0\)</span>，所以
-<span class="math inline">\(x_1, x_2\)</span>
-<strong>必为相反数</strong>。</p>
-<p>并且模意义下，由于 <span class="math inline">\(p\)</span>
-为奇素数，因此<strong>它们互相之间是不相等</strong>的。</p>
-<p>也就是说，方程最多有两互异解，并且互为相反数。这样，我们就可以判断唯一解的情况了：直接判断
-<span class="math inline">\(n = 0\)</span> 是否成立，成立则 <span
-class="math inline">\(x=0\)</span> 为唯一解。</p>
-<p>进一步地，我们发现：<strong>任意一对相反数对应唯一一个二次剩余</strong>，所以二次剩余的个数为
-<span class="math inline">\(\frac{p - 1}{2}\)</span>，其它的非 <span
-class="math inline">\(0\)</span> 整数即为二次非剩余，数量与其相等。</p>
+<p>设有一组不等的解为 $x_1,x_2$，则有 $x_1^2 \equiv x_2^2$，移项后有 $(x_1 - x_2)(x_1 + x_2) \equiv 0$，而前者不等于 $0$，所以 $x_1, x_2$ <strong>必为相反数</strong>。</p>
+<p>并且模意义下，由于 $p$ 为奇素数，因此<strong>它们互相之间是不相等</strong>的。</p>
+<p>也就是说，方程最多有两互异解，并且互为相反数。这样，我们就可以判断唯一解的情况了：直接判断 $n = 0$ 是否成立，成立则 $x=0$ 为唯一解。</p>
+<p>进一步地，我们发现：<strong>任意一对相反数对应唯一一个二次剩余</strong>，所以二次剩余的个数为 $\frac{p - 1}{2}$，其它的非 $0$ 整数即为二次非剩余，数量与其相等。</p>
 <ul>
 <li>欧拉判别准则</li>
 </ul>
-<p>若 <span class="math inline">\(x \perp p\)</span> ，当 <span
-class="math inline">\(x ^ {\frac{p - 1}{2}} \equiv 1~(\bmod~p)\)</span>
-成立时，<span class="math inline">\(x\)</span> 为模 <span
-class="math inline">\(p\)</span> 的二次剩余，否则为二次非剩余。</p>
-<p>即 “<span class="math inline">\(x\)</span> 是模 <span
-class="math inline">\(p\)</span> 的二次剩余” 是 “<span
-class="math inline">\(x ^ {\frac{p - 1}{2}} \equiv 1~(\bmod~p)\)</span>
-成立” 的充要条件。</p>
-<p>充分性：设 <span class="math inline">\(x \equiv k ^ 2
-~(\bmod~p)\)</span>，由费马小定理可知 <span class="math inline">\(x ^
-{\frac{p - 1}{2}} \equiv k ^ {p - 1} \equiv 1 ~(\bmod~p)\)</span>。</p>
-<p>必要性：设 <span class="math inline">\(g\)</span> 为 <span
-class="math inline">\(p\)</span> 的一个原根，由于 <span
-class="math inline">\(x \perp p\)</span>，则必定存在一个正整数 <span
-class="math inline">\(k\)</span> 使得 <span class="math inline">\(x
-\equiv g^k ~(\bmod~p)\)</span> 。又因为 <span
-class="math inline">\(x^{\frac{p - 1}{2}} \equiv g^{\frac{k(p - 1)}{2}}
-\equiv 1 ~(\bmod~p)\)</span>，所以 <span
-class="math inline">\({\frac{k(p - 1)}{2}}\)</span> 一定是 <span
-class="math inline">\(\varphi(p) = p - 1\)</span> 的倍数，说明 <span
-class="math inline">\(k\)</span> <strong>是一个偶数</strong>。所以令
-<span class="math inline">\(m = g^{\frac{k}{2}}\)</span> 就有 <span
-class="math inline">\(x \equiv m^2 ~(\bmod~p)\)</span>。</p>
-<p>综上，我们只要判断 <span class="math inline">\(x ^ {\frac{p - 1}{2}}
-\equiv 1~(\bmod~p)\)</span> 是否成立，就可以求出 <span
-class="math inline">\(x\)</span> 是否为二次剩余。</p>
+<p>若 $x \perp p$ ，当 $x ^ {\frac{p - 1}{2}} \equiv 1~(\bmod~p)$ 成立时，$x$ 为模 $p$ 的二次剩余，否则为二次非剩余。</p>
+<p>即 “$x$ 是模 $p$ 的二次剩余” 是 “$x ^ {\frac{p - 1}{2}} \equiv 1~(\bmod~p)$ 成立” 的充要条件。 </p>
+<p>充分性：设 $x \equiv k ^ 2 ~(\bmod~p)$，由费马小定理可知 $x ^ {\frac{p - 1}{2}} \equiv k ^ {p - 1} \equiv 1 ~(\bmod~p)$。</p>
+<p>必要性：设 $g$ 为 $p$ 的一个原根，由于 $x \perp p$，则必定存在一个正整数 $k$ 使得 $x \equiv g^k ~(\bmod~p)$ 。又因为 $x^{\frac{p - 1}{2}} \equiv g^{\frac{k(p - 1)}{2}} \equiv 1 ~(\bmod~p)$，所以 ${\frac{k(p - 1)}{2}}$ 一定是 $\varphi(p) = p - 1$ 的倍数，说明 $k$ <strong>是一个偶数</strong>。所以令 $m = g^{\frac{k}{2}}$ 就有 $x \equiv m^2 ~(\bmod~p)$。</p>
+<p>综上，我们只要判断 $x ^ {\frac{p - 1}{2}} \equiv 1~(\bmod~p)$ 是否成立，就可以求出 $x$ 是否为二次剩余。</p>
 <ul>
 <li>求法</li>
 </ul>
 <p>判定是否为二次剩余后，我们怎样求出方程的解呢？</p>
-<p>所以，下面介绍 <span
-class="math inline">\(\operatorname{Cipolla}\)</span> 算法。</p>
-<p>对于二次剩余方程 <span class="math inline">\(x^2 \equiv n
-~(\bmod~p)\)</span>，我们先随机出一个 <span
-class="math inline">\(k\)</span> 使得 <span class="math inline">\(k ^ 2
-- n\)</span> 为二次非剩余，由于其个数与二次剩余相等，因此期望 <span
-class="math inline">\(2\)</span> 次就能找到。</p>
-<p>然后我们<strong>类似虚数</strong>，定义 <span class="math inline">\(i
-^ 2 \equiv k ^ 2 - n ~(\bmod~p)\)</span>。</p>
-<p>接下来摆定理：<span class="math inline">\(x = (k + i) ^ {\frac{p +
-1}{2}}\)</span> 为原方程的一个解。</p>
+<p>所以，下面介绍 $\operatorname{Cipolla}$ 算法。</p>
+<p>对于二次剩余方程 $x^2 \equiv n ~(\bmod~p)$，我们先随机出一个 $k$ 使得 $k ^ 2 - n$ 为二次非剩余，由于其个数与二次剩余相等，因此期望 $2$ 次就能找到。</p>
+<p>然后我们<strong>类似虚数</strong>，定义 $i ^ 2 \equiv k ^ 2 - n ~(\bmod~p)$。</p>
+<p>接下来摆定理：$x = (k + i) ^ {\frac{p + 1}{2}}$ 为原方程的一个解。</p>
 <p>证明：</p>
-<p>首先通过二项式定理展开，再用 <span
-class="math inline">\(\operatorname{Lucas}\)</span> 定理化简得 <span
-class="math inline">\((k + i) ^ p \equiv k^p + i ^ p
-~(\bmod~p)\)</span>。</p>
-<p>根据欧拉判别法有： <span class="math display">\[
+<p>首先通过二项式定理展开，再用 $\operatorname{Lucas}$ 定理化简得 $(k + i) ^ p \equiv k^p + i ^ p ~(\bmod~p)$。</p>
+<p>根据欧拉判别法有：</p>
+<script type="math/tex; mode=display">
 \begin{aligned}
-&amp;(i ^ 2) ^ {\frac{p - 1}{2}} \equiv i ^ {p - 1} \equiv -1~(\bmod~p)
+&(i ^ 2) ^ {\frac{p - 1}{2}} \equiv i ^ {p - 1} \equiv -1~(\bmod~p)
 \\
-&amp;i ^ p \equiv -i ~(\bmod~p)
-\end{aligned}
-\]</span> 由费马小定理可知 <span class="math inline">\(k ^ p \equiv k
-~(\bmod~p)\)</span>。</p>
-<p>所以： <span class="math display">\[
+&i ^ p \equiv -i ~(\bmod~p)
+\end{aligned}</script><p>由费马小定理可知 $k ^ p \equiv k ~(\bmod~p)$。</p>
+<p>所以：</p>
+<script type="math/tex; mode=display">
 \begin{aligned}
-x ^ 2 &amp;\equiv (k + i)^{p + 1}
+x ^ 2 &\equiv (k + i)^{p + 1}
 \\
-&amp; \equiv (k + i)  ^ p (k + i)
+& \equiv (k + i)  ^ p (k + i)
 \\
-&amp; \equiv (k ^ p + i ^ p)(k + i)
+& \equiv (k ^ p + i ^ p)(k + i)
 \\
-&amp; \equiv (k - i)(k + i)
+& \equiv (k - i)(k + i)
 \\
-&amp; = k ^ 2 - i ^ 2 = n
-\end{aligned}
-\]</span> 得证。</p>
-<p>放上<a
-target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/tree/master/Codes/整除和同余相关理论/二次剩余.cpp">代码</a>。</p>
-<hr />
-<h2 id="operatornameend"><span
-class="math inline">\(\operatorname{END}\)</span></h2>
-
+& = k ^ 2 - i ^ 2 = n
+\end{aligned}</script><p>得证。</p>
+<p>放上<a target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/tree/master/Codes/整除和同余相关理论/二次剩余.cpp">代码</a>。</p>
+<hr>
+<h2 id="operatorname-END"><a href="#operatorname-END" class="headerlink" title="$\operatorname{END}$"></a>$\operatorname{END}$</h2>
             </div>
             <hr>
             <div>

@@ -205,7 +205,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      3.3k 字
+      3.1k 字
     </span>
   
 
@@ -214,7 +214,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      28 分钟
+      26 分钟
     </span>
   
 
@@ -246,174 +246,70 @@
             <h1 style="display: none">【学习笔记】博弈论之 SG 函数</h1>
             
             <div class="markdown-body">
-              <h2 id="operatornamesg-函数"><span
-class="math inline">\(\operatorname{SG}\)</span> 函数</h2>
-<h3 id="operatornamenim-博弈"><span
-class="math inline">\(\operatorname{Nim}\)</span> 博弈</h3>
-<p>在介绍 <span class="math inline">\(\operatorname{SG}\)</span>
-函数前，我们先介绍一种经典的博弈 —— <span
-class="math inline">\(\operatorname{Nim}\)</span>
-博弈，并从中获得一定的启发。</p>
+              <h2 id="operatorname-SG-函数"><a href="#operatorname-SG-函数" class="headerlink" title="$\operatorname{SG}$ 函数"></a>$\operatorname{SG}$ 函数</h2><h3 id="operatorname-Nim-博弈"><a href="#operatorname-Nim-博弈" class="headerlink" title="$\operatorname{Nim}$ 博弈"></a>$\operatorname{Nim}$ 博弈</h3><p>在介绍 $\operatorname{SG}$ 函数前，我们先介绍一种经典的博弈 —— $\operatorname{Nim}$ 博弈，并从中获得一定的启发。</p>
 <ul>
-<li><p>问题：有 <span class="math inline">\(n\)</span> 堆石子，第 <span
-class="math inline">\(i\)</span> 堆石子里面有 <span
-class="math inline">\(A_i\)</span>
-枚石子，每人每次可从任意且至多一堆石子里取出任意多枚石子扔掉，可以取完，不能不取，最后无石子可取的人判负。假如甲是先手，且告诉你这
-<span class="math inline">\(n\)</span>
-堆石子的数量，他想知道是否存在先手必胜的策略。</p></li>
-<li><p>结论：若 <span class="math inline">\(\texttt{xor}_{i = 1}^n A_i
-\ne 0\)</span>，先手必胜，否则后手必胜。</p></li>
+<li><p>问题：有 $n$ 堆石子，第 $i$ 堆石子里面有 $A_i$ 枚石子，每人每次可从任意且至多一堆石子里取出任意多枚石子扔掉，可以取完，不能不取，最后无石子可取的人判负。假如甲是先手，且告诉你这 $n$ 堆石子的数量，他想知道是否存在先手必胜的策略。</p>
+</li>
+<li><p>结论：若 $\texttt{xor}_{i = 1}^n A_i \ne 0$，先手必胜，否则后手必胜。</p>
+</li>
 </ul>
-<p>我们发现，当甲做完最后一步操作，将所有石子取完时，甲就赢了。此时，说明每堆石子均为
-<span class="math inline">\(0\)</span> 是一个必胜态。</p>
+<p>我们发现，当甲做完最后一步操作，将所有石子取完时，甲就赢了。此时，说明每堆石子均为 $0$ 是一个必胜态。</p>
 <p>所以，甲要进行的操作一定要使得自己最终一定要到达必胜态，并且对方永远不可能到达必胜态。</p>
-<p>可以发现，如果甲操作后 <span class="math inline">\(\texttt{xor}_{i =
-1}^n A_i = 0\)</span>，那么对方操作一次一定会使得 <span
-class="math inline">\(\texttt{xor}_{i = 1}^n A_i \ne 0\)</span>。</p>
-<p>所以，甲只要保持自己每次操作后 <span
-class="math inline">\(\texttt{xor}_{i = 1}^n A_i =
-0\)</span>，就会使得对方永远到达不了必胜态，同时若干次操作后甲一定能够到达必胜态（因为石子数只会减少）。</p>
-<p>实际上，我们可以称所有 <span class="math inline">\(\texttt{xor}_{i =
-1}^n A_i = 0\)</span> 的状态为必胜态，所有 <span
-class="math inline">\(\texttt{xor}_{i = 1}^n A_i \ne 0\)</span>
-的状态为必负态。</p>
+<p>可以发现，如果甲操作后 $\texttt{xor}<em>{i = 1}^n A_i =  0$，那么对方操作一次一定会使得 $\texttt{xor}</em>{i = 1}^n A_i \ne 0$。</p>
+<p>所以，甲只要保持自己每次操作后 $\texttt{xor}_{i = 1}^n A_i =  0$，就会使得对方永远到达不了必胜态，同时若干次操作后甲一定能够到达必胜态（因为石子数只会减少）。</p>
+<p>实际上，我们可以称所有 $\texttt{xor}<em>{i = 1}^n A_i = 0$ 的状态为必胜态，所有 $\texttt{xor}</em>{i = 1}^n A_i \ne 0$ 的状态为必负态。</p>
 <p>最后一个问题：能不能保证每一次操作都能使得甲从对方操作后形成的必负态走向一个必胜态？答案是能的。</p>
-<p>我们假设对方操作完后的必负态为 <span
-class="math inline">\(\texttt{xor}_{i = 1}^n A_i = x\)</span>，设 <span
-class="math inline">\(x\)</span> 的最高位为 <span
-class="math inline">\(k\)</span>，那么必定存在至少一个 <span
-class="math inline">\(A_i\)</span> 满足第 <span
-class="math inline">\(k\)</span> 位为 <span
-class="math inline">\(1\)</span>，我们只要任意选择这样的一个 <span
-class="math inline">\(A_i\)</span>，进行操作 <span
-class="math inline">\(A_i \leftarrow
-A_i~\texttt{xor}~x\)</span>，就能使得甲到达必胜态。</p>
-<p>可以发现，<span class="math inline">\(A_i &gt;
-A_i~\texttt{xor}~x\)</span>，所以这样的操作是合法的。</p>
-<h3 id="有向图游戏">有向图游戏</h3>
-<p>可以发现，<span class="math inline">\(\operatorname{Nim}\)</span>
-游戏满足如下三条定则：</p>
-<ol type="1">
+<p>我们假设对方操作完后的必负态为 $\texttt{xor}_{i = 1}^n A_i = x$，设 $x$ 的最高位为 $k$，那么必定存在至少一个 $A_i$ 满足第 $k$ 位为 $1$，我们只要任意选择这样的一个 $A_i$，进行操作 $A_i \leftarrow A_i~\texttt{xor}~x$，就能使得甲到达必胜态。</p>
+<p>可以发现，$A_i &gt; A_i~\texttt{xor}~x$，所以这样的操作是合法的。</p>
+<h3 id="有向图游戏"><a href="#有向图游戏" class="headerlink" title="有向图游戏"></a>有向图游戏</h3><p>可以发现，$\operatorname{Nim}$ 游戏满足如下三条定则：</p>
+<ol>
 <li>两名玩家交替行动；</li>
 <li>任意时刻，可以执行的合法行动与轮到哪名玩家无关；</li>
 <li>不能够行动的玩家判负。</li>
 </ol>
 <p>满足它们的游戏被称为公平组合游戏。</p>
-<p>同时我们还可以发现，如果把所有的状态看作是图上的一个个节点，那么
-<span class="math inline">\(\operatorname{Nim}\)</span>
-博弈的过程非常像一个有向图。</p>
-<p>所以，我们完全可以把 <span
-class="math inline">\(\operatorname{Nim}\)</span> 游戏转化为：</p>
+<p>同时我们还可以发现，如果把所有的状态看作是图上的一个个节点，那么 $\operatorname{Nim}$ 博弈的过程非常像一个有向图。</p>
+<p>所以，我们完全可以把 $\operatorname{Nim}$ 游戏转化为：</p>
 <ul>
 <li>在初始节点摆一枚棋子，两人轮流拿棋子在有向图上移动一条边，无法移动的人判负。</li>
 </ul>
 <p>这种游戏被称为有向图游戏。</p>
 <p>上述内容证明了：如果把状态看作节点，所有的公平组合游戏都能够转化为有向图游戏。</p>
-<h3 id="正文-operatornamesg-函数">正文 —— <span
-class="math inline">\(\operatorname{SG}\)</span> 函数</h3>
-<p>我们把先手必胜的节点称为必胜态，反之称为必负态。</p>
+<h3 id="正文-——-operatorname-SG-函数"><a href="#正文-——-operatorname-SG-函数" class="headerlink" title="正文 —— $\operatorname{SG}$ 函数"></a>正文 —— $\operatorname{SG}$ 函数</h3><p>我们把先手必胜的节点称为必胜态，反之称为必负态。</p>
 <p>那么在这个有向图中，终点显然为必负态，因为在这里无法移动。</p>
 <p>否则，我们该如何判定一个状态是否为必胜态或必负态呢？</p>
-<p>这里就要用到 <span class="math inline">\(\operatorname{SG}\)</span>
-函数了。注意：它只能够在有向图游戏中使用。</p>
-<p>对于终点，我们设它为 <span
-class="math inline">\(T\)</span>。像这样的必负态，我们设它的 <span
-class="math inline">\(\operatorname{SG}(T) = 0\)</span>。</p>
-<p>如果一个节点 <span class="math inline">\(U\)</span> 存在后继节点
-<span class="math inline">\(V\)</span> 的 <span
-class="math inline">\(\operatorname{SG}(V) =
-0\)</span>，那么我们可以选择走这个状态，把这个必负态抛给对手。所以，<span
-class="math inline">\(U\)</span> 节点即为必胜态，有 <span
-class="math inline">\(\operatorname{SG}(U) &gt; 0\)</span>。</p>
-<p>反之，如果一个节点 <span class="math inline">\(U\)</span>
-不存在后继节点 <span class="math inline">\(V\)</span> 的 <span
-class="math inline">\(\operatorname{SG}(V) =
-0\)</span>，那么这个节点无论怎么走都将给对方抛一个必胜态，所以 <span
-class="math inline">\(\operatorname{SG}(U) = 0\)</span>。</p>
-<p>把以上两条公式结合起来，就有： <span class="math display">\[
-\operatorname{SG}(U) = \operatorname{mex} \{\operatorname{SG}(V)\}
-\]</span> 其中 <span class="math inline">\(\operatorname{mex}\)</span>
-表示的是集合中没有出现过的最小非负整数。</p>
-<p>由此，我们只要从终点 <span class="math inline">\(T\)</span>
-开始，把整个有向图每一个节点的 <span
-class="math inline">\(\operatorname{SG}(U)\)</span> 推出来，那么起点
-<span class="math inline">\(S\)</span> 的 <span
-class="math inline">\(\operatorname{SG}(S)\)</span>
-即决定了整个有向图游戏先手是必胜还是必负。</p>
-<h3 id="operatornamesg-定理"><span
-class="math inline">\(\operatorname{SG}\)</span> 定理</h3>
-<p>并不是每一个公平组合游戏都能够转化为一个有向图游戏
-<del>，因为可以有多个</del>。</p>
-<p>如果一个游戏存在多个有向图游戏，那么整个游戏的 <span
-class="math inline">\(\operatorname{SG}(G)\)</span>
-等于每一个有向图游戏的 <span
-class="math inline">\(\operatorname{SG}(S_k)\)</span> 的异或和。</p>
-<p>即： <span class="math display">\[
-\operatorname{SG}(G) = \texttt{xor}_{k = 1}^n \operatorname{SG}(S_i)
-\]</span> 这被称为 <span
-class="math inline">\(\operatorname{SG}\)</span>
-定理，它给了我们把整个游戏进行分治的可能。</p>
+<p>这里就要用到 $\operatorname{SG}$ 函数了。注意：它只能够在有向图游戏中使用。</p>
+<p>对于终点，我们设它为 $T$。像这样的必负态，我们设它的 $\operatorname{SG}(T) = 0$。</p>
+<p>如果一个节点 $U$ 存在后继节点 $V$ 的 $\operatorname{SG}(V) = 0$，那么我们可以选择走这个状态，把这个必负态抛给对手。所以，$U$ 节点即为必胜态，有 $\operatorname{SG}(U) &gt; 0$。</p>
+<p>反之，如果一个节点 $U$ 不存在后继节点 $V$ 的 $\operatorname{SG}(V) = 0$，那么这个节点无论怎么走都将给对方抛一个必胜态，所以 $\operatorname{SG}(U) = 0$。</p>
+<p>把以上两条公式结合起来，就有：</p>
+<script type="math/tex; mode=display">
+\operatorname{SG}(U) = \operatorname{mex} \{\operatorname{SG}(V)\}</script><p>其中 $\operatorname{mex}$ 表示的是集合中没有出现过的最小非负整数。</p>
+<p>由此，我们只要从终点 $T$ 开始，把整个有向图每一个节点的 $\operatorname{SG}(U)$ 推出来，那么起点 $S$ 的 $\operatorname{SG}(S)$ 即决定了整个有向图游戏先手是必胜还是必负。</p>
+<h3 id="operatorname-SG-定理"><a href="#operatorname-SG-定理" class="headerlink" title="$\operatorname{SG}$ 定理"></a>$\operatorname{SG}$ 定理</h3><p>并不是每一个公平组合游戏都能够转化为一个有向图游戏 <del>，因为可以有多个</del>。</p>
+<p>如果一个游戏存在多个有向图游戏，那么整个游戏的 $\operatorname{SG}(G)$ 等于每一个有向图游戏的 $\operatorname{SG}(S_k)$ 的异或和。</p>
+<p>即：</p>
+<script type="math/tex; mode=display">
+\operatorname{SG}(G) = \texttt{xor}_{k = 1}^n \operatorname{SG}(S_i)</script><p>这被称为 $\operatorname{SG}$ 定理，它给了我们把整个游戏进行分治的可能。</p>
 <p>证明：</p>
-<p>其实很简单，相当于在原始的 <span
-class="math inline">\(\operatorname{Nim}\)</span>
-游戏上加了一个加石子的操作（因为有向图游戏中玩家可以走向 <span
-class="math inline">\(\operatorname{SG}\)</span> 函数增大的节点）。</p>
+<p>其实很简单，相当于在原始的 $\operatorname{Nim}$ 游戏上加了一个加石子的操作（因为有向图游戏中玩家可以走向 $\operatorname{SG}$ 函数增大的节点）。</p>
 <p>不过可以发现，如果加石子会抛一个必负态给对手，那么对手同样可以把刚刚加上的石子拿走，然后把加石子前的状态再次抛给你，这显然是矛盾的。所以，加石子的操作必然不会使自己到达一个更优的状态，它是一个无效的操作。</p>
-<p>接着就可以套用 <span
-class="math inline">\(\operatorname{Nim}\)</span> 游戏的证明了。</p>
-<p>由此，我们可以将 <span
-class="math inline">\(\operatorname{Nim}\)</span> 博弈转化为 <span
-class="math inline">\(n\)</span>
-个有向图游戏，那么每一堆石子都代表了一个有向图游戏。可以推出，第 <span
-class="math inline">\(i\)</span> 堆的 <span
-class="math inline">\(\operatorname{SG}\)</span> 函数值即为 <span
-class="math inline">\(A_i\)</span>，那么总的答案即为 <span
-class="math inline">\(\texttt{xor}_{k = 1}^n A_i\)</span>。</p>
-<hr />
+<p>接着就可以套用 $\operatorname{Nim}$ 游戏的证明了。</p>
+<p>由此，我们可以将 $\operatorname{Nim}$ 博弈转化为 $n$ 个有向图游戏，那么每一堆石子都代表了一个有向图游戏。可以推出，第 $i$ 堆的 $\operatorname{SG}$ 函数值即为 $A<em>i$，那么总的答案即为 $\texttt{xor}</em>{k = 1}^n A_i$。</p>
+<hr>
 <ul>
-<li>例题：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P6612">P6612
-[POI2012]LIC-Bidding</a></li>
+<li>例题：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P6612">P6612 [POI2012]LIC-Bidding</a></li>
 </ul>
-<p>比较好想的博弈论动态规划 <del>，不过笔者第一眼认为是贪心然后就狂吃
-WA</del>。</p>
-<p>设状态 <span class="math inline">\(f_{i, j}\)</span> 表示当前数对为
-<span class="math inline">\((i, j)\)</span> 时我们的选择。注意 <span
-class="math inline">\(i\)</span> 的特点是只含有 <span
-class="math inline">\(2,3\)</span>
-这两个质因子，所以可以预处理出所有合法的 <span
-class="math inline">\(i\)</span> 进行一定的状态压缩。</p>
-<p>我们可以通过 <span class="math inline">\(\operatorname{SG}\)</span>
-函数预处理出所有的必胜态和必败态。当然，这里不需要严格的 <span
-class="math inline">\(\operatorname{mex}\)</span>
-操作，只要判断是否为必胜态或者必败态即可，这也是大多数 <span
-class="math inline">\(\operatorname{SG}\)</span> 函数题的套路。</p>
-<p>可以发现，当 <span class="math inline">\(i + j &lt; n\)</span>
-并且三种操作中存在一种操作使得操作后的 <span
-class="math inline">\(i&#39;+j&#39; \ge
-n\)</span>，那么我们可以直接进行这个操作，使得数对变为 <span
-class="math inline">\((i&#39;, j&#39;)\)</span>，这样对手会恰好进行一个
-<span class="math inline">\(1\)</span>
-操作，然后输掉游戏。因此，满足上述条件的 <span class="math inline">\((i,
-j)\)</span> 为必胜态，<span class="math inline">\(f_{i, j} =
-1\)</span>。</p>
-<p>否则，我们模仿 <span class="math inline">\(\operatorname{SG}\)</span>
-函数的运算法则，如果三个操作中存在一个操作使得操作后的 <span
-class="math inline">\((i&#39;, j&#39;)\)</span>
-为必败态，那么我们可以把这个必败态抛给对手。换言之，此时的 <span
-class="math inline">\((i, j)\)</span> 为必胜态，<span
-class="math inline">\(f_{i, j} = 1\)</span>。</p>
-<p>如果上述条件均不满足，那么 <span class="math inline">\((i,
-j)\)</span> 为必败态，<span class="math inline">\(f_{i,
-j}=0\)</span>。</p>
-<p>在 <span
-class="math inline">\(\operatorname{\underline{}opt}\)</span>
-函数中，我们每次选择一个必败态，将其抛给对手即可。</p>
-<p>放上<a
-target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/tree/master/Codes/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E5%8D%9A%E5%BC%88%E8%AE%BA%E4%B9%8B%20SG%20%E5%87%BD%E6%95%B0/Luogu6612%20POI2012%20LIC-Bidding.cpp">代码</a>。</p>
-<hr />
-<h2 id="operatornameend"><span
-class="math inline">\(\operatorname{END}\)</span></h2>
-
+<p>比较好想的博弈论动态规划 <del>，不过笔者第一眼认为是贪心然后就狂吃 WA</del>。</p>
+<p>设状态 $f_{i, j}$ 表示当前数对为 $(i, j)$ 时我们的选择。注意 $i$ 的特点是只含有 $2,3$ 这两个质因子，所以可以预处理出所有合法的 $i$ 进行一定的状态压缩。</p>
+<p>我们可以通过 $\operatorname{SG}$ 函数预处理出所有的必胜态和必败态。当然，这里不需要严格的 $\operatorname{mex}$ 操作，只要判断是否为必胜态或者必败态即可，这也是大多数 $\operatorname{SG}$ 函数题的套路。</p>
+<p>可以发现，当 $i + j &lt; n$ 并且三种操作中存在一种操作使得操作后的 $i’+j’ \ge n$，那么我们可以直接进行这个操作，使得数对变为 $(i’, j’)$，这样对手会恰好进行一个 $1$ 操作，然后输掉游戏。因此，满足上述条件的 $(i, j)$ 为必胜态，$f_{i, j} = 1$。</p>
+<p>否则，我们模仿 $\operatorname{SG}$ 函数的运算法则，如果三个操作中存在一个操作使得操作后的 $(i’, j’)$ 为必败态，那么我们可以把这个必败态抛给对手。换言之，此时的 $(i, j)$ 为必胜态，$f_{i, j} = 1$。</p>
+<p>如果上述条件均不满足，那么 $(i, j)$ 为必败态，$f_{i, j}=0$。</p>
+<p>在 $\operatorname{\underline{}opt}$ 函数中，我们每次选择一个必败态，将其抛给对手即可。 </p>
+<p>放上<a target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/tree/master/Codes/%E3%80%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E3%80%91%E5%8D%9A%E5%BC%88%E8%AE%BA%E4%B9%8B%20SG%20%E5%87%BD%E6%95%B0/Luogu6612%20POI2012%20LIC-Bidding.cpp">代码</a>。</p>
+<hr>
+<h2 id="operatorname-END"><a href="#operatorname-END" class="headerlink" title="$\operatorname{END}$"></a>$\operatorname{END}$</h2>
             </div>
             <hr>
             <div>
