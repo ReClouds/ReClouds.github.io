@@ -87,7 +87,6 @@ inline void Solve(int *f, int n)
 		return;
 	}
 	Solve(f, n >> 1);
-
 	int m = (n >> 1), w = 1;
 	Polynomial :: Init((m << 1) + 1);
 	int p = Polynomial :: p;
@@ -101,7 +100,6 @@ inline void Solve(int *f, int n)
 	Polynomial :: NTT(s, p), Polynomial :: NTT(t, p);
 	for(register int i = 0; i < p; i++) s[i] = 1LL * s[i] * t[i] % MOD;
 	Polynomial :: NTT(s, p, true);
-
 	fill(f + n + 1, f + p, 0), fill(g, g + p, 0);
 	for(register int i = 0; i <= m; i++) g[i] = 1LL * s[m - i] * inv[i] % MOD;
 	Polynomial :: NTT(f, p), Polynomial :: NTT(g, p);

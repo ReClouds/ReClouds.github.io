@@ -7,20 +7,20 @@
 #define MAXN 11
 #define MAXM 61
 
-using LL = long long;
+using i64 = long long;
 using namespace std;
 
 int s, n, mp[MAXN], in[MAXM];
-LL fac[MAXN], ans;
+i64 fac[MAXN], ans;
 bool t[MAXM][MAXN][MAXN];
 char g[MAXN * MAXN];
 
 namespace Linear_Basis
 {
 	int cnt;
-	LL b[MAXM];
+	i64 b[MAXM];
 
-	inline void Insert(LL val)
+	inline void Insert(i64 val)
 	{
 		for(register int i = s - 1; i >= 0; i--)
 		{
@@ -45,12 +45,12 @@ inline void DFS(int i, int j)
 			for(register int c = a + 1; c <= n; c++)
 			{
 				if(in[a] == in[c]) continue;
-				LL val = 0LL;
+				i64 val = 0LL;
 				for(register int q = 0; q < s; q++) if(t[q][a][c]) val |= 1LL << q;
 				Insert(val);
 			}
 		}
-		LL f = 1LL << (s - cnt);
+		i64 f = 1LL << (s - cnt);
 		ans += (j & 1 ? 1LL : -1LL) * fac[j - 1] * f;
 		return;
 	}
