@@ -205,7 +205,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      6.2k 字
+      6.5k 字
     </span>
   
 
@@ -214,7 +214,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      52 分钟
+      55 分钟
     </span>
   
 
@@ -246,7 +246,8 @@
             <h1 style="display: none">【学习笔记】积性函数的筛法</h1>
             
             <div class="markdown-body">
-              <h2 id="欧拉筛"><a href="#欧拉筛" class="headerlink" title="欧拉筛"></a>欧拉筛</h2><p>欧拉筛是一种线性复杂度的筛法，其原理在于每个数至多会被其最小质因子筛到一次。</p>
+              <h2 id="欧拉筛">欧拉筛</h2>
+<p>欧拉筛是一种线性复杂度的筛法，其原理在于每个数至多会被其最小质因子筛到一次。</p>
 <p>欧拉筛可以筛部分常见的积性函数。举两个例子：</p>
 <ul>
 <li>线性筛欧拉函数</li>
@@ -256,112 +257,249 @@
 <li>线性筛莫比乌斯函数</li>
 </ul>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-type">void</span> <span class="hljs-title">Sieve</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    miu[<span class="hljs-number">1</span>] = <span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> i = <span class="hljs-number">2</span>; i &lt;= MAXN; i++)<br>    &#123;<br>        <span class="hljs-keyword">if</span>(!np[i])<br>        &#123;<br>            miu[i] = <span class="hljs-number">-1</span>;<br>            pr[++len] = i;<br>        &#125;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> j = <span class="hljs-number">1</span>; j &lt;= len &amp;&amp; i * pr[j] &lt;= MAXN; j++)<br>        &#123;<br>            np[i * pr[j]] = <span class="hljs-literal">true</span>;<br>            <span class="hljs-keyword">if</span>(i % pr[j] == <span class="hljs-number">0</span>) <span class="hljs-keyword">break</span>;	<span class="hljs-comment">//此时 miu 函数值为 0，可以直接跳过</span><br>            miu[i * pr[j]] = -miu[i];<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
-<hr>
-<h2 id="杜教筛"><a href="#杜教筛" class="headerlink" title="杜教筛"></a>杜教筛</h2><p>用于在非线性时间内求解积性函数的前缀和。</p>
-<p>设现在我们要求的是 $f(x)$ 的前缀和，即 $\displaystyle S(n) = \sum_{i = 1} ^n f(i)$。</p>
-<p>我们考虑把 $f(x)$ 卷上一个 $g(x)$ 的前缀和，即：</p>
-<script type="math/tex; mode=display">
+<hr />
+<h2 id="杜教筛">杜教筛</h2>
+<p>用于在非线性时间内求解积性函数的前缀和。</p>
+<p>设现在我们要求的是 <span class="math inline">\(f(x)\)</span>
+的前缀和，即 <span class="math inline">\(\displaystyle S(n) = \sum_{i =
+1} ^n f(i)\)</span>。</p>
+<p>我们考虑把 <span class="math inline">\(f(x)\)</span> 卷上一个 <span
+class="math inline">\(g(x)\)</span> 的前缀和，即：</p>
+<p><span class="math display">\[
 \begin{aligned}
-S'(n) &= \sum_{i = 1}^n(f \cdot g)(i)
+S&#39;(n) &amp;= \sum_{i = 1}^n(f \cdot g)(i)
 \\
-&= \sum_{i = 1} ^n \sum_{d | i} f(d) \cdot g(\frac{i}{d})
+&amp;= \sum_{i = 1} ^n \sum_{d | i} f(d) \cdot g(\frac{i}{d})
 \\
-&=\sum_{d = 1}^n g(d) \sum_{i = 1}^{\lfloor\frac{n}{d}\rfloor} f(i)
+&amp;=\sum_{d = 1}^n g(d) \sum_{i = 1}^{\lfloor\frac{n}{d}\rfloor} f(i)
 \\
-&=\sum_{d = 1}^ng(d)\cdot S(\lfloor\frac{n}{d}\rfloor)
-\end{aligned}</script><p>然后再推导一下，发现：</p>
-<script type="math/tex; mode=display">
-g(1)\cdot S(n) = \sum_{d = 1}^ng(d)\cdot S(\lfloor\frac{n}{d}\rfloor) - \sum_{d = 2}^ng(d)\cdot S(\lfloor\frac{n}{d}\rfloor)</script><p>即：</p>
-<script type="math/tex; mode=display">
-S(n) = \frac{\displaystyle \sum_{i = 1}^n(f \cdot g)(i) - \sum_{d = 2}^ng(d)\cdot S(\lfloor\frac{n}{d}\rfloor)}{g(1)}</script><p>所以，只要我们找到合适的 $g(x)$，就能够快速求出 $S(n)$ 了。</p>
-<p>对于 $\mu(x)$ 的前缀和，我们发现有 $\mu * 1 = \epsilon$，即定义 $g = 1$，代入公式有 $\displaystyle S(n) = 1 - \sum_{i = 2}^nS(\lfloor\frac{n}{i}\rfloor)$。</p>
-<p>对于 $\varphi(x)$ 的前缀和，我们发现有 $\varphi \cdot 1 = \operatorname{id}$，即定义 $g(x) = 1$，代入公式有 $\displaystyle S(n) = \frac{n(n + 1)}{2} - \sum_{i = 2}^n S(\lfloor\frac{n}{i}\rfloor)$。</p>
+&amp;=\sum_{d = 1}^ng(d)\cdot S(\lfloor\frac{n}{d}\rfloor)
+\end{aligned}
+\]</span></p>
+<p>然后再推导一下，发现：</p>
+<p><span class="math display">\[
+g(1)\cdot S(n) = \sum_{d = 1}^ng(d)\cdot S(\lfloor\frac{n}{d}\rfloor) -
+\sum_{d = 2}^ng(d)\cdot S(\lfloor\frac{n}{d}\rfloor)
+\]</span></p>
+<p>即：</p>
+<p><span class="math display">\[
+S(n) = \frac{\displaystyle \sum_{i = 1}^n(f \cdot g)(i) - \sum_{d =
+2}^ng(d)\cdot S(\lfloor\frac{n}{d}\rfloor)}{g(1)}
+\]</span></p>
+<p>所以，只要我们找到合适的 <span
+class="math inline">\(g(x)\)</span>，就能够快速求出 <span
+class="math inline">\(S(n)\)</span> 了。</p>
+<p>对于 <span class="math inline">\(\mu(x)\)</span> 的前缀和，我们发现有
+<span class="math inline">\(\mu * 1 = \epsilon\)</span>，即定义 <span
+class="math inline">\(g = 1\)</span>，代入公式有 <span
+class="math inline">\(\displaystyle S(n) = 1 - \sum_{i =
+2}^nS(\lfloor\frac{n}{i}\rfloor)\)</span>。</p>
+<p>对于 <span class="math inline">\(\varphi(x)\)</span>
+的前缀和，我们发现有 <span class="math inline">\(\varphi \cdot 1 =
+\operatorname{id}\)</span>，即定义 <span class="math inline">\(g(x) =
+1\)</span>，代入公式有 <span class="math inline">\(\displaystyle S(n) =
+\frac{n(n + 1)}{2} - \sum_{i = 2}^n
+S(\lfloor\frac{n}{i}\rfloor)\)</span>。</p>
 <p>这些递推式显然可以整除分块做。</p>
-<p>不过为了做到非线性复杂度，我们需要先预处理出 $n^{\frac{2}{3}}$ 以内的 $S(n)$，然后剩下的用记忆化搜索。</p>
-<p>这样的复杂度据说可以达到最快的 $\mathcal{O}(n^{\frac{2}{3}})$。</p>
-<p>放上洛谷模板题（上面举的两个例子）的<a target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/tree/master/Codes/【学习笔记】积性函数的筛法/【模板】杜教筛.cpp">代码</a>。</p>
-<hr>
-<h2 id="operatorname-Min-underline-25-筛"><a href="#operatorname-Min-underline-25-筛" class="headerlink" title="$\operatorname{Min\underline{}25}$ 筛"></a>$\operatorname{Min\underline{}25}$ 筛</h2><p>一般用于求积性函数 $f(x)$ 的前缀和。$f(x)$ 要求当 $d$ 为质数时，$f(d)$ 是一个度数较低的简单多项式，或者说能够表示成若干项，使得每一项都是完全积性函数。</p>
-<p>复杂度有人说是 $\mathcal{O}(n^{1 - \epsilon})$，也有人说是 $\mathcal{O}(\frac{n^{\frac{3}{4}}}{\ln n})$，不过当 $n \le 10^{10}$ 时可以跑过。</p>
+<p>不过为了做到非线性复杂度，我们需要先预处理出 <span
+class="math inline">\(n^{\frac{2}{3}}\)</span> 以内的 <span
+class="math inline">\(S(n)\)</span>，然后剩下的用记忆化搜索。</p>
+<p>这样的复杂度据说可以达到最快的 <span
+class="math inline">\(\mathcal{O}(n^{\frac{2}{3}})\)</span>。</p>
+<p>放上洛谷模板题（上面举的两个例子）的<a
+target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/tree/master/Codes/【学习笔记】积性函数的筛法/【模板】杜教筛.cpp">代码</a>。</p>
+<hr />
+<h2 id="operatornameminunderline25-筛"><span
+class="math inline">\(\operatorname{Min\underline{}25}\)</span> 筛</h2>
+<p>一般用于求积性函数 <span class="math inline">\(f(x)\)</span>
+的前缀和。<span class="math inline">\(f(x)\)</span> 要求当 <span
+class="math inline">\(d\)</span> 为质数时，<span
+class="math inline">\(f(d)\)</span>
+是一个度数较低的简单多项式，或者说能够表示成若干项，使得每一项都是完全积性函数。</p>
+<p>复杂度有人说是 <span class="math inline">\(\mathcal{O}(n^{1 -
+\epsilon})\)</span>，也有人说是 <span
+class="math inline">\(\mathcal{O}(\frac{n^{\frac{3}{4}}}{\ln
+n})\)</span>，不过当 <span class="math inline">\(n \le 10^{10}\)</span>
+时可以跑过。</p>
 <ul>
-<li>$\operatorname{Step~1}$：</li>
+<li><span class="math inline">\(\operatorname{Step~1}\)</span>：</li>
 </ul>
-<p>先考虑求质数的前缀和：</p>
-<script type="math/tex; mode=display">
-\sum_{i = 1,i \in \operatorname{Prime}}^n f(i)</script><p>我们先来看一个神奇的操作：考虑当 $d$ 为质数时 $f(d)$ 的运算公式，然后把所有数都当成质数，套用这个运算公式！</p>
-<p>设这个新的函数为 $h(d)$。前面提到，当 $d$ 为质数时，$f(d)$ 是一个度数较低的多项式，或是能够表示为若干项完全积性函数。所以，我们可以把 $h(d)$ 拆成几项，分开来算，最后加在一起即可。 </p>
-<p>我们设 $g(n, j)$ 为所有质数和 $1\sim n$ 中最小质因子大于第 $j$ 个质数的合数的 $h$ 值的和，设 $p_j$ 为第 $j$ 个质数。</p>
+<p>先考虑求质数的前缀和： <span class="math display">\[
+\sum_{i = 1,i \in \operatorname{Prime}}^n f(i)
+\]</span></p>
+<p>我们先来看一个神奇的操作：考虑当 <span
+class="math inline">\(d\)</span> 为质数时 <span
+class="math inline">\(f(d)\)</span>
+的运算公式，然后把所有数都当成质数，套用这个运算公式！</p>
+<p>设这个新的函数为 <span
+class="math inline">\(h(d)\)</span>。前面提到，当 <span
+class="math inline">\(d\)</span> 为质数时，<span
+class="math inline">\(f(d)\)</span>
+是一个度数较低的多项式，或是能够表示为若干项完全积性函数。所以，我们可以把
+<span class="math inline">\(h(d)\)</span>
+拆成几项，分开来算，最后加在一起即可。</p>
+<p>我们设 <span class="math inline">\(g(n, j)\)</span> 为所有质数和
+<span class="math inline">\(1\sim n\)</span> 中最小质因子大于第 <span
+class="math inline">\(j\)</span> 个质数的合数的 <span
+class="math inline">\(h\)</span> 值的和，设 <span
+class="math inline">\(p_j\)</span> 为第 <span
+class="math inline">\(j\)</span> 个质数。</p>
 <p>考虑分讨：</p>
-<ol>
-<li>如果 $p_j &gt; \sqrt{n}$，此时不会再有更多的合数对值造成影响，因此有 $g(n, j) = g(n, j - 1)$；</li>
-<li>如果 $p<em>j \le \sqrt{n}$，我们发现要被减去的数中一定含有质因子 $p_j$，且除掉 $p_j$ 后最小的质因子会大于等于 $p_j$，所以我们需要减去 $h(p_j)\cdot g(\frac{n}{p_j},j−1)$。但 $g(\frac{n}{p_j},j−1)$ 中包含了 $\displaystyle \sum</em>{i=1}^{j - 1}h(p_i)$ 这些小于 $p_j$ 的质数函数值，它们是不合法的（因为 $p_i\cdot p_j$ 的最小质因子为 $p_i$），所以再把它们加上就好了。</li>
+<ol type="1">
+<li>如果 <span class="math inline">\(p_j &gt;
+\sqrt{n}\)</span>，此时不会再有更多的合数对值造成影响，因此有 <span
+class="math inline">\(g(n, j) = g(n, j - 1)\)</span>；</li>
+<li>如果 <span class="math inline">\(p_j \le
+\sqrt{n}\)</span>，我们发现要被减去的数中一定含有质因子 <span
+class="math inline">\(p_j\)</span>，且除掉 <span
+class="math inline">\(p_j\)</span> 后最小的质因子会大于等于 <span
+class="math inline">\(p_j\)</span>，所以我们需要减去 <span
+class="math inline">\(h(p_j)\cdot g(\frac{n}{p_j},j−1)\)</span>。但
+<span class="math inline">\(g(\frac{n}{p_j},j−1)\)</span> 中包含了 <span
+class="math inline">\(\displaystyle \sum_{i=1}^{j - 1}h(p_i)\)</span>
+这些小于 <span class="math inline">\(p_j\)</span>
+的质数函数值，它们是不合法的（因为 <span class="math inline">\(p_i\cdot
+p_j\)</span> 的最小质因子为 <span
+class="math inline">\(p_i\)</span>），所以再把它们加上就好了。</li>
 </ol>
-<p>此时有递推式：</p>
-<script type="math/tex; mode=display">
-g(n, j) = g(n, j - 1) - h(p_j)\cdot (g(\lfloor\frac{n}{p_j}\rfloor,j - 1) - \sum_{i=1}^{j - 1}h(p_i)</script><p>最后我们可以求出 $g(n, |\operatorname{Prime}|)$，这就是前缀和中所有质数的答案。</p>
+<p>此时有递推式： <span class="math display">\[
+g(n, j) = g(n, j - 1) - h(p_j)\cdot (g(\lfloor\frac{n}{p_j}\rfloor,j -
+1) - \sum_{i=1}^{j - 1}h(p_i)
+\]</span> 最后我们可以求出 <span class="math inline">\(g(n,
+|\operatorname{Prime}|)\)</span>，这就是前缀和中所有质数的答案。</p>
 <ul>
-<li>$\operatorname{Step~2}$：</li>
+<li><span class="math inline">\(\operatorname{Step~2}\)</span>：</li>
 </ul>
-<p>类⽐ $g(n, j)$，设 $S(n, j)$ 表⽰最⼩质因⼦大于第 $j$ 个素数的所有 $f$ 的函数值和。</p>
+<p>类⽐ <span class="math inline">\(g(n, j)\)</span>，设 <span
+class="math inline">\(S(n, j)\)</span> 表⽰最⼩质因⼦大于第 <span
+class="math inline">\(j\)</span> 个素数的所有 <span
+class="math inline">\(f\)</span> 的函数值和。</p>
 <p>对于质数，我们已经算出答案；对于合数，我们考虑枚举最小质因子及其指数即可递推：</p>
-<p>（注意当 $p_k^{t + 1}$ 大于 $n$ 时，我们定义 $f(p_k^{t + 1})$ 为 $0$。）</p>
-<script type="math/tex; mode=display">
-S(n, j) = g(n, |\operatorname{Prime}|) - \sum_{i = 1}^{j} f(p_i) + \sum_{k = j + 1}^{p_k^2 \le n}\sum_{t = 1}^{p_k^{t} \le n} (f(p_k^{t + 1}) + f(p_k^{t}) \cdot S(\lfloor\frac{n}{p_k^t}\rfloor, k + 1)))</script><p>前面的 $\displaystyle g(n, j) - \sum_{i = 1}^{j - 1} f(p_i)$ 即为质数部分，注意要减去所有小于 $p_j$ 的质数 $p_i$ 的贡献；</p>
-<p>枚举合数时，我们需要考虑所有最小质因子为 $d~(d \ge p_j)$ 的数 $k$ 对应的 $f(k)$ 的贡献。</p>
-<p>显然合数 $k$ 的最小质因子是小于等于 $\sqrt{k}$ 的，所以枚举 $d$ 时我们仅需枚举满足 $d^2 \le n$ 的部分即可。</p>
-<p>由于质数我们在前面已经计算过，因此对于 $f(d^{t + 1})$ 这一项，我们从 $t=1$ 而非 $t = 0$ 开始枚举。</p>
-<p>而后面的合数部分，我们类似 $g$ 的处理，利用积性函数的性质把 $f(d^t)$ 这一项提出来，同时把 $d^t$ 这一项消掉，再递归求解所有最小质因子大于 $d$ 的 $S$。</p>
-<p>最后 $S(n, 0)$ 即为答案，不过注意要考虑一下 $f(1)$ 的贡献。</p>
-<hr>
-<p>说了那么多，拿<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5325">洛谷的模板题</a>讲解一下吧：</p>
-<p>定义积性函数 $f(x)$，当 $p$ 为质数时有 $f(p^k) = p^k\cdot (p^k - 1)$。</p>
-<p>给定 $n ~(n \le 10^{10})$，求：</p>
-<script type="math/tex; mode=display">
-\sum_{i = 1}^n f(i)</script><p>对 $10^9 + 7$ 取模。</p>
+<p>（注意当 <span class="math inline">\(p_k^{t + 1}\)</span> 大于 <span
+class="math inline">\(n\)</span> 时，我们定义 <span
+class="math inline">\(f(p_k^{t + 1})\)</span> 为 <span
+class="math inline">\(0\)</span>。） <span class="math display">\[
+S(n, j) = g(n, |\operatorname{Prime}|) - \sum_{i = 1}^{j} f(p_i) +
+\sum_{k = j + 1}^{p_k^2 \le n}\sum_{t = 1}^{p_k^{t} \le n} (f(p_k^{t +
+1}) + f(p_k^{t}) \cdot S(\lfloor\frac{n}{p_k^t}\rfloor, k + 1)))
+\]</span> 前面的 <span class="math inline">\(\displaystyle g(n, j) -
+\sum_{i = 1}^{j - 1} f(p_i)\)</span> 即为质数部分，注意要减去所有小于
+<span class="math inline">\(p_j\)</span> 的质数 <span
+class="math inline">\(p_i\)</span> 的贡献；</p>
+<p>枚举合数时，我们需要考虑所有最小质因子为 <span
+class="math inline">\(d~(d \ge p_j)\)</span> 的数 <span
+class="math inline">\(k\)</span> 对应的 <span
+class="math inline">\(f(k)\)</span> 的贡献。</p>
+<p>显然合数 <span class="math inline">\(k\)</span>
+的最小质因子是小于等于 <span class="math inline">\(\sqrt{k}\)</span>
+的，所以枚举 <span class="math inline">\(d\)</span> 时我们仅需枚举满足
+<span class="math inline">\(d^2 \le n\)</span> 的部分即可。</p>
+<p>由于质数我们在前面已经计算过，因此对于 <span
+class="math inline">\(f(d^{t + 1})\)</span> 这一项，我们从 <span
+class="math inline">\(t=1\)</span> 而非 <span class="math inline">\(t =
+0\)</span> 开始枚举。</p>
+<p>而后面的合数部分，我们类似 <span class="math inline">\(g\)</span>
+的处理，利用积性函数的性质把 <span class="math inline">\(f(d^t)\)</span>
+这一项提出来，同时把 <span class="math inline">\(d^t\)</span>
+这一项消掉，再递归求解所有最小质因子大于 <span
+class="math inline">\(d\)</span> 的 <span
+class="math inline">\(S\)</span>。</p>
+<p>最后 <span class="math inline">\(S(n, 0)\)</span>
+即为答案，不过注意要考虑一下 <span class="math inline">\(f(1)\)</span>
+的贡献。</p>
+<hr />
+<p>说了那么多，拿<a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5325">洛谷的模板题</a>讲解一下吧：</p>
+<p>定义积性函数 <span class="math inline">\(f(x)\)</span>，当 <span
+class="math inline">\(p\)</span> 为质数时有 <span
+class="math inline">\(f(p^k) = p^k\cdot (p^k - 1)\)</span>。</p>
+<p>给定 <span class="math inline">\(n ~(n \le 10^{10})\)</span>，求：
+<span class="math display">\[
+\sum_{i = 1}^n f(i)
+\]</span> 对 <span class="math inline">\(10^9 + 7\)</span> 取模。</p>
 <p>题解：</p>
 <ul>
-<li>$\operatorname{Step~1}$：</li>
+<li><span class="math inline">\(\operatorname{Step~1}\)</span>：</li>
 </ul>
-<p>显然对于质数 $p$，有 $f(p) = p\cdot (p - 1) = p^2 - p$。可以发现，这正是上面提到的 “次数较少的简单多项式”。不看符号，它的每一项都是完全积性函数。</p>
-<p>所以我们把 $f(p)$ 拆成 $p^2$ 和 $p$ 两项计算，最后相减即可。</p>
-<p>我们再次回顾递推式：</p>
-<script type="math/tex; mode=display">
-g(n, j) = g(n, j - 1) - h(p_j)\cdot(g(\lfloor\frac{n}{p_j}\rfloor,j - 1) - \sum_{i = 1}^{j - 1}h(p_i))</script><p>可以发现两件事情：</p>
-<ol>
-<li>$\lfloor\frac{n}{p_j}\rfloor$ 最多会有 $\sqrt{n}$ 种取值，可以考虑整除分块预处理；</li>
-<li>$n$ 以内的质因子个数也是 $\sqrt{n}$ 级别的，所以说 $\displaystyle\sum_{i = 1}^{j - 1}h(p_i))$ 也可以预处理。</li>
+<p>显然对于质数 <span class="math inline">\(p\)</span>，有 <span
+class="math inline">\(f(p) = p\cdot (p - 1) = p^2 -
+p\)</span>。可以发现，这正是上面提到的
+“次数较少的简单多项式”。不看符号，它的每一项都是完全积性函数。</p>
+<p>所以我们把 <span class="math inline">\(f(p)\)</span> 拆成 <span
+class="math inline">\(p^2\)</span> 和 <span
+class="math inline">\(p\)</span> 两项计算，最后相减即可。</p>
+<p>我们再次回顾递推式： <span class="math display">\[
+g(n, j) = g(n, j - 1) - h(p_j)\cdot(g(\lfloor\frac{n}{p_j}\rfloor,j - 1)
+- \sum_{i = 1}^{j - 1}h(p_i))
+\]</span> 可以发现两件事情：</p>
+<ol type="1">
+<li><span class="math inline">\(\lfloor\frac{n}{p_j}\rfloor\)</span>
+最多会有 <span class="math inline">\(\sqrt{n}\)</span>
+种取值，可以考虑整除分块预处理；</li>
+<li><span class="math inline">\(n\)</span> 以内的质因子个数也是 <span
+class="math inline">\(\sqrt{n}\)</span> 级别的，所以说 <span
+class="math inline">\(\displaystyle\sum_{i = 1}^{j - 1}h(p_i))\)</span>
+也可以预处理。</li>
 </ol>
-<p>所以我们先考虑把所有的素数筛出来，同时维护后面的那一项 $\displaystyle \sum_{i = 1}^{j - 1}h(p_i))$：</p>
+<p>所以我们先考虑把所有的素数筛出来，同时维护后面的那一项 <span
+class="math inline">\(\displaystyle \sum_{i = 1}^{j -
+1}h(p_i))\)</span>：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-type">void</span> <span class="hljs-title">Sieve</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>	NotPrime[<span class="hljs-number">1</span>] = <span class="hljs-literal">true</span>;<br>	<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> i = <span class="hljs-number">2</span>; i &lt;= s; i++)	<span class="hljs-comment">//s = (int)(sqrt(n))</span><br>	&#123;<br>		<span class="hljs-keyword">if</span>(!NotPrime[i])<br>		&#123;<br>			Prime[++len] = i;<br>			sum1[len] = <span class="hljs-built_in">GetMOD</span>(sum1[len - <span class="hljs-number">1</span>] + i) % MOD;<br>			sum2[len] = <span class="hljs-built_in">GetMOD</span>(sum2[len - <span class="hljs-number">1</span>] + <span class="hljs-number">1LL</span> * i * i % MOD) % MOD;<br>		&#125;<br>		<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> j = <span class="hljs-number">1</span>; j &lt;= len &amp;&amp; i * Prime[j] &lt;= s; j++)<br>		&#123;<br>			NotPrime[i * Prime[j]] = <span class="hljs-literal">true</span>;<br>			<span class="hljs-keyword">if</span>(i % Prime[j] == <span class="hljs-number">0LL</span>) <span class="hljs-keyword">break</span>;<br>		&#125;<br>	&#125;<br>	<span class="hljs-keyword">return</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
-<p>然后我们整除分块，把对应的值存储下来编号，这样可以节省空间。同时我们预处理出 $g(1 \sim n, 0)$：</p>
+<p>然后我们整除分块，把对应的值存储下来编号，这样可以节省空间。同时我们预处理出
+<span class="math inline">\(g(1 \sim n, 0)\)</span>：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> i64 l = <span class="hljs-number">1</span>, r; l &lt;= n; l = r + <span class="hljs-number">1</span>)<br>&#123;<br>	r = n / (n / l), val[++m] = n / l;<br>	g1[m] = <span class="hljs-built_in">GetMOD</span>(<span class="hljs-built_in">Prefix1</span>(val[m]) - <span class="hljs-number">1LL</span> + MOD), g2[m] = <span class="hljs-built_in">GetMOD</span>(<span class="hljs-built_in">Prefix2</span>(val[m]) - <span class="hljs-number">1LL</span> + MOD);	<span class="hljs-comment">//注意要减去 f(1) 的贡献</span><br>	<span class="hljs-keyword">if</span>(val[m] &lt;= s) pos1[val[m]] = m; <span class="hljs-keyword">else</span> pos2[n / val[m]] = m;<br>&#125;<br></code></pre></td></tr></table></figure>
-<p>接着我们求解 $g$，这里可以发现后面的值只会由前面推导过来，所以可以考虑把数组滚动：</p>
+<p>接着我们求解 <span
+class="math inline">\(g\)</span>，这里可以发现后面的值只会由前面推导过来，所以可以考虑把数组滚动：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> i = <span class="hljs-number">1</span>; i &lt;= len; i++)<br>&#123;<br>	<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> j = <span class="hljs-number">1</span>; j &lt;= m &amp;&amp; Prime[i] * Prime[i] &lt;= val[j]; j++)<br>	&#123;<br>		g1[j] = <span class="hljs-built_in">GetMOD</span>(g1[j] - <span class="hljs-number">1LL</span> * Prime[i] * <span class="hljs-built_in">GetMOD</span>(g1[<span class="hljs-built_in">GetPos</span>(val[j] / Prime[i])] - sum1[i - <span class="hljs-number">1</span>] + MOD) % MOD + MOD); <br>		g2[j] = <span class="hljs-built_in">GetMOD</span>(g2[j] - <span class="hljs-number">1LL</span> * Prime[i] * Prime[i] % MOD * <span class="hljs-built_in">GetMOD</span>(g2[<span class="hljs-built_in">GetPos</span>(val[j] / Prime[i])] - sum2[i - <span class="hljs-number">1</span>] + MOD) % MOD + MOD);<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>完毕。</p>
 <ul>
-<li>$\operatorname{Step~2}$：</li>
+<li><span class="math inline">\(\operatorname{Step~2}\)</span>：</li>
 </ul>
-<p>接下来考虑求解 $S$。实际上没有那么麻烦，直接暴力枚举然后递归即可：</p>
+<p>接下来考虑求解 <span
+class="math inline">\(S\)</span>。实际上没有那么麻烦，直接暴力枚举然后递归即可：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-keyword">inline</span> i64 <span class="hljs-title">S</span><span class="hljs-params">(i64 k, <span class="hljs-type">int</span> p)</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-keyword">if</span>(Prime[p] &gt;= k) <span class="hljs-keyword">return</span> <span class="hljs-number">0LL</span>;<br>	i64 res = <span class="hljs-built_in">GetMOD</span>(<span class="hljs-built_in">GetMOD</span>(g2[<span class="hljs-built_in">GetPos</span>(k)] - g1[<span class="hljs-built_in">GetPos</span>(k)] + MOD) - <span class="hljs-built_in">GetMOD</span>(sum2[p] - sum1[p] + MOD) + MOD);<br>	<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> i = p + <span class="hljs-number">1</span>; i &lt;= len &amp;&amp; Prime[i] * Prime[i] &lt;= k; i++)<br>	&#123;<br>		i64 pw = Prime[i];<br>		<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> j = <span class="hljs-number">1</span>; pw &lt;= k; pw = pw * Prime[i], j++) res = <span class="hljs-built_in">GetMOD</span>(res + pw % MOD * <span class="hljs-built_in">GetMOD</span>(pw % MOD - <span class="hljs-number">1LL</span> + MOD) % MOD * <span class="hljs-built_in">GetMOD</span>(<span class="hljs-built_in">S</span>(k / pw, i) + (j &gt; <span class="hljs-number">1</span>)) % MOD);<br>	&#125;<br>	<span class="hljs-keyword">return</span> res;<br>&#125;<br></code></pre></td></tr></table></figure>
-<p>放上<a target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/tree/master/Codes/【学习笔记】积性函数的筛法/【模板】Min_25%20筛.cpp">完整代码</a>。</p>
-<hr>
-<h2 id="operatorname-Powerful-Number"><a href="#operatorname-Powerful-Number" class="headerlink" title="$\operatorname{Powerful~Number}$"></a>$\operatorname{Powerful~Number}$</h2><p>对正整数 $k$ 唯一分解为 $\displaystyle\sum_{p_i\in \operatorname{Prime}} p_i^{\alpha_i}$，如满足 $\forall p_i \in {\operatorname{Prime}}， \alpha_i \ge 2$，则称其为 $\operatorname{Powerful~Number}$。</p>
-<p>每一个 $\operatorname{Powerful~Number}$ 都可以表示成 $a^2 b^3$ 的形式。由此我们也可以证明：$1 \sim n$ 内 $\operatorname{Powerful~Number}$ 的数量在 $O(\sqrt{n})$ 级别。</p>
+<p>放上<a
+target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/tree/master/Codes/【学习笔记】积性函数的筛法/【模板】Min_25%20筛.cpp">完整代码</a>。</p>
+<hr />
+<h2 id="operatornamepowerfulnumber"><span
+class="math inline">\(\operatorname{Powerful~Number}\)</span></h2>
+<p>对正整数 <span class="math inline">\(k\)</span> 唯一分解为 <span
+class="math inline">\(\displaystyle\sum_{p_i\in \operatorname{Prime}}
+p_i^{\alpha_i}\)</span>，如满足 <span class="math inline">\(\forall p_i
+\in {\operatorname{Prime}}， \alpha_i \ge 2\)</span>，则称其为 <span
+class="math inline">\(\operatorname{Powerful~Number}\)</span>。</p>
+<p>每一个 <span
+class="math inline">\(\operatorname{Powerful~Number}\)</span>
+都可以表示成 <span class="math inline">\(a^2 b^3\)</span>
+的形式。由此我们也可以证明：<span class="math inline">\(1 \sim
+n\)</span> 内 <span
+class="math inline">\(\operatorname{Powerful~Number}\)</span> 的数量在
+<span class="math inline">\(O(\sqrt{n})\)</span> 级别。</p>
 <p>它有什么用处呢？</p>
-<p>假设我们要求积性函数 $f$ 的前缀和，考虑构造一个前缀和很好求的函数 $g$，满足两函数在质数处值相等。</p>
-<p>再设函数 $h$ 使得 $f = h \cdot g$。</p>
-<p>可以发现，当 $d$ 不为 $\operatorname{Powerful~Number}$ 时，$h(d)$ 取值为 $0$。</p>
-<p>又有：</p>
-<script type="math/tex; mode=display">
+<p>假设我们要求积性函数 <span class="math inline">\(f\)</span>
+的前缀和，考虑构造一个前缀和很好求的函数 <span
+class="math inline">\(g\)</span>，满足两函数在质数处值相等。</p>
+<p>再设函数 <span class="math inline">\(h\)</span> 使得 <span
+class="math inline">\(f = h \cdot g\)</span>。</p>
+<p>可以发现，当 <span class="math inline">\(d\)</span> 不为 <span
+class="math inline">\(\operatorname{Powerful~Number}\)</span> 时，<span
+class="math inline">\(h(d)\)</span> 取值为 <span
+class="math inline">\(0\)</span>。</p>
+<p>又有： <span class="math display">\[
 \begin{aligned}
-\sum_{i = 1}^n f(i) &= \sum_{i = 1}^n (h \cdot g)(i)
+\sum_{i = 1}^n f(i) &amp;= \sum_{i = 1}^n (h \cdot g)(i)
 \\
-&=\sum_{i = 1}^n\sum_{d | i} h(d)\cdot g(\frac{i}{d})
+&amp;=\sum_{i = 1}^n\sum_{d | i} h(d)\cdot g(\frac{i}{d})
 \\
-&=\sum_{d = 1}^nh(d)\sum_{i = 1}^{\lfloor\frac{n}{d}\rfloor} g(i)
-\end{aligned}</script><p>由于后者前缀和很好求，因此可以考虑暴力找出 $n$ 以内的 $\operatorname{Powerful~Number}$，直接暴力加就行。</p>
-<hr>
-<h2 id="operatorname-END"><a href="#operatorname-END" class="headerlink" title="$\operatorname{END}$"></a>$\operatorname{END}$</h2>
+&amp;=\sum_{d = 1}^nh(d)\sum_{i = 1}^{\lfloor\frac{n}{d}\rfloor} g(i)
+\end{aligned}
+\]</span> 由于后者前缀和很好求，因此可以考虑暴力找出 <span
+class="math inline">\(n\)</span> 以内的 <span
+class="math inline">\(\operatorname{Powerful~Number}\)</span>，直接暴力加就行。</p>
+<hr />
+<h2 id="operatornameend"><span
+class="math inline">\(\operatorname{END}\)</span></h2>
+
             </div>
             <hr>
             <div>

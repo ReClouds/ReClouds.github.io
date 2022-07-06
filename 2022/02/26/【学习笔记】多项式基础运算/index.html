@@ -205,7 +205,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      17k 字
+      18k 字
     </span>
   
 
@@ -214,7 +214,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      141 分钟
+      149 分钟
     </span>
   
 
@@ -246,94 +246,204 @@
             <h1 style="display: none">【学习笔记】多项式基础运算</h1>
             
             <div class="markdown-body">
-              <h2 id="拉格朗日插值"><a href="#拉格朗日插值" class="headerlink" title="拉格朗日插值"></a>拉格朗日插值</h2><p>我们知道，若给定平面上的 $n + 1$ 个点，那么我们通过待定系数法配合高斯消元，就能够唯一确定一个度数至多为 $n$ 的多项式的系数表示法，即形如 $\displaystyle \sum_{i = 0}^n a_i \cdot x^i$ 的表示法，而这 $n + 1$ 个点实际上就是该多项式的一种点值表示法。</p>
+              <h2 id="拉格朗日插值">拉格朗日插值</h2>
+<p>我们知道，若给定平面上的 <span class="math inline">\(n + 1\)</span>
+个点，那么我们通过待定系数法配合高斯消元，就能够唯一确定一个度数至多为
+<span class="math inline">\(n\)</span> 的多项式的系数表示法，即形如
+<span class="math inline">\(\displaystyle \sum_{i = 0}^n a_i \cdot
+x^i\)</span> 的表示法，而这 <span class="math inline">\(n + 1\)</span>
+个点实际上就是该多项式的一种点值表示法。</p>
 <p>可以发现，对于一个多项式而言，系数表示法是唯一确定的，而点值表示法则有无穷多种，所以我们在做和数学相关的学术研究时，常用的表示法即为系数表示法。</p>
 <p>然而点值表示法也并非一无是处，在下文的多项式乘法一节中我们将会讲述它优秀的性质。</p>
-<hr>
+<hr />
 <p>插值，通俗地讲，就是指通过多项式的点值表示法求出多项式的系数表示法。</p>
-<p>而拉格朗日插值就是插值的一种方法，它支持通过 $n + 1$ 个点插出一个度数为 $n$ 的多项式。</p>
-<hr>
-<h2 id="多项式乘法"><a href="#多项式乘法" class="headerlink" title="多项式乘法"></a>多项式乘法</h2><p>多项式乘法的代数形式如下：设有多项式 $\displaystyle f(x) = \sum<em>{i = 0}^n a_i \cdot x^n$，$\displaystyle g(x) = \sum</em>{i = 0}^m b<em>i \cdot x^m$，则对它们做乘法得到的积为 $\displaystyle t(x) = \sum</em>{i = 0}^{n + m} c_i \cdot x^i$。</p>
-<p>其中，对于 $t(x)$ 的系数 $c<em>k$ 有公式：$\displaystyle c_k = \sum</em>{i = 0}^k a<em>i \cdot b</em>{k - i}$。这个形式我们以后会经常遇到，到时候不要忘记用下文所讲的方式优化。</p>
-<hr>
-<p>现在，给出两个多项式 $f(x)$ 和 $g(x)$ 的系数，对它们做乘法，得到积 $t(x)$。$f(x)$ 和 $g(x)$ 的度数小于 $10^5$。</p>
-<p>根据上面的公式，我们可以得到一个 $\mathcal{O}(n^2)$ 的 <del>优秀</del> 算法。</p>
+<p>而拉格朗日插值就是插值的一种方法，它支持通过 <span
+class="math inline">\(n + 1\)</span> 个点插出一个度数为 <span
+class="math inline">\(n\)</span> 的多项式。</p>
+<hr />
+<h2 id="多项式乘法">多项式乘法</h2>
+<p>多项式乘法的代数形式如下：设有多项式 <span
+class="math inline">\(\displaystyle f(x) = \sum_{i = 0}^n a_i \cdot
+x^n\)</span>，<span class="math inline">\(\displaystyle g(x) = \sum_{i =
+0}^m b_i \cdot x^m\)</span>，则对它们做乘法得到的积为 <span
+class="math inline">\(\displaystyle t(x) = \sum_{i = 0}^{n + m} c_i
+\cdot x^i\)</span>。</p>
+<p>其中，对于 <span class="math inline">\(t(x)\)</span> 的系数 <span
+class="math inline">\(c_k\)</span> 有公式：<span
+class="math inline">\(\displaystyle c_k = \sum_{i = 0}^k a_i \cdot b_{k
+-
+i}\)</span>。这个形式我们以后会经常遇到，到时候不要忘记用下文所讲的方式优化。</p>
+<hr />
+<p>现在，给出两个多项式 <span class="math inline">\(f(x)\)</span> 和
+<span class="math inline">\(g(x)\)</span> 的系数，对它们做乘法，得到积
+<span class="math inline">\(t(x)\)</span>。<span
+class="math inline">\(f(x)\)</span> 和 <span
+class="math inline">\(g(x)\)</span> 的度数小于 <span
+class="math inline">\(10^5\)</span>。</p>
+<p>根据上面的公式，我们可以得到一个 <span
+class="math inline">\(\mathcal{O}(n^2)\)</span> 的 <del>优秀</del>
+算法。</p>
 <p>我们考虑换一种思想做这个乘法。</p>
 <p>在上面的拉格朗日差值一节，我们提到了点值表示法，并声称它具有一些优秀的性质，这里我们展开来讲。</p>
-<p>点值表示法的优秀性质在做多项式的运算时具有良好的性质：对于 $f(x)$ 的一个点值 $(x, y_f)$ 和 $g(x)$ 的一个点值 $(x, y_g)$，对它们做乘法得到的积 $t(x)$ 就会存在一个点值 $(x, y_f \cdot y_g)$。</p>
-<p>所以我们得到了一个新的思路：先钦定若干 $x$，然后求出这些 $x$ 对应的两个多项式的点值，再将每个 $x$ 对应的两个点值的纵坐标 $\mathcal{O}(n)$ 地乘起来，最后将这些点插出一个多项式。</p>
-<p>这种方法叫做离散傅里叶变换（即著名的 $\operatorname{DFT}$）。</p>
-<p>问题是，如果钦定一些 $x$ 去求对应的两个多项式的点值，时间复杂度还是 $\mathcal{O}(n^2)$ 的。</p>
-<p>所以，下面介绍快速傅里叶变换和快速数论变换（即著名的 $\operatorname{FFT}$ 和 $\operatorname{NTT}$）。</p>
-<hr>
-<p>前置知识：<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/单位根/10927387?fr=aladdin">单位根</a>，<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/原根">原根</a>。</p>
-<p>还记得二次函数 $y = x^2$ 的性质吗？</p>
-<p>它关于 $y$ 轴对称，所以我们如果代入 $x = k$，同样可以得到 $x = -k$ 时 $y$ 的值。</p>
-<p>这启发我们，可以选取一些特殊的 $x$，使得我们可以在求出一些点值的同时，快速地求出另外的一些点值。</p>
+<p>点值表示法的优秀性质在做多项式的运算时具有良好的性质：对于 <span
+class="math inline">\(f(x)\)</span> 的一个点值 <span
+class="math inline">\((x, y_f)\)</span> 和 <span
+class="math inline">\(g(x)\)</span> 的一个点值 <span
+class="math inline">\((x, y_g)\)</span>，对它们做乘法得到的积 <span
+class="math inline">\(t(x)\)</span> 就会存在一个点值 <span
+class="math inline">\((x, y_f \cdot y_g)\)</span>。</p>
+<p>所以我们得到了一个新的思路：先钦定若干 <span
+class="math inline">\(x\)</span>，然后求出这些 <span
+class="math inline">\(x\)</span> 对应的两个多项式的点值，再将每个 <span
+class="math inline">\(x\)</span> 对应的两个点值的纵坐标 <span
+class="math inline">\(\mathcal{O}(n)\)</span>
+地乘起来，最后将这些点插出一个多项式。</p>
+<p>这种方法叫做离散傅里叶变换（即著名的 <span
+class="math inline">\(\operatorname{DFT}\)</span>）。</p>
+<p>问题是，如果钦定一些 <span class="math inline">\(x\)</span>
+去求对应的两个多项式的点值，时间复杂度还是 <span
+class="math inline">\(\mathcal{O}(n^2)\)</span> 的。</p>
+<p>所以，下面介绍快速傅里叶变换和快速数论变换（即著名的 <span
+class="math inline">\(\operatorname{FFT}\)</span> 和 <span
+class="math inline">\(\operatorname{NTT}\)</span>）。</p>
+<hr />
+<p>前置知识：<a
+target="_blank" rel="noopener" href="https://baike.baidu.com/item/单位根/10927387?fr=aladdin">单位根</a>，<a
+target="_blank" rel="noopener" href="https://baike.baidu.com/item/原根">原根</a>。</p>
+<p>还记得二次函数 <span class="math inline">\(y = x^2\)</span>
+的性质吗？</p>
+<p>它关于 <span class="math inline">\(y\)</span>
+轴对称，所以我们如果代入 <span class="math inline">\(x =
+k\)</span>，同样可以得到 <span class="math inline">\(x = -k\)</span> 时
+<span class="math inline">\(y\)</span> 的值。</p>
+<p>这启发我们，可以选取一些特殊的 <span
+class="math inline">\(x\)</span>，使得我们可以在求出一些点值的同时，快速地求出另外的一些点值。</p>
 <p>这个时候，单位根就派上用场了。</p>
 <p>先讲一些使得单位根能够应用于此的性质：</p>
 <ul>
-<li>记 $\omega_n$ 为 $n$ 阶单位根，即满足 $\omega_n^k = e^{\frac{2k\pi i}{n}}$，而 $e^{\frac{2k\pi i}{n}}=\cos \frac{2k\pi}{n} + i \sin \frac{2k\pi}{n}$，$i$ 为虚数单位。</li>
+<li>记 <span class="math inline">\(\omega_n\)</span> 为 <span
+class="math inline">\(n\)</span> 阶单位根，即满足 <span
+class="math inline">\(\omega_n^k = e^{\frac{2k\pi i}{n}}\)</span>，而
+<span class="math inline">\(e^{\frac{2k\pi i}{n}}=\cos \frac{2k\pi}{n} +
+i \sin \frac{2k\pi}{n}\)</span>，<span class="math inline">\(i\)</span>
+为虚数单位。</li>
 </ul>
-<p>（注意 $n$ 阶单位根的 $n$ 一般取 $2$ 的正整数次幂，而下文皆如此。）</p>
+<p>（注意 <span class="math inline">\(n\)</span> 阶单位根的 <span
+class="math inline">\(n\)</span> 一般取 <span
+class="math inline">\(2\)</span> 的正整数次幂，而下文皆如此。）</p>
 <p>这个计算公式不仅可以让我们计算出单位根的具体数值，并且可以得出以下性质：</p>
 <ul>
-<li>$\omega_n^n = \cos 2\pi + i \sin 2\pi = 1 = \omega_n^0$。</li>
+<li><span class="math inline">\(\omega_n^n = \cos 2\pi + i \sin 2\pi = 1
+= \omega_n^0\)</span>。</li>
 </ul>
-<p>这条性质说明 $n$ 阶单位根存在长度为 $n$ 的指数循环节；</p>
+<p>这条性质说明 <span class="math inline">\(n\)</span>
+阶单位根存在长度为 <span class="math inline">\(n\)</span>
+的指数循环节；</p>
 <ul>
-<li>$\omega_n^{\frac{n}{2}} = \cos \pi + i \sin \pi= -1$。</li>
+<li><span class="math inline">\(\omega_n^{\frac{n}{2}} = \cos \pi + i
+\sin \pi= -1\)</span>。</li>
 </ul>
-<p>这条性质间接地证明了 $n$ 阶单位根的最小指数循环节长度为 $n$，同时为下文折半引理的证明做了铺垫。</p>
+<p>这条性质间接地证明了 <span class="math inline">\(n\)</span>
+阶单位根的最小指数循环节长度为 <span
+class="math inline">\(n\)</span>，同时为下文折半引理的证明做了铺垫。</p>
 <ul>
-<li>单位根消去引理：$\omega_{2n}^{2k} = \omega_n^k$。</li>
+<li>单位根消去引理：<span class="math inline">\(\omega_{2n}^{2k} =
+\omega_n^k\)</span>。</li>
 </ul>
-<p>根据公式有 $\omega<em>{2n}^{2k}= e^{\frac{4k\pi i}{2n}} = e^{\frac{2k\pi i}{n}} = \omega</em>{n}^k$，得证。</p>
-<p>这条性质可以做为沟通不同阶单位根的桥梁，同时也证明了 $n$ 阶单位根的值域是 $2n$ 阶单位根值域的真子集。</p>
+<p>根据公式有 <span class="math inline">\(\omega_{2n}^{2k}=
+e^{\frac{4k\pi i}{2n}} = e^{\frac{2k\pi i}{n}} =
+\omega_{n}^k\)</span>，得证。</p>
+<p>这条性质可以做为沟通不同阶单位根的桥梁，同时也证明了 <span
+class="math inline">\(n\)</span> 阶单位根的值域是 <span
+class="math inline">\(2n\)</span> 阶单位根值域的真子集。</p>
 <ul>
-<li>单位根折半引理：$\omega<em>n^{k+\frac{n}{2}} = -\omega</em>{n}^k$。</li>
+<li>单位根折半引理：<span class="math inline">\(\omega_n^{k+\frac{n}{2}}
+= -\omega_{n}^k\)</span>。</li>
 </ul>
-<p>根据上面的性质有 $\omega_n^{k + \frac{n}{2}} = \omega_n^k \cdot \omega_n^{\frac{n}{2}} = -\omega_n^k$，得证。</p>
-<p>这条性质可以做为沟通同阶不同指数的单位根的桥梁，为 $\operatorname{DFT}$ 的分治优化创造了可能。</p>
+<p>根据上面的性质有 <span class="math inline">\(\omega_n^{k +
+\frac{n}{2}} = \omega_n^k \cdot \omega_n^{\frac{n}{2}} =
+-\omega_n^k\)</span>，得证。</p>
+<p>这条性质可以做为沟通同阶不同指数的单位根的桥梁，为 <span
+class="math inline">\(\operatorname{DFT}\)</span>
+的分治优化创造了可能。</p>
 <p>而我们该如何运用单位根的这些性质呢？</p>
-<p>举个例子，我们将 $f(x) = a_0 + a_1 \cdot x + a_2 \cdot x^2 + a_3 \cdot x^3$ 做一个小小的改动：</p>
-<script type="math/tex; mode=display">
+<p>举个例子，我们将 <span class="math inline">\(f(x) = a_0 + a_1 \cdot x
++ a_2 \cdot x^2 + a_3 \cdot x^3\)</span> 做一个小小的改动： <span
+class="math display">\[
 \begin{aligned}
-f(x) &= a_0 + a_1 \cdot x + a_2 \cdot x^2 + a_3 \cdot x^3
+f(x) &amp;= a_0 + a_1 \cdot x + a_2 \cdot x^2 + a_3 \cdot x^3
 \\
-&=a_0 + a_2 \cdot x^2 + a_1 \cdot x + a_3\cdot x^3
+&amp;=a_0 + a_2 \cdot x^2 + a_1 \cdot x + a_3\cdot x^3
 \\
-&= (a_0 + a_2 \cdot x^2) + x(a_1 + a_3 \cdot x^2)
+&amp;= (a_0 + a_2 \cdot x^2) + x(a_1 + a_3 \cdot x^2)
 \\
-&= f_1(x^2) + x \cdot f_2(x^2)
-\end{aligned}</script><p>可以发现，这样的变换，会使得原多项式被拆分为两个规模缩小了一半多项式。</p>
+&amp;= f_1(x^2) + x \cdot f_2(x^2)
+\end{aligned}
+\]</span>
+可以发现，这样的变换，会使得原多项式被拆分为两个规模缩小了一半多项式。</p>
 <p>所以，我们又有了一个新的算法模型：</p>
-<p>我们考虑将 $f(x)$ 拆分为两个规模缩小了一半的多项式 $f_1(x), f_2(x)$，然后对它们进行分治，接着，我们可以用 $f_1(x),f_2(x)$ 在 $x = k^2$ 处的点值计算出 $f(x)$ 在 $x = k$ 处的点值。如果分治时每一层的复杂度都能够做到 $\mathcal{O}(n)$，那么总的时间复杂度就是 $\mathcal{O}(n \log_2 n)$。</p>
-<p>接下来，我们考虑利用单位根的性质，将每一层转化点值的操作复杂度变为 $\mathcal{O}(n)$。</p>
-<p>如果我们将单位根 $\omega_{n}^k$ 和 $\omega_n^{k + \frac{n}{2}}$ 分别代入多项式 $f(x)$：</p>
-<script type="math/tex; mode=display">
+<p>我们考虑将 <span class="math inline">\(f(x)\)</span>
+拆分为两个规模缩小了一半的多项式 <span class="math inline">\(f_1(x),
+f_2(x)\)</span>，然后对它们进行分治，接着，我们可以用 <span
+class="math inline">\(f_1(x),f_2(x)\)</span> 在 <span
+class="math inline">\(x = k^2\)</span> 处的点值计算出 <span
+class="math inline">\(f(x)\)</span> 在 <span class="math inline">\(x =
+k\)</span> 处的点值。如果分治时每一层的复杂度都能够做到 <span
+class="math inline">\(\mathcal{O}(n)\)</span>，那么总的时间复杂度就是
+<span class="math inline">\(\mathcal{O}(n \log_2 n)\)</span>。</p>
+<p>接下来，我们考虑利用单位根的性质，将每一层转化点值的操作复杂度变为
+<span class="math inline">\(\mathcal{O}(n)\)</span>。</p>
+<p>如果我们将单位根 <span class="math inline">\(\omega_{n}^k\)</span> 和
+<span class="math inline">\(\omega_n^{k + \frac{n}{2}}\)</span>
+分别代入多项式 <span class="math inline">\(f(x)\)</span>： <span
+class="math display">\[
 \begin{matrix}
-f(\omega_{n}^{k}) = f_1(\omega_n^{2k}) + \omega_n^k\cdot f_2(\omega_n^{2k}) = f_1(\omega_{\frac{n}{2}}^{k}) + \omega_n^k\cdot f_2(\omega_{\frac{n}{2}}^{k})
+f(\omega_{n}^{k}) = f_1(\omega_n^{2k}) + \omega_n^k\cdot
+f_2(\omega_n^{2k}) = f_1(\omega_{\frac{n}{2}}^{k}) + \omega_n^k\cdot
+f_2(\omega_{\frac{n}{2}}^{k})
 \\
-f(\omega_{n}^{k + \frac{n}{2}}) = f_1(\omega_n^{2k + n}) + \omega_n^{k + \frac{n}{2}} \cdot f_2(\omega_n^{2k + n}) = f_1(\omega_{\frac{n}{2}}^{k}) - \omega_n^k\cdot f_2(\omega_{\frac{n}{2}}^{k})
-\end{matrix}</script><p>可以发现，只要我们求出了 $f<em>1(x)$ 和 $f_2(x)$ 在 $x = \omega</em>{\frac{n}{2}}^k$ 处的点值，我们就可以直接得出 $f(x)$ 在 $x = \omega_n^k,x = \omega_n^{k + \frac{n}{2}}$ 两处的点值！</p>
-<p>具体来说，我们只要在所有长度为 $n$ 的多项式中求出在所有 $n$ 次单位根处的点值即可。</p>
-<p>这样，每一层做到 $\mathcal{O}(n)$ 的复杂度已经易如反掌了。</p>
+f(\omega_{n}^{k + \frac{n}{2}}) = f_1(\omega_n^{2k + n}) + \omega_n^{k +
+\frac{n}{2}} \cdot f_2(\omega_n^{2k + n}) =
+f_1(\omega_{\frac{n}{2}}^{k}) - \omega_n^k\cdot
+f_2(\omega_{\frac{n}{2}}^{k})
+\end{matrix}
+\]</span> 可以发现，只要我们求出了 <span
+class="math inline">\(f_1(x)\)</span> 和 <span
+class="math inline">\(f_2(x)\)</span> 在 <span class="math inline">\(x =
+\omega_{\frac{n}{2}}^k\)</span> 处的点值，我们就可以直接得出 <span
+class="math inline">\(f(x)\)</span> 在 <span class="math inline">\(x =
+\omega_n^k,x = \omega_n^{k + \frac{n}{2}}\)</span> 两处的点值！</p>
+<p>具体来说，我们只要在所有长度为 <span class="math inline">\(n\)</span>
+的多项式中求出在所有 <span class="math inline">\(n\)</span>
+次单位根处的点值即可。</p>
+<p>这样，每一层做到 <span class="math inline">\(\mathcal{O}(n)\)</span>
+的复杂度已经易如反掌了。</p>
 <p>我们再来理一遍这个算法吧：（同时加入了 <del>一些</del> 很多细节）</p>
 <ul>
-<li>我们找到一个 $p$，使得 $p$ 是 $2$ 的正整数次幂且 $p \ge n + m + 1$。</li>
+<li>我们找到一个 <span class="math inline">\(p\)</span>，使得 <span
+class="math inline">\(p\)</span> 是 <span
+class="math inline">\(2\)</span> 的正整数次幂且 <span
+class="math inline">\(p \ge n + m + 1\)</span>。</li>
 </ul>
 <p>这一步操作之前没有提到，但是很有必要，它为分治算法的进行提供了方便，这样我们就无需考虑多项式的度数了；同时，这一步操作不会影响到点值的大小，也不会影响到最终插出的多项式的度数。</p>
-<p>代码：（$q$ 的作用下文会提及）</p>
+<p>代码：（<span class="math inline">\(q\)</span> 的作用下文会提及）</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-type">int</span> p = <span class="hljs-number">1</span>, q = <span class="hljs-number">-1</span>;<br><span class="hljs-keyword">while</span>(p &lt;= n + m) ++q, p &lt;&lt;= <span class="hljs-number">1</span>;<br></code></pre></td></tr></table></figure>
 <ul>
-<li>接着，我们对两个多项式 $f(x)$ 和 $g(x)$ 分别跑 $\operatorname{FFT}$。在 $\operatorname{FFT}$ 运行过程中，如果当前多项式长度为 $1$，直接返回系数；否则，将当前的多项式 $f(x)$ 按照系数底数的奇偶性将项分类（这里请读者自己想一想为什么不可以直接对半分类），将其拆分为两个多项式，然后分治。</li>
+<li>接着，我们对两个多项式 <span class="math inline">\(f(x)\)</span> 和
+<span class="math inline">\(g(x)\)</span> 分别跑 <span
+class="math inline">\(\operatorname{FFT}\)</span>。在 <span
+class="math inline">\(\operatorname{FFT}\)</span>
+运行过程中，如果当前多项式长度为 <span
+class="math inline">\(1\)</span>，直接返回系数；否则，将当前的多项式
+<span class="math inline">\(f(x)\)</span>
+按照系数底数的奇偶性将项分类（这里请读者自己想一想为什么不可以直接对半分类），将其拆分为两个多项式，然后分治。</li>
 </ul>
 <p>但是，如果这一步直接采用递归，时间似乎会有些吃不消。</p>
-<p>我们不妨来探讨一下系数究竟是怎样分配的：（以 $n = 8$ 为例）</p>
-<script type="math/tex; mode=display">
+<p>我们不妨来探讨一下系数究竟是怎样分配的：（以 <span
+class="math inline">\(n = 8\)</span> 为例） <span
+class="math display">\[
 \begin{matrix}
-\{a_0, a_1, a_2, a_3, a_4, a_5, a_6, a_7\} 
+\{a_0, a_1, a_2, a_3, a_4, a_5, a_6, a_7\}
 \\
 \downarrow
 \\
@@ -346,342 +456,649 @@ f(\omega_{n}^{k + \frac{n}{2}}) = f_1(\omega_n^{2k + n}) + \omega_n^{k + \frac{n
 \downarrow
 \\
 \{a_0\}~\{a_4\}~\{a_2\}~\{a_6\}~\{a_1\}~\{a_5\}~\{a_3\}~\{a_7\}
-\end{matrix}</script><p>把每个系数的底数分离：</p>
-<script type="math/tex; mode=display">
-0, 4, 2, 6, 1, 5, 3, 7</script><p>转换成二进制：</p>
-<script type="math/tex; mode=display">
-000, 100, 010, 110, 001, 101, 011, 111</script><p>我们再把它们翻转过来：</p>
-<script type="math/tex; mode=display">
-000, 001, 010, 011, 100, 101, 110, 111</script><p>这不就是从小到大排序的吗？</p>
-<p>所以我们就有了如下代码：（设 $r_i$ 为分配完系数后第 $i$ 个位置上的系数）</p>
+\end{matrix}
+\]</span> 把每个系数的底数分离：</p>
+<p><span class="math display">\[
+0, 4, 2, 6, 1, 5, 3, 7
+\]</span></p>
+<p>转换成二进制：</p>
+<p><span class="math display">\[
+000, 100, 010, 110, 001, 101, 011, 111
+\]</span></p>
+<p>我们再把它们翻转过来： <span class="math display">\[
+000, 001, 010, 011, 100, 101, 110, 111
+\]</span></p>
+<p>这不就是从小到大排序的吗？</p>
+<p>所以我们就有了如下代码：（设 <span class="math inline">\(r_i\)</span>
+为分配完系数后第 <span class="math inline">\(i\)</span>
+个位置上的系数）</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; p; i++) r[i] = (r[i &gt;&gt; <span class="hljs-number">1</span>] &gt;&gt; <span class="hljs-number">1</span>) | ((i &amp; <span class="hljs-number">1</span>) &lt;&lt; q);<br></code></pre></td></tr></table></figure>
-<p>解释一下：第 $i$ 个位置的 $r$，不就等于第 $\lfloor\frac{i}{2}\rfloor$ 个位置的 $r$ 右移一位吗？</p>
-<p>如果 $i$ 是奇数，我们再在最高位补上一个 $1$ 即可（$q$ 的作用就在这里）。</p>
-<p>以上过程称为 $\operatorname{Rader}$ 排序。</p>
+<p>解释一下：第 <span class="math inline">\(i\)</span> 个位置的 <span
+class="math inline">\(r\)</span>，不就等于第 <span
+class="math inline">\(\lfloor\frac{i}{2}\rfloor\)</span> 个位置的 <span
+class="math inline">\(r\)</span> 右移一位吗？</p>
+<p>如果 <span class="math inline">\(i\)</span>
+是奇数，我们再在最高位补上一个 <span class="math inline">\(1\)</span>
+即可（<span class="math inline">\(q\)</span> 的作用就在这里）。</p>
+<p>以上过程称为 <span
+class="math inline">\(\operatorname{Rader}\)</span> 排序。</p>
 <ul>
 <li>用拆分出的两个多项式的点值，求出当前多项式的点值。</li>
 </ul>
 <p>代码：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-type">void</span> <span class="hljs-title">FFT</span><span class="hljs-params">(Complex *f, <span class="hljs-type">int</span> n)</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++) <span class="hljs-keyword">if</span>(i &lt; r[i]) <span class="hljs-built_in">swap</span>(f[i], f[r[i]]);<br>	<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> len = <span class="hljs-number">2</span>; len &lt;= n; len &lt;&lt;= <span class="hljs-number">1</span>)<br>	&#123;<br>	   	<span class="hljs-type">int</span> k = len &gt;&gt; <span class="hljs-number">1</span>;<br>		Complex _w(<span class="hljs-built_in">cos</span>(PI / k), <span class="hljs-built_in">sin</span>(PI / k));<br>		<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i += len)<br>		&#123;<br>			<span class="hljs-function">Complex <span class="hljs-title">w</span><span class="hljs-params">(<span class="hljs-number">1.0</span>, <span class="hljs-number">0.0</span>)</span></span>;<br>			<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> j = <span class="hljs-number">0</span>; j &lt; k; j++)<br>			&#123;<br>				Complex u = f[i + j], v = w * f[i + j + k];<br>				f[i + j] = u + v;<br>				f[i + j + k] = u - v;<br>           	    w = w * _w;<br>			&#125;<br>		&#125;<br>	&#125;<br>	<span class="hljs-keyword">return</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
-<p>（注：由于 $\operatorname{C++}$ 自带的复数类 $\operatorname{complex}$ 常数巨大，因此代码里手写了复数类 $\operatorname{Complex}$，定义了加法、减法和乘法运算。）</p>
+<p>（注：由于 <span class="math inline">\(\operatorname{C++}\)</span>
+自带的复数类 <span class="math inline">\(\operatorname{complex}\)</span>
+常数巨大，因此代码里手写了复数类 <span
+class="math inline">\(\operatorname{Complex}\)</span>，定义了加法、减法和乘法运算。）</p>
 <ul>
-<li>接着，我们将 $f(x)$ 和 $g(x)$ 对应的点值相乘，时间复杂度为 $\mathcal{O}(n)$。</li>
+<li>接着，我们将 <span class="math inline">\(f(x)\)</span> 和 <span
+class="math inline">\(g(x)\)</span> 对应的点值相乘，时间复杂度为 <span
+class="math inline">\(\mathcal{O}(n)\)</span>。</li>
 </ul>
 <p>你以为结束了？并没有，我们还有第五步：</p>
 <ul>
-<li>最后，我们将多项式插值出每一项的系数，算法结束。我们称这一步叫 $\operatorname{IFFT}$。</li>
+<li>最后，我们将多项式插值出每一项的系数，算法结束。我们称这一步叫 <span
+class="math inline">\(\operatorname{IFFT}\)</span>。</li>
 </ul>
 <p><del>“算法结束” 四个字就在这里，近在咫尺，却又远在天边。</del></p>
-<p>如果用拉格朗日插值计算，时间复杂度还是 $\mathcal{O}(n^2)$，功亏一篑。</p>
+<p>如果用拉格朗日插值计算，时间复杂度还是 <span
+class="math inline">\(\mathcal{O}(n^2)\)</span>，功亏一篑。</p>
 <p>难道前面的分析过程都只能打水漂？</p>
 <p>不不不，我们冷静分析一波。</p>
 <p>看看下面这张图：</p>
-<p><img src="https://cdn.luogu.com.cn/upload/image_hosting/hkg28nx9.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<p><img
+src="https://cdn.luogu.com.cn/upload/image_hosting/hkg28nx9.png" srcset="/img/loading.gif" lazyload /></p>
 <p>多项式乘法的过程实际上类似上图中的矩阵乘法。</p>
 <p>那么我们想得到后面的系数矩阵，不就只要把中间的这个矩阵求逆就行了吗！</p>
 <p>而这个逆矩阵非常特殊：</p>
-<p><img src="https://cdn.luogu.com.cn/upload/image_hosting/00kulkg5.png" srcset="/img/loading.gif" lazyload alt=""></p>
-<p>它等于原矩阵的每个值求倒数，再乘上一个 $\frac{1}{n}$。</p>
+<p><img
+src="https://cdn.luogu.com.cn/upload/image_hosting/00kulkg5.png" srcset="/img/loading.gif" lazyload /></p>
+<p>它等于原矩阵的每个值求倒数，再乘上一个 <span
+class="math inline">\(\frac{1}{n}\)</span>。</p>
 <p>考虑推式子证明：</p>
-<p>设 $y_{k}$ 是 $f(x),g(x)$ 在傅里叶变换后，在 $x = \omega_p^k$ 处点值相乘的结果。</p>
-<p>我们设多项式 $\displaystyle s(x) = \sum<em>{i = 0}^{p - 1} y_i \cdot x^i$ 在 $x = \omega_n^{0}, \omega_n^{-1}, \cdots,\omega_n^{-(p - 1)}$ 处的点值分别为 $u_0, u_1, \cdots, u</em>{p - 1}$，即满足：</p>
-<script type="math/tex; mode=display">
-u_k = \sum_{i = 0}^{p - 1} y_i\cdot(\omega_p^{-k})^i</script><p>现在我们要用它证明等式 $c_k = \frac{u_k}{p}$ 成立，其中 $c_k$ 指最终 $f(x)$ 和 $g(x)$ 的乘法积的系数。</p>
-<p>我们直接莽式子：</p>
-<script type="math/tex; mode=display">
+<p>设 <span class="math inline">\(y_{k}\)</span> 是 <span
+class="math inline">\(f(x),g(x)\)</span> 在傅里叶变换后，在 <span
+class="math inline">\(x = \omega_p^k\)</span> 处点值相乘的结果。</p>
+<p>我们设多项式 <span class="math inline">\(\displaystyle s(x) = \sum_{i
+= 0}^{p - 1} y_i \cdot x^i\)</span> 在 <span class="math inline">\(x =
+\omega_n^{0}, \omega_n^{-1}, \cdots,\omega_n^{-(p - 1)}\)</span>
+处的点值分别为 <span class="math inline">\(u_0, u_1, \cdots, u_{p -
+1}\)</span>，即满足： <span class="math display">\[
+u_k = \sum_{i = 0}^{p - 1} y_i\cdot(\omega_p^{-k})^i
+\]</span> 现在我们要用它证明等式 <span class="math inline">\(c_k =
+\frac{u_k}{p}\)</span> 成立，其中 <span
+class="math inline">\(c_k\)</span> 指最终 <span
+class="math inline">\(f(x)\)</span> 和 <span
+class="math inline">\(g(x)\)</span> 的乘法积的系数。</p>
+<p>我们直接莽式子： <span class="math display">\[
 \begin{aligned}
-u_k &= \sum_{i = 0}^{p - 1} y_i\cdot(\omega_p^{-k})^i
+u_k &amp;= \sum_{i = 0}^{p - 1} y_i\cdot(\omega_p^{-k})^i
 \\
-&= \sum_{i = 0}^{p - 1} (\sum_{j = 0}^{p - 1}c_j\cdot(\omega_p^i)^j)\cdot (\omega_p^{-k})^i
+&amp;= \sum_{i = 0}^{p - 1} (\sum_{j = 0}^{p -
+1}c_j\cdot(\omega_p^i)^j)\cdot (\omega_p^{-k})^i
 \\
-&= \sum_{i = 0}^{p - 1} \sum_{j = 0}^{p - 1}c_j\cdot(\omega_p^{j - k})^i
+&amp;= \sum_{i = 0}^{p - 1} \sum_{j = 0}^{p - 1}c_j\cdot(\omega_p^{j -
+k})^i
 \\
-&=  \sum_{j = 0}^{p - 1}c_j \sum_{i = 0}^{p - 1} (\omega_p^{j - k})^i
-\end{aligned}</script><p>然后对 $\displaystyle \sum<em>{i = 0}^{p - 1} (\omega_p^{j - k})^i$ 这一部分分讨，设 $v = j - k$，则该式等于 $\displaystyle \sum</em>{i = 0}^{p - 1} (\omega_p^v)^i$。</p>
+&amp;=  \sum_{j = 0}^{p - 1}c_j \sum_{i = 0}^{p - 1} (\omega_p^{j -
+k})^i
+\end{aligned}
+\]</span> 然后对 <span class="math inline">\(\displaystyle \sum_{i =
+0}^{p - 1} (\omega_p^{j - k})^i\)</span> 这一部分分讨，设 <span
+class="math inline">\(v = j - k\)</span>，则该式等于 <span
+class="math inline">\(\displaystyle \sum_{i = 0}^{p - 1}
+(\omega_p^v)^i\)</span>。</p>
 <p>在这个式子的意义下，这就是一个等比数列求和。</p>
-<p>如果公比 $\omega_p^v = 1$，即 $v = 0$，则此时原式等于 $p$；</p>
-<p>否则，套用等比数列公式，原式等于：</p>
-<script type="math/tex; mode=display">
+<p>如果公比 <span class="math inline">\(\omega_p^v = 1\)</span>，即
+<span class="math inline">\(v = 0\)</span>，则此时原式等于 <span
+class="math inline">\(p\)</span>；</p>
+<p>否则，套用等比数列公式，原式等于： <span class="math display">\[
 \begin{aligned}
-&\frac{(\omega^v)^p - 1}{\omega_p^v - 1}
+&amp;\frac{(\omega^v)^p - 1}{\omega_p^v - 1}
 \\
-=&\frac{(\omega^p)^v - 1}{\omega_p^v - 1}
+=&amp;\frac{(\omega^p)^v - 1}{\omega_p^v - 1}
 \\
-=&\frac{1 - 1}{\omega_p^v - 1}
+=&amp;\frac{1 - 1}{\omega_p^v - 1}
 \\
-=& 0
-\end{aligned}</script><p>故当且仅当 $v = j - k = 0$，即 $j = k$ 时，后面的这一部分才会产生贡献，则有 $u_k = p\cdot c_k$，即 $c_k = \frac{1}{p}u_k$。</p>
+=&amp; 0
+\end{aligned}
+\]</span> 故当且仅当 <span class="math inline">\(v = j - k =
+0\)</span>，即 <span class="math inline">\(j = k\)</span>
+时，后面的这一部分才会产生贡献，则有 <span class="math inline">\(u_k =
+p\cdot c_k\)</span>，即 <span class="math inline">\(c_k =
+\frac{1}{p}u_k\)</span>。</p>
 <p>得证。</p>
 <p>（这里提一句，上面的证明本质上是单位根反演，感兴趣的读者可以自行查阅相关资料。）</p>
-<p>然后可以发现，$\operatorname{FFT}$ 和 $\operatorname{IFFT}$ 的代码可以合为一份：</p>
+<p>然后可以发现，<span class="math inline">\(\operatorname{FFT}\)</span>
+和 <span class="math inline">\(\operatorname{IFFT}\)</span>
+的代码可以合为一份：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-type">void</span> <span class="hljs-title">FFT</span><span class="hljs-params">(Complex *f, <span class="hljs-type">int</span> n, <span class="hljs-type">double</span> t = <span class="hljs-number">1.0</span>)</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++) <span class="hljs-keyword">if</span>(i &lt; rev[i]) <span class="hljs-built_in">swap</span>(f[i], f[rev[i]]);<br>	<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> len = <span class="hljs-number">2</span>; len &lt;= n; len &lt;&lt;= <span class="hljs-number">1</span>)<br>	&#123;<br>		<span class="hljs-type">int</span> k = len &gt;&gt; <span class="hljs-number">1</span>;<br>		Complex _w(<span class="hljs-built_in">cos</span>(PI / k), t * <span class="hljs-built_in">sin</span>(PI / k));<br>		<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i += len)<br>		&#123;<br>			<span class="hljs-function">Complex <span class="hljs-title">w</span><span class="hljs-params">(<span class="hljs-number">1.0</span>, <span class="hljs-number">0.0</span>)</span></span>;<br>			<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> j = <span class="hljs-number">0</span>; j &lt; k; j++)<br>			&#123;<br>				cCmplex u = f[i + j], v = w * f[i + j + k];<br>				f[i + j] = u + v;<br>				f[i + j + k] = u - v;<br>				w = w * _w;<br>			&#125;<br>		&#125;<br>	&#125;<br>   	<span class="hljs-keyword">if</span>(t == <span class="hljs-number">-1.0</span>) <span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++) f[i] /= n;<br>	<span class="hljs-keyword">return</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
-<p>当运行 $\operatorname{FFT}$ 时，我们令 $t = 1$ 即可；当运行 $\operatorname{IFFT}$ 时，我们令 $t = -1$ 即可。</p>
-<p>（注意：由于 $\cos$ 和 $\sin$ 的精度本身就十分地不稳定，加上复数乘法的运算次数较多，我们最后计算答案的时候需要处理这个误差。）</p>
+<p>当运行 <span class="math inline">\(\operatorname{FFT}\)</span>
+时，我们令 <span class="math inline">\(t = 1\)</span> 即可；当运行 <span
+class="math inline">\(\operatorname{IFFT}\)</span> 时，我们令 <span
+class="math inline">\(t = -1\)</span> 即可。</p>
+<p>（注意：由于 <span class="math inline">\(\cos\)</span> 和 <span
+class="math inline">\(\sin\)</span>
+的精度本身就十分地不稳定，加上复数乘法的运算次数较多，我们最后计算答案的时候需要处理这个误差。）</p>
 <p>这样，算法真正大功告成啦！</p>
-<hr>
-<p>实际上，$\operatorname{IFFT}$ 还有一种写法：</p>
+<hr />
+<p>实际上，<span class="math inline">\(\operatorname{IFFT}\)</span>
+还有一种写法：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-type">void</span> <span class="hljs-title">FFT</span><span class="hljs-params">(complex *f, <span class="hljs-type">int</span> n, <span class="hljs-type">double</span> t = <span class="hljs-number">1.0</span>)</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-keyword">if</span>(t == <span class="hljs-number">-1.0</span>) <span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> i = <span class="hljs-number">1</span>; i &lt; n; i++) <span class="hljs-keyword">if</span>(i &lt; n - i) <span class="hljs-built_in">swap</span>(f[i], f[n - i]);<br>	<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++) <span class="hljs-keyword">if</span>(i &lt; rev[i]) <span class="hljs-built_in">swap</span>(f[i], f[rev[i]]);<br>	<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> len = <span class="hljs-number">2</span>; len &lt;= n; len &lt;&lt;= <span class="hljs-number">1</span>)<br>	&#123;<br>		<span class="hljs-type">int</span> k = len &gt;&gt; <span class="hljs-number">1</span>;<br>		complex _w(<span class="hljs-built_in">cos</span>(PI / k), <span class="hljs-built_in">sin</span>(PI / k));<br>		<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i += len)<br>		&#123;<br>			<span class="hljs-function">complex <span class="hljs-title">w</span><span class="hljs-params">(<span class="hljs-number">1.0</span>, <span class="hljs-number">0.0</span>)</span></span>;<br>			<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> j = <span class="hljs-number">0</span>; j &lt; k; j++)<br>			&#123;<br>				complex u = f[i + j], v = w * f[i + j + k];<br>				f[i + j] = u + v;<br>				f[i + j + k] = u - v;<br>				w = w * _w;<br>			&#125;<br>		&#125;<br>	&#125;<br>   	<span class="hljs-keyword">if</span>(t == <span class="hljs-number">-1.0</span>) <span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++) f[i] /= n;<br>	<span class="hljs-keyword">return</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
-<p>也就是把整个点值序列除了 $0$ 之外的位置翻转过来，然后做和 $\operatorname{FFT}$ 一样的变换。</p>
+<p>也就是把整个点值序列除了 <span class="math inline">\(0\)</span>
+之外的位置翻转过来，然后做和 <span
+class="math inline">\(\operatorname{FFT}\)</span> 一样的变换。</p>
 <p>接下来证明其正确性：</p>
-<p>我们依旧考虑证明 $c_k = \frac{u_k}{p}$，条件是这个等式：</p>
-<script type="math/tex; mode=display">
-u_k = y_0+\sum_{i = 1}^{p - 1} y_{p - i}\cdot(\omega_p^{k})^i</script><p>我们继续莽式子：</p>
-<script type="math/tex; mode=display">
+<p>我们依旧考虑证明 <span class="math inline">\(c_k =
+\frac{u_k}{p}\)</span>，条件是这个等式：</p>
+<p><span class="math display">\[
+u_k = y_0+\sum_{i = 1}^{p - 1} y_{p - i}\cdot(\omega_p^{k})^i
+\]</span></p>
+<p>我们继续莽式子：</p>
+<p><span class="math display">\[
 \begin{aligned}
-u_k &= y_0+\sum_{i = 1}^{p - 1} y_{p - i}\cdot(\omega_p^{k})^i
+u_k &amp;= y_0+\sum_{i = 1}^{p - 1} y_{p - i}\cdot(\omega_p^{k})^i
 \\
-&= \sum_{i = 0}^{p - 1} y_i \cdot (\omega_p^{k})^{p - i}
+&amp;= \sum_{i = 0}^{p - 1} y_i \cdot (\omega_p^{k})^{p - i}
 \\
-&= \sum_{i = 0}^{p - 1} y_i \cdot (\omega_p^{k})^{-i}
+&amp;= \sum_{i = 0}^{p - 1} y_i \cdot (\omega_p^{k})^{-i}
 \\
-&= \sum_{i = 0}^{p - 1} y_i \cdot(\omega_p^{-k})^{i}
-\end{aligned}</script><p>然后就是和上面一模一样的情况了。</p>
-<hr>
-<p>当然，$\operatorname{FFT}$ 还存在很大的优化空间：</p>
+&amp;= \sum_{i = 0}^{p - 1} y_i \cdot(\omega_p^{-k})^{i}
+\end{aligned}
+\]</span></p>
+<p>然后就是和上面一模一样的情况了。</p>
+<hr />
+<p>当然，<span class="math inline">\(\operatorname{FFT}\)</span>
+还存在很大的优化空间：</p>
 <ul>
 <li>减小变换次数</li>
 </ul>
-<p>可以发现，对于一个复数 $a + bi$，有 $(a + bi)^2 = (a^2 - b^2) + 2abi$。</p>
-<p>如果我们把 $g(x)$ 放到 $f(x)$ 的虚部上，对 $f(x)$ 跑一次 $\operatorname{FFT}$，然后将 $f(x)$ 的每个点值变为其平方。那么，虚部除以 $2$ 不就是我们想要的值吗？</p>
-<p>这样，我们就可以只跑一遍 $\operatorname{FFT}$，一遍 $\operatorname{IFFT}$ 即可，常数优化至原来的 $\frac{2}{3}$。</p>
+<p>可以发现，对于一个复数 <span class="math inline">\(a +
+bi\)</span>，有 <span class="math inline">\((a + bi)^2 = (a^2 - b^2) +
+2abi\)</span>。</p>
+<p>如果我们把 <span class="math inline">\(g(x)\)</span> 放到 <span
+class="math inline">\(f(x)\)</span> 的虚部上，对 <span
+class="math inline">\(f(x)\)</span> 跑一次 <span
+class="math inline">\(\operatorname{FFT}\)</span>，然后将 <span
+class="math inline">\(f(x)\)</span> 的每个点值变为其平方。那么，虚部除以
+<span class="math inline">\(2\)</span> 不就是我们想要的值吗？</p>
+<p>这样，我们就可以只跑一遍 <span
+class="math inline">\(\operatorname{FFT}\)</span>，一遍 <span
+class="math inline">\(\operatorname{IFFT}\)</span>
+即可，常数优化至原来的 <span
+class="math inline">\(\frac{2}{3}\)</span>。</p>
 <ul>
 <li>预处理单位根</li>
 </ul>
-<p>首先我们都知道单位根的消去引理：$\omega_{2n}^{2k} = \omega_n^k$。</p>
-<p>在 $\operatorname{FFT}$ 的过程中，枚举的 $n$ 是逐级倍增的，也就是说，我们用到的单位根会越来越多，并且每一阶单位根的每一个都会被用到。</p>
-<p>由消去引理可以发现， $n$ 阶单位根的第 $k$ 个，实际上就等于 $2n$ 阶单位根的第 $2k$ 个。</p>
-<p>所以，每当 $n$ 倍增为 $2n$，会有 $n$ 个单位根是已经用到过的，剩下的 $n$ 个单位根则是新出现的。</p>
-<p>如果把这个过程反过来看，即 $2n$ 变为 $n$，那么可以发现：所有 $n$ 阶单位根都被包含在 $2n$ 阶单位根中！</p>
-<p>综上，我们对于最大的 $n$，把所有 $n$ 阶单位根预处理出来，做 $\operatorname{FFT}$ 时就不需要每一层都重新处理一遍单位根了。这不仅大大减小了常数，貌似还会提高一些精度。</p>
-<hr>
-<p>然而，$\operatorname{FFT}$ 的精度仍然是一个令人头疼的问题。我们想考虑一种方式，使得整个运算建立在整数域上。</p>
+<p>首先我们都知道单位根的消去引理：<span
+class="math inline">\(\omega_{2n}^{2k} = \omega_n^k\)</span>。</p>
+<p>在 <span class="math inline">\(\operatorname{FFT}\)</span>
+的过程中，枚举的 <span class="math inline">\(n\)</span>
+是逐级倍增的，也就是说，我们用到的单位根会越来越多，并且每一阶单位根的每一个都会被用到。</p>
+<p>由消去引理可以发现， <span class="math inline">\(n\)</span>
+阶单位根的第 <span class="math inline">\(k\)</span> 个，实际上就等于
+<span class="math inline">\(2n\)</span> 阶单位根的第 <span
+class="math inline">\(2k\)</span> 个。</p>
+<p>所以，每当 <span class="math inline">\(n\)</span> 倍增为 <span
+class="math inline">\(2n\)</span>，会有 <span
+class="math inline">\(n\)</span> 个单位根是已经用到过的，剩下的 <span
+class="math inline">\(n\)</span> 个单位根则是新出现的。</p>
+<p>如果把这个过程反过来看，即 <span class="math inline">\(2n\)</span>
+变为 <span class="math inline">\(n\)</span>，那么可以发现：所有 <span
+class="math inline">\(n\)</span> 阶单位根都被包含在 <span
+class="math inline">\(2n\)</span> 阶单位根中！</p>
+<p>综上，我们对于最大的 <span class="math inline">\(n\)</span>，把所有
+<span class="math inline">\(n\)</span> 阶单位根预处理出来，做 <span
+class="math inline">\(\operatorname{FFT}\)</span>
+时就不需要每一层都重新处理一遍单位根了。这不仅大大减小了常数，貌似还会提高一些精度。</p>
+<hr />
+<p>然而，<span class="math inline">\(\operatorname{FFT}\)</span>
+的精度仍然是一个令人头疼的问题。我们想考虑一种方式，使得整个运算建立在整数域上。</p>
 <p>整数，想到数论，有一个东西恰好符合其所有要求 —— 原根。</p>
-<p>可以发现，使得单位根可用于 $\operatorname{FFT}$ 的性质，原根同样满足：</p>
+<p>可以发现，使得单位根可用于 <span
+class="math inline">\(\operatorname{FFT}\)</span>
+的性质，原根同样满足：</p>
 <ul>
-<li>$n$ 次原根计算公式为 $g_n^k = g^{\frac{k(p - 1)}{n}} \bmod~p$，其中 $p$ 为模数，$g$ 特指模 $p$ 的最小原根。</li>
+<li><span class="math inline">\(n\)</span> 次原根计算公式为 <span
+class="math inline">\(g_n^k = g^{\frac{k(p - 1)}{n}}
+\bmod~p\)</span>，其中 <span class="math inline">\(p\)</span>
+为模数，<span class="math inline">\(g\)</span> 特指模 <span
+class="math inline">\(p\)</span> 的最小原根。</li>
 </ul>
-<p>这里的 $p$ 一般取 $998244353$，它的最小原根等于 $3$，并且有 $998244353 = 2^{23}\times 7\times 17 + 1$，其中 $2^{23} = 8388608$，其大小完全可以满足我们的需求。</p>
-<p>同样，我们也可以得出 $g_n^n = g_n^0 \equiv 1~(\bmod ~p)$ 和 $g_n^{\frac{n}{2}} \equiv -1~(\bmod ~p)$ 以及它们的推论。</p>
+<p>这里的 <span class="math inline">\(p\)</span> 一般取 <span
+class="math inline">\(998244353\)</span>，它的最小原根等于 <span
+class="math inline">\(3\)</span>，并且有 <span
+class="math inline">\(998244353 = 2^{23}\times 7\times 17 +
+1\)</span>，其中 <span class="math inline">\(2^{23} =
+8388608\)</span>，其大小完全可以满足我们的需求。</p>
+<p>同样，我们也可以得出 <span class="math inline">\(g_n^n = g_n^0 \equiv
+1~(\bmod ~p)\)</span> 和 <span class="math inline">\(g_n^{\frac{n}{2}}
+\equiv -1~(\bmod ~p)\)</span> 以及它们的推论。</p>
 <ul>
 <li>原根同样存在消去引理和折半引理。</li>
 </ul>
-<p>所以，在 $\operatorname{FFT}$ 中对多项式的变换，在 $\operatorname{NTT}$ 中同样适用。同时，也需要 $\operatorname{Rader}$ 排序。</p>
-<p>同理，对于 $\operatorname{INTT}$，原根同样可以在原来的基础上求倒数再乘 $\frac{1}{n}$，只需要求逆元即可。</p>
+<p>所以，在 <span class="math inline">\(\operatorname{FFT}\)</span>
+中对多项式的变换，在 <span
+class="math inline">\(\operatorname{NTT}\)</span>
+中同样适用。同时，也需要 <span
+class="math inline">\(\operatorname{Rader}\)</span> 排序。</p>
+<p>同理，对于 <span
+class="math inline">\(\operatorname{INTT}\)</span>，原根同样可以在原来的基础上求倒数再乘
+<span class="math inline">\(\frac{1}{n}\)</span>，只需要求逆元即可。</p>
 <p>代码：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">define</span> MOD 998244353</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> Min_G 3</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> Inv_Min_G 332748118</span><br><br><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-type">int</span> <span class="hljs-title">Get_MOD</span><span class="hljs-params">(<span class="hljs-type">int</span> k)</span> </span>&#123; <span class="hljs-keyword">if</span>(k &gt;= MOD) k -= MOD; <span class="hljs-keyword">return</span> k; &#125;<br><br><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-type">int</span> <span class="hljs-title">Pow</span><span class="hljs-params">(<span class="hljs-type">int</span> a, <span class="hljs-type">int</span> b)</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-type">int</span> res = <span class="hljs-number">1</span>;<br>	<span class="hljs-keyword">while</span>(b)<br>	&#123;<br>		<span class="hljs-keyword">if</span>(b &amp; <span class="hljs-number">1</span>) res = <span class="hljs-number">1LL</span> * res * a % MOD;<br>		a = <span class="hljs-number">1LL</span> * a * a % MOD;<br>		b &gt;&gt;= <span class="hljs-number">1</span>;<br>    &#125;	<br>	<span class="hljs-keyword">return</span> res;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-type">void</span> <span class="hljs-title">NTT</span><span class="hljs-params">(<span class="hljs-type">int</span> *f, <span class="hljs-type">int</span> n, <span class="hljs-type">bool</span> Inverse = <span class="hljs-literal">false</span>)</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++) <span class="hljs-keyword">if</span>(i &lt; rev[i]) <span class="hljs-built_in">swap</span>(f[i], f[rev[i]]);<br>	<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> len = <span class="hljs-number">2</span>; len &lt;= n; len &lt;&lt;= <span class="hljs-number">1</span>)<br>	&#123;<br>		<span class="hljs-type">int</span> k = (len &gt;&gt; <span class="hljs-number">1</span>), g = <span class="hljs-built_in">Pow</span>(Inverse ? Inv_Min_G : Min_G, (MOD - <span class="hljs-number">1</span>) / len);<br>		<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i += len)<br>		&#123;<br>			<span class="hljs-type">int</span> w = <span class="hljs-number">1</span>;<br>			<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> j = <span class="hljs-number">0</span>; j &lt; k; j++)<br>			&#123;<br>				<span class="hljs-type">int</span> u = f[i + j], v = <span class="hljs-number">1LL</span> * w * f[i + j + k] % MOD;<br>				f[i + j] = <span class="hljs-built_in">Get_MOD</span>(u + v);<br>				f[i + j + k] = <span class="hljs-built_in">Get_MOD</span>(u - v + MOD); <br>				w = <span class="hljs-number">1LL</span> * w * g % MOD;<br>			&#125;<br>		&#125;<br>	&#125;<br>	<span class="hljs-keyword">if</span>(Inverse) <br>	&#123;<br>		<span class="hljs-type">int</span> Inv_N = <span class="hljs-built_in">Pow</span>(n, MOD - <span class="hljs-number">2</span>);<br>		<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++) f[i] = <span class="hljs-number">1LL</span> * f[i] * Inv_N % MOD;<br>	&#125;<br>	<span class="hljs-keyword">return</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
-<hr>
-<h2 id="多项式求导和积分"><a href="#多项式求导和积分" class="headerlink" title="多项式求导和积分"></a>多项式求导和积分</h2><p>首先我们要有求导和积分的基础，至少要知道下面两个公式：</p>
-<script type="math/tex; mode=display">
+<hr />
+<h2 id="多项式求导和积分">多项式求导和积分</h2>
+<p>首先我们要有求导和积分的基础，至少要知道下面两个公式：</p>
+<p><span class="math display">\[
 \begin{matrix}
-f(x) = a \cdot x^b \Rightarrow f'(x) = a\cdot b \cdot x^{b - 1}
+f(x) = a \cdot x^b \Rightarrow f&#39;(x) = a\cdot b \cdot x^{b - 1}
 \\
-(f(x) \pm g(x))' = f'(x) \pm g'(x)
-\end{matrix}</script><p>其中 $’$ 表示求导。</p>
+(f(x) \pm g(x))&#39; = f&#39;(x) \pm g&#39;(x)
+\end{matrix}
+\]</span></p>
+<p>其中 <span class="math inline">\(&#39;\)</span> 表示求导。</p>
 <p>所以我们可以推出多项式求导公式：</p>
-<script type="math/tex; mode=display">
-f(x) = \sum_{i = 0}^n a_i \cdot x^i \Rightarrow f'(x) = \sum_{i = 0}^{n - 1} a_{i + 1} \cdot (i + 1) \cdot x^i</script><p>以及积分公式：</p>
-<script type="math/tex; mode=display">
-f'(x) = \sum_{i = 0}^n a_i \cdot x^i \Rightarrow f(x) = \sum_{i = 1}^{n + 1}\frac{a_{i - 1} \cdot x^i}{i}</script><p>（注意：多项式积分是不能得到正确的常数项的。不过大部分题目在数据上做了保证，可以直接认为其为 $0$。）</p>
-<p>这两个过程的代码写起来就很简单了，时间复杂度都是 $\mathcal{O}(n)$ 的：</p>
+<p><span class="math display">\[
+f(x) = \sum_{i = 0}^n a_i \cdot x^i \Rightarrow f&#39;(x) = \sum_{i =
+0}^{n - 1} a_{i + 1} \cdot (i + 1) \cdot x^i
+\]</span></p>
+<p>以及积分公式：</p>
+<p><span class="math display">\[
+f&#39;(x) = \sum_{i = 0}^n a_i \cdot x^i \Rightarrow f(x) = \sum_{i =
+1}^{n + 1}\frac{a_{i - 1} \cdot x^i}{i}
+\]</span></p>
+<p>（注意：多项式积分是不能得到正确的常数项的。不过大部分题目在数据上做了保证，可以直接认为其为
+<span class="math inline">\(0\)</span>。）</p>
+<p>这两个过程的代码写起来就很简单了，时间复杂度都是 <span
+class="math inline">\(\mathcal{O}(n)\)</span> 的：</p>
 <p>求导：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-type">void</span> <span class="hljs-title">Get_Derivative</span><span class="hljs-params">(<span class="hljs-type">int</span> *f, <span class="hljs-type">int</span> *g, <span class="hljs-type">int</span> n)</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> i = <span class="hljs-number">1</span>; i &lt; n; i++) g[i - <span class="hljs-number">1</span>] = <span class="hljs-number">1LL</span> * f[i] * i % MOD;<br>	<span class="hljs-keyword">return</span> g[n - <span class="hljs-number">1</span>] = <span class="hljs-number">0</span>, <span class="hljs-built_in">void</span>();<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>积分：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-type">void</span> <span class="hljs-title">Get_Integral</span><span class="hljs-params">(<span class="hljs-type">int</span> *f, <span class="hljs-type">int</span> *g, <span class="hljs-type">int</span> n)</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i++) g[i] = <span class="hljs-number">1LL</span> * f[i - <span class="hljs-number">1</span>] * <span class="hljs-built_in">Pow</span>(i, MOD - <span class="hljs-number">2</span>) % MOD;<br>	<span class="hljs-keyword">return</span> g[<span class="hljs-number">0</span>] = <span class="hljs-number">0</span>, <span class="hljs-built_in">void</span>();<br>&#125;<br></code></pre></td></tr></table></figure>
-<p>（注：两份代码都是将度数为 $n - 1$ 的 $f(x)$ 求导或积分，得到的结果为 $g(x)$。）</p>
+<p>（注：两份代码都是将度数为 <span class="math inline">\(n - 1\)</span>
+的 <span class="math inline">\(f(x)\)</span> 求导或积分，得到的结果为
+<span class="math inline">\(g(x)\)</span>。）</p>
 <p>在文章后面的部分，有很多地方会把一些式子通过求导变成方便计算的形式，然后再用积分求出答案。</p>
-<hr>
-<h2 id="多项式求逆"><a href="#多项式求逆" class="headerlink" title="多项式求逆"></a>多项式求逆</h2><p>给出一个度数为 $n - 1$ 的多项式 $f(x)$，求出一个度数同为 $n - 1$ 多项式 $g(x)$，满足 $f(x) \cdot g(x) \equiv 1 \pmod{x^n}$。</p>
-<p>系数对 $998244353$ 取模。</p>
-<hr>
+<hr />
+<h2 id="多项式求逆">多项式求逆</h2>
+<p>给出一个度数为 <span class="math inline">\(n - 1\)</span> 的多项式
+<span class="math inline">\(f(x)\)</span>，求出一个度数同为 <span
+class="math inline">\(n - 1\)</span> 多项式 <span
+class="math inline">\(g(x)\)</span>，满足 <span
+class="math inline">\(f(x) \cdot g(x) \equiv 1 \pmod{x^n}\)</span>。</p>
+<p>系数对 <span class="math inline">\(998244353\)</span> 取模。</p>
+<hr />
 <p>先给出算法：倍增。</p>
-<p>假如我们已经求出了一个多项式 $t$，满足 $f(x) \cdot t(x) \equiv 1\pmod{x^{\lceil\frac{n}{2}\rceil}}$。</p>
-<p>又因为 $f(x)\cdot g(x)\equiv 1 \pmod{x^n}$，说明其前 $n$ 项除常数项为 $1$ 之外其余项均为 $0$。</p>
-<p>那么显然有 $f(x) \cdot g(x) \equiv 1 \pmod{x^{\lceil\frac{n}{2}\rceil}}$。</p>
-<p>所以 $f(x) \cdot (g(x) - t(x)) \equiv 0 \pmod{x^{\lceil\frac{n}{2}\rceil}}$。</p>
-<p>$f(x)$ 由于要求逆元，所以不可能为 $0$，那么有 $g(x) - t(x) \equiv 0 \pmod{x^{\lceil\frac{n}{2}\rceil}}$。</p>
+<p>假如我们已经求出了一个多项式 <span
+class="math inline">\(t\)</span>，满足 <span class="math inline">\(f(x)
+\cdot t(x) \equiv 1\pmod{x^{\lceil\frac{n}{2}\rceil}}\)</span>。</p>
+<p>又因为 <span class="math inline">\(f(x)\cdot g(x)\equiv 1
+\pmod{x^n}\)</span>，说明其前 <span class="math inline">\(n\)</span>
+项除常数项为 <span class="math inline">\(1\)</span> 之外其余项均为 <span
+class="math inline">\(0\)</span>。</p>
+<p>那么显然有 <span class="math inline">\(f(x) \cdot g(x) \equiv 1
+\pmod{x^{\lceil\frac{n}{2}\rceil}}\)</span>。</p>
+<p>所以 <span class="math inline">\(f(x) \cdot (g(x) - t(x)) \equiv 0
+\pmod{x^{\lceil\frac{n}{2}\rceil}}\)</span>。</p>
+<p><span class="math inline">\(f(x)\)</span> 由于要求逆元，所以不可能为
+<span class="math inline">\(0\)</span>，那么有 <span
+class="math inline">\(g(x) - t(x) \equiv 0
+\pmod{x^{\lceil\frac{n}{2}\rceil}}\)</span>。</p>
 <p>然后推一波式子：</p>
-<script type="math/tex; mode=display">
+<p><span class="math display">\[
 \begin{matrix}
 g^2(x) \equiv 2 \cdot g(x) \cdot t(x) - t^2(x) \pmod{x^{n}}
 \\
 \Downarrow
 \\
-f(x) \cdot g^2(x) \equiv 2 \cdot f(x) \cdot g(x) \cdot t(x) - f(x) \cdot t^2(x) \pmod{x^{n}}
+f(x) \cdot g^2(x) \equiv 2 \cdot f(x) \cdot g(x) \cdot t(x) - f(x) \cdot
+t^2(x) \pmod{x^{n}}
 \\
 \Downarrow
 \\
 g(x) \equiv 2 \cdot t(x) - f(x) \cdot t^2(x) \pmod{x^{n}}
-\end{matrix}</script><p>我们知道 $f(x)$ 和 $t(x)$，那么自然也可以求出 $g(x)$ 了。</p>
+\end{matrix}
+\]</span></p>
+<p>我们知道 <span class="math inline">\(f(x)\)</span> 和 <span
+class="math inline">\(t(x)\)</span>，那么自然也可以求出 <span
+class="math inline">\(g(x)\)</span> 了。</p>
 <p>对于常数项，直接求出其逆元即可。</p>
-<p>时间复杂度 $\mathcal{O}(n \log_2n)$。</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n
+\log_2n)\)</span>。</p>
 <p>贴上代码：（注意数组之间的覆盖与清零）</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><br></code></pre></td></tr></table></figure>
-<hr>
-<h2 id="多项式除法"><a href="#多项式除法" class="headerlink" title="多项式除法"></a>多项式除法</h2><p><del>（话说多项式除法的地位和多项式乘法比起来为何如此卑微。。。）</del></p>
-<p>给出一个度数为 $n - 1$ 的多项式 $f(x)$ 和一个度数为 $m - 1$ 多项式 $g(x)$，请求出多项式 $q(x)$ 和 $r(x)$。</p>
+<hr />
+<h2 id="多项式除法">多项式除法</h2>
+<p><del>（话说多项式除法的地位和多项式乘法比起来为何如此卑微。。。）</del></p>
+<p>给出一个度数为 <span class="math inline">\(n - 1\)</span> 的多项式
+<span class="math inline">\(f(x)\)</span> 和一个度数为 <span
+class="math inline">\(m - 1\)</span> 多项式 <span
+class="math inline">\(g(x)\)</span>，请求出多项式 <span
+class="math inline">\(q(x)\)</span> 和 <span
+class="math inline">\(r(x)\)</span>。</p>
 <p>满足：</p>
 <ul>
-<li>$f(x) = g(x) \cdot q(x) + r(x)$；</li>
-<li>$q(x)$ 度数为 $n - m$，$r(x)$ 度数小于 $m - 1$；</li>
+<li><span class="math inline">\(f(x) = g(x) \cdot q(x) +
+r(x)\)</span>；</li>
+<li><span class="math inline">\(q(x)\)</span> 度数为 <span
+class="math inline">\(n - m\)</span>，<span
+class="math inline">\(r(x)\)</span> 度数小于 <span
+class="math inline">\(m - 1\)</span>；</li>
 </ul>
-<p>所有系数对 $998244353$ 取模。</p>
-<hr>
+<p>所有系数对 <span class="math inline">\(998244353\)</span> 取模。</p>
+<hr />
 <p>多项式除法的第一步操作非常巧妙：系数翻转。</p>
-<p>（为了方便，下文设 $f(x)$ 度数为 $n$，设 $g(x)$ 度数为 $m$，其余的度数变化同理。）</p>
-<p>我们设对 $f(x)$ 的第 $0\sim n$ 个系数翻转后为 $f^{r(n)}(x)$。</p>
-<p>（注意下文不会刻意地区分 $f^{r(n)}(x)$ 中 $r(n)$ 和余数 $r(x)$ 的区别。）</p>
-<p>那么可以发现有：</p>
-<script type="math/tex; mode=display">
+<p>（为了方便，下文设 <span class="math inline">\(f(x)\)</span> 度数为
+<span class="math inline">\(n\)</span>，设 <span
+class="math inline">\(g(x)\)</span> 度数为 <span
+class="math inline">\(m\)</span>，其余的度数变化同理。）</p>
+<p>我们设对 <span class="math inline">\(f(x)\)</span> 的第 <span
+class="math inline">\(0\sim n\)</span> 个系数翻转后为 <span
+class="math inline">\(f^{r(n)}(x)\)</span>。</p>
+<p>（注意下文不会刻意地区分 <span
+class="math inline">\(f^{r(n)}(x)\)</span> 中 <span
+class="math inline">\(r(n)\)</span> 和余数 <span
+class="math inline">\(r(x)\)</span> 的区别。）</p>
+<p>那么可以发现有： <span class="math display">\[
 f^{r(n)}(x) = \sum_{i = 0}^{n} a_{n - i} \cdot x^i
 \\
 \Downarrow
 \\
-f^{r(n)}(x) = x^{n} \cdot f(\frac{1}{x})</script><p>又因为 $f(\frac{1}{x}) = g(\frac{1}{x}) \cdot q(\frac{1}{x}) + r(\frac{1}{x})$，所以：</p>
-<script type="math/tex; mode=display">
+f^{r(n)}(x) = x^{n} \cdot f(\frac{1}{x})
+\]</span> 又因为 <span class="math inline">\(f(\frac{1}{x}) =
+g(\frac{1}{x}) \cdot q(\frac{1}{x}) + r(\frac{1}{x})\)</span>，所以：
+<span class="math display">\[
 \begin{aligned}
-f^{r(n)}(x) &= x^n \cdot (g(x) \cdot q(x) + r(x))
+f^{r(n)}(x) &amp;= x^n \cdot (g(x) \cdot q(x) + r(x))
 \\
-&= x^n \cdot g(x) \cdot q(x) + x^n \cdot r(x)
+&amp;= x^n \cdot g(x) \cdot q(x) + x^n \cdot r(x)
 \\
-&= x^m \cdot g(x) \cdot x^{n - m} \cdot q(x) + x^n \cdot r(x)
+&amp;= x^m \cdot g(x) \cdot x^{n - m} \cdot q(x) + x^n \cdot r(x)
 \\
-&= g^{r(m)}(x) \cdot q^{r(n - m)}(x) + r^{r(n)}(x)
-\end{aligned}</script><p>然后，既然 $r(x)$ 的度数小于 $m$，那么翻转过后，$r^{r(n)}(x)$ 的前 $n - m + 1$ 项系数就必然为 $0$。</p>
-<p>所以，如果我们在 $\bmod~x^{n - m + 1}$ 意义下做上述运算，不仅可以去掉余数 $r(x)$ 的影响，同时我们还可以发现，这样完美地保留了 $q(x)$。</p>
-<p>那么有：</p>
-<script type="math/tex; mode=display">
+&amp;= g^{r(m)}(x) \cdot q^{r(n - m)}(x) + r^{r(n)}(x)
+\end{aligned}
+\]</span> 然后，既然 <span class="math inline">\(r(x)\)</span>
+的度数小于 <span class="math inline">\(m\)</span>，那么翻转过后，<span
+class="math inline">\(r^{r(n)}(x)\)</span> 的前 <span
+class="math inline">\(n - m + 1\)</span> 项系数就必然为 <span
+class="math inline">\(0\)</span>。</p>
+<p>所以，如果我们在 <span class="math inline">\(\bmod~x^{n - m +
+1}\)</span> 意义下做上述运算，不仅可以去掉余数 <span
+class="math inline">\(r(x)\)</span>
+的影响，同时我们还可以发现，这样完美地保留了 <span
+class="math inline">\(q(x)\)</span>。</p>
+<p>那么有： <span class="math display">\[
 \begin{matrix}
-f^{r(n)}(x) \equiv g^{r(m)}(x) \cdot q^{r(n - m)}(x) \pmod{x^{n - m + 1}}
+f^{r(n)}(x) \equiv g^{r(m)}(x) \cdot q^{r(n - m)}(x) \pmod{x^{n - m +
+1}}
 \\
 \Downarrow
 \\
-q^{r(n - m)}(x) \equiv \frac{f^{r(n)}(x)}{g^{r(m)}(x)} \pmod{x^{n - m + 1}}
+q^{r(n - m)}(x) \equiv \frac{f^{r(n)}(x)}{g^{r(m)}(x)} \pmod{x^{n - m +
+1}}
 \\
 \Downarrow
 \\
 q(x) = (\frac{f^{r(n)}(x)}{g^{r(m)}(x)})^{r(n - m)} \pmod{x^{n - m + 1}}
-\end{matrix}</script><p>至于余数，我们直接把 $g(x)$ 和 $q(x)$ 乘起来，再用 $f(x)$ 减去即可。</p>
+\end{matrix}
+\]</span> 至于余数，我们直接把 <span class="math inline">\(g(x)\)</span>
+和 <span class="math inline">\(q(x)\)</span> 乘起来，再用 <span
+class="math inline">\(f(x)\)</span> 减去即可。</p>
 <p>代码：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><br></code></pre></td></tr></table></figure>
-<hr>
-<h2 id="多项式开根"><a href="#多项式开根" class="headerlink" title="多项式开根"></a>多项式开根</h2><p>给出一个度数为 $n - 1$ 的多项式 $f(x)$，求出一个度数同为 $n - 1$ 多项式 $g(x)$，满足 $g^2(x) \equiv f(x) \pmod{x^n}$。</p>
-<p>保证有 $[x^0]f(x) = 1$。系数对 $998244353$ 取模。</p>
-<hr>
+<hr />
+<h2 id="多项式开根">多项式开根</h2>
+<p>给出一个度数为 <span class="math inline">\(n - 1\)</span> 的多项式
+<span class="math inline">\(f(x)\)</span>，求出一个度数同为 <span
+class="math inline">\(n - 1\)</span> 多项式 <span
+class="math inline">\(g(x)\)</span>，满足 <span
+class="math inline">\(g^2(x) \equiv f(x) \pmod{x^n}\)</span>。</p>
+<p>保证有 <span class="math inline">\([x^0]f(x) = 1\)</span>。系数对
+<span class="math inline">\(998244353\)</span> 取模。</p>
+<hr />
 <p>我们还是用倍增法来做。</p>
-<p>临界条件：$n = 1$ 时，$[x^0]g(x) = 1$。</p>
-<p>设已经求出了一个多项式 $t(x)$，满足 $t^2(x) \equiv f(x) \pmod{x^{\lceil\frac{n}{2}\rceil}}$。</p>
-<p>同时设 $g(x)^2\equiv f(x)~(\bmod x^n)$。</p>
-<p>然后又是一波推式子：</p>
-<script type="math/tex; mode=display">
+<p>临界条件：<span class="math inline">\(n = 1\)</span> 时，<span
+class="math inline">\([x^0]g(x) = 1\)</span>。</p>
+<p>设已经求出了一个多项式 <span
+class="math inline">\(t(x)\)</span>，满足 <span
+class="math inline">\(t^2(x) \equiv f(x)
+\pmod{x^{\lceil\frac{n}{2}\rceil}}\)</span>。</p>
+<p>同时设 <span class="math inline">\(g(x)^2\equiv f(x)~(\bmod
+x^n)\)</span>。</p>
+<p>然后又是一波推式子： <span class="math display">\[
 \begin{aligned}
-& t^2(x) \equiv f(x) \pmod{x^{\lceil\frac{n}{2}\rceil}}
+&amp; t^2(x) \equiv f(x) \pmod{x^{\lceil\frac{n}{2}\rceil}}
 \\
-& t^2(x) - f(x)\equiv 0 \pmod{x^{\lceil\frac{n}{2}\rceil}}
+&amp; t^2(x) - f(x)\equiv 0 \pmod{x^{\lceil\frac{n}{2}\rceil}}
 \\
-& (t^2(x) - f(x))^2 \equiv 0 \pmod{x^n}
+&amp; (t^2(x) - f(x))^2 \equiv 0 \pmod{x^n}
 \\
-& (t^2(x) + f(x))^2 \equiv 4 \cdot t^2(x) \cdot f(x) \pmod{x^n}
+&amp; (t^2(x) + f(x))^2 \equiv 4 \cdot t^2(x) \cdot f(x) \pmod{x^n}
 \\
-& (\frac{t^2(x) + f(x)}{2\cdot t(x)})^2 \equiv f(x) \pmod{x^n}
+&amp; (\frac{t^2(x) + f(x)}{2\cdot t(x)})^2 \equiv f(x) \pmod{x^n}
 \\
-& \frac{t^2(x) + f(x)}{2\cdot t(x)} \equiv g(x) \pmod{x^n}
+&amp; \frac{t^2(x) + f(x)}{2\cdot t(x)} \equiv g(x) \pmod{x^n}
 \\
-& \frac{t(x)}{2} + \frac{f(x)}{2 \cdot t(x)} \equiv g(x) \pmod{x^n}
-\end{aligned}</script><p>推到这里式子就好做了。时间复杂度 $\mathcal{O}(n \log_2n)$。</p>
+&amp; \frac{t(x)}{2} + \frac{f(x)}{2 \cdot t(x)} \equiv g(x) \pmod{x^n}
+\end{aligned}
+\]</span> 推到这里式子就好做了。时间复杂度 <span
+class="math inline">\(\mathcal{O}(n \log_2n)\)</span>。</p>
 <p>贴上代码：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><br></code></pre></td></tr></table></figure>
-<hr>
-<p>当然，还可以去做一下<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5277">加强版</a>，仅需要在求常数项时套上一个二次剩余即可。</p>
-<p>写好二次剩余后，就只需要改 <code>Get_Sqrt</code> 函数的第一行即可。</p>
-<hr>
-<h2 id="多项式对数函数（求-ln"><a href="#多项式对数函数（求-ln" class="headerlink" title="多项式对数函数（求 ln)"></a>多项式对数函数（求 ln)</h2><p>给出一个度数为 $n - 1$ 的多项式 $f(x)$，求出一个度数同为 $n - 1$ 多项式 $g(x)$，满足 $g(x) \equiv \ln(f(x)) \pmod{x^n}$。</p>
-<p>保证有 $[x^0]f(x) = 1$。系数对 $998244353$ 取模。</p>
-<hr>
+<hr />
+<p>当然，还可以去做一下<a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5277">加强版</a>，仅需要在求常数项时套上一个二次剩余即可。</p>
+<p>写好二次剩余后，就只需要改 <code>Get_Sqrt</code>
+函数的第一行即可。</p>
+<hr />
+<h2 id="多项式对数函数求-ln">多项式对数函数（求 ln)</h2>
+<p>给出一个度数为 <span class="math inline">\(n - 1\)</span> 的多项式
+<span class="math inline">\(f(x)\)</span>，求出一个度数同为 <span
+class="math inline">\(n - 1\)</span> 多项式 <span
+class="math inline">\(g(x)\)</span>，满足 <span
+class="math inline">\(g(x) \equiv \ln(f(x)) \pmod{x^n}\)</span>。</p>
+<p>保证有 <span class="math inline">\([x^0]f(x) = 1\)</span>。系数对
+<span class="math inline">\(998244353\)</span> 取模。</p>
+<hr />
 <p>看到这里，大多数读者应该都是一脸懵：怎么对一个多项式求自然对数啊？</p>
 <p>不要急，还记得前置知识吗？求导和积分。</p>
 <p>前面还提到了一句话：把一些式子通过求导变成方便计算的形式，然后再用积分求出答案。</p>
 <p>那么，做法已经呼之欲出了。</p>
-<p>首先要知道两个个求导公式：$(f(g(x)))’ = f’(g(x)) \cdot g’(x)$ 和 $\displaystyle \ln’(x) = \frac{1}{x}$。</p>
-<p>那么对 $g(x)$ 求导有：$\displaystyle g’(x) \equiv \ln’(f(x)) \cdot f’(x) \equiv \frac{f’(x)}{f(x)} \pmod{x^n}$。</p>
+<p>首先要知道两个个求导公式：<span class="math inline">\((f(g(x)))&#39;
+= f&#39;(g(x)) \cdot g&#39;(x)\)</span> 和 <span
+class="math inline">\(\displaystyle \ln&#39;(x) =
+\frac{1}{x}\)</span>。</p>
+<p>那么对 <span class="math inline">\(g(x)\)</span> 求导有：<span
+class="math inline">\(\displaystyle g&#39;(x) \equiv \ln&#39;(f(x))
+\cdot f&#39;(x) \equiv \frac{f&#39;(x)}{f(x)} \pmod{x^n}\)</span>。</p>
 <p>这不就是求一个导数和一个逆元吗？</p>
 <p>最后积分回去就好啦。</p>
-<p>对于常数项，显然有 $e^0 = 1$，即 $\ln 1 = 0$，所以保证了 $[x^0]f(x) = 1$。</p>
-<p>时间复杂度 $\mathcal{O}(n \log_2n)$。</p>
+<p>对于常数项，显然有 <span class="math inline">\(e^0 = 1\)</span>，即
+<span class="math inline">\(\ln 1 = 0\)</span>，所以保证了 <span
+class="math inline">\([x^0]f(x) = 1\)</span>。</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n
+\log_2n)\)</span>。</p>
 <p>贴上代码：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><br></code></pre></td></tr></table></figure>
-<hr>
-<h2 id="多项式牛顿迭代"><a href="#多项式牛顿迭代" class="headerlink" title="多项式牛顿迭代"></a>多项式牛顿迭代</h2><p>给出一个度数为 $n - 1$ 的多项式 $f(x)$，求出一个度数同为 $n - 1$ 多项式 $g(x)$，满足 $f(g(x)) \equiv 0 \pmod{x^n}$。</p>
-<p>（注意此处的 $\bmod~x^n$ 会同时对 $f(x)$ 和 $g(x)$ 取模。）</p>
-<p>保证有 $[x^0]f(x) = 0$。系数对 $998244353$ 取模。</p>
-<hr>
+<hr />
+<h2 id="多项式牛顿迭代">多项式牛顿迭代</h2>
+<p>给出一个度数为 <span class="math inline">\(n - 1\)</span> 的多项式
+<span class="math inline">\(f(x)\)</span>，求出一个度数同为 <span
+class="math inline">\(n - 1\)</span> 多项式 <span
+class="math inline">\(g(x)\)</span>，满足 <span
+class="math inline">\(f(g(x)) \equiv 0 \pmod{x^n}\)</span>。</p>
+<p>（注意此处的 <span class="math inline">\(\bmod~x^n\)</span> 会同时对
+<span class="math inline">\(f(x)\)</span> 和 <span
+class="math inline">\(g(x)\)</span> 取模。）</p>
+<p>保证有 <span class="math inline">\([x^0]f(x) = 0\)</span>。系数对
+<span class="math inline">\(998244353\)</span> 取模。</p>
+<hr />
 <p>首先需要知道前置知识：泰勒展开。</p>
-<p>对于多项式 $f(x)$，如果我们已经知道了 $f(x_0)$ 的值，那么 $f(x)$ 的值可以用如下方法表示：</p>
-<script type="math/tex; mode=display">
-f(x) = \sum_{i = 0}^{\infty} (\frac{f^{(i)}(x_0)}{i!} \cdot (x - x_0)^i) = f(x_0) + \sum_{i = 1}^{\infty} (\frac{f^{(i)}(x_0)}{i!} \cdot (x - x_0)^i)</script><p>其中 $f^{(i)}(x_0)$ 指的是多项式 $f(x)$ 在 $x_0$ 处的 $i$ 阶导数，简单来讲就是对它求 $i$ 次导数得出的值。</p>
+<p>对于多项式 <span
+class="math inline">\(f(x)\)</span>，如果我们已经知道了 <span
+class="math inline">\(f(x_0)\)</span> 的值，那么 <span
+class="math inline">\(f(x)\)</span> 的值可以用如下方法表示：</p>
+<p><span class="math display">\[
+f(x) = \sum_{i = 0}^{\infty} (\frac{f^{(i)}(x_0)}{i!} \cdot (x - x_0)^i)
+= f(x_0) + \sum_{i = 1}^{\infty} (\frac{f^{(i)}(x_0)}{i!} \cdot (x -
+x_0)^i)
+\]</span></p>
+<p>其中 <span class="math inline">\(f^{(i)}(x_0)\)</span> 指的是多项式
+<span class="math inline">\(f(x)\)</span> 在 <span
+class="math inline">\(x_0\)</span> 处的 <span
+class="math inline">\(i\)</span> 阶导数，简单来讲就是对它求 <span
+class="math inline">\(i\)</span> 次导数得出的值。</p>
 <p>这个公式的证明和其它用法大可不必知道，我们只会用它做一些最基本的操作，不会超出我们的认知范围。</p>
-<hr>
+<hr />
 <p>还是考虑倍增。</p>
-<p>设求出了一个多项式 $t(x)$，满足 $f(t(x)) \equiv 0 \pmod{x^{\lceil\frac{n}{2}\rceil}}$。</p>
-<p>那么我们要求多项式 $g(x)$，满足 $f(g(x)) \equiv 0 \pmod{x^{n}}$。</p>
-<p>如果我们将 $f(x)$ 在 $t(x)$ 处进行泰勒展开，得到：</p>
-<script type="math/tex; mode=display">
-f(g(x)) \equiv f(t(x)) + \sum_{i = 1}^{\infty} (\frac{f^{(i)}(t(x))}{i!} \cdot (g(x) - t(x))^i) \equiv 0 \pmod{x^{n}}</script><p>又由于 $f(g(x)) \equiv 0 \pmod{x^{\lceil\frac{n}{2}\rceil}}$。</p>
-<p>所以 $g(x)$ 和 $t(x)$ 的前 $\lceil\frac{n}{2}\rceil$ 项相同，也就是说 $g(x) - t(x) \equiv 0 \pmod{x^{\lceil\frac{n}{2}\rceil}}$。</p>
-<p>那么我们可以发现，在 $(g(x) - t(x))^i$ 这个式子中，当 $i \ge 2$ 时，前 $n$ 位必然为 $0$。</p>
+<p>设求出了一个多项式 <span class="math inline">\(t(x)\)</span>，满足
+<span class="math inline">\(f(t(x)) \equiv 0
+\pmod{x^{\lceil\frac{n}{2}\rceil}}\)</span>。</p>
+<p>那么我们要求多项式 <span class="math inline">\(g(x)\)</span>，满足
+<span class="math inline">\(f(g(x)) \equiv 0 \pmod{x^{n}}\)</span>。</p>
+<p>如果我们将 <span class="math inline">\(f(x)\)</span> 在 <span
+class="math inline">\(t(x)\)</span> 处进行泰勒展开，得到：</p>
+<p><span class="math display">\[
+f(g(x)) \equiv f(t(x)) + \sum_{i = 1}^{\infty} (\frac{f^{(i)}(t(x))}{i!}
+\cdot (g(x) - t(x))^i) \equiv 0 \pmod{x^{n}}
+\]</span></p>
+<p>又由于 <span class="math inline">\(f(g(x)) \equiv 0
+\pmod{x^{\lceil\frac{n}{2}\rceil}}\)</span>。</p>
+<p>所以 <span class="math inline">\(g(x)\)</span> 和 <span
+class="math inline">\(t(x)\)</span> 的前 <span
+class="math inline">\(\lceil\frac{n}{2}\rceil\)</span> 项相同，也就是说
+<span class="math inline">\(g(x) - t(x) \equiv 0
+\pmod{x^{\lceil\frac{n}{2}\rceil}}\)</span>。</p>
+<p>那么我们可以发现，在 <span class="math inline">\((g(x) -
+t(x))^i\)</span> 这个式子中，当 <span class="math inline">\(i \ge
+2\)</span> 时，前 <span class="math inline">\(n\)</span> 位必然为 <span
+class="math inline">\(0\)</span>。</p>
 <p>所以整个式子就等于：</p>
-<script type="math/tex; mode=display">
-f(g(x)) \equiv f(t(x)) + f'(t(x)) \cdot (g(x) - t(x)) \equiv 0 \pmod{x^{n}}</script><p>稍加推导一下就有：</p>
-<script type="math/tex; mode=display">
-g(x) = t(x) - \frac{f(t(x))}{f'(t(x))} \pmod{x^{n}}</script><p>这样就可以倍增求出 $g(x)$ 了。时间复杂度 $\mathcal{O}(n \log_2n)$。</p>
-<hr>
-<h2 id="多项式指数函数（求-exp）"><a href="#多项式指数函数（求-exp）" class="headerlink" title="多项式指数函数（求 exp）"></a>多项式指数函数（求 exp）</h2><p>给出一个度数为 $n - 1$ 的多项式 $f(x)$，求出一个度数同为 $n - 1$ 多项式 $g(x)$，满足 $g(x) \equiv e^{f(x)} \pmod{x^n}$。</p>
-<p>保证有 $[x^0]f(x) = 0$。系数对 $998244353$ 取模。</p>
-<hr>
-<p>显然把 $e^{f(x)}$ 求导不会有任何变化。</p>
+<p><span class="math display">\[
+f(g(x)) \equiv f(t(x)) + f&#39;(t(x)) \cdot (g(x) - t(x)) \equiv 0
+\pmod{x^{n}}
+\]</span></p>
+<p>稍加推导一下就有：</p>
+<p><span class="math display">\[
+g(x) = t(x) - \frac{f(t(x))}{f&#39;(t(x))} \pmod{x^{n}}
+\]</span></p>
+<p>这样就可以倍增求出 <span class="math inline">\(g(x)\)</span>
+了。时间复杂度 <span class="math inline">\(\mathcal{O}(n
+\log_2n)\)</span>。</p>
+<hr />
+<h2 id="多项式指数函数求-exp">多项式指数函数（求 exp）</h2>
+<p>给出一个度数为 <span class="math inline">\(n - 1\)</span> 的多项式
+<span class="math inline">\(f(x)\)</span>，求出一个度数同为 <span
+class="math inline">\(n - 1\)</span> 多项式 <span
+class="math inline">\(g(x)\)</span>，满足 <span
+class="math inline">\(g(x) \equiv e^{f(x)} \pmod{x^n}\)</span>。</p>
+<p>保证有 <span class="math inline">\([x^0]f(x) = 0\)</span>。系数对
+<span class="math inline">\(998244353\)</span> 取模。</p>
+<hr />
+<p>显然把 <span class="math inline">\(e^{f(x)}\)</span>
+求导不会有任何变化。</p>
 <p>所以，我们考虑用刚刚学到的牛顿迭代法做这道题。</p>
-<p>我们构造出一个多项式（不管它的实际系数）$h(g(x)) \equiv \ln(g(x)) - f(x) \pmod{x^n}$。</p>
-<p>那么把 $g(x) \equiv e^{f(x)} \pmod{x^n}$ 代入就有：</p>
-<script type="math/tex; mode=display">
-h(g(x)) \equiv \ln(g(x)) - f(x)\equiv\ln(e^{f(x)}) - f(x) \equiv f(x) - f(x)\equiv0 \pmod{x^n}</script><p>然后我们就可以套用上面的多项式牛顿迭代了：</p>
-<script type="math/tex; mode=display">
-g(x) \equiv t(x) - \frac{\ln(t(x))-f(x)}{\frac{1}{t(x)}}\equiv t(x) - t(x) \cdot (\ln(t(x)) - f(x)) \pmod{x^{n}}</script><p>注意一点：$f(x)$ 在求导的时候是被看作常数的。</p>
-<p>常数项直接取 $1$ 即可，因为 $e^0 = 1$。</p>
-<p>时间复杂度 $\mathcal{O}(n \log_2n)$。</p>
+<p>我们构造出一个多项式（不管它的实际系数）<span
+class="math inline">\(h(g(x)) \equiv \ln(g(x)) - f(x)
+\pmod{x^n}\)</span>。</p>
+<p>那么把 <span class="math inline">\(g(x) \equiv e^{f(x)}
+\pmod{x^n}\)</span> 代入就有：</p>
+<p><span class="math display">\[
+h(g(x)) \equiv \ln(g(x)) - f(x)\equiv\ln(e^{f(x)}) - f(x) \equiv f(x) -
+f(x)\equiv0 \pmod{x^n}
+\]</span></p>
+<p>然后我们就可以套用上面的多项式牛顿迭代了：</p>
+<p><span class="math display">\[
+g(x) \equiv t(x) - \frac{\ln(t(x))-f(x)}{\frac{1}{t(x)}}\equiv t(x) -
+t(x) \cdot (\ln(t(x)) - f(x)) \pmod{x^{n}}
+\]</span></p>
+<p>注意一点：<span class="math inline">\(f(x)\)</span>
+在求导的时候是被看作常数的。</p>
+<p>常数项直接取 <span class="math inline">\(1\)</span> 即可，因为 <span
+class="math inline">\(e^0 = 1\)</span>。</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n
+\log_2n)\)</span>。</p>
 <p>代码：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><br></code></pre></td></tr></table></figure>
-<hr>
+<hr />
 <p>学完了这里，您可以尝试用其去推一推多项式求逆和多项式开根的式子，可以发现和原来推出来的式子是一样的。</p>
-<hr>
-<h2 id="多项式幂函数"><a href="#多项式幂函数" class="headerlink" title="多项式幂函数"></a>多项式幂函数</h2><p>给出一个度数为 $n - 1$ 的多项式 $f(x)$ 和一个正整数 $k$，其中 $k \le 10^{10^5}$，求出一个度数同为 $n - 1$ 多项式 $g(x)$，满足 $g(x) \equiv f^k(x) \pmod{x^n}$。</p>
-<p>保证有 $[x^0]f(x) = 1$。系数对 $998244353$ 取模。</p>
-<hr>
-<p>应该可以一眼看出这里可以先求 $\ln$ 后求 $\exp$。</p>
-<p>所以，我们求出 $t(x) = \ln(f(x))$，那么有 $\ln(g(x)) = k \cdot t(x)$。</p>
-<p>于是我们把 $t(x)$ 的每一项的系数乘上一个 $k$，最后对 $t(x)$ 求 $\exp$，得到的即为 $g(x)$。</p>
-<p>时间复杂度 $\mathcal{O}(n \log_2n)$。</p>
-<hr>
-<p>不过在贴代码前，有一个地方需要思考：$k$ 在读入时应该对什么取模？</p>
-<p>可能会有人脱口而出是 $\varphi(998244353)$。但是，需要郑重声明的是：欧拉定理在多项式的运算意义下是不成立的，正确的模数应当为 $998244353$ 本身（阅读完下文后，可以发现这也是规定了 $[x^0]f(x) = 1$ 的原因）。</p>
+<hr />
+<h2 id="多项式幂函数">多项式幂函数</h2>
+<p>给出一个度数为 <span class="math inline">\(n - 1\)</span> 的多项式
+<span class="math inline">\(f(x)\)</span> 和一个正整数 <span
+class="math inline">\(k\)</span>，其中 <span class="math inline">\(k \le
+10^{10^5}\)</span>，求出一个度数同为 <span class="math inline">\(n -
+1\)</span> 多项式 <span class="math inline">\(g(x)\)</span>，满足 <span
+class="math inline">\(g(x) \equiv f^k(x) \pmod{x^n}\)</span>。</p>
+<p>保证有 <span class="math inline">\([x^0]f(x) = 1\)</span>。系数对
+<span class="math inline">\(998244353\)</span> 取模。</p>
+<hr />
+<p>应该可以一眼看出这里可以先求 <span class="math inline">\(\ln\)</span>
+后求 <span class="math inline">\(\exp\)</span>。</p>
+<p>所以，我们求出 <span class="math inline">\(t(x) =
+\ln(f(x))\)</span>，那么有 <span class="math inline">\(\ln(g(x)) = k
+\cdot t(x)\)</span>。</p>
+<p>于是我们把 <span class="math inline">\(t(x)\)</span>
+的每一项的系数乘上一个 <span class="math inline">\(k\)</span>，最后对
+<span class="math inline">\(t(x)\)</span> 求 <span
+class="math inline">\(\exp\)</span>，得到的即为 <span
+class="math inline">\(g(x)\)</span>。</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n
+\log_2n)\)</span>。</p>
+<hr />
+<p>不过在贴代码前，有一个地方需要思考：<span
+class="math inline">\(k\)</span> 在读入时应该对什么取模？</p>
+<p>可能会有人脱口而出是 <span
+class="math inline">\(\varphi(998244353)\)</span>。但是，需要郑重声明的是：欧拉定理在多项式的运算意义下是不成立的，正确的模数应当为
+<span class="math inline">\(998244353\)</span>
+本身（阅读完下文后，可以发现这也是规定了 <span
+class="math inline">\([x^0]f(x) = 1\)</span> 的原因）。</p>
 <p>证明：</p>
-<p>不失一般性地，我们考虑证明：$f^p(x) \equiv f(x^p) \pmod{p}$。</p>
-<p>由二项式定理和 $\operatorname{Lucas}$ 定理可以得出：$(a + b)^p \equiv a^p + b^p \pmod{p}$。</p>
-<p>考虑数学归纳法，由费马小定理可以得出，结论在度数为 $0$ 的多项式中必然成立。</p>
-<p>我们设 $f(x)$ 度数为 $k$ 且 $f(x) = g(x) + a_k\cdot x^k$，同时上述结论对于度数为 $k - 1$ 的多项式成立。</p>
-<p>则有 $f^p(x) \equiv g^p(x) + a_k^p \cdot x^{kp} \equiv g(x^p) + a_k \cdot x^{kp}\equiv f(x^p) \pmod{p}$。</p>
-<p>在这道题中，由于 $n &lt; p$，又因为 $[x^0]f(x) = 1$，所以在模 $p$ 意义下有 $f^p(x)\equiv f(x^p) \equiv 1 \pmod{x^n}$</p>
-<p>因此，指数必须对 $998244353$ 而非 $\varphi(998244353)$ 取模。</p>
-<hr>
+<p>不失一般性地，我们考虑证明：<span class="math inline">\(f^p(x) \equiv
+f(x^p) \pmod{p}\)</span>。</p>
+<p>由二项式定理和 <span
+class="math inline">\(\operatorname{Lucas}\)</span> 定理可以得出：<span
+class="math inline">\((a + b)^p \equiv a^p + b^p \pmod{p}\)</span>。</p>
+<p>考虑数学归纳法，由费马小定理可以得出，结论在度数为 <span
+class="math inline">\(0\)</span> 的多项式中必然成立。</p>
+<p>我们设 <span class="math inline">\(f(x)\)</span> 度数为 <span
+class="math inline">\(k\)</span> 且 <span class="math inline">\(f(x) =
+g(x) + a_k\cdot x^k\)</span>，同时上述结论对于度数为 <span
+class="math inline">\(k - 1\)</span> 的多项式成立。</p>
+<p>则有 <span class="math inline">\(f^p(x) \equiv g^p(x) + a_k^p \cdot
+x^{kp} \equiv g(x^p) + a_k \cdot x^{kp}\equiv f(x^p)
+\pmod{p}\)</span>。</p>
+<p>在这道题中，由于 <span class="math inline">\(n &lt;
+p\)</span>，又因为 <span class="math inline">\([x^0]f(x) =
+1\)</span>，所以在模 <span class="math inline">\(p\)</span> 意义下有
+<span class="math inline">\(f^p(x)\equiv f(x^p) \equiv 1
+\pmod{x^n}\)</span></p>
+<p>因此，指数必须对 <span class="math inline">\(998244353\)</span> 而非
+<span class="math inline">\(\varphi(998244353)\)</span> 取模。</p>
+<hr />
 <p>代码：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><br></code></pre></td></tr></table></figure>
-<hr>
-<p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5273">加强版</a>不保证 $[x^0]f(x) = 1$？</p>
-<p>我们如果把所有数除去常数项，就可以仿照上述方法了。当然，不要忘记在最后把这个除掉的数乘回去（注意这个数是整数，根据费马小定理，它的指数需要对 $\varphi(998244353)$ 取模）。</p>
-<p>不过，当然会存在常数项为 $0$ 的情况。这也很好解决，我们只要找到第一个 $a_t$（系数）不为 $0$ 的 $t$，就可以套用如下公式：</p>
-<script type="math/tex; mode=display">
-f^k(x) = x^{tk} \cdot (\frac{f(x)}{x^t})^k</script><p>从本质上讲，这个操作就是降次之后升次。</p>
-<p>注意这个式子中的 $k$ 还是对 $998244353$ 取模。</p>
-<hr>
-<h2 id="operatorname-END"><a href="#operatorname-END" class="headerlink" title="$\operatorname{END}$"></a>$\operatorname{END}$</h2>
+<hr />
+<p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5273">加强版</a>不保证
+<span class="math inline">\([x^0]f(x) = 1\)</span>？</p>
+<p>我们如果把所有数除去常数项，就可以仿照上述方法了。当然，不要忘记在最后把这个除掉的数乘回去（注意这个数是整数，根据费马小定理，它的指数需要对
+<span class="math inline">\(\varphi(998244353)\)</span> 取模）。</p>
+<p>不过，当然会存在常数项为 <span class="math inline">\(0\)</span>
+的情况。这也很好解决，我们只要找到第一个 <span
+class="math inline">\(a_t\)</span>（系数）不为 <span
+class="math inline">\(0\)</span> 的 <span
+class="math inline">\(t\)</span>，就可以套用如下公式： <span
+class="math display">\[
+f^k(x) = x^{tk} \cdot (\frac{f(x)}{x^t})^k
+\]</span> 从本质上讲，这个操作就是降次之后升次。</p>
+<p>注意这个式子中的 <span class="math inline">\(k\)</span> 还是对 <span
+class="math inline">\(998244353\)</span> 取模。</p>
+<hr />
+<h2 id="operatornameend"><span
+class="math inline">\(\operatorname{END}\)</span></h2>
+
             </div>
             <hr>
             <div>

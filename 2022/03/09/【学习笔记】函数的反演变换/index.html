@@ -205,7 +205,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      8.8k 字
+      9.5k 字
     </span>
   
 
@@ -214,7 +214,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      74 分钟
+      80 分钟
     </span>
   
 
@@ -246,230 +246,458 @@
             <h1 style="display: none">【学习笔记】函数的反演变换</h1>
             
             <div class="markdown-body">
-              <h2 id="莫比乌斯反演"><a href="#莫比乌斯反演" class="headerlink" title="莫比乌斯反演"></a>莫比乌斯反演</h2><p>请先学习<strong>狄利克雷卷积</strong>，否则您会一脸懵逼。</p>
-<p>一般式：</p>
-<script type="math/tex; mode=display">
+              <h2 id="莫比乌斯反演">莫比乌斯反演</h2>
+<p>请先学习<strong>狄利克雷卷积</strong>，否则您会一脸懵逼。</p>
+<p>一般式： <span class="math display">\[
 \begin{aligned}
-F(n) = \sum_{d | n} G(d) \rightarrow G(n) = \sum_{d | n} \mu(\frac{n}{d}) F(d)
+F(n) = \sum_{d | n} G(d) \rightarrow G(n) = \sum_{d | n}
+\mu(\frac{n}{d}) F(d)
 \\
-F(n) = \sum_{n | d} G(d) \rightarrow G(n) = \sum_{n | d} \mu(\frac{d}{n}) F(d)
-\end{aligned}</script><p>证明可以考虑下面恒等式的第一条。</p>
-<p>然后再放一些有助于反演的恒等式：（其中 $*$ 指狄利克雷卷积，$\epsilon(n)$ 表示 $[n = 1]$）</p>
-<script type="math/tex; mode=display">
+F(n) = \sum_{n | d} G(d) \rightarrow G(n) = \sum_{n | d}
+\mu(\frac{d}{n}) F(d)
+\end{aligned}
+\]</span></p>
+<p>证明可以考虑下面恒等式的第一条。</p>
+<p>然后再放一些有助于反演的恒等式：（其中 <span
+class="math inline">\(*\)</span> 指狄利克雷卷积，<span
+class="math inline">\(\epsilon(n)\)</span> 表示 <span
+class="math inline">\([n = 1]\)</span>） <span class="math display">\[
 \begin{aligned}
-&\mu * 1 = \epsilon
+&amp;\mu * 1 = \epsilon
 \\
-& \varphi * 1 = id
+&amp; \varphi * 1 = id
 \\
-& \mu * id = \mu * 1 * \varphi = \epsilon * \varphi = \varphi
+&amp; \mu * id = \mu * 1 * \varphi = \epsilon * \varphi = \varphi
 \\
-&\varphi(n) = \sum_{i = 1}^n \epsilon(\gcd(n, i))
+&amp;\varphi(n) = \sum_{i = 1}^n \epsilon(\gcd(n, i))
 \\
-&\varphi(nm) = \frac{\varphi(n)\varphi(m)\gcd(n, m)}{\varphi(\gcd(n, m))}
+&amp;\varphi(nm) = \frac{\varphi(n)\varphi(m)\gcd(n, m)}{\varphi(\gcd(n,
+m))}
 \\
-&\sum_{i=1}^n\sum_{j = 1}^n \epsilon(\gcd(i, j)) = 2 \cdot (\sum_{i = 1}^n\varphi(i)) - 1
+&amp;\sum_{i=1}^n\sum_{j = 1}^n \epsilon(\gcd(i, j)) = 2 \cdot (\sum_{i
+= 1}^n\varphi(i)) - 1
 \\
-& \sum_{d | ij} 1 = \sum_{x|i} \sum_{y|j} \epsilon(\gcd(x, y))
+&amp; \sum_{d | ij} 1 = \sum_{x|i} \sum_{y|j} \epsilon(\gcd(x, y))
 \\
-& \sum_{d | ijk} 1 = \sum_{x|i} \sum_{y|j} \sum_{z|k} \epsilon(\gcd(x, y))\epsilon(\gcd(y, z))\epsilon(\gcd(x, z))
+&amp; \sum_{d | ijk} 1 = \sum_{x|i} \sum_{y|j} \sum_{z|k}
+\epsilon(\gcd(x, y))\epsilon(\gcd(y, z))\epsilon(\gcd(x, z))
 \\
-&\cdots\cdots
-\end{aligned}</script><p>推完式子之后，可以考虑<strong>用一些数论筛法预处理某些项</strong>，或是用<strong>整除分块</strong>求值。</p>
-<hr>
-<p>拿一道<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P6222">例题</a>来讲解吧。</p>
-<p>一共 $T$ 组询问 $(T \le 10^4)$，给定常数 $K$，每次询问单独给定 $N$，满足 $N \le 10^7$，求出：</p>
-<script type="math/tex; mode=display">
-\sum_{i = 1}^N\sum_{j = 1}^N(i + j)^K \gcd(i, j)\mu^2(\gcd(i, j))~(\bmod 2^{32})</script><p>看模数 $2^{32}$，显然可以自然溢出，这可以帮助我们减小常数。</p>
-<p>接下来<del>表演</del>推式子：</p>
-<script type="math/tex; mode=display">
+&amp;\cdots\cdots
+\end{aligned}
+\]</span></p>
+<p>推完式子之后，可以考虑<strong>用一些数论筛法预处理某些项</strong>，或是用<strong>整除分块</strong>求值。</p>
+<hr />
+<p>拿一道<a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P6222">例题</a>来讲解吧。</p>
+<p>一共 <span class="math inline">\(T\)</span> 组询问 <span
+class="math inline">\((T \le 10^4)\)</span>，给定常数 <span
+class="math inline">\(K\)</span>，每次询问单独给定 <span
+class="math inline">\(N\)</span>，满足 <span class="math inline">\(N \le
+10^7\)</span>，求出： <span class="math display">\[
+\sum_{i = 1}^N\sum_{j = 1}^N(i + j)^K \gcd(i, j)\mu^2(\gcd(i, j))~(\bmod
+2^{32})
+\]</span> 看模数 <span
+class="math inline">\(2^{32}\)</span>，显然可以自然溢出，这可以帮助我们减小常数。</p>
+<p>接下来<del>表演</del>推式子： <span class="math display">\[
 \begin{aligned}
-&\sum_{i = 1}^N\sum_{j = 1}^N(i + j)^K \gcd(i, j)\mu^2(\gcd(i, j))
+&amp;\sum_{i = 1}^N\sum_{j = 1}^N(i + j)^K \gcd(i, j)\mu^2(\gcd(i, j))
 \\
-=& \sum_{d = 1}^N\sum_{i = 1}^N\sum_{j = 1}^N[\gcd(i, j) = d]((i + j)^K d\mu^2(d))
+=&amp; \sum_{d = 1}^N\sum_{i = 1}^N\sum_{j = 1}^N[\gcd(i, j) = d]((i +
+j)^K d\mu^2(d))
 \\
-=& \sum_{d = 1}^Nd^{K + 1}\mu^2(d)\sum_{i = 1}^{\lfloor\frac{N}{d}\rfloor} \sum_{j = 1}^{\lfloor\frac{N}{d}\rfloor} \epsilon(\gcd(i, j))(i + j)^K
+=&amp; \sum_{d = 1}^Nd^{K + 1}\mu^2(d)\sum_{i =
+1}^{\lfloor\frac{N}{d}\rfloor} \sum_{j = 1}^{\lfloor\frac{N}{d}\rfloor}
+\epsilon(\gcd(i, j))(i + j)^K
 \\
-=& \sum_{d = 1}^N d^{K + 1}\mu^2(d)\sum_{i = 1}^{\lfloor\frac{N}{d}\rfloor}\sum_{j = 1}^{\lfloor\frac{N}{d}\rfloor}(i + j)^K\sum_{x | \gcd(i, j)} \mu(x)
+=&amp; \sum_{d = 1}^N d^{K + 1}\mu^2(d)\sum_{i =
+1}^{\lfloor\frac{N}{d}\rfloor}\sum_{j = 1}^{\lfloor\frac{N}{d}\rfloor}(i
++ j)^K\sum_{x | \gcd(i, j)} \mu(x)
 \\
-=& \sum_{d = 1}^Nd^{K + 1}\mu^2(d)\sum_{x = 1}^{\lfloor\frac{N}{d}\rfloor}x^K\mu(x)\sum_{i = 1}^{\lfloor\frac{N}{dx}\rfloor}\sum_{j = 1}^{\lfloor\frac{N}{dx}\rfloor}(i + j)^K
+=&amp; \sum_{d = 1}^Nd^{K + 1}\mu^2(d)\sum_{x =
+1}^{\lfloor\frac{N}{d}\rfloor}x^K\mu(x)\sum_{i =
+1}^{\lfloor\frac{N}{dx}\rfloor}\sum_{j =
+1}^{\lfloor\frac{N}{dx}\rfloor}(i + j)^K
 \\
-=& \sum_{T = 1}^NT^K\sum_{i = 1}^{\lfloor\frac{N}{T}\rfloor} \sum_{j = 1}^{\lfloor\frac{N}{T}\rfloor}(i + j)^K \sum_{d|T}d\mu^2(d)\mu(\frac{T}{d})
-\end{aligned}</script><p>到这里式子就是可做的了。</p>
-<hr>
+=&amp; \sum_{T = 1}^NT^K\sum_{i = 1}^{\lfloor\frac{N}{T}\rfloor} \sum_{j
+= 1}^{\lfloor\frac{N}{T}\rfloor}(i + j)^K
+\sum_{d|T}d\mu^2(d)\mu(\frac{T}{d})
+\end{aligned}
+\]</span> 到这里式子就是可做的了。</p>
+<hr />
 <p><del>我猜你现在肯定一脸懵。</del></p>
 <p>那就先来讲一讲吧。</p>
 <ul>
-<li>$Step~1$</li>
+<li><span class="math inline">\(Step~1\)</span></li>
 </ul>
-<p>我们考虑枚举这个 $\gcd$ 的值。</p>
+<p>我们考虑枚举这个 <span class="math inline">\(\gcd\)</span> 的值。</p>
 <p>为什么这里要做这样一个看似只会添一层循环的无意义举动呢？</p>
 <p>可以发现，在后面的式子中多出了一个艾弗森括号，这个括号里写下的等式是<strong>可以转化为单位元的形式的</strong>。</p>
 <ul>
-<li>$Step~2$</li>
+<li><span class="math inline">\(Step~2\)</span></li>
 </ul>
-<p>我们考虑对于每一个 $d$，只枚举 $d$ 的倍数。</p>
-<p>（实际上，此时枚举的 $i, j$ 在后面的运算中会乘上一个 $d$。）</p>
-<p>这样，艾弗森括号中的等式就可以被改写了，具体来说就是 $[\gcd(id, jd) = d] =[\gcd(i, j) = 1]$。</p>
+<p>我们考虑对于每一个 <span class="math inline">\(d\)</span>，只枚举
+<span class="math inline">\(d\)</span> 的倍数。</p>
+<p>（实际上，此时枚举的 <span class="math inline">\(i, j\)</span>
+在后面的运算中会乘上一个 <span class="math inline">\(d\)</span>。）</p>
+<p>这样，艾弗森括号中的等式就可以被改写了，具体来说就是 <span
+class="math inline">\([\gcd(id, jd) = d] =[\gcd(i, j) =
+1]\)</span>。</p>
 <p>在上面的式子中，后者已经写成了单位元的形式。</p>
-<p>值得注意的是，由于 $i, j$ 实际上除去了一个 $d$，所以运算中多出来的一个 $d^K$ 要提到前面去。同时只和 $d$ 有关的一项 $d\mu^2(d)$ 也要提到前面去。</p>
+<p>值得注意的是，由于 <span class="math inline">\(i, j\)</span>
+实际上除去了一个 <span
+class="math inline">\(d\)</span>，所以运算中多出来的一个 <span
+class="math inline">\(d^K\)</span> 要提到前面去。同时只和 <span
+class="math inline">\(d\)</span> 有关的一项 <span
+class="math inline">\(d\mu^2(d)\)</span> 也要提到前面去。</p>
 <ul>
-<li>$Step~3$</li>
+<li><span class="math inline">\(Step~3\)</span></li>
 </ul>
-<p>还记得上面的公式 $\mu * 1 = \epsilon$ 吗？我们可以直接把这个单位元转化为莫比乌斯函数和 $1$ 的狄利克雷卷积！</p>
+<p>还记得上面的公式 <span class="math inline">\(\mu * 1 =
+\epsilon\)</span> 吗？我们可以直接把这个单位元转化为莫比乌斯函数和 <span
+class="math inline">\(1\)</span> 的狄利克雷卷积！</p>
 <p>所以，把卷积用好了，莫比乌斯反演就不难了，再难也只可能难在函数的筛法上。</p>
-<p>然后呢？我们再把这个枚举的 $x$ 提前，把 $i, j$ 再次强制转化为 $dx$ 的倍数，多出来的 $x^K$ 同 $\mu(x)$ 一起往前提。</p>
-<p>继续，我们发现这个式子代数还是太多了，于是考虑枚举 $T = dx$，那么 $d$ 必然是 $T$ 的因数，此时的 $x$ 则恰好等于 $\frac{T}{d}$，这样化简出来，式子已经可做了。</p>
-<hr>
+<p>然后呢？我们再把这个枚举的 <span class="math inline">\(x\)</span>
+提前，把 <span class="math inline">\(i, j\)</span> 再次强制转化为 <span
+class="math inline">\(dx\)</span> 的倍数，多出来的 <span
+class="math inline">\(x^K\)</span> 同 <span
+class="math inline">\(\mu(x)\)</span> 一起往前提。</p>
+<p>继续，我们发现这个式子代数还是太多了，于是考虑枚举 <span
+class="math inline">\(T = dx\)</span>，那么 <span
+class="math inline">\(d\)</span> 必然是 <span
+class="math inline">\(T\)</span> 的因数，此时的 <span
+class="math inline">\(x\)</span> 则恰好等于 <span
+class="math inline">\(\frac{T}{d}\)</span>，这样化简出来，式子已经可做了。</p>
+<hr />
 <p>问题是，我们怎样知道式子是可做的呢？</p>
-<p>我们设 $S(N) = \sum<em>{i = 1}^N\sum</em>{j = 1}^N(i + j)^K$，$f(T) = \sum_{d|T}d\mu^2(d)\mu(\frac{T}{d})$。</p>
-<p>现在整个式子化简成了这样一个形式：$\sum_{T = 1}^N T^KS(\lfloor\frac{N}{T}\rfloor)f(T)$。</p>
-<p>接下来分别考虑线性预处理 $S$ 和 $f$。</p>
-<p>可以发现在 $S(N)$ 中，从 $2 \sim 2N$ 的每一个数 $d^K$ 一共被计算了 $\min(d - 1, 2N + 1 - d)$ 次。</p>
-<p>于是我们可以再设两个辅助函数 $F(N) = \sum<em>{i = 1}^N i^K$，$G(N) = \sum</em>{i = 1}^N F(i)$，显然这两个函数都是可以线性预处理的。</p>
-<p>那么我们有式子：$S(N)=\sum<em>{i=N+1}^{2N}F(i)-\sum</em>{i = 1}^N F(i) = G(2N)-2G(N)$，同样也可以线性预处理。</p>
-<p>再来看 $f$，可以发现 $f$ 是一个狄利克雷卷积的标准形式，并且卷的是两个积性函数，说明整个式子也是一个积性函数。如果您阅读过我的文章<a href="https://reclouds.github.io/2022/02/24/%E7%A7%AF%E6%80%A7%E5%87%BD%E6%95%B0%E7%9A%84%E7%AD%9B%E6%B3%95/">《积性函数的筛法》</a>，可以知道这样的函数是可以欧拉筛的。</p>
-<p>我们来讨论一下 $f$ 在 $p^k~(p \in \operatorname{Prime})$ 处的取值吧。</p>
+<p>我们设 <span class="math inline">\(S(N) = \sum_{i = 1}^N\sum_{j =
+1}^N(i + j)^K\)</span>，<span class="math inline">\(f(T) =
+\sum_{d|T}d\mu^2(d)\mu(\frac{T}{d})\)</span>。</p>
+<p>现在整个式子化简成了这样一个形式：<span class="math inline">\(\sum_{T
+= 1}^N T^KS(\lfloor\frac{N}{T}\rfloor)f(T)\)</span>。</p>
+<p>接下来分别考虑线性预处理 <span class="math inline">\(S\)</span> 和
+<span class="math inline">\(f\)</span>。</p>
+<p>可以发现在 <span class="math inline">\(S(N)\)</span> 中，从 <span
+class="math inline">\(2 \sim 2N\)</span> 的每一个数 <span
+class="math inline">\(d^K\)</span> 一共被计算了 <span
+class="math inline">\(\min(d - 1, 2N + 1 - d)\)</span> 次。</p>
+<p>于是我们可以再设两个辅助函数 <span class="math inline">\(F(N) =
+\sum_{i = 1}^N i^K\)</span>，<span class="math inline">\(G(N) = \sum_{i
+= 1}^N F(i)\)</span>，显然这两个函数都是可以线性预处理的。</p>
+<p>那么我们有式子：<span
+class="math inline">\(S(N)=\sum_{i=N+1}^{2N}F(i)-\sum_{i = 1}^N F(i) =
+G(2N)-2G(N)\)</span>，同样也可以线性预处理。</p>
+<p>再来看 <span class="math inline">\(f\)</span>，可以发现 <span
+class="math inline">\(f\)</span>
+是一个狄利克雷卷积的标准形式，并且卷的是两个积性函数，说明整个式子也是一个积性函数。如果您阅读过我的文章<a
+href="https://reclouds.github.io/2022/02/24/%E7%A7%AF%E6%80%A7%E5%87%BD%E6%95%B0%E7%9A%84%E7%AD%9B%E6%B3%95/">《积性函数的筛法》</a>，可以知道这样的函数是可以欧拉筛的。</p>
+<p>我们来讨论一下 <span class="math inline">\(f\)</span> 在 <span
+class="math inline">\(p^k~(p \in \operatorname{Prime})\)</span>
+处的取值吧。</p>
 <ul>
-<li>$k = 0$，显然有 $f(1) = 1$；</li>
-<li>$k = 1$，有 $f(p) = \mu(p) + p\mu^2(p) = p - 1$；</li>
-<li>$k = 2$，有 $f(p^2) = \mu(p^2) + p\mu^2(p)\mu(p) + p^2\mu(p^2) = -p$；</li>
-<li>$k \ge 3$，则每一项都存在 $\mu$ 为 $0$ 的情况，答案为 $0$。</li>
+<li><span class="math inline">\(k = 0\)</span>，显然有 <span
+class="math inline">\(f(1) = 1\)</span>；</li>
+<li><span class="math inline">\(k = 1\)</span>，有 <span
+class="math inline">\(f(p) = \mu(p) + p\mu^2(p) = p - 1\)</span>；</li>
+<li><span class="math inline">\(k = 2\)</span>，有 <span
+class="math inline">\(f(p^2) = \mu(p^2) + p\mu^2(p)\mu(p) + p^2\mu(p^2)
+= -p\)</span>；</li>
+<li><span class="math inline">\(k \ge 3\)</span>，则每一项都存在 <span
+class="math inline">\(\mu\)</span> 为 <span
+class="math inline">\(0\)</span> 的情况，答案为 <span
+class="math inline">\(0\)</span>。</li>
 </ul>
 <p>次数很好判断，所以分讨即可。</p>
-<p>最后，可以发现 $\frac{N}{T}$ 的取值个数是 $\sqrt{N}$ 级别的，所以可以套用整除分块。同时为了方便，可以把 $T^K$ 这一项扔进 $f$ 中一起预处理（最后求前缀和时配合 $F$ 数组一起求即可）。</p>
-<p>为了省空间，把 $F$ 和 $G$ 当作一个数组，毕竟有了 $G$，$F$ 也没什么用了。</p>
-<p>放上<a target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/tree/master/Codes/函数的反演变换/Luogu P6222 简单题 加强版.cpp">代码</a>。</p>
-<hr>
-<h2 id="二项式反演"><a href="#二项式反演" class="headerlink" title="二项式反演"></a>二项式反演</h2><p>其实二项式反演有一个更不广为人知的名字——<strong>广义容斥原理</strong>。</p>
-<p>一般有两种形式：</p>
-<script type="math/tex; mode=display">
+<p>最后，可以发现 <span class="math inline">\(\frac{N}{T}\)</span>
+的取值个数是 <span class="math inline">\(\sqrt{N}\)</span>
+级别的，所以可以套用整除分块。同时为了方便，可以把 <span
+class="math inline">\(T^K\)</span> 这一项扔进 <span
+class="math inline">\(f\)</span> 中一起预处理（最后求前缀和时配合 <span
+class="math inline">\(F\)</span> 数组一起求即可）。</p>
+<p>为了省空间，把 <span class="math inline">\(F\)</span> 和 <span
+class="math inline">\(G\)</span> 当作一个数组，毕竟有了 <span
+class="math inline">\(G\)</span>，<span class="math inline">\(F\)</span>
+也没什么用了。</p>
+<p>放上<a
+target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/tree/master/Codes/函数的反演变换/Luogu%20P6222%20简单题%20加强版.cpp">代码</a>。</p>
+<hr />
+<h2 id="二项式反演">二项式反演</h2>
+<p>其实二项式反演有一个更不广为人知的名字——<strong>广义容斥原理</strong>。</p>
+<p>一般有两种形式： <span class="math display">\[
 \begin{aligned}
-f(n) = \sum_{i = 0}^nC_n^ig(i) \Leftrightarrow g(n) = \sum_{i = 0}^n(-1)^{n - i}C_n^if(i)
+f(n) = \sum_{i = 0}^nC_n^ig(i) \Leftrightarrow g(n) = \sum_{i =
+0}^n(-1)^{n - i}C_n^if(i)
 \\
-f(n) = \sum_{i = n}^mC_i^ng(i) \Leftrightarrow g(n) = \sum_{i = n}^m(-1)^{i - n} C_i^nf(i)
-\end{aligned}</script><p>正如前面所说，我们一般设 $g(n)$ 为 “恰好满足 $n$ 个性质” 的方案数。对于形式一和形式二，我们一般设 $f(n)$ 为 “至多满足 $n$ 个性质” 和 “至少满足 $n$ 个性质” 的方案数。</p>
-<p>显然 $f(n)$ 更好求，并且 $g(n)$ 一般都做为题目要求的东西。</p>
-<p>例题可以康康<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4859">这道</a>，太板了就不放题解和代码了。</p>
-<hr>
-<h2 id="单位根反演"><a href="#单位根反演" class="headerlink" title="单位根反演"></a>单位根反演</h2><p>其实就是这样一个式子：$[n | k] = \frac{1}{n}\sum_{i = 0}^{n - 1} \omega_n^{ik}$。</p>
-<p>$\omega$ 指单位根。从数学上讲，它是一个复数。但是从广义上讲，只要在<strong>给定的数域和运算</strong>内满足 $\omega^n_n$（即 $n$ 阶单位根的 $n$ 次方）为 $1$，那么它就可以称做单位根。所以 $\omega$ 实际上还可以是原根。</p>
+f(n) = \sum_{i = n}^mC_i^ng(i) \Leftrightarrow g(n) = \sum_{i =
+n}^m(-1)^{i - n} C_i^nf(i)
+\end{aligned}
+\]</span> 正如前面所说，我们一般设 <span
+class="math inline">\(g(n)\)</span> 为 “恰好满足 <span
+class="math inline">\(n\)</span> 个性质”
+的方案数。对于形式一和形式二，我们一般设 <span
+class="math inline">\(f(n)\)</span> 为 “至多满足 <span
+class="math inline">\(n\)</span> 个性质” 和 “至少满足 <span
+class="math inline">\(n\)</span> 个性质” 的方案数。</p>
+<p>显然 <span class="math inline">\(f(n)\)</span> 更好求，并且 <span
+class="math inline">\(g(n)\)</span> 一般都做为题目要求的东西。</p>
+<p>例题可以康康<a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4859">这道</a>，太板了就不放题解和代码了。</p>
+<hr />
+<h2 id="单位根反演">单位根反演</h2>
+<p>其实就是这样一个式子：<span class="math inline">\([n | k] =
+\frac{1}{n}\sum_{i = 0}^{n - 1} \omega_n^{ik}\)</span>。</p>
+<p><span class="math inline">\(\omega\)</span>
+指单位根。从数学上讲，它是一个复数。但是从广义上讲，只要在<strong>给定的数域和运算</strong>内满足
+<span class="math inline">\(\omega^n_n\)</span>（即 <span
+class="math inline">\(n\)</span> 阶单位根的 <span
+class="math inline">\(n\)</span> 次方）为 <span
+class="math inline">\(1\)</span>，那么它就可以称做单位根。所以 <span
+class="math inline">\(\omega\)</span> 实际上还可以是原根。</p>
 <p>证明略去 <del>，显然是因为不会</del>。</p>
-<hr>
+<hr />
 <p>康康<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5591">例题</a></p>
-<p>首先我们有 $\lfloor\frac{i}{k}\rfloor = (\sum_{j = 0}^i[k | j]) - 1$，这样就转化为单位根反演的形式了。</p>
-<p>（可以不管后面的减 $1$，因为可以直接拆开然后二项式定理搞掉。）</p>
-<p>然后我们直接莽式子：</p>
-<script type="math/tex; mode=display">
+<p>首先我们有 <span class="math inline">\(\lfloor\frac{i}{k}\rfloor =
+(\sum_{j = 0}^i[k | j]) -
+1\)</span>，这样就转化为单位根反演的形式了。</p>
+<p>（可以不管后面的减 <span
+class="math inline">\(1\)</span>，因为可以直接拆开然后二项式定理搞掉。）</p>
+<p>然后我们直接莽式子： <span class="math display">\[
 \begin{aligned}
-&\sum_{i = 0}^n C_n^i p^i ((\sum_{j = 0}^i [k | j]) - 1)
+&amp;\sum_{i = 0}^n C_n^i p^i ((\sum_{j = 0}^i [k | j]) - 1)
 \\
-=&(\sum_{i = 0}^nC_n^i p^i\sum_{j = 0}^i\frac{1}{k}\sum_{t = 0}^{k - 1}\omega_k^{jt}) - (p + 1)^n
+=&amp;(\sum_{i = 0}^nC_n^i p^i\sum_{j = 0}^i\frac{1}{k}\sum_{t = 0}^{k -
+1}\omega_k^{jt}) - (p + 1)^n
 \\
-=&\frac{1}{k}(\sum_{t = 0}^{k - 1}\sum_{i = 0}^n C_n^i p^i\sum_{j = 0}^i(\omega_k^t)^j) - (p + 1)^n
+=&amp;\frac{1}{k}(\sum_{t = 0}^{k - 1}\sum_{i = 0}^n C_n^i p^i\sum_{j =
+0}^i(\omega_k^t)^j) - (p + 1)^n
 \\
-=&\frac{1}{k}(\sum_{t = 0}^{k - 1}\sum_{i = 0}^n C_n^i p^i\frac{\omega_k^{t(i + 1)} - 1}{\omega_k^t - 1}) - (p + 1)^n
+=&amp;\frac{1}{k}(\sum_{t = 0}^{k - 1}\sum_{i = 0}^n C_n^i
+p^i\frac{\omega_k^{t(i + 1)} - 1}{\omega_k^t - 1}) - (p + 1)^n
 \\
-=&\frac{1}{k}(\sum_{t = 0}^{k - 1}\frac{(\sum_{i = 0}^n C_n^i p^i \omega_k^{t(i + 1)}) - (p + 1)^n}{\omega_k^t - 1}) - (p + 1)^n
+=&amp;\frac{1}{k}(\sum_{t = 0}^{k - 1}\frac{(\sum_{i = 0}^n C_n^i p^i
+\omega_k^{t(i + 1)}) - (p + 1)^n}{\omega_k^t - 1}) - (p + 1)^n
 \\
-=&\frac{1}{k}(\sum_{t = 0}^{k - 1}\frac{(\omega_k^t(p\omega_k^t + 1)^n- (p + 1)^n}{\omega_k^t - 1}) - (p + 1)^n
-\end{aligned}</script><p>可以发现，上面的式子中大量地用到了<strong>二项式定理</strong>，这玩意确实会经常和单位根反演配合使用。</p>
-<p>上面的式子已经可做了，时间复杂度为 $O(k \log_2 n)$，带 $\log$ 是因为快速幂。</p>
+=&amp;\frac{1}{k}(\sum_{t = 0}^{k - 1}\frac{(\omega_k^t(p\omega_k^t +
+1)^n- (p + 1)^n}{\omega_k^t - 1}) - (p + 1)^n
+\end{aligned}
+\]</span>
+可以发现，上面的式子中大量地用到了<strong>二项式定理</strong>，这玩意确实会经常和单位根反演配合使用。</p>
+<p>上面的式子已经可做了，时间复杂度为 <span class="math inline">\(O(k
+\log_2 n)\)</span>，带 <span class="math inline">\(\log\)</span>
+是因为快速幂。</p>
 <p><del>然后您会发现您连样例都过不去。</del></p>
-<p>我们再来审视一下整个式子。可以发现，当 $t = 0$ 时，$\omega_k^t = 1$，此时分母为 $0$，这一段贡献是算错了的。</p>
-<p>我们回到原来的式子：$\sum<em>{i = 0}^n C_n^i p^i\sum</em>{j = 0}^i(\omega<em>k^t)^j$，当 $\omega_k^t = 1$ 时，该式子为 $\sum</em>{i = 0}^n C_n^i p^i(i + 1)$。</p>
+<p>我们再来审视一下整个式子。可以发现，当 <span class="math inline">\(t
+= 0\)</span> 时，<span class="math inline">\(\omega_k^t =
+1\)</span>，此时分母为 <span
+class="math inline">\(0\)</span>，这一段贡献是算错了的。</p>
+<p>我们回到原来的式子：<span class="math inline">\(\sum_{i = 0}^n C_n^i
+p^i\sum_{j = 0}^i(\omega_k^t)^j\)</span>，当 <span
+class="math inline">\(\omega_k^t = 1\)</span> 时，该式子为 <span
+class="math inline">\(\sum_{i = 0}^n C_n^i p^i(i + 1)\)</span>。</p>
 <p>我们考虑一下这个式子怎么做。</p>
-<p>首先我们把后面的加 $1$ 提出来，直接做一遍二项式定理。</p>
-<p>剩下的就是 $\sum_{i = 0}^n C_n^i p^ii$。</p>
-<p>然后我们有一个<del>广为人知</del>的组合恒等式：$iC<em>n^i = nC</em>{n - 1}^{i - 1}$。</p>
-<p>证明：$i C<em>n^i = i \cdot \frac{n!}{i!(n - i)!} = \frac{n!}{(i - 1)!(n - i)!} = n \cdot \frac{(n - 1)!}{(i - 1)!((n - 1) - (i - 1))!} = n C</em>{n - 1}^{i - 1}$。</p>
-<p>由于 $i = 0$ 时没有贡献，因此我们从 $i = 1$ 开始枚举。</p>
-<script type="math/tex; mode=display">
+<p>首先我们把后面的加 <span class="math inline">\(1\)</span>
+提出来，直接做一遍二项式定理。</p>
+<p>剩下的就是 <span class="math inline">\(\sum_{i = 0}^n C_n^i
+p^ii\)</span>。</p>
+<p>然后我们有一个<del>广为人知</del>的组合恒等式：<span
+class="math inline">\(iC_n^i = nC_{n - 1}^{i - 1}\)</span>。</p>
+<p>证明：<span class="math inline">\(i C_n^i = i \cdot \frac{n!}{i!(n -
+i)!} = \frac{n!}{(i - 1)!(n - i)!} = n \cdot \frac{(n - 1)!}{(i - 1)!((n
+- 1) - (i - 1))!} = n C_{n - 1}^{i - 1}\)</span>。</p>
+<p>由于 <span class="math inline">\(i = 0\)</span>
+时没有贡献，因此我们从 <span class="math inline">\(i = 1\)</span>
+开始枚举。 <span class="math display">\[
 \begin{aligned}
-&\sum_{i = 1}^n C_n^i p^ii
+&amp;\sum_{i = 1}^n C_n^i p^ii
 \\
-= &n\sum_{i = 1}^nC_{n - 1}^{i - 1} p^i
+= &amp;n\sum_{i = 1}^nC_{n - 1}^{i - 1} p^i
 \\
-= &n \sum_{i = 0}^{n - 1} C_{n - 1}^i p^{i +1}
+= &amp;n \sum_{i = 0}^{n - 1} C_{n - 1}^i p^{i +1}
 \\
-= &np\sum_{i = 0}^{n - 1}C_{n - 1}^i p^i
+= &amp;np\sum_{i = 0}^{n - 1}C_{n - 1}^i p^i
 \\
-= & np(p + 1)^{n - 1}
-\end{aligned}</script><p>算法到此就大功告成了。</p>
-<p>放上<a target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/tree/master/Codes/函数的反演变换/Luogu P5591 小猪佩奇学数学.cpp">代码</a>。</p>
-<hr>
-<h2 id="快速沃尔什变换"><a href="#快速沃尔什变换" class="headerlink" title="快速沃尔什变换"></a>快速沃尔什变换</h2><p>$\operatorname{FWT}$<del>，又称废物树</del>，主要用于处理<strong>子集</strong>之间的关系。</p>
+= &amp; np(p + 1)^{n - 1}
+\end{aligned}
+\]</span> 算法到此就大功告成了。</p>
+<p>放上<a
+target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/tree/master/Codes/函数的反演变换/Luogu%20P5591%20小猪佩奇学数学.cpp">代码</a>。</p>
+<hr />
+<h2 id="快速沃尔什变换">快速沃尔什变换</h2>
+<p><span
+class="math inline">\(\operatorname{FWT}\)</span><del>，又称废物树</del>，主要用于处理<strong>子集</strong>之间的关系。</p>
 <p>用例题来讲：</p>
-<p>给定两个长度为 $2^n$ 的数组 $A, B$，设：</p>
-<script type="math/tex; mode=display">
-C_{i} = \sum_{j \otimes k = i} A_j\cdot B_k</script><p>求当 $\otimes$ 为 $\operatorname{or}, \operatorname{and}, \operatorname{xor}$ 时的 $C$。$(n \le 17)$</p>
+<p>给定两个长度为 <span class="math inline">\(2^n\)</span> 的数组 <span
+class="math inline">\(A, B\)</span>，设： <span class="math display">\[
+C_{i} = \sum_{j \otimes k = i} A_j\cdot B_k
+\]</span> 求当 <span class="math inline">\(\otimes\)</span> 为 <span
+class="math inline">\(\operatorname{or}, \operatorname{and},
+\operatorname{xor}\)</span> 时的 <span
+class="math inline">\(C\)</span>。<span class="math inline">\((n \le
+17)\)</span></p>
 <p>解法：</p>
-<p>对于 $\operatorname{or}$，我们考虑构造 ${F}’<em>i = \sum</em>{j \operatorname{or} i = i} F_j$。</p>
+<p>对于 <span
+class="math inline">\(\operatorname{or}\)</span>，我们考虑构造 <span
+class="math inline">\({F}&#39;_i = \sum_{j \operatorname{or} i = i}
+F_j\)</span>。</p>
 <p>为什么要这样构造？</p>
-<p>因为有：</p>
-<script type="math/tex; mode=display">
+<p>因为有： <span class="math display">\[
 \begin{aligned}
-A' \times B' &= \sum_{j \operatorname{or} i = i} A_j \sum_{k \operatorname{or} i = i} B_k
+A&#39; \times B&#39; &amp;= \sum_{j \operatorname{or} i = i} A_j \sum_{k
+\operatorname{or} i = i} B_k
 \\
-&= \sum_{j \operatorname{or} i = i} \sum_{k \operatorname{or} i = i} A_j B_k
+&amp;= \sum_{j \operatorname{or} i = i} \sum_{k \operatorname{or} i = i}
+A_j B_k
 \\
-&=\sum_{(j \operatorname{or} k) \operatorname{or} i = i} A_jB_k
+&amp;=\sum_{(j \operatorname{or} k) \operatorname{or} i = i} A_jB_k
 \\
-&= C'
-\end{aligned}</script><p>现在我们考虑如何将 $A \to A’$。</p>
-<p>其实就是一个类似 $\operatorname{CDQ}$ 分治的思想。</p>
-<p>可以发现，在原数组的基础上，每一个数都会对自己二进制表示下的<strong>真超集</strong>造成贡献，而真超集的特点在于：至少存在一位，满足本身为 $0$ 而超集为 $1$。</p>
-<p>所以做法就很显然了：我们类似快速傅里叶变换的递归过程，从小到大枚举位数，把该位上为 $0$ 的位置贡献到该位为 $1$ 位置。</p>
+&amp;= C&#39;
+\end{aligned}
+\]</span> 现在我们考虑如何将 <span class="math inline">\(A \to
+A&#39;\)</span>。</p>
+<p>其实就是一个类似 <span
+class="math inline">\(\operatorname{CDQ}\)</span> 分治的思想。</p>
+<p>可以发现，在原数组的基础上，每一个数都会对自己二进制表示下的<strong>真超集</strong>造成贡献，而真超集的特点在于：至少存在一位，满足本身为
+<span class="math inline">\(0\)</span> 而超集为 <span
+class="math inline">\(1\)</span>。</p>
+<p>所以做法就很显然了：我们类似快速傅里叶变换的递归过程，从小到大枚举位数，把该位上为
+<span class="math inline">\(0\)</span> 的位置贡献到该位为 <span
+class="math inline">\(1\)</span> 位置。</p>
 <p>而逆变换怎么办呢？直接减回来呗。</p>
 <p>可以发现两个变换可以合并：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></div></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-type">void</span> <span class="hljs-title">Or</span><span class="hljs-params">(<span class="hljs-type">int</span> *f, <span class="hljs-type">int</span> t = <span class="hljs-number">1</span>)</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> len = <span class="hljs-number">2</span>; len &lt;= n; len &lt;&lt;= <span class="hljs-number">1</span>)<br>	&#123;<br>		<span class="hljs-type">int</span> k = len &gt;&gt; <span class="hljs-number">1</span>;<br>		<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i += len)<br>			<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> j = <span class="hljs-number">0</span>; j &lt; k; j++) <br>				f[i + j + k] = <span class="hljs-built_in">GetMOD</span>(f[i + j + k] + <span class="hljs-built_in">GetMOD</span>(<span class="hljs-number">1LL</span> * f[i + j] * t % MOD));<br>	&#125;<br>	<span class="hljs-keyword">return</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>与的构造和变换同理：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-type">void</span> <span class="hljs-title">And</span><span class="hljs-params">(<span class="hljs-type">int</span> *f, <span class="hljs-type">int</span> t = <span class="hljs-number">1</span>)</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> len = <span class="hljs-number">2</span>; len &lt;= n; len &lt;&lt;= <span class="hljs-number">1</span>)<br>	&#123;<br>		<span class="hljs-type">int</span> k = len &gt;&gt; <span class="hljs-number">1</span>;<br>		<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i += len)<br>			<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> j = <span class="hljs-number">0</span>; j &lt; k; j++)<br>				f[i + j] = <span class="hljs-built_in">GetMOD</span>(f[i + j] + <span class="hljs-built_in">GetMOD</span>(<span class="hljs-number">1LL</span> * f[i + j + k] * t % MOD));<br>	&#125;<br>	<span class="hljs-keyword">return</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>异或的变换就有点麻烦了，因为存在交叉贡献。</p>
-<p>我们定义 $a \otimes b = \operatorname{popcount}(a\operatorname{and} b)~\bmod~2$，其中 $\operatorname{popcount}(k)$ 表示 $k$ 在二进制下 $1$ 的个数。</p>
-<p>那么我们存在一个性质：$(i \otimes j) \operatorname{xor} (i \otimes k) = i \otimes (j \operatorname{xor} k)$。</p>
-<p>证明的话，考虑化原式为 $\operatorname{popcount}(i \operatorname{and} j) + \operatorname{popcount}(i \operatorname{and} k) \equiv \operatorname{popcount}(i \operatorname{and} (j \operatorname{xor} k))~(\bmod~2)$，然后按位分讨即可，这里就不详细写了。</p>
-<p>然后我们构造 $F’<em>i = \sum</em>{i \otimes j = 0}F<em>j- \sum</em>{i \otimes j = 1}F_j$。</p>
-<p>那么有：</p>
-<script type="math/tex; mode=display">
+<p>我们定义 <span class="math inline">\(a \otimes b =
+\operatorname{popcount}(a\operatorname{and} b)~\bmod~2\)</span>，其中
+<span class="math inline">\(\operatorname{popcount}(k)\)</span> 表示
+<span class="math inline">\(k\)</span> 在二进制下 <span
+class="math inline">\(1\)</span> 的个数。</p>
+<p>那么我们存在一个性质：<span class="math inline">\((i \otimes j)
+\operatorname{xor} (i \otimes k) = i \otimes (j \operatorname{xor}
+k)\)</span>。</p>
+<p>证明的话，考虑化原式为 <span
+class="math inline">\(\operatorname{popcount}(i \operatorname{and} j) +
+\operatorname{popcount}(i \operatorname{and} k) \equiv
+\operatorname{popcount}(i \operatorname{and} (j \operatorname{xor}
+k))~(\bmod~2)\)</span>，然后按位分讨即可，这里就不详细写了。</p>
+<p>然后我们构造 <span class="math inline">\(F&#39;_i = \sum_{i \otimes j
+= 0}F_j- \sum_{i \otimes j = 1}F_j\)</span>。</p>
+<p>那么有： <span class="math display">\[
 \begin{aligned}
-A' \times B' &= (\sum_{i \otimes j = 0}A_j- \sum_{i \otimes j = 1}A_j)(\sum_{i \otimes k = 0}B_k- \sum_{i \otimes k = 1}B_k)
+A&#39; \times B&#39; &amp;= (\sum_{i \otimes j = 0}A_j- \sum_{i \otimes
+j = 1}A_j)(\sum_{i \otimes k = 0}B_k- \sum_{i \otimes k = 1}B_k)
 \\
-&= (\sum_{i \otimes j = 0}A_j)(\sum_{i \otimes k = 0}B_k) - (\sum_{i \otimes j = 0}A_j)(\sum_{i \otimes k = 1}B_k) - (\sum_{i \otimes j = 1}A_j)(\sum_{i \otimes k = 0}B_k) + (\sum_{i \otimes j = 1}A_j)(\sum_{i \otimes k = 1}B_k)
+&amp;= (\sum_{i \otimes j = 0}A_j)(\sum_{i \otimes k = 0}B_k) - (\sum_{i
+\otimes j = 0}A_j)(\sum_{i \otimes k = 1}B_k) - (\sum_{i \otimes j =
+1}A_j)(\sum_{i \otimes k = 0}B_k) + (\sum_{i \otimes j = 1}A_j)(\sum_{i
+\otimes k = 1}B_k)
 \\
-&=\sum_{i \otimes (j \operatorname{xor} k) = 0} A_jB_k - \sum_{i\otimes (j \operatorname{xor} k) = 1} A_jB_k
+&amp;=\sum_{i \otimes (j \operatorname{xor} k) = 0} A_jB_k -
+\sum_{i\otimes (j \operatorname{xor} k) = 1} A_jB_k
 \\
-&= C'
-\end{aligned}</script><p>现在的问题就在于计算贡献。</p>
-<p>还是考虑从小到大枚举每一位 $i$。</p>
-<p>我们设 $F’<em>j$ 为枚举到的位置 $j$ 的 $F’$ 的值，$F’</em>{j<em>0}$ 表示的是 $j$ 的前 $i - 1$ 位和第 $i$ 位的 $0$ 组成的数的 $F’$ 值，$F’</em>{j<em>1}$ 同理。（注意前面的 $F’_j$ 是要求的，后面的 $F’</em>{j<em>0},F’</em>{j_1}$ 是已经求出来的）</p>
-<p>如果 $j$ 第 $i$ 位本身为 $0$，那么在 $\operatorname{and}$ 意义下这一位必然为 $0$，所以这个位置不会对 $\otimes$ 的结果造成影响。也就是说，其贡献就等于 $j<em>0$ 和 $j_1$ 这两个位置的数值和，即 $F’_j = F’</em>{j<em>0} + F’</em>{j_1}$。</p>
-<p>如果 $j$ 第 $i$ 位本身为 $1$，由于 $j<em>0$ 的第 $i$ 位为 $0$ ，所以它不会改变 $\otimes$ 的结果，即 $F’</em>{j<em>0}$ 会对 $F’</em>{j}$ 产生正贡献，而 $j<em>1$ 的第 $i$ 位为 $1$，导致 $\otimes$ 结果改变，所以 $F’</em>{j<em>1}$ 会对 $F’</em>{j}$ 产生负贡献，即 $F’<em>j = F’</em>{j<em>0} - F’</em>{j_1}$。</p>
-<p><del>如果你学过小学奥数就</del>可以发现逆变换就是在原来的基础上乘上了一个 $\frac{1}{2}$。</p>
+&amp;= C&#39;
+\end{aligned}
+\]</span> 现在的问题就在于计算贡献。</p>
+<p>还是考虑从小到大枚举每一位 <span
+class="math inline">\(i\)</span>。</p>
+<p>我们设 <span class="math inline">\(F&#39;_j\)</span> 为枚举到的位置
+<span class="math inline">\(j\)</span> 的 <span
+class="math inline">\(F&#39;\)</span> 的值，<span
+class="math inline">\(F&#39;_{j_0}\)</span> 表示的是 <span
+class="math inline">\(j\)</span> 的前 <span class="math inline">\(i -
+1\)</span> 位和第 <span class="math inline">\(i\)</span> 位的 <span
+class="math inline">\(0\)</span> 组成的数的 <span
+class="math inline">\(F&#39;\)</span> 值，<span
+class="math inline">\(F&#39;_{j_1}\)</span> 同理。（注意前面的 <span
+class="math inline">\(F&#39;_j\)</span> 是要求的，后面的 <span
+class="math inline">\(F&#39;_{j_0},F&#39;_{j_1}\)</span>
+是已经求出来的）</p>
+<p>如果 <span class="math inline">\(j\)</span> 第 <span
+class="math inline">\(i\)</span> 位本身为 <span
+class="math inline">\(0\)</span>，那么在 <span
+class="math inline">\(\operatorname{and}\)</span> 意义下这一位必然为
+<span class="math inline">\(0\)</span>，所以这个位置不会对 <span
+class="math inline">\(\otimes\)</span>
+的结果造成影响。也就是说，其贡献就等于 <span
+class="math inline">\(j_0\)</span> 和 <span
+class="math inline">\(j_1\)</span> 这两个位置的数值和，即 <span
+class="math inline">\(F&#39;_j = F&#39;_{j_0} +
+F&#39;_{j_1}\)</span>。</p>
+<p>如果 <span class="math inline">\(j\)</span> 第 <span
+class="math inline">\(i\)</span> 位本身为 <span
+class="math inline">\(1\)</span>，由于 <span
+class="math inline">\(j_0\)</span> 的第 <span
+class="math inline">\(i\)</span> 位为 <span
+class="math inline">\(0\)</span> ，所以它不会改变 <span
+class="math inline">\(\otimes\)</span> 的结果，即 <span
+class="math inline">\(F&#39;_{j_0}\)</span> 会对 <span
+class="math inline">\(F&#39;_{j}\)</span> 产生正贡献，而 <span
+class="math inline">\(j_1\)</span> 的第 <span
+class="math inline">\(i\)</span> 位为 <span
+class="math inline">\(1\)</span>，导致 <span
+class="math inline">\(\otimes\)</span> 结果改变，所以 <span
+class="math inline">\(F&#39;_{j_1}\)</span> 会对 <span
+class="math inline">\(F&#39;_{j}\)</span> 产生负贡献，即 <span
+class="math inline">\(F&#39;_j = F&#39;_{j_0} -
+F&#39;_{j_1}\)</span>。</p>
+<p><del>如果你学过小学奥数就</del>可以发现逆变换就是在原来的基础上乘上了一个
+<span class="math inline">\(\frac{1}{2}\)</span>。</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-type">void</span> <span class="hljs-title">Xor</span><span class="hljs-params">(<span class="hljs-type">int</span> *f, <span class="hljs-type">int</span> t = <span class="hljs-number">1</span>)</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> len = <span class="hljs-number">2</span>; len &lt;= n; len &lt;&lt;= <span class="hljs-number">1</span>)<br>	&#123;<br>		<span class="hljs-type">int</span> k = len &gt;&gt; <span class="hljs-number">1</span>;<br>		<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i += len)<br>			<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> j = <span class="hljs-number">0</span>; j &lt; (len &gt;&gt; <span class="hljs-number">1</span>); j++)<br>			&#123;<br>				<span class="hljs-type">int</span> u = f[i + j], v = f[i + j + k];<br>				f[i + j] = <span class="hljs-built_in">GetMOD</span>(u + v);<br>				f[i + j + k] = <span class="hljs-built_in">GetMOD</span>(u - v + MOD);<br>				f[i + j] = <span class="hljs-number">1LL</span> * f[i + j] * t % MOD, f[i + j + k] = <span class="hljs-number">1LL</span> * f[i + j + k] * t % MOD;<br>			&#125;<br>	&#125;<br>	<span class="hljs-keyword">return</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
-<p>放上<a target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/tree/master/Codes/函数的反演变换/快速沃尔什变换.cpp">完整代码</a>。</p>
-<hr>
-<p>有了 $\operatorname{FWT}$，我们还可以做一件事情——<strong>子集卷积</strong>：</p>
-<p>给定序列 $A$ 和 $B$，序列 $C$ 满足：</p>
-<script type="math/tex; mode=display">
-C_k = \sum_{i \operatorname{and} j = 0, i \operatorname{or} j = k} A_i B_j</script><p>求出 $C$。</p>
+<p>放上<a
+target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/tree/master/Codes/函数的反演变换/快速沃尔什变换.cpp">完整代码</a>。</p>
+<hr />
+<p>有了 <span
+class="math inline">\(\operatorname{FWT}\)</span>，我们还可以做一件事情——<strong>子集卷积</strong>：</p>
+<p>给定序列 <span class="math inline">\(A\)</span> 和 <span
+class="math inline">\(B\)</span>，序列 <span
+class="math inline">\(C\)</span> 满足： <span class="math display">\[
+C_k = \sum_{i \operatorname{and} j = 0, i \operatorname{or} j = k} A_i
+B_j
+\]</span> 求出 <span class="math inline">\(C\)</span>。</p>
 <p>题解：</p>
-<p>对于限制 $i \operatorname{or} j = k$，废物树可以直接干。</p>
-<p>对于限制 $i \operatorname{and} j = 0$，我们发现可以转化为 $|i| + |j| = |i \operatorname{and} j|$。</p>
-<p>所以，我们对每个集合大小跑一遍 $\operatorname{FWT}$，然后计算的时候同时用两层循环枚举集合大小即可，最后再跑 $\operatorname{IFWT}$。</p>
-<p>放上<a target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/tree/master/Codes/函数的反演变换/子集卷积.cpp">代码</a>。</p>
-<hr>
-<h2 id="子集反演"><a href="#子集反演" class="headerlink" title="子集反演"></a>子集反演</h2><p>实际上，子集反演的前置知识就是上面提到的废物树和子集卷积。</p>
-<p>它其实就是类似这样的一个式子：</p>
-<script type="math/tex; mode=display">
-F(S) = \sum_{T \subset S} G(T) \Leftrightarrow G(S) = \sum_{T \subset S} (-1)^{|S| - |T|} F(T)</script><hr>
+<p>对于限制 <span class="math inline">\(i \operatorname{or} j =
+k\)</span>，废物树可以直接干。</p>
+<p>对于限制 <span class="math inline">\(i \operatorname{and} j =
+0\)</span>，我们发现可以转化为 <span class="math inline">\(|i| + |j| =
+|i \operatorname{and} j|\)</span>。</p>
+<p>所以，我们对每个集合大小跑一遍 <span
+class="math inline">\(\operatorname{FWT}\)</span>，然后计算的时候同时用两层循环枚举集合大小即可，最后再跑
+<span class="math inline">\(\operatorname{IFWT}\)</span>。</p>
+<p>放上<a
+target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/tree/master/Codes/函数的反演变换/子集卷积.cpp">代码</a>。</p>
+<hr />
+<h2 id="子集反演">子集反演</h2>
+<p>实际上，子集反演的前置知识就是上面提到的废物树和子集卷积。</p>
+<p>它其实就是类似这样的一个式子： <span class="math display">\[
+F(S) = \sum_{T \subset S} G(T) \Leftrightarrow G(S) = \sum_{T \subset S}
+(-1)^{|S| - |T|} F(T)
+\]</span></p>
+<hr />
 <p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/SP13106">例题</a></p>
-<p>我们设 $F(S)$ 为有多少种方案使得玩具的集合是 $S$ 的子集，设 $f(S)$ 为有多少个盒子的玩具集合是 $S$ 的子集，那么显然有 $F(S) = 2^{f(S)} - 1$（减不减 $1$ 无所谓，反正最后会容斥掉）。再设 $G(S)$ 为有多少种方案使得玩具集合恰好为 $S$，那么可以直接套用上面的子集反演公式。</p>
-<p>（事实上，大多数计数题也用到了这个设置状态的思路，即设置 “至少”、“至多” 和 “恰好”。）</p>
-<p>然后考虑求 $f(S)$，可以发现这就是一个废物树的变换，直接套上即可。</p>
-<p>（这里提一句，$f(S)$ 实际上称作<strong>高维前缀和</strong>，而这种用 $\operatorname{FWT}$ 优化其的方法称做 $sos\underline{}dp$<del>，又叫求救优化。</del>）</p>
-<p>放上<a target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/tree/master/Codes/函数的反演变换/SP13106 KOSARE.cpp">代码</a>。</p>
-<hr>
-<h2 id="operatorname-END"><a href="#operatorname-END" class="headerlink" title="$\operatorname{END}$"></a>$\operatorname{END}$</h2>
+<p>我们设 <span class="math inline">\(F(S)\)</span>
+为有多少种方案使得玩具的集合是 <span class="math inline">\(S\)</span>
+的子集，设 <span class="math inline">\(f(S)\)</span>
+为有多少个盒子的玩具集合是 <span class="math inline">\(S\)</span>
+的子集，那么显然有 <span class="math inline">\(F(S) = 2^{f(S)} -
+1\)</span>（减不减 <span class="math inline">\(1\)</span>
+无所谓，反正最后会容斥掉）。再设 <span
+class="math inline">\(G(S)\)</span> 为有多少种方案使得玩具集合恰好为
+<span
+class="math inline">\(S\)</span>，那么可以直接套用上面的子集反演公式。</p>
+<p>（事实上，大多数计数题也用到了这个设置状态的思路，即设置
+“至少”、“至多” 和 “恰好”。）</p>
+<p>然后考虑求 <span
+class="math inline">\(f(S)\)</span>，可以发现这就是一个废物树的变换，直接套上即可。</p>
+<p>（这里提一句，<span class="math inline">\(f(S)\)</span>
+实际上称作<strong>高维前缀和</strong>，而这种用 <span
+class="math inline">\(\operatorname{FWT}\)</span> 优化其的方法称做 <span
+class="math inline">\(sos\underline{}dp\)</span><del>，又叫求救优化。</del>）</p>
+<p>放上<a
+target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/tree/master/Codes/函数的反演变换/SP13106%20KOSARE.cpp">代码</a>。</p>
+<hr />
+<h2 id="operatornameend"><span
+class="math inline">\(\operatorname{END}\)</span></h2>
+
             </div>
             <hr>
             <div>

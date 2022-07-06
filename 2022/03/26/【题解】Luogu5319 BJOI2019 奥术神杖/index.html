@@ -205,7 +205,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.9k 字
+      2k 字
     </span>
   
 
@@ -214,7 +214,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      17 分钟
+      18 分钟
     </span>
   
 
@@ -246,39 +246,110 @@
             <h1 style="display: none">【题解】Luogu P5319 BJOI2019 奥术神杖</h1>
             
             <div class="markdown-body">
-              <h3 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h3><p>给定一个长为 $n$ 的字符串 $S$，其每一位为数字 $0\sim 9$ 或一个 $.$ 符号，后者表示该位可以为任何数字。</p>
-<p>再给定 $m$ 个字符串 $T_i$，每个字符串有其对应的权值 $V_i$。</p>
-<p>初始时有变量 $\operatorname{Magic} = 1, \operatorname{Count} = 0$。</p>
-<p>每当 $T_i$ 在 $S$ 中出现一次（即不同位置出现算作多次），我们就将 $\operatorname{Magic}$ 乘上 $V_i$ ，将 $\operatorname{Count}$ 加 $1$。</p>
-<p>最终的答案为 $\operatorname{Answer} = \sqrt[\operatorname{Count}]{\operatorname{Magic}}$。</p>
-<p>要求找到一种填充字符串 $.$ 位置的方案，使得 $\operatorname{Answer}$ 最大，输出任意一种最终字符串即可。</p>
-<p>$\operatorname{Data~Range}: 1 \le n, m \le 1501, 1 \le V<em>i \le 10^9, 1 \le \displaystyle{\sum</em>{i = 1}^m} |T_i| \le 1501$</p>
-<hr>
-<h3 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h3><p><del>（你真的会高精度开任意次方根吗？）</del></p>
+              <h3 id="题意">题意</h3>
+<p>给定一个长为 <span class="math inline">\(n\)</span> 的字符串 <span
+class="math inline">\(S\)</span>，其每一位为数字 <span
+class="math inline">\(0\sim 9\)</span> 或一个 <span
+class="math inline">\(.\)</span> 符号，后者表示该位可以为任何数字。</p>
+<p>再给定 <span class="math inline">\(m\)</span> 个字符串 <span
+class="math inline">\(T_i\)</span>，每个字符串有其对应的权值 <span
+class="math inline">\(V_i\)</span>。</p>
+<p>初始时有变量 <span class="math inline">\(\operatorname{Magic} = 1,
+\operatorname{Count} = 0\)</span>。</p>
+<p>每当 <span class="math inline">\(T_i\)</span> 在 <span
+class="math inline">\(S\)</span>
+中出现一次（即不同位置出现算作多次），我们就将 <span
+class="math inline">\(\operatorname{Magic}\)</span> 乘上 <span
+class="math inline">\(V_i\)</span> ，将 <span
+class="math inline">\(\operatorname{Count}\)</span> 加 <span
+class="math inline">\(1\)</span>。</p>
+<p>最终的答案为 <span class="math inline">\(\operatorname{Answer} =
+\sqrt[\operatorname{Count}]{\operatorname{Magic}}\)</span>。</p>
+<p>要求找到一种填充字符串 <span class="math inline">\(.\)</span>
+位置的方案，使得 <span
+class="math inline">\(\operatorname{Answer}\)</span>
+最大，输出任意一种最终字符串即可。</p>
+<p><span class="math inline">\(\operatorname{Data~Range}: 1 \le n, m \le
+1501, 1 \le V_i \le 10^9, 1 \le \displaystyle{\sum_{i = 1}^m} |T_i| \le
+1501\)</span></p>
+<hr />
+<h3 id="题解">题解</h3>
+<p><del>（你真的会高精度开任意次方根吗？）</del></p>
 <p>所以这题显然不能直接做。</p>
-<p>和乘积有关的题目，一个好的思路是化乘为加。所以我们把每个 $V_i$ 求 $\ln$，就可以把 $\operatorname{Magic}$ 由求积转化为求和了，并且这样的转化并不会影响答案之间的大小关系。</p>
-<p>而 $\displaystyle{\sqrt[\operatorname{Count}]{}}$ 这个部分，可以发现它直接变成了 $\displaystyle \frac{1}{\operatorname{Count}}$，所以原式就化为了 $\displaystyle \frac{\operatorname{Magic}}{\operatorname{Count}}$。</p>
-<p>我们再重新审视一遍 $\operatorname{Magic}$ 和 $\operatorname{Count}$：每次当前者加上一个 $V_i$ 时，后者就会伴随着加上一个 $1$，而又因为两者的贡献是呈分数形式的，所以算法的大致轮廓大致就出来了 —— $0/1$ 分数规划。</p>
-<p>我们知道，$0/1$ 分数规划关于 “解的存在性” 具有单调性。所以，我们可以考虑二分一个答案 $mid$，那么有：</p>
-<script type="math/tex; mode=display">
+<p>和乘积有关的题目，一个好的思路是化乘为加。所以我们把每个 <span
+class="math inline">\(V_i\)</span> 求 <span
+class="math inline">\(\ln\)</span>，就可以把 <span
+class="math inline">\(\operatorname{Magic}\)</span>
+由求积转化为求和了，并且这样的转化并不会影响答案之间的大小关系。</p>
+<p>而 <span
+class="math inline">\(\displaystyle{\sqrt[\operatorname{Count}]{}}\)</span>
+这个部分，可以发现它直接变成了 <span class="math inline">\(\displaystyle
+\frac{1}{\operatorname{Count}}\)</span>，所以原式就化为了 <span
+class="math inline">\(\displaystyle
+\frac{\operatorname{Magic}}{\operatorname{Count}}\)</span>。</p>
+<p>我们再重新审视一遍 <span
+class="math inline">\(\operatorname{Magic}\)</span> 和 <span
+class="math inline">\(\operatorname{Count}\)</span>：每次当前者加上一个
+<span class="math inline">\(V_i\)</span> 时，后者就会伴随着加上一个
+<span
+class="math inline">\(1\)</span>，而又因为两者的贡献是呈分数形式的，所以算法的大致轮廓大致就出来了
+—— <span class="math inline">\(0/1\)</span> 分数规划。</p>
+<p>我们知道，<span class="math inline">\(0/1\)</span> 分数规划关于
+“解的存在性” 具有单调性。所以，我们可以考虑二分一个答案 <span
+class="math inline">\(mid\)</span>，那么有： <span
+class="math display">\[
 \begin{matrix}
-\dfrac{\displaystyle{\sum_{i = 1}^{\operatorname{Count}} V_i}}{\operatorname{Count}} > mid
+\dfrac{\displaystyle{\sum_{i = 1}^{\operatorname{Count}}
+V_i}}{\operatorname{Count}} &gt; mid
 \\
-\displaystyle{\sum_{i = 1}^{\operatorname{Count}}} V_i > {\operatorname{Count}} * mid
+\displaystyle{\sum_{i = 1}^{\operatorname{Count}}} V_i &gt;
+{\operatorname{Count}} * mid
 \\
-\displaystyle{\sum_{i = 1}^{\operatorname{Count}}} (V_i - mid) > 0
-\end{matrix}</script><p>（注意到大于号 $&gt;$ 了吗？这里并非大于等于号 $\ge$，因为当贡献最大值为 $0$ 时，二分到的 $mid$ 并非一个可行答案。当然，也会存在 $\operatorname{Answer}$ 为 $0$ 的情况，此时任意一个合法的字符串均为答案。）</p>
-<p>推导到这里，可以发现，只要给每一个权值减去一个 $mid$，那么这个式子的值和 $\operatorname{Count}$ 的具体值已经没有关系了。</p>
-<p>剩下的部分，就是求出左侧式子的最大值，然后和 $0$ 比较了。</p>
-<p>而我们要如何求这个最大值呢？可以发现它和普通的 $0/1$ 分数规划不太一样：每个位置是 $0$ 还是 $1$ 并不能自由决定。</p>
-<p>我们再重新审视一遍这个问题：填充 $S$ 的所有 $.$ 字符，使得出现的所有 $T_i$ 的权值和最大。</p>
-<p>这个问题显然涉及到了字符串的多模匹配问题，因此我们考虑用 $\operatorname{AC}$ 自动机来解决这个问题。</p>
-<p>我们可以设状态 $f_{i, j}$，表示走到自动机的 $i$ 号节点，同时 $S$ 串已经填完第 $j$ 个字符的最大权值。</p>
+\displaystyle{\sum_{i = 1}^{\operatorname{Count}}} (V_i - mid) &gt; 0
+\end{matrix}
+\]</span></p>
+<p>（注意到大于号 <span class="math inline">\(&gt;\)</span>
+了吗？这里并非大于等于号 <span
+class="math inline">\(\ge\)</span>，因为当贡献最大值为 <span
+class="math inline">\(0\)</span> 时，二分到的 <span
+class="math inline">\(mid\)</span> 并非一个可行答案。当然，也会存在
+<span class="math inline">\(\operatorname{Answer}\)</span> 为 <span
+class="math inline">\(0\)</span>
+的情况，此时任意一个合法的字符串均为答案。）</p>
+<p>推导到这里，可以发现，只要给每一个权值减去一个 <span
+class="math inline">\(mid\)</span>，那么这个式子的值和 <span
+class="math inline">\(\operatorname{Count}\)</span>
+的具体值已经没有关系了。</p>
+<p>剩下的部分，就是求出左侧式子的最大值，然后和 <span
+class="math inline">\(0\)</span> 比较了。</p>
+<p>而我们要如何求这个最大值呢？可以发现它和普通的 <span
+class="math inline">\(0/1\)</span> 分数规划不太一样：每个位置是 <span
+class="math inline">\(0\)</span> 还是 <span
+class="math inline">\(1\)</span> 并不能自由决定。</p>
+<p>我们再重新审视一遍这个问题：填充 <span
+class="math inline">\(S\)</span> 的所有 <span
+class="math inline">\(.\)</span> 字符，使得出现的所有 <span
+class="math inline">\(T_i\)</span> 的权值和最大。</p>
+<p>这个问题显然涉及到了字符串的多模匹配问题，因此我们考虑用 <span
+class="math inline">\(\operatorname{AC}\)</span>
+自动机来解决这个问题。</p>
+<p>我们可以设状态 <span class="math inline">\(f_{i,
+j}\)</span>，表示走到自动机的 <span class="math inline">\(i\)</span>
+号节点，同时 <span class="math inline">\(S\)</span> 串已经填完第 <span
+class="math inline">\(j\)</span> 个字符的最大权值。</p>
 <p>转移很简单，由于自动机具有优美的结构，因此我们仅需每次枚举下一个字符进行转移即可。</p>
 <p>（注意由于我们需要输出最终字符串，因此转移时需要记录前驱状态和转移时枚举的字符。）</p>
 <p>最后一个问题来了：如何处理自动机上每个点的贡献？</p>
-<p>显然，对于一个点，如果它对应了一个 $T_i$，那么在 $\operatorname{Fail}$ 树中以它为根的子树都需要加上他的权值（因为都会匹配到这个串）。所以，对于每一个 $mid$，我们利用树上差分重构一遍自动机上每个点的贡献即可。</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/tree/master/Codes/%E3%80%90%E9%A2%98%E8%A7%A3%E3%80%91Luogu5319%20BJOI2019%20%E5%A5%A5%E6%9C%AF%E7%A5%9E%E6%9D%96/Luogu5319%20BJOI2019%20%E5%A5%A5%E6%9C%AF%E7%A5%9E%E6%9D%96.cpp">放上代码（在我的 $\operatorname{github}$ 仓库中查看）</a></p>
+<p>显然，对于一个点，如果它对应了一个 <span
+class="math inline">\(T_i\)</span>，那么在 <span
+class="math inline">\(\operatorname{Fail}\)</span>
+树中以它为根的子树都需要加上他的权值（因为都会匹配到这个串）。所以，对于每一个
+<span
+class="math inline">\(mid\)</span>，我们利用树上差分重构一遍自动机上每个点的贡献即可。</p>
+<p><a
+target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/tree/master/Codes/%E3%80%90%E9%A2%98%E8%A7%A3%E3%80%91Luogu5319%20BJOI2019%20%E5%A5%A5%E6%9C%AF%E7%A5%9E%E6%9D%96/Luogu5319%20BJOI2019%20%E5%A5%A5%E6%9C%AF%E7%A5%9E%E6%9D%96.cpp">放上代码（在我的
+<span class="math inline">\(\operatorname{github}\)</span>
+仓库中查看）</a></p>
 
             </div>
             <hr>
