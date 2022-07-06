@@ -205,7 +205,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      13k 字
+      14k 字
     </span>
   
 
@@ -214,7 +214,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      112 分钟
+      118 分钟
     </span>
   
 
@@ -246,356 +246,674 @@
             <h1 style="display: none">【学习笔记】斯特林的试炼</h1>
             
             <div class="markdown-body">
-              <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>由于式子较多，为增强直观性，笔者将用 $\displaystyle \binom{n}{m}$ 表示组合数 $\operatorname{C}_n^m$。</p>
+              <h2 id="前言">前言</h2>
+<p>由于式子较多，为增强直观性，笔者将用 <span
+class="math inline">\(\displaystyle \binom{n}{m}\)</span> 表示组合数
+<span class="math inline">\(\operatorname{C}_n^m\)</span>。</p>
 <p>同理，笔者会用如下的形式：</p>
-<script type="math/tex; mode=display">
-\begin{bmatrix}n \\ k\end{bmatrix}</script><p>以及：</p>
-<script type="math/tex; mode=display">
-\begin{Bmatrix}n \\ k\end{Bmatrix}</script><p>分别表示第一类斯特林数 $s(n, k)$ 和第二类斯特林数 $S(n, k)$。</p>
+<p><span class="math display">\[
+\begin{bmatrix}n \\ k\end{bmatrix}
+\]</span></p>
+<p>以及： <span class="math display">\[
+\begin{Bmatrix}n \\ k\end{Bmatrix}
+\]</span> 分别表示第一类斯特林数 <span class="math inline">\(s(n,
+k)\)</span> 和第二类斯特林数 <span class="math inline">\(S(n,
+k)\)</span>。</p>
 <p>注意：这些符号的定义下文不会再次提及。</p>
 <p>阅读这篇文章前，您需要较为熟练地掌握组合数、排列数（特别是圆排列）的定义和公式，以及常见的组合恒等式。</p>
-<hr>
-<h2 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a>前置知识</h2><h3 id="上升幂和下降幂"><a href="#上升幂和下降幂" class="headerlink" title="上升幂和下降幂"></a>上升幂和下降幂</h3><ul>
-<li>定义 $x^{\overline{n}}$ 为 $x$ 的 $n$ 次上升阶乘幂，又称上升幂。它的值等于 $\displaystyle \prod_{i = 0}^{n - 1} (x + i)$。</li>
-<li>定义 $x^{\underline{n}}$ 为 $x$ 的 $n$ 次下降阶乘幂，又称下降幂。它的值等于 $\displaystyle \prod_{i = 0}^{n - 1} (x - i)$。</li>
+<hr />
+<h2 id="前置知识">前置知识</h2>
+<h3 id="上升幂和下降幂">上升幂和下降幂</h3>
+<ul>
+<li>定义 <span class="math inline">\(x^{\overline{n}}\)</span> 为 <span
+class="math inline">\(x\)</span> 的 <span
+class="math inline">\(n\)</span> 次上升阶乘幂，又称上升幂。它的值等于
+<span class="math inline">\(\displaystyle \prod_{i = 0}^{n - 1} (x +
+i)\)</span>。</li>
+<li>定义 <span class="math inline">\(x^{\underline{n}}\)</span> 为 <span
+class="math inline">\(x\)</span> 的 <span
+class="math inline">\(n\)</span> 次下降阶乘幂，又称下降幂。它的值等于
+<span class="math inline">\(\displaystyle \prod_{i = 0}^{n - 1} (x -
+i)\)</span>。</li>
 </ul>
-<p>上升幂和下降幂的转换公式（请读者自主完成证明）：</p>
-<script type="math/tex; mode=display">
+<p>上升幂和下降幂的转换公式（请读者自主完成证明）： <span
+class="math display">\[
 \begin{matrix}
 (-x)^{\overline{n}} = (-1)^n \cdot x^{\underline{n}}
 \\
 (-x)^{\underline{n}} = (-1)^n \cdot x^{\overline{n}}
-\end{matrix}</script><p>实际上，上升幂和下降幂与普通幂之间也有转换公式，不过由于公式中存在斯特林数，因此将在下文提及。</p>
-<h3 id="普通生成函数"><a href="#普通生成函数" class="headerlink" title="普通生成函数"></a>普通生成函数</h3><p>通俗的讲，对于一个数列 $a_n$，它的普通生成函数（简称 $\operatorname{OGF}$）为一个多项式：</p>
-<script type="math/tex; mode=display">
-f(x) = \sum_{i = 0}^{\infty} a_i\cdot x^i</script><p>（严谨地讲，$f(x)$ 应该叫做形式幂级数，不过笔者并不了解其确切定义，因此这里用更通俗的方式解释。）</p>
-<p>也就是说，对于多项式 $f(x)$，有 $a_n = [x^n]f(x)$。</p>
+\end{matrix}
+\]</span>
+实际上，上升幂和下降幂与普通幂之间也有转换公式，不过由于公式中存在斯特林数，因此将在下文提及。</p>
+<h3 id="普通生成函数">普通生成函数</h3>
+<p>通俗的讲，对于一个数列 <span
+class="math inline">\(a_n\)</span>，它的普通生成函数（简称 <span
+class="math inline">\(\operatorname{OGF}\)</span>）为一个多项式： <span
+class="math display">\[
+f(x) = \sum_{i = 0}^{\infty} a_i\cdot x^i
+\]</span> （严谨地讲，<span class="math inline">\(f(x)\)</span>
+应该叫做形式幂级数，不过笔者并不了解其确切定义，因此这里用更通俗的方式解释。）</p>
+<p>也就是说，对于多项式 <span class="math inline">\(f(x)\)</span>，有
+<span class="math inline">\(a_n = [x^n]f(x)\)</span>。</p>
 <p>如果我们能够得到这个多项式，那么我们也可以从它的系数中获取到这个序列。</p>
 <p>同时，如果我们要对数列间做一些运算（如卷积），也可以通过对这个多项式做运算得到最终的结果。</p>
-<hr>
-<h2 id="第一类斯特林数"><a href="#第一类斯特林数" class="headerlink" title="第一类斯特林数"></a>第一类斯特林数</h2><p>把 $n$ 个互不相同的数分为 $k$ 个圆排列，这样的方案数称为第一类斯特林数，也叫斯特林轮换数。</p>
-<h3 id="递推式"><a href="#递推式" class="headerlink" title="递推式"></a>递推式</h3><p>我们知道，如果在一个长为 $n$ 的圆排列中插入一个数（一共有 $n$ 个位置可以插入），形成的 $n$ 种长为 $n + 1$ 的圆排列是互不相同的，因为它们互相之间不可以通过轮换得到。</p>
-<p>所以，第一类斯特林数有递推公式：</p>
-<script type="math/tex; mode=display">
-\begin{bmatrix}n \\ k\end{bmatrix} = \begin{bmatrix}n - 1 \\ k - 1\end{bmatrix} + (n - 1) \cdot \begin{bmatrix}n - 1 \\ k\end{bmatrix}</script><p>考虑从组合意义去证明：加入一个数，要么自己单独构成一个圆排列，要么插入已有的圆排列。前面说过，后者的方案数为 $n - 1$。所以，根据加法原理，即可得到该递推式。</p>
-<p>当然，该递推式也存在边界条件：</p>
-<script type="math/tex; mode=display">
-\begin{bmatrix}n \\ 0\end{bmatrix} = [n = 0]</script><p>由于第一类斯特林数不存在通项公式，这个递推式就显得尤为重要了，它将辅助证明下面的诸多结论。</p>
-<h3 id="常用公式"><a href="#常用公式" class="headerlink" title="常用公式"></a>常用公式</h3><h4 id="1-和阶乘的关系："><a href="#1-和阶乘的关系：" class="headerlink" title="1. 和阶乘的关系："></a>1. 和阶乘的关系：</h4><script type="math/tex; mode=display">
-n! = \sum_{i = 0}^n \begin{bmatrix}n \\ i\end{bmatrix}</script><p>前者实际上是指 $1\sim n$ 的全排列。由于每一种排列中，圆排列的个数是一定的，那么我们可以考虑枚举所有的圆排列个数，把对应的第一类斯特林数相加即为答案。 </p>
-<h4 id="2-和上升幂的关系（上升幂转普通幂）："><a href="#2-和上升幂的关系（上升幂转普通幂）：" class="headerlink" title="2. 和上升幂的关系（上升幂转普通幂）："></a>2. 和上升幂的关系（上升幂转普通幂）：</h4><script type="math/tex; mode=display">
-x^{\overline{n}} = \sum_{i = 0}^n \begin{bmatrix}n \\ i\end{bmatrix} \cdot x^i</script><p>证明：</p>
-<p>第一种，考虑构造生成函数：</p>
-<script type="math/tex; mode=display">
-f_n(x) = \sum_{i = 0}^\infty \begin{bmatrix}n \\ i\end{bmatrix} \cdot x^i</script><p>证明如下：</p>
-<script type="math/tex; mode=display">
+<hr />
+<h2 id="第一类斯特林数">第一类斯特林数</h2>
+<p>把 <span class="math inline">\(n\)</span> 个互不相同的数分为 <span
+class="math inline">\(k\)</span>
+个圆排列，这样的方案数称为第一类斯特林数，也叫斯特林轮换数。</p>
+<h3 id="递推式">递推式</h3>
+<p>我们知道，如果在一个长为 <span class="math inline">\(n\)</span>
+的圆排列中插入一个数（一共有 <span class="math inline">\(n\)</span>
+个位置可以插入），形成的 <span class="math inline">\(n\)</span> 种长为
+<span class="math inline">\(n + 1\)</span>
+的圆排列是互不相同的，因为它们互相之间不可以通过轮换得到。</p>
+<p>所以，第一类斯特林数有递推公式： <span class="math display">\[
+\begin{bmatrix}n \\ k\end{bmatrix} = \begin{bmatrix}n - 1 \\ k -
+1\end{bmatrix} + (n - 1) \cdot \begin{bmatrix}n - 1 \\ k\end{bmatrix}
+\]</span>
+考虑从组合意义去证明：加入一个数，要么自己单独构成一个圆排列，要么插入已有的圆排列。前面说过，后者的方案数为
+<span class="math inline">\(n -
+1\)</span>。所以，根据加法原理，即可得到该递推式。</p>
+<p>当然，该递推式也存在边界条件： <span class="math display">\[
+\begin{bmatrix}n \\ 0\end{bmatrix} = [n = 0]
+\]</span>
+由于第一类斯特林数不存在通项公式，这个递推式就显得尤为重要了，它将辅助证明下面的诸多结论。</p>
+<h3 id="常用公式">常用公式</h3>
+<h4 id="和阶乘的关系">1. 和阶乘的关系：</h4>
+<p><span class="math display">\[
+n! = \sum_{i = 0}^n \begin{bmatrix}n \\ i\end{bmatrix}
+\]</span></p>
+<p>前者实际上是指 <span class="math inline">\(1\sim n\)</span>
+的全排列。由于每一种排列中，圆排列的个数是一定的，那么我们可以考虑枚举所有的圆排列个数，把对应的第一类斯特林数相加即为答案。</p>
+<h4 id="和上升幂的关系上升幂转普通幂">2.
+和上升幂的关系（上升幂转普通幂）：</h4>
+<p><span class="math display">\[
+x^{\overline{n}} = \sum_{i = 0}^n \begin{bmatrix}n \\ i\end{bmatrix}
+\cdot x^i
+\]</span></p>
+<p>证明：</p>
+<p>第一种，考虑构造生成函数： <span class="math display">\[
+f_n(x) = \sum_{i = 0}^\infty \begin{bmatrix}n \\ i\end{bmatrix} \cdot
+x^i
+\]</span> 证明如下： <span class="math display">\[
 \begin{aligned}
-&\because  f_n(x) = x\cdot f_{n - 1}(x) + (n - 1)\cdot f_{n - 1}(x)
+&amp;\because  f_n(x) = x\cdot f_{n - 1}(x) + (n - 1)\cdot f_{n - 1}(x)
 \\
-&\therefore f_n(x) = (x + n - 1)\cdot f_{n - 1}(x)
+&amp;\therefore f_n(x) = (x + n - 1)\cdot f_{n - 1}(x)
 \\
-&\because f_1(x) = x
+&amp;\because f_1(x) = x
 \\
-&\therefore f_n(x) = \sum_{i = 0}^n \begin{bmatrix}n \\ i\end{bmatrix} \cdot x^i = x^{\overline{n}}
-\end{aligned}</script><p>以上证明过程也说明了：所有 $n$ 相同的第一类斯特林数（也叫第 $n$ 行第一类斯特林数）的生成函数是 $x^{\overline{n}}$。</p>
+&amp;\therefore f_n(x) = \sum_{i = 0}^n \begin{bmatrix}n \\
+i\end{bmatrix} \cdot x^i = x^{\overline{n}}
+\end{aligned}
+\]</span></p>
+<p>以上证明过程也说明了：所有 <span class="math inline">\(n\)</span>
+相同的第一类斯特林数（也叫第 <span class="math inline">\(n\)</span>
+行第一类斯特林数）的生成函数是 <span
+class="math inline">\(x^{\overline{n}}\)</span>。</p>
 <p>第二种，受上面过程的启发，我们还可以考虑用数学归纳法证明。</p>
-<p>显然当 $n = 0$ 或 $n = 1$ 时，原式左右两边相等。</p>
-<p>设当前结论满足 $n = m$ 的情况，求证当前结论也满足 $n = m + 1$ 的情况。</p>
-<p>问题转化为证明：</p>
-<script type="math/tex; mode=display">
-\sum_{i = 0}^{n + 1} \begin{bmatrix}n + 1 \\ i\end{bmatrix}\cdot x^i = (x  + n)\cdot \sum_{i = 0}^n \begin{bmatrix}n \\ i\end{bmatrix}\cdot x^i</script><p>过程如下：</p>
-<script type="math/tex; mode=display">
+<p>显然当 <span class="math inline">\(n = 0\)</span> 或 <span
+class="math inline">\(n = 1\)</span> 时，原式左右两边相等。</p>
+<p>设当前结论满足 <span class="math inline">\(n = m\)</span>
+的情况，求证当前结论也满足 <span class="math inline">\(n = m +
+1\)</span> 的情况。</p>
+<p>问题转化为证明： <span class="math display">\[
+\sum_{i = 0}^{n + 1} \begin{bmatrix}n + 1 \\ i\end{bmatrix}\cdot x^i =
+(x  + n)\cdot \sum_{i = 0}^n \begin{bmatrix}n \\ i\end{bmatrix}\cdot x^i
+\]</span> 过程如下： <span class="math display">\[
 \begin{aligned}
-&\sum_{i = 0}^{n + 1} \begin{bmatrix}n + 1 \\ i\end{bmatrix}\cdot x^i 
+&amp;\sum_{i = 0}^{n + 1} \begin{bmatrix}n + 1 \\ i\end{bmatrix}\cdot
+x^i
 \\
-= &\sum_{i = 0}^{n + 1} (\begin{bmatrix}n \\ i - 1\end{bmatrix} + n\cdot\begin{bmatrix}n \\ i\end{bmatrix})\cdot x^i 
+= &amp;\sum_{i = 0}^{n + 1} (\begin{bmatrix}n \\ i - 1\end{bmatrix} +
+n\cdot\begin{bmatrix}n \\ i\end{bmatrix})\cdot x^i
 \\
-= &\sum_{i = 0}^{n + 1} \begin{bmatrix}n \\ i - 1\end{bmatrix}\cdot x^i +  \sum_{i = 0}^{n + 1} n\cdot\begin{bmatrix}n \\ i\end{bmatrix}\cdot x^i 
+= &amp;\sum_{i = 0}^{n + 1} \begin{bmatrix}n \\ i - 1\end{bmatrix}\cdot
+x^i +  \sum_{i = 0}^{n + 1} n\cdot\begin{bmatrix}n \\
+i\end{bmatrix}\cdot x^i
 \\
-= &\sum_{i = 0}^{n} \begin{bmatrix}n \\ i\end{bmatrix}\cdot x^{i + 1} +  n \cdot\sum_{i = 0}^{n}\begin{bmatrix}n \\ i\end{bmatrix}\cdot x^i 
+= &amp;\sum_{i = 0}^{n} \begin{bmatrix}n \\ i\end{bmatrix}\cdot x^{i +
+1} +  n \cdot\sum_{i = 0}^{n}\begin{bmatrix}n \\ i\end{bmatrix}\cdot x^i
 \\
-= &x\cdot\sum_{i = 0}^{n} \begin{bmatrix}n \\ i\end{bmatrix}\cdot x^{i} +  n \cdot\sum_{i = 0}^{n}\begin{bmatrix}n \\ i\end{bmatrix}\cdot x^i
+= &amp;x\cdot\sum_{i = 0}^{n} \begin{bmatrix}n \\ i\end{bmatrix}\cdot
+x^{i} +  n \cdot\sum_{i = 0}^{n}\begin{bmatrix}n \\ i\end{bmatrix}\cdot
+x^i
 \\
-= &(x + n)\cdot \sum_{i = 0}^n \begin{bmatrix}n \\ i\end{bmatrix}\cdot x^i
-\end{aligned}</script><h3 id="同一行第一类斯特林数的求法"><a href="#同一行第一类斯特林数的求法" class="headerlink" title="同一行第一类斯特林数的求法"></a>同一行第一类斯特林数的求法</h3><p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5408">模板题</a></p>
-<p>根据递推公式，我们可以得到一个 $\mathcal{O}(n^2)$ 的做法。</p>
-<p>根据上面的结论（第 $n$ 行第一类斯特林数的生成函数是 $x^{\overline{n}}$），我们有 $\mathcal{O}(n \log_2^2 n)$ 的做法：</p>
-<p>因为上升幂本质上是若干个二项式相乘，所以我们分治后直接跑 $\operatorname{NTT}$ 即可。</p>
+= &amp;(x + n)\cdot \sum_{i = 0}^n \begin{bmatrix}n \\
+i\end{bmatrix}\cdot x^i
+\end{aligned}
+\]</span></p>
+<h3 id="同一行第一类斯特林数的求法">同一行第一类斯特林数的求法</h3>
+<p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5408">模板题</a></p>
+<p>根据递推公式，我们可以得到一个 <span
+class="math inline">\(\mathcal{O}(n^2)\)</span> 的做法。</p>
+<p>根据上面的结论（第 <span class="math inline">\(n\)</span>
+行第一类斯特林数的生成函数是 <span
+class="math inline">\(x^{\overline{n}}\)</span>），我们有 <span
+class="math inline">\(\mathcal{O}(n \log_2^2 n)\)</span> 的做法：</p>
+<p>因为上升幂本质上是若干个二项式相乘，所以我们分治后直接跑 <span
+class="math inline">\(\operatorname{NTT}\)</span> 即可。</p>
 <p>有没有更快的做法？当然有！</p>
-<p>考虑倍增（它是多项式内容里的常客），当前求出了 $x^{\overline{n}}$，要求 $x^{\overline{2n}}$。</p>
-<p>因为 $x^{\overline{2n}} = x^{\overline{n}}\cdot (x + n)^{\overline{n}}$，所以我们只要能够求出 $(x + n)^{\overline{n}}$，就能够做到 $\mathcal{O}(n \log_2 n)$ 了。</p>
-<p>考虑生成函数的展开形式：已知 $\displaystyle f(x) = \sum_{i = 0}^n a_i\cdot x^i$，要求 $\displaystyle f(x + n) = \sum_{i = 0}^n a_i\cdot (x + n)^i$。</p>
-<p>我们对后面的这个式子做二项式展开：</p>
-<script type="math/tex; mode=display">
+<p>考虑倍增（它是多项式内容里的常客），当前求出了 <span
+class="math inline">\(x^{\overline{n}}\)</span>，要求 <span
+class="math inline">\(x^{\overline{2n}}\)</span>。</p>
+<p>因为 <span class="math inline">\(x^{\overline{2n}} =
+x^{\overline{n}}\cdot (x +
+n)^{\overline{n}}\)</span>，所以我们只要能够求出 <span
+class="math inline">\((x + n)^{\overline{n}}\)</span>，就能够做到 <span
+class="math inline">\(\mathcal{O}(n \log_2 n)\)</span> 了。</p>
+<p>考虑生成函数的展开形式：已知 <span
+class="math inline">\(\displaystyle f(x) = \sum_{i = 0}^n a_i\cdot
+x^i\)</span>，要求 <span class="math inline">\(\displaystyle f(x + n) =
+\sum_{i = 0}^n a_i\cdot (x + n)^i\)</span>。</p>
+<p>我们对后面的这个式子做二项式展开： <span class="math display">\[
 \begin{aligned}
-&\sum_{i = 0}^n a_i\cdot (x + n)^i
+&amp;\sum_{i = 0}^n a_i\cdot (x + n)^i
 \\
-= &\sum_{i = 0}^n a_i\sum_{j = 0}^i\displaystyle\binom{i}{j}\cdot x^j\cdot n^{i - j} 
+= &amp;\sum_{i = 0}^n a_i\sum_{j = 0}^i\displaystyle\binom{i}{j}\cdot
+x^j\cdot n^{i - j}
 \\
-= &\sum_{i = 0}^n a_i\sum_{j = 0}^i\frac{i!}{j!\cdot(i - j)!}\cdot x^j\cdot n^{i - j} 
+= &amp;\sum_{i = 0}^n a_i\sum_{j = 0}^i\frac{i!}{j!\cdot(i - j)!}\cdot
+x^j\cdot n^{i - j}
 \\
-= &\sum_{j = 0}^n\frac{x_j}{j!}\sum_{i = j}^n a_i \cdot i!\cdot\frac{n^{i - j}}{(i - j)!}
+= &amp;\sum_{j = 0}^n\frac{x_j}{j!}\sum_{i = j}^n a_i \cdot
+i!\cdot\frac{n^{i - j}}{(i - j)!}
 \\
-= &\sum_{j = 0}^n\frac{x_j}{j!}\sum_{i = 0}^{n - j} a_{i + j}\cdot(i + j)!\cdot\frac{n^{i}}{i!}
-\end{aligned}</script><p>不看左边，我们设右边的式子为 $c_j$，发现其很像卷积形式，但是用 $\operatorname{NTT}$ 是不能直接做的。</p>
-<p>没关系，我们还是可以用 $\operatorname{NTT}$ 做的，只不过有一个小技巧：颠倒系数。</p>
+= &amp;\sum_{j = 0}^n\frac{x_j}{j!}\sum_{i = 0}^{n - j} a_{i + j}\cdot(i
++ j)!\cdot\frac{n^{i}}{i!}
+\end{aligned}
+\]</span> 不看左边，我们设右边的式子为 <span
+class="math inline">\(c_j\)</span>，发现其很像卷积形式，但是用 <span
+class="math inline">\(\operatorname{NTT}\)</span> 是不能直接做的。</p>
+<p>没关系，我们还是可以用 <span
+class="math inline">\(\operatorname{NTT}\)</span>
+做的，只不过有一个小技巧：颠倒系数。</p>
 <p>什么意思？</p>
-<p>正常的卷积形式是 $\displaystyle \sum_{i = 0}^j f_i\cdot g_{j - i}$。</p>
-<p>如果我们把 $f_i$ 这个数列翻转过来，还是做正常的卷积，得到的结果应该是：$\displaystyle \sum_{i = 0}^jf_{n - i}\cdot g_{j - i}$。</p>
-<p>或者把 $g_i$ 这个数列翻转过来，也做正常的卷积，得到的结果是：$\displaystyle \sum_{i = 0}^jf_i\cdot g_{n - j + i}$。</p>
-<p>可以发现，在原来的卷积中，$f$ 的下标里的 $i$ 和 $g$ 的下标里的 $i$ 是以相反数的形式出现的。不过在颠倒系数后，$f$ 的下标里的 $i$ 和 $g$ 的下标里的 $i$ 是以同符号形式出现的。</p>
-<p>我们再看看 $c_j$，如果设 $f_i = a_i\cdot i!$，设 $g_i = \frac{n^i}{i!}$，那么有 $\displaystyle c_j = \sum_{i = 0}^{n - j} f_{i+j}\cdot g_{i}$，下标中的 $i$ 也是以同符号形式出现的！</p>
-<p>所以，算法的大体框架已经出来了：我们只要求出 $f_i$ 和 $g_i$，然后颠倒其中的一个，再把它们做一遍 $\operatorname{NTT}$。</p>
-<p>当然，做完 $\operatorname{NTT}$ 后的答案并不是我们想要的答案，只不过是形式对应了而已。</p>
-<p>如果将 $f_i$ 颠倒，即 $f’_i = f_{n - i}$，则对 $f’$ 和 $g$ 卷积后的结果为：</p>
-<script type="math/tex; mode=display">
-c'_j = \sum_{i = 0}^jf_{n - j  + i}\cdot g_{j}</script><p>那么有对应关系：</p>
-<script type="math/tex; mode=display">
+<p>正常的卷积形式是 <span class="math inline">\(\displaystyle \sum_{i =
+0}^j f_i\cdot g_{j - i}\)</span>。</p>
+<p>如果我们把 <span class="math inline">\(f_i\)</span>
+这个数列翻转过来，还是做正常的卷积，得到的结果应该是：<span
+class="math inline">\(\displaystyle \sum_{i = 0}^jf_{n - i}\cdot g_{j -
+i}\)</span>。</p>
+<p>或者把 <span class="math inline">\(g_i\)</span>
+这个数列翻转过来，也做正常的卷积，得到的结果是：<span
+class="math inline">\(\displaystyle \sum_{i = 0}^jf_i\cdot g_{n - j +
+i}\)</span>。</p>
+<p>可以发现，在原来的卷积中，<span class="math inline">\(f\)</span>
+的下标里的 <span class="math inline">\(i\)</span> 和 <span
+class="math inline">\(g\)</span> 的下标里的 <span
+class="math inline">\(i\)</span>
+是以相反数的形式出现的。不过在颠倒系数后，<span
+class="math inline">\(f\)</span> 的下标里的 <span
+class="math inline">\(i\)</span> 和 <span
+class="math inline">\(g\)</span> 的下标里的 <span
+class="math inline">\(i\)</span> 是以同符号形式出现的。</p>
+<p>我们再看看 <span class="math inline">\(c_j\)</span>，如果设 <span
+class="math inline">\(f_i = a_i\cdot i!\)</span>，设 <span
+class="math inline">\(g_i = \frac{n^i}{i!}\)</span>，那么有 <span
+class="math inline">\(\displaystyle c_j = \sum_{i = 0}^{n - j}
+f_{i+j}\cdot g_{i}\)</span>，下标中的 <span
+class="math inline">\(i\)</span> 也是以同符号形式出现的！</p>
+<p>所以，算法的大体框架已经出来了：我们只要求出 <span
+class="math inline">\(f_i\)</span> 和 <span
+class="math inline">\(g_i\)</span>，然后颠倒其中的一个，再把它们做一遍
+<span class="math inline">\(\operatorname{NTT}\)</span>。</p>
+<p>当然，做完 <span class="math inline">\(\operatorname{NTT}\)</span>
+后的答案并不是我们想要的答案，只不过是形式对应了而已。</p>
+<p>如果将 <span class="math inline">\(f_i\)</span> 颠倒，即 <span
+class="math inline">\(f&#39;_i = f_{n - i}\)</span>，则对 <span
+class="math inline">\(f&#39;\)</span> 和 <span
+class="math inline">\(g\)</span> 卷积后的结果为：</p>
+<p><span class="math display">\[
+c&#39;_j = \sum_{i = 0}^jf_{n - j  + i}\cdot g_{j}
+\]</span></p>
+<p>那么有对应关系：</p>
+<p><span class="math display">\[
 \begin{aligned}
-c_j&=\sum_{i = 0}^{n - j} f_{i+j}\cdot g_{i}
+c_j&amp;=\sum_{i = 0}^{n - j} f_{i+j}\cdot g_{i}
 \\
-&=\sum_{i = 0}^{n - j} f_{n - (n - j) +i}\cdot g_{i}
+&amp;=\sum_{i = 0}^{n - j} f_{n - (n - j) +i}\cdot g_{i}
 \\
-&= c'_{n - j}
-\end{aligned}</script><p>所以只要再把求出的 $c’$ 颠倒即为答案。</p>
-<p>如果将 $g_i$ 颠倒，即 $g’_i = g_{n - i}$，则对 $f$ 和 $g’$ 卷积后的结果为：</p>
-<script type="math/tex; mode=display">
-c'_j = \sum_{i = 0}^jf_{i}\cdot g_{n - j + i}</script><p>那么有对应关系：</p>
-<script type="math/tex; mode=display">
+&amp;= c&#39;_{n - j}
+\end{aligned}
+\]</span></p>
+<p>所以只要再把求出的 <span class="math inline">\(c&#39;\)</span>
+颠倒即为答案。</p>
+<p>如果将 <span class="math inline">\(g_i\)</span> 颠倒，即 <span
+class="math inline">\(g&#39;_i = g_{n - i}\)</span>，则对 <span
+class="math inline">\(f\)</span> 和 <span
+class="math inline">\(g&#39;\)</span> 卷积后的结果为：</p>
+<p><span class="math display">\[
+c&#39;_j = \sum_{i = 0}^jf_{i}\cdot g_{n - j + i}
+\]</span></p>
+<p>那么有对应关系：</p>
+<p><span class="math display">\[
 \begin{aligned}
-c_j &= \sum_{i = 0}^{n - j} f_{i+j}\cdot g_{i}
+c_j &amp;= \sum_{i = 0}^{n - j} f_{i+j}\cdot g_{i}
 \\
-&= \sum_{i = j}^nf_i\cdot g_{i - j}
+&amp;= \sum_{i = j}^nf_i\cdot g_{i - j}
 \\
-&= \sum_{i = 0}^{n + j} f_i\cdot g_{n - (n + j) + i}
+&amp;= \sum_{i = 0}^{n + j} f_i\cdot g_{n - (n + j) + i}
 \\
-&= c'_{j + n}
-\end{aligned}</script><p>（注意：由于 $f$ 和 $g$ 都只有第 $0 \sim n$ 位不为 $0$，所以推导的第三步加入的所有贡献均为 $0$。）</p>
-<p>所以只要把求出的 $c’$ 整体向低位移动 $n$ 位即为答案。</p>
-<p>求出 $(x + n)^{\overline{n}}$ 后，我们再将其和 $x^{\overline{n}}$ 做卷积即可。</p>
-<p>注意要特判奇数的情况，此时还要再乘上一个 $x + 2n$，直接 $\mathcal{O}(n)$ 乘即可。</p>
-<p>放上<a target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/tree/master/Codes/【学习笔记】斯特林的试炼/第一类斯特林数%20·%20行.cpp">代码</a>（写的是第一种，即颠倒 $f_i$）。</p>
-<hr>
-<h3 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h3><ul>
-<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4609">P4609 [FJOI2016] 建筑师</a></li>
+&amp;= c&#39;_{j + n}
+\end{aligned}
+\]</span></p>
+<p>（注意：由于 <span class="math inline">\(f\)</span> 和 <span
+class="math inline">\(g\)</span> 都只有第 <span class="math inline">\(0
+\sim n\)</span> 位不为 <span
+class="math inline">\(0\)</span>，所以推导的第三步加入的所有贡献均为
+<span class="math inline">\(0\)</span>。）</p>
+<p>所以只要把求出的 <span class="math inline">\(c&#39;\)</span>
+整体向低位移动 <span class="math inline">\(n\)</span> 位即为答案。</p>
+<p>求出 <span class="math inline">\((x + n)^{\overline{n}}\)</span>
+后，我们再将其和 <span class="math inline">\(x^{\overline{n}}\)</span>
+做卷积即可。</p>
+<p>注意要特判奇数的情况，此时还要再乘上一个 <span
+class="math inline">\(x + 2n\)</span>，直接 <span
+class="math inline">\(\mathcal{O}(n)\)</span> 乘即可。</p>
+<p>放上<a
+target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/tree/master/Codes/【学习笔记】斯特林的试炼/第一类斯特林数%20·%20行.cpp">代码</a>（写的是第一种，即颠倒
+<span class="math inline">\(f_i\)</span>）。</p>
+<hr />
+<h3 id="例题">例题</h3>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4609">P4609 [FJOI2016]
+建筑师</a></li>
 </ul>
 <p>题解：</p>
 <p>做组合数学的题，光有推式子能力还不行，还得通过组合意义列出答案的式子。</p>
 <p>例如这道题目，我们要思考的是，如何在其中加入组合意义。</p>
 <p>可以发现，无论是从左边还是从右边，都可以并且一定会看到最高的楼。</p>
-<p>然后，我们如果设 $\lambda$ 为能够看到的楼，$.$ 为不能够看到的楼，$H$ 为最高的楼，那么建筑一定是这种形式：</p>
-<script type="math/tex; mode=display">
-\lambda....\lambda..\lambda..\lambda...H.\lambda.....\lambda..\lambda</script><p>我们来从左侧的角度解释一下这个图的一些细节（右侧同理）：</p>
+<p>然后，我们如果设 <span class="math inline">\(\lambda\)</span>
+为能够看到的楼，<span class="math inline">\(.\)</span>
+为不能够看到的楼，<span class="math inline">\(H\)</span>
+为最高的楼，那么建筑一定是这种形式： <span class="math display">\[
+\lambda....\lambda..\lambda..\lambda...H.\lambda.....\lambda..\lambda
+\]</span> 我们来从左侧的角度解释一下这个图的一些细节（右侧同理）：</p>
 <ul>
-<li>$H$ 左侧的 $\lambda$ 数量为 $A - 1$；</li>
-<li>左侧要么不存在 $\lambda$，要么第一个字符即为 $\lambda$，每一个 $\lambda$ 的右边存在若干个 $.$，这个 $\lambda$ 的高度高于这些 $.$；</li>
-<li>对于左侧的一个 $\lambda$，右侧的 $.$ 顺序随意。</li>
+<li><span class="math inline">\(H\)</span> 左侧的 <span
+class="math inline">\(\lambda\)</span> 数量为 <span
+class="math inline">\(A - 1\)</span>；</li>
+<li>左侧要么不存在 <span
+class="math inline">\(\lambda\)</span>，要么第一个字符即为 <span
+class="math inline">\(\lambda\)</span>，每一个 <span
+class="math inline">\(\lambda\)</span> 的右边存在若干个 <span
+class="math inline">\(.\)</span>，这个 <span
+class="math inline">\(\lambda\)</span> 的高度高于这些 <span
+class="math inline">\(.\)</span>；</li>
+<li>对于左侧的一个 <span class="math inline">\(\lambda\)</span>，右侧的
+<span class="math inline">\(.\)</span> 顺序随意。</li>
 </ul>
-<p>“顺序随意” 给了我们一定的启发，如果耐心把式子列出来，可以发现：如果我们把一个 $\lambda$ 和其右侧的 $m$ 个 $.$ 看作一个整体，那么由于一共有 $(m - 1)!$ 种排列方式。</p>
+<p>“顺序随意”
+给了我们一定的启发，如果耐心把式子列出来，可以发现：如果我们把一个 <span
+class="math inline">\(\lambda\)</span> 和其右侧的 <span
+class="math inline">\(m\)</span> 个 <span
+class="math inline">\(.\)</span> 看作一个整体，那么由于一共有 <span
+class="math inline">\((m - 1)!\)</span> 种排列方式。</p>
 <p>如果你对排列数十分敏感，可以一眼看出——这就是圆排列。</p>
 <p>圆排列！我们能想到什么？第一类斯特林数！</p>
-<p>所以，我们只要在 $n - 1$ 个数中选出 $A + B - 2$ 个圆排列，并任选 $A-1$ 个放在 $H$ 的左边，$B - 1$ 个放在 $H$ 的右边，即为一种方案。</p>
-<p>那么，答案就呼之欲出了：</p>
-<script type="math/tex; mode=display">
-\begin{bmatrix}n - 1 \\ A + B - 2\end{bmatrix} \cdot \displaystyle\binom{A + B - 2}{A - 1}</script><p>直接预处理即可，时间在可承受范围内。</p>
+<p>所以，我们只要在 <span class="math inline">\(n - 1\)</span>
+个数中选出 <span class="math inline">\(A + B - 2\)</span>
+个圆排列，并任选 <span class="math inline">\(A-1\)</span> 个放在 <span
+class="math inline">\(H\)</span> 的左边，<span class="math inline">\(B -
+1\)</span> 个放在 <span class="math inline">\(H\)</span>
+的右边，即为一种方案。</p>
+<p>那么，答案就呼之欲出了： <span class="math display">\[
+\begin{bmatrix}n - 1 \\ A + B - 2\end{bmatrix} \cdot
+\displaystyle\binom{A + B - 2}{A - 1}
+\]</span> 直接预处理即可，时间在可承受范围内。</p>
 <p>代码就不贴了。</p>
-<hr>
-<h2 id="第二类斯特林数"><a href="#第二类斯特林数" class="headerlink" title="第二类斯特林数"></a>第二类斯特林数</h2><p>把 $n$ 个互不相同的数划分为 $k$ 个互不区分、互不相交的集合，这样的方案数称为第二类斯特林数。</p>
+<hr />
+<h2 id="第二类斯特林数">第二类斯特林数</h2>
+<p>把 <span class="math inline">\(n\)</span> 个互不相同的数划分为 <span
+class="math inline">\(k\)</span>
+个互不区分、互不相交的集合，这样的方案数称为第二类斯特林数。</p>
 <p>第二类斯特林数相对于第一类的用处会更加广泛。</p>
-<hr>
-<h3 id="递推式-1"><a href="#递推式-1" class="headerlink" title="递推式"></a>递推式</h3><script type="math/tex; mode=display">
-\begin{Bmatrix}n \\ k\end{Bmatrix} = \begin{Bmatrix}n - 1 \\ k - 1\end{Bmatrix} + k\cdot \begin{Bmatrix}n - 1 \\ k\end{Bmatrix}</script><p>还是考虑从组合意义去证明：加入一个数，要么自己单独构成一个集合，要么加入已有的 $k$ 个集合。</p>
-<p>边界条件同样是：</p>
-<script type="math/tex; mode=display">
-\begin{Bmatrix}n \\ 0\end{Bmatrix} = [n = 0]</script><h3 id="通项公式"><a href="#通项公式" class="headerlink" title="通项公式"></a>通项公式</h3><p>第二类斯特林数是存在通项公式的：</p>
-<script type="math/tex; mode=display">
-\begin{Bmatrix}n \\ k\end{Bmatrix} = \frac{1}{k!}\cdot\sum_{i = 0}^k(-1)^i\cdot\displaystyle\binom{k}{i} \cdot(k - i)^n = \sum_{i = 0}^k \frac{(-1)^i}{i!} \cdot \frac{(k - i)^n}{(k - i)!} = \sum_{i = 0}^k\frac{(-1)^{k - i}}{(k - i)!} \cdot \frac{i^n}{i!}</script><p>（上面把推式子可能会用到的三种形式都写出来了。）</p>
+<hr />
+<h3 id="递推式-1">递推式</h3>
+<p><span class="math display">\[
+\begin{Bmatrix}n \\ k\end{Bmatrix} = \begin{Bmatrix}n - 1 \\ k -
+1\end{Bmatrix} + k\cdot \begin{Bmatrix}n - 1 \\ k\end{Bmatrix}
+\]</span></p>
+<p>还是考虑从组合意义去证明：加入一个数，要么自己单独构成一个集合，要么加入已有的
+<span class="math inline">\(k\)</span> 个集合。</p>
+<p>边界条件同样是： <span class="math display">\[
+\begin{Bmatrix}n \\ 0\end{Bmatrix} = [n = 0]
+\]</span></p>
+<h3 id="通项公式">通项公式</h3>
+<p>第二类斯特林数是存在通项公式的： <span class="math display">\[
+\begin{Bmatrix}n \\ k\end{Bmatrix} = \frac{1}{k!}\cdot\sum_{i =
+0}^k(-1)^i\cdot\displaystyle\binom{k}{i} \cdot(k - i)^n = \sum_{i = 0}^k
+\frac{(-1)^i}{i!} \cdot \frac{(k - i)^n}{(k - i)!} = \sum_{i =
+0}^k\frac{(-1)^{k - i}}{(k - i)!} \cdot \frac{i^n}{i!}
+\]</span> （上面把推式子可能会用到的三种形式都写出来了。）</p>
 <p>证明：</p>
-<p>设 $n$ 个互不相同的数划分为 $k$ 个互不相同的集合的方案数为 $f_k, g_k$，前者允许空集，后者不允许空集。</p>
-<p>那么有：</p>
-<script type="math/tex; mode=display">
+<p>设 <span class="math inline">\(n\)</span> 个互不相同的数划分为 <span
+class="math inline">\(k\)</span> 个互不相同的集合的方案数为 <span
+class="math inline">\(f_k,
+g_k\)</span>，前者允许空集，后者不允许空集。</p>
+<p>那么有： <span class="math display">\[
 \begin{matrix}
 f_k = k^n
 \\
 \displaystyle f_k = \sum_{i = 0}^k\displaystyle\binom{k}{i}\cdot g_i
-\end{matrix}</script><p>考虑二项式反演：</p>
-<script type="math/tex; mode=display">
-g_k = \sum_{i = 0}^k (-1)^{k - i}\cdot\displaystyle\binom{k}{i}\cdot f_i = \sum_{i = 0}^k(-1)^i\cdot\displaystyle\binom{k}{i}\cdot (k - i)^n</script><p>由于 $g_k$ 在统计过程中，集合之间相互区分，所以：</p>
-<script type="math/tex; mode=display">
-\begin{Bmatrix}n \\ k\end{Bmatrix} = \frac{g_k}{k!} = \frac{1}{k!}\cdot\sum_{i = 0}^k(-1)^i\cdot\displaystyle\binom{k}{i}\cdot (k - i)^n</script><h3 id="常用公式-1"><a href="#常用公式-1" class="headerlink" title="常用公式"></a>常用公式</h3><h4 id="和下降幂的关系（普通幂转下降幂）："><a href="#和下降幂的关系（普通幂转下降幂）：" class="headerlink" title="和下降幂的关系（普通幂转下降幂）："></a>和下降幂的关系（普通幂转下降幂）：</h4><script type="math/tex; mode=display">
-x^n = \sum_{i = 0}^x \displaystyle\binom{x}{i}\cdot\begin{Bmatrix}n \\ i\end{Bmatrix}\cdot i! = \sum_{i = 0}^n \begin{Bmatrix}n \\ i\end{Bmatrix}\cdot x^{\underline{i}}</script><p>证明：</p>
-<p>考虑组合意义，等式左侧即为 $n$ 个互不相同的数划分为 $x$ 个互不相同的可空集合的方案数，等式右侧即选出 $i$ 个集合强制非空的方案数。</p>
+\end{matrix}
+\]</span> 考虑二项式反演： <span class="math display">\[
+g_k = \sum_{i = 0}^k (-1)^{k - i}\cdot\displaystyle\binom{k}{i}\cdot f_i
+= \sum_{i = 0}^k(-1)^i\cdot\displaystyle\binom{k}{i}\cdot (k - i)^n
+\]</span> 由于 <span class="math inline">\(g_k\)</span>
+在统计过程中，集合之间相互区分，所以：</p>
+<p><span class="math display">\[
+\begin{Bmatrix}n \\ k\end{Bmatrix} = \frac{g_k}{k!} =
+\frac{1}{k!}\cdot\sum_{i = 0}^k(-1)^i\cdot\displaystyle\binom{k}{i}\cdot
+(k - i)^n
+\]</span></p>
+<h3 id="常用公式-1">常用公式</h3>
+<h4
+id="和下降幂的关系普通幂转下降幂">和下降幂的关系（普通幂转下降幂）：</h4>
+<p><span class="math display">\[
+x^n = \sum_{i = 0}^x \displaystyle\binom{x}{i}\cdot\begin{Bmatrix}n \\
+i\end{Bmatrix}\cdot i! = \sum_{i = 0}^n \begin{Bmatrix}n \\
+i\end{Bmatrix}\cdot x^{\underline{i}}
+\]</span></p>
+<p>证明：</p>
+<p>考虑组合意义，等式左侧即为 <span class="math inline">\(n\)</span>
+个互不相同的数划分为 <span class="math inline">\(x\)</span>
+个互不相同的可空集合的方案数，等式右侧即选出 <span
+class="math inline">\(i\)</span> 个集合强制非空的方案数。</p>
 <p>当然，你也可以考虑用上面的数学归纳法证明，这里就留给读者当作练习吧。</p>
-<h3 id="同一行第二类斯特林数的求法"><a href="#同一行第二类斯特林数的求法" class="headerlink" title="同一行第二类斯特林数的求法"></a>同一行第二类斯特林数的求法</h3><p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5395">模板题</a></p>
-<p>其实非常简单，我们再一次观察通项公式：</p>
-<script type="math/tex; mode=display">
-\begin{Bmatrix}n \\ k\end{Bmatrix} = \sum_{i = 0}^k \frac{(-1)^i}{i!} \cdot \frac{(k - i)^n}{(k - i)!}</script><p>可以发现这就是一个卷积的形式，$\operatorname{NTT}$ 即可。</p>
-<p>放上<a target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/tree/master/Codes/【学习笔记】斯特林的试炼/第二类斯特林数%20·%20行.cpp">代码</a>。</p>
-<hr>
-<h3 id="例题-1"><a href="#例题-1" class="headerlink" title="例题"></a>例题</h3><ul>
+<h3 id="同一行第二类斯特林数的求法">同一行第二类斯特林数的求法</h3>
+<p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5395">模板题</a></p>
+<p>其实非常简单，我们再一次观察通项公式： <span class="math display">\[
+\begin{Bmatrix}n \\ k\end{Bmatrix} = \sum_{i = 0}^k \frac{(-1)^i}{i!}
+\cdot \frac{(k - i)^n}{(k - i)!}
+\]</span> 可以发现这就是一个卷积的形式，<span
+class="math inline">\(\operatorname{NTT}\)</span> 即可。</p>
+<p>放上<a
+target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/tree/master/Codes/【学习笔记】斯特林的试炼/第二类斯特林数%20·%20行.cpp">代码</a>。</p>
+<hr />
+<h3 id="例题-1">例题</h3>
+<ul>
 <li>BZOJ5093 图的价值</li>
 </ul>
 <p>“简单无向图” 是指无重边、无自环的无向图（不一定连通）。</p>
-<p>一个带标号的图的价值定义为每个点度数的 $k$ 次方的和。</p>
-<p>给定 $n$ 和 $k$，请计算所有 $n$ 个点的带标号的简单无向图的价值之和。</p>
-<p>答案对 $998233353$ 取模。</p>
-<p>$1 \le n \le 10^9, 1\le k\le 2\times 10^5$。</p>
+<p>一个带标号的图的价值定义为每个点度数的 <span
+class="math inline">\(k\)</span> 次方的和。</p>
+<p>给定 <span class="math inline">\(n\)</span> 和 <span
+class="math inline">\(k\)</span>，请计算所有 <span
+class="math inline">\(n\)</span>
+个点的带标号的简单无向图的价值之和。</p>
+<p>答案对 <span class="math inline">\(998233353\)</span> 取模。</p>
+<p><span class="math inline">\(1 \le n \le 10^9, 1\le k\le 2\times
+10^5\)</span>。</p>
 <p>题解：</p>
-<p>显然每个点对答案的贡献是相同的，所以我们只需要算出一个点对答案的贡献，最后乘上 $n$ 即可。</p>
-<p>我们枚举一个点的度数，那么有：</p>
-<script type="math/tex; mode=display">
-\operatorname{Answer} =  n \cdot 2^{\binom{n - 1}{2}}\cdot \sum_{i = 0}^{n - 1}i^k\cdot\displaystyle\binom{n - 1}{i}</script><p>这个时候，如果只用一般的方法，大概率会无从下手。</p>
-<p>回顾普通幂转化为第二类斯特林数的公式，我们可以得到：</p>
-<script type="math/tex; mode=display">
+<p>显然每个点对答案的贡献是相同的，所以我们只需要算出一个点对答案的贡献，最后乘上
+<span class="math inline">\(n\)</span> 即可。</p>
+<p>我们枚举一个点的度数，那么有： <span class="math display">\[
+\operatorname{Answer} =  n \cdot 2^{\binom{n - 1}{2}}\cdot \sum_{i =
+0}^{n - 1}i^k\cdot\displaystyle\binom{n - 1}{i}
+\]</span> 这个时候，如果只用一般的方法，大概率会无从下手。</p>
+<p>回顾普通幂转化为第二类斯特林数的公式，我们可以得到： <span
+class="math display">\[
 \begin{aligned}
-\operatorname{Answer} &= n \cdot 2^{\binom{n - 1}{2}} \cdot\sum_{i = 0}^{n - 1}i^k\cdot\displaystyle\binom{n - 1}{i}
+\operatorname{Answer} &amp;= n \cdot 2^{\binom{n - 1}{2}} \cdot\sum_{i =
+0}^{n - 1}i^k\cdot\displaystyle\binom{n - 1}{i}
 \\
-&= n \cdot 2^{\binom{n - 1}{2}} \cdot\sum_{i = 0}^{n - 1}\displaystyle\binom{n - 1}{i} \sum_{j = 0}^{\min(i, k)}\displaystyle\binom{i}{j}\cdot \begin{Bmatrix}k \\ j\end{Bmatrix}\cdot j!
+&amp;= n \cdot 2^{\binom{n - 1}{2}} \cdot\sum_{i = 0}^{n -
+1}\displaystyle\binom{n - 1}{i} \sum_{j = 0}^{\min(i,
+k)}\displaystyle\binom{i}{j}\cdot \begin{Bmatrix}k \\
+j\end{Bmatrix}\cdot j!
 \\
-&=n \cdot 2^{\binom{n - 1}{2}}\cdot \sum_{j = 0}^{\min(n - 1, k)} \begin{Bmatrix}k \\ j\end{Bmatrix}\cdot j! \sum_{i = j}^{n - 1} \displaystyle\binom{n - 1}{i}\cdot\displaystyle\binom{i}{j}
+&amp;=n \cdot 2^{\binom{n - 1}{2}}\cdot \sum_{j = 0}^{\min(n - 1, k)}
+\begin{Bmatrix}k \\ j\end{Bmatrix}\cdot j! \sum_{i = j}^{n - 1}
+\displaystyle\binom{n - 1}{i}\cdot\displaystyle\binom{i}{j}
 \\
-&= n \cdot 2^{\binom{n - 1}{2}}\cdot \sum_{j = 0}^{\min(n - 1, k)} \begin{Bmatrix}k \\ j\end{Bmatrix}\cdot j! \cdot\displaystyle\binom{n - 1}{j} \sum_{i = j}^{n - 1} \displaystyle\binom{n - j - 1}{i - j}
+&amp;= n \cdot 2^{\binom{n - 1}{2}}\cdot \sum_{j = 0}^{\min(n - 1, k)}
+\begin{Bmatrix}k \\ j\end{Bmatrix}\cdot j! \cdot\displaystyle\binom{n -
+1}{j} \sum_{i = j}^{n - 1} \displaystyle\binom{n - j - 1}{i - j}
 \\
-&= n \cdot 2^{\binom{n - 1}{2}}\cdot \sum_{j = 0}^{\min(n - 1, k)} \begin{Bmatrix}k \\ j\end{Bmatrix}\cdot j! \cdot\displaystyle\binom{n - 1}{j} \sum_{i = 0}^{n - j - 1} \displaystyle\binom{n - j - 1}{i}
+&amp;= n \cdot 2^{\binom{n - 1}{2}}\cdot \sum_{j = 0}^{\min(n - 1, k)}
+\begin{Bmatrix}k \\ j\end{Bmatrix}\cdot j! \cdot\displaystyle\binom{n -
+1}{j} \sum_{i = 0}^{n - j - 1} \displaystyle\binom{n - j - 1}{i}
 \\
-&= n \cdot 2^{\binom{n - 1}{2}} \cdot\sum_{j = 0}^{\min(n - 1, k)} \begin{Bmatrix}k \\ j\end{Bmatrix}\cdot j! \cdot\displaystyle\binom{n - 1}{j}\cdot 2^{n - j - 1}
-\end{aligned}</script><p>放上<a target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/tree/master/Codes/【学习笔记】斯特林的试炼/BZOJ5093%20图的价值.cpp">代码</a>。</p>
-<hr>
-<h2 id="斯特林反演"><a href="#斯特林反演" class="headerlink" title="斯特林反演"></a>斯特林反演</h2><h3 id="常用公式-2"><a href="#常用公式-2" class="headerlink" title="常用公式"></a>常用公式</h3><p>在前面的学习中，我们知道有如下两个等式：</p>
-<script type="math/tex; mode=display">
+&amp;= n \cdot 2^{\binom{n - 1}{2}} \cdot\sum_{j = 0}^{\min(n - 1, k)}
+\begin{Bmatrix}k \\ j\end{Bmatrix}\cdot j! \cdot\displaystyle\binom{n -
+1}{j}\cdot 2^{n - j - 1}
+\end{aligned}
+\]</span> 放上<a
+target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/tree/master/Codes/【学习笔记】斯特林的试炼/BZOJ5093%20图的价值.cpp">代码</a>。</p>
+<hr />
+<h2 id="斯特林反演">斯特林反演</h2>
+<h3 id="常用公式-2">常用公式</h3>
+<p>在前面的学习中，我们知道有如下两个等式： <span
+class="math display">\[
 \begin{matrix}
 (-x)^{\overline{n}} = (-1)^n\cdot x^{\underline{n}}
 \\
-\displaystyle x^{\overline{n}} = \sum_{i = 0}^n \begin{bmatrix}n \\ i\end{bmatrix}\cdot x^i
-\end{matrix}</script><p>那么有：</p>
-<script type="math/tex; mode=display">
-(-x)^{\overline{n}} = \sum_{i = 0}^n \begin{bmatrix}n \\ i\end{bmatrix}\cdot (-x)^i</script><p>即：</p>
-<script type="math/tex; mode=display">
-(-1)^n\cdot x^{\underline{n}} = \sum_{i = 0}^n \begin{bmatrix}n \\ i\end{bmatrix}\cdot (-1)^i \cdot x^i</script><p>所以有：</p>
-<script type="math/tex; mode=display">
-x^{\underline{n}} = \sum_{i = 0}^n \begin{bmatrix}n \\ i\end{bmatrix} \cdot(-1)^{n - i}\cdot x^i</script><p>类似的，我们可以由如下两个公式：</p>
-<script type="math/tex; mode=display">
+\displaystyle x^{\overline{n}} = \sum_{i = 0}^n \begin{bmatrix}n \\
+i\end{bmatrix}\cdot x^i
+\end{matrix}
+\]</span> 那么有： <span class="math display">\[
+(-x)^{\overline{n}} = \sum_{i = 0}^n \begin{bmatrix}n \\
+i\end{bmatrix}\cdot (-x)^i
+\]</span> 即： <span class="math display">\[
+(-1)^n\cdot x^{\underline{n}} = \sum_{i = 0}^n \begin{bmatrix}n \\
+i\end{bmatrix}\cdot (-1)^i \cdot x^i
+\]</span> 所以有： <span class="math display">\[
+x^{\underline{n}} = \sum_{i = 0}^n \begin{bmatrix}n \\ i\end{bmatrix}
+\cdot(-1)^{n - i}\cdot x^i
+\]</span> 类似的，我们可以由如下两个公式： <span class="math display">\[
 \begin{matrix}
 (-x)^{\underline{n}} = (-1)^n\cdot x^{\overline{n}}
 \\
-\displaystyle x^n = \sum_{i = 0}^n \begin{Bmatrix}n \\ i\end{Bmatrix}\cdot x^{\underline{i}}
-\end{matrix}</script><p>推出如下的公式：</p>
-<script type="math/tex; mode=display">
-x^n = \sum_{i = 0}^n \begin{Bmatrix}n \\ i\end{Bmatrix}\cdot (-1)^{n - i}\cdot x^{\overline{i}}</script><p>请读者自行推导。</p>
-<p>总结一下，我们已经得到了所有的六个上升幂、下降幂和普通幂之间的转换公式：</p>
-<script type="math/tex; mode=display">
+\displaystyle x^n = \sum_{i = 0}^n \begin{Bmatrix}n \\
+i\end{Bmatrix}\cdot x^{\underline{i}}
+\end{matrix}
+\]</span> 推出如下的公式： <span class="math display">\[
+x^n = \sum_{i = 0}^n \begin{Bmatrix}n \\ i\end{Bmatrix}\cdot (-1)^{n -
+i}\cdot x^{\overline{i}}
+\]</span> 请读者自行推导。</p>
+<p>总结一下，我们已经得到了所有的六个上升幂、下降幂和普通幂之间的转换公式：
+<span class="math display">\[
 \begin{matrix}
 (-x)^{\overline{n}} = (-1)^n\cdot x^{\underline{n}}
 \\
 (-x)^{\underline{n}} = (-1)^n\cdot x^{\overline{n}}
 \\
-\displaystyle x^{\overline{n}} = \sum_{i = 0}^n \begin{bmatrix}n \\ i\end{bmatrix}\cdot x^i
+\displaystyle x^{\overline{n}} = \sum_{i = 0}^n \begin{bmatrix}n \\
+i\end{bmatrix}\cdot x^i
 \\
-\displaystyle x^n = \sum_{i = 0}^n \begin{Bmatrix}n \\ i\end{Bmatrix}\cdot x^{\underline{i}}
+\displaystyle x^n = \sum_{i = 0}^n \begin{Bmatrix}n \\
+i\end{Bmatrix}\cdot x^{\underline{i}}
 \\
-\displaystyle x^{\underline{n}} = \sum_{i = 0}^n \begin{bmatrix}n \\ i\end{bmatrix}\cdot (-1)^{n - i}\cdot x^i
+\displaystyle x^{\underline{n}} = \sum_{i = 0}^n \begin{bmatrix}n \\
+i\end{bmatrix}\cdot (-1)^{n - i}\cdot x^i
 \\
-\displaystyle x^n = \sum_{i = 0}^n \begin{Bmatrix}n \\ i\end{Bmatrix}\cdot (-1)^{n - i}\cdot x^{\overline{i}}
-\end{matrix}</script><p>下文有可能会分别称它们为公式一～公式六。</p>
-<p>如果我们将公式三代入公式六，可以得到：</p>
-<script type="math/tex; mode=display">
+\displaystyle x^n = \sum_{i = 0}^n \begin{Bmatrix}n \\
+i\end{Bmatrix}\cdot (-1)^{n - i}\cdot x^{\overline{i}}
+\end{matrix}
+\]</span> 下文有可能会分别称它们为公式一～公式六。</p>
+<p>如果我们将公式三代入公式六，可以得到： <span class="math display">\[
 \begin{aligned}
-x^n &= \sum_{i = 0}^n \begin{Bmatrix}n \\ i\end{Bmatrix}\cdot (-1)^{n - i}\cdot x^{\overline{i}}
+x^n &amp;= \sum_{i = 0}^n \begin{Bmatrix}n \\ i\end{Bmatrix}\cdot
+(-1)^{n - i}\cdot x^{\overline{i}}
 \\
-&= \sum_{i = 0}^n \begin{Bmatrix}n \\ i\end{Bmatrix}\cdot (-1)^{n - i}\sum_{j = 0}^i
+&amp;= \sum_{i = 0}^n \begin{Bmatrix}n \\ i\end{Bmatrix}\cdot (-1)^{n -
+i}\sum_{j = 0}^i
 \begin{bmatrix}i \\ j\end{bmatrix}\cdot x^j
 \\
-&= \sum_{j = 0}^nx^j\sum_{i = j}^n\begin{Bmatrix}n \\ i\end{Bmatrix}\cdot \begin{bmatrix}i \\ j\end{bmatrix}\cdot (-1)^{n - i}
-\end{aligned}</script><p>可以发现有：</p>
-<script type="math/tex; mode=display">
-\sum_{i = j}^n\begin{Bmatrix}n \\ i\end{Bmatrix}\cdot \begin{bmatrix}i \\ j\end{bmatrix}\cdot (-1)^{n - i} = [j = n]</script><p>类似地，将公式四代入公式五也可以得到十分类似的结果，这里就把结论摆出来了：</p>
-<script type="math/tex; mode=display">
-\sum_{i = j}^n\begin{bmatrix}n \\ i\end{bmatrix}\cdot \begin{Bmatrix}i \\ j\end{Bmatrix}\cdot (-1)^{n - i} = [j = n]</script><p>这俩公式合称反转公式。</p>
-<p>注意一点：$-1$ 的指数 $n - i$ 也可以写成 $j + i$。当 $j = n$ 时，这样不会有任何影响；当 $j \ne n$ 时，整个式子的值为 $0$，也不会受到影响。</p>
-<p>当 $j = 1$ 时有：</p>
-<script type="math/tex; mode=display">
-\sum_{i = 1}^n(-1)^{n - 1}\cdot(i - 1)!\cdot\begin{Bmatrix}n \\ i\end{Bmatrix} = [n = 1]</script><p>这个公式在斯特林反演中会经常用到。</p>
-<p>由反转公式，我们还可以得到斯特林反演的另一种形式：</p>
-<script type="math/tex; mode=display">
+&amp;= \sum_{j = 0}^nx^j\sum_{i = j}^n\begin{Bmatrix}n \\
+i\end{Bmatrix}\cdot \begin{bmatrix}i \\ j\end{bmatrix}\cdot (-1)^{n - i}
+\end{aligned}
+\]</span> 可以发现有： <span class="math display">\[
+\sum_{i = j}^n\begin{Bmatrix}n \\ i\end{Bmatrix}\cdot \begin{bmatrix}i
+\\ j\end{bmatrix}\cdot (-1)^{n - i} = [j = n]
+\]</span>
+类似地，将公式四代入公式五也可以得到十分类似的结果，这里就把结论摆出来了：
+<span class="math display">\[
+\sum_{i = j}^n\begin{bmatrix}n \\ i\end{bmatrix}\cdot \begin{Bmatrix}i
+\\ j\end{Bmatrix}\cdot (-1)^{n - i} = [j = n]
+\]</span> 这俩公式合称反转公式。</p>
+<p>注意一点：<span class="math inline">\(-1\)</span> 的指数 <span
+class="math inline">\(n - i\)</span> 也可以写成 <span
+class="math inline">\(j + i\)</span>。当 <span class="math inline">\(j =
+n\)</span> 时，这样不会有任何影响；当 <span class="math inline">\(j \ne
+n\)</span> 时，整个式子的值为 <span
+class="math inline">\(0\)</span>，也不会受到影响。</p>
+<p>当 <span class="math inline">\(j = 1\)</span> 时有： <span
+class="math display">\[
+\sum_{i = 1}^n(-1)^{n - 1}\cdot(i - 1)!\cdot\begin{Bmatrix}n \\
+i\end{Bmatrix} = [n = 1]
+\]</span> 这个公式在斯特林反演中会经常用到。</p>
+<p>由反转公式，我们还可以得到斯特林反演的另一种形式： <span
+class="math display">\[
 \begin{matrix}
-\displaystyle f_n = \sum_{i = 0}^n \begin{Bmatrix}n \\ i\end{Bmatrix}\cdot g_i
+\displaystyle f_n = \sum_{i = 0}^n \begin{Bmatrix}n \\
+i\end{Bmatrix}\cdot g_i
 \\
 \Downarrow
 \\
-\displaystyle g_n = \sum_{i = 0}^n(-1)^{n -i}\cdot \begin{bmatrix}n \\ i\end{bmatrix} \cdot f_i
-\end{matrix}</script><p>这个形式十分类似二项式反演，显得有许些亲切感。</p>
-<hr>
-<h3 id="例题-2"><a href="#例题-2" class="headerlink" title="例题"></a>例题</h3><ul>
+\displaystyle g_n = \sum_{i = 0}^n(-1)^{n -i}\cdot \begin{bmatrix}n \\
+i\end{bmatrix} \cdot f_i
+\end{matrix}
+\]</span> 这个形式十分类似二项式反演，显得有许些亲切感。</p>
+<hr />
+<h3 id="例题-2">例题</h3>
+<ul>
 <li><a target="_blank" rel="noopener" href="https://hydro.ac/d/bzoj/p/4671">BZOJ4671 异或图</a></li>
 </ul>
 <p>题解：</p>
 <p>直接判连通并不好入手。相反，强制不联通却简单得多。</p>
-<p>考虑容斥，设 $f_i$ 为把 $n$ 个点划分为 $i$ 个互相独立且互不相交的点集的方案数，$g_i$ 为图中恰好有 $i$ 个连通块的方案数。</p>
-<p>那么对于 $g_j$，它对 $f_i$ 的贡献即为第二类斯特林数：</p>
-<script type="math/tex; mode=display">
-\begin{Bmatrix}j \\ i\end{Bmatrix}</script><p>因为 $g_j$ 中的 $j$ 个连通块互不相同，同时 $f_i$ 中的 $i$ 个点集又不考虑顺序，这恰好满足了第二类斯特林数的要求。</p>
-<p>即：</p>
-<script type="math/tex; mode=display">
-f_i = \sum_{j = i}^n \begin{Bmatrix}j \\ i\end{Bmatrix}\cdot g_j</script><p>反演一下就有：</p>
-<script type="math/tex; mode=display">
-g_i = \sum_{j = i}^n(-1)^{j - i}\cdot\begin{bmatrix}j \\ i\end{bmatrix}\cdot f_j</script><p>依照题意，现在我们只需求出 $\displaystyle g_1 = \sum_{j = 1}^n (-1)^{j - 1}\cdot(j - 1)!\cdot f_j$，那么最大的问题是求 $f_j$。</p>
+<p>考虑容斥，设 <span class="math inline">\(f_i\)</span> 为把 <span
+class="math inline">\(n\)</span> 个点划分为 <span
+class="math inline">\(i\)</span>
+个互相独立且互不相交的点集的方案数，<span
+class="math inline">\(g_i\)</span> 为图中恰好有 <span
+class="math inline">\(i\)</span> 个连通块的方案数。</p>
+<p>那么对于 <span class="math inline">\(g_j\)</span>，它对 <span
+class="math inline">\(f_i\)</span> 的贡献即为第二类斯特林数： <span
+class="math display">\[
+\begin{Bmatrix}j \\ i\end{Bmatrix}
+\]</span> 因为 <span class="math inline">\(g_j\)</span> 中的 <span
+class="math inline">\(j\)</span> 个连通块互不相同，同时 <span
+class="math inline">\(f_i\)</span> 中的 <span
+class="math inline">\(i\)</span>
+个点集又不考虑顺序，这恰好满足了第二类斯特林数的要求。</p>
+<p>即： <span class="math display">\[
+f_i = \sum_{j = i}^n \begin{Bmatrix}j \\ i\end{Bmatrix}\cdot g_j
+\]</span> 反演一下就有： <span class="math display">\[
+g_i = \sum_{j = i}^n(-1)^{j - i}\cdot\begin{bmatrix}j \\
+i\end{bmatrix}\cdot f_j
+\]</span> 依照题意，现在我们只需求出 <span
+class="math inline">\(\displaystyle g_1 = \sum_{j = 1}^n (-1)^{j -
+1}\cdot(j - 1)!\cdot f_j\)</span>，那么最大的问题是求 <span
+class="math inline">\(f_j\)</span>。</p>
 <p>首先我们可以枚举子集划分（时间复杂度为贝尔数级别，不会超时），然后我们强制让两个点集之间不连任何一条边。</p>
-<p>由于一条边的选择情况取决于包含这条边的图的选择情况，因此对于一条横跨两个点集的边 $(u, v)$，我们设包含它的图为 $G’_{1\sim m}$，同时设每个图的选择情况为 $x_{1\sim m}$（$0$ 表示不选，$1$ 表示选），那么我们可以列出方程：</p>
-<script type="math/tex; mode=display">
-\texttt{xor}_{i = 1}^m x_i = 0</script><p>枚举完每条边之后，我们可以得到一个异或方程组，那么解的数量就是这个子集划分对 $f_j$ 的贡献。</p>
+<p>由于一条边的选择情况取决于包含这条边的图的选择情况，因此对于一条横跨两个点集的边
+<span class="math inline">\((u, v)\)</span>，我们设包含它的图为 <span
+class="math inline">\(G&#39;_{1\sim
+m}\)</span>，同时设每个图的选择情况为 <span
+class="math inline">\(x_{1\sim m}\)</span>（<span
+class="math inline">\(0\)</span> 表示不选，<span
+class="math inline">\(1\)</span> 表示选），那么我们可以列出方程： <span
+class="math display">\[
+\texttt{xor}_{i = 1}^m x_i = 0
+\]</span>
+枚举完每条边之后，我们可以得到一个异或方程组，那么解的数量就是这个子集划分对
+<span class="math inline">\(f_j\)</span> 的贡献。</p>
 <p>求解方程组的办法当然是用高斯消元。不过，如何求异或方程组解的数量呢？</p>
 <p>由于线性基的构建过程本质上是高斯消元，因此当我们把一个方程插入线性基后，这个方程会被自动进行高斯消元，并且由于增广矩阵是一个零向量，所以无论怎样消都是没有任何影响的。</p>
-<p>在插入所有方程后，我们可以发现，线性基中可能存在一些空的位置。这些空的位置，是高斯消元过程中可以被抵消掉的元，即自由元。这些自由元可以等于值域内的任意值（这里是 $0$ 和 $1$），并且所有自由元的取值同时也决定了剩下的主元的取值，也就是说，每一组自由元的取值都对应原方程的一组解。</p>
-<p>所以说，我们只要把方程转化为二进制数插入线性基，再统计有多少个位置等于 $0$ 即可。设这个值为 $cnt$，那么我们要求的答案就是 $2^{cnt}$。</p>
+<p>在插入所有方程后，我们可以发现，线性基中可能存在一些空的位置。这些空的位置，是高斯消元过程中可以被抵消掉的元，即自由元。这些自由元可以等于值域内的任意值（这里是
+<span class="math inline">\(0\)</span> 和 <span
+class="math inline">\(1\)</span>），并且所有自由元的取值同时也决定了剩下的主元的取值，也就是说，每一组自由元的取值都对应原方程的一组解。</p>
+<p>所以说，我们只要把方程转化为二进制数插入线性基，再统计有多少个位置等于
+<span class="math inline">\(0\)</span> 即可。设这个值为 <span
+class="math inline">\(cnt\)</span>，那么我们要求的答案就是 <span
+class="math inline">\(2^{cnt}\)</span>。</p>
 <p>当然，这道题线性基的构建方法不能使用高斯消元法（会被卡常），用普通的构建方法即可。</p>
-<p>放上<a target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/tree/master/Codes/【学习笔记】斯特林的试炼/BZOJ4671%20异或图.cpp">代码</a>。</p>
-<hr>
+<p>放上<a
+target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/tree/master/Codes/【学习笔记】斯特林的试炼/BZOJ4671%20异或图.cpp">代码</a>。</p>
+<hr />
 <ul>
-<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF961G">CF961G Partitions</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF961G">CF961G
+Partitions</a></li>
 </ul>
-<p>抛开 $w_i$ 不谈，可以发现单个物品的贡献是一定的，所以我们只要把 $w_i$ 求和，乘上单个物品的贡献 $\delta$ 即可。</p>
-<p>现在考虑计算 $\delta$：</p>
-<script type="math/tex; mode=display">
+<p>抛开 <span class="math inline">\(w_i\)</span>
+不谈，可以发现单个物品的贡献是一定的，所以我们只要把 <span
+class="math inline">\(w_i\)</span> 求和，乘上单个物品的贡献 <span
+class="math inline">\(\delta\)</span> 即可。</p>
+<p>现在考虑计算 <span class="math inline">\(\delta\)</span>： <span
+class="math display">\[
 \begin{aligned}
-\delta =&\sum_{i = 1}^n i \cdot\displaystyle\binom{n - 1}{i - 1} \cdot\begin{Bmatrix}n - i \\ k - 1\end{Bmatrix}
+\delta =&amp;\sum_{i = 1}^n i \cdot\displaystyle\binom{n - 1}{i - 1}
+\cdot\begin{Bmatrix}n - i \\ k - 1\end{Bmatrix}
 \\
-=&\sum_{i = 1}^n i \cdot\displaystyle\binom{n - 1}{i - 1} \sum_{j = 0}^{k - 1}\frac{(-1)^{k - j - 1}}{(k - j - 1)!}\cdot\frac{j^{n - i}}{j!}
+=&amp;\sum_{i = 1}^n i \cdot\displaystyle\binom{n - 1}{i - 1} \sum_{j =
+0}^{k - 1}\frac{(-1)^{k - j - 1}}{(k - j - 1)!}\cdot\frac{j^{n - i}}{j!}
 \\
-=&\sum_{j = 0}^{k - 1} \frac{(-1)^{k - j - 1}}{(k - j - 1)! \cdot j!}\sum_{i = 1}^ni \cdot j^{n - i}\cdot \displaystyle\binom{n - 1}{i - 1}
-\end{aligned}</script><p>前面的式子没有什么问题，考虑如何求后面的式子：</p>
-<script type="math/tex; mode=display">
+=&amp;\sum_{j = 0}^{k - 1} \frac{(-1)^{k - j - 1}}{(k - j - 1)! \cdot
+j!}\sum_{i = 1}^ni \cdot j^{n - i}\cdot \displaystyle\binom{n - 1}{i -
+1}
+\end{aligned}
+\]</span> 前面的式子没有什么问题，考虑如何求后面的式子： <span
+class="math display">\[
 \begin{aligned}
-&\sum_{i = 1}^ni \cdot j^{n - i}\cdot \displaystyle\binom{n - 1}{i - 1}
+&amp;\sum_{i = 1}^ni \cdot j^{n - i}\cdot \displaystyle\binom{n - 1}{i -
+1}
 \\
-=&\sum_{i = 1}^n(i - 1 + 1) \cdot j^{n - i}\cdot \displaystyle\binom{n - 1}{i - 1}
+=&amp;\sum_{i = 1}^n(i - 1 + 1) \cdot j^{n - i}\cdot
+\displaystyle\binom{n - 1}{i - 1}
 \\
-=&\sum_{i = 1}^n(i - 1)\cdot j^{n - i}\cdot\displaystyle\binom{n - 1}{i - 1} + \sum_{i = 1}^nj^{n - i}\cdot\displaystyle\binom{n - 1}{i - 1}
+=&amp;\sum_{i = 1}^n(i - 1)\cdot j^{n - i}\cdot\displaystyle\binom{n -
+1}{i - 1} + \sum_{i = 1}^nj^{n - i}\cdot\displaystyle\binom{n - 1}{i -
+1}
 \\
-=&\sum_{i = 1}^n(i - 1)\cdot j^{n - i}\cdot\displaystyle\binom{n - 1}{i - 1} + (j + 1)^{n - 1}
+=&amp;\sum_{i = 1}^n(i - 1)\cdot j^{n - i}\cdot\displaystyle\binom{n -
+1}{i - 1} + (j + 1)^{n - 1}
 \\
-=&(n - 1)\cdot\sum_{i = 1}^n j^{n - i}\cdot\displaystyle\binom{n - 2}{i - 2} + (j + 1)^{n - 1}
+=&amp;(n - 1)\cdot\sum_{i = 1}^n j^{n - i}\cdot\displaystyle\binom{n -
+2}{i - 2} + (j + 1)^{n - 1}
 \\
-=&(n - 1)\cdot(j + 1)^{n - 2} + (j + 1)^{n - 1}
+=&amp;(n - 1)\cdot(j + 1)^{n - 2} + (j + 1)^{n - 1}
 \\
-=&(j + 1)^{n - 2}\cdot(n + j)
-\end{aligned}</script><p>这样就做完了。</p>
-<p>不过，这可是 $\operatorname{CF}$ 诶！有多少人能够在如此紧张的环境下推出这么一长串式子呢？</p>
+=&amp;(j + 1)^{n - 2}\cdot(n + j)
+\end{aligned}
+\]</span> 这样就做完了。</p>
+<p>不过，这可是 <span class="math inline">\(\operatorname{CF}\)</span>
+诶！有多少人能够在如此紧张的环境下推出这么一长串式子呢？</p>
 <p>有没有更简单的做法？当然有！</p>
 <blockquote>
-<p>  组合意义天地灭，代数推导保平安。</p>
+<p>组合意义天地灭，代数推导保平安。</p>
 </blockquote>
-<p>我们从组合意义思考一下，集合大小的本质是什么？不就是集合里的每一个数都贡献 $1$ 吗！</p>
-<p>所以说，还是考虑计算单个物品 $i$ 的贡献：</p>
-<p>首先，总划分方案数为：</p>
-<script type="math/tex; mode=display">
-\begin{Bmatrix}n \\ k\end{Bmatrix}</script><p>每个方案中，自己都会对自己造成 $1$ 的贡献。</p>
-<p>其次，对于其它的每一个物品 $j$，抛开这个物品 $j$ 不谈，我们把剩下的 $n - 1$ 个物品分成 $k$ 组，再把物品 $j$ 加入到 $i$ 所在的组内，这样 $j$ 就对 $i$ 造成了 $1$ 的贡献。这样的方案数为：</p>
-<script type="math/tex; mode=display">
-\begin{Bmatrix}n - 1\\ k\end{Bmatrix}</script><p>所以单个物品贡献为：</p>
-<script type="math/tex; mode=display">
-\begin{Bmatrix}n \\ k\end{Bmatrix} + (n - 1)\cdot\begin{Bmatrix}n - 1 \\ k\end{Bmatrix}</script><p>代码就不放了。</p>
-<hr>
-<h2 id="operatorname-END"><a href="#operatorname-END" class="headerlink" title="$\operatorname{END}$"></a>$\operatorname{END}$</h2>
+<p>我们从组合意义思考一下，集合大小的本质是什么？不就是集合里的每一个数都贡献
+<span class="math inline">\(1\)</span> 吗！</p>
+<p>所以说，还是考虑计算单个物品 <span class="math inline">\(i\)</span>
+的贡献：</p>
+<p>首先，总划分方案数为： <span class="math display">\[
+\begin{Bmatrix}n \\ k\end{Bmatrix}
+\]</span> 每个方案中，自己都会对自己造成 <span
+class="math inline">\(1\)</span> 的贡献。</p>
+<p>其次，对于其它的每一个物品 <span
+class="math inline">\(j\)</span>，抛开这个物品 <span
+class="math inline">\(j\)</span> 不谈，我们把剩下的 <span
+class="math inline">\(n - 1\)</span> 个物品分成 <span
+class="math inline">\(k\)</span> 组，再把物品 <span
+class="math inline">\(j\)</span> 加入到 <span
+class="math inline">\(i\)</span> 所在的组内，这样 <span
+class="math inline">\(j\)</span> 就对 <span
+class="math inline">\(i\)</span> 造成了 <span
+class="math inline">\(1\)</span> 的贡献。这样的方案数为： <span
+class="math display">\[
+\begin{Bmatrix}n - 1\\ k\end{Bmatrix}
+\]</span> 所以单个物品贡献为： <span class="math display">\[
+\begin{Bmatrix}n \\ k\end{Bmatrix} + (n - 1)\cdot\begin{Bmatrix}n - 1 \\
+k\end{Bmatrix}
+\]</span> 代码就不放了。</p>
+<hr />
+<h2 id="operatornameend"><span
+class="math inline">\(\operatorname{END}\)</span></h2>
+
             </div>
             <hr>
             <div>

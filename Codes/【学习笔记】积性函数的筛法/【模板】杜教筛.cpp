@@ -6,67 +6,67 @@
 
 #define MAXN 5000005
 
-using LL = long long;
+using i64 = long long;
 using namespace std;
 
 int t, n;
-int len, Prime[MAXN];
-LL Phi[MAXN], Miu[MAXN];
-bool NotPrime[MAXN];
-unordered_map<int, LL> AnsPhi, AnsMiu;
+int len, pr[MAXN];
+i64 phi[MAXN], miu[MAXN];
+bool np[MAXN];
+unordered_map<int, i64> ansphi, ansmiu;
 
 inline void Prework()
 {
-	Phi[1] = Miu[1] = 1LL;
+	phi[1] = miu[1] = 1LL;
 	for(register int i = 2; i < MAXN; i++)
 	{
-		if(!NotPrime[i])
+		if(!np[i])
 		{
-			Prime[++len] = i;
-			Phi[i] = i - 1LL;
-			Miu[i] = -1LL;
+			pr[++len] = i;
+			phi[i] = i - 1LL;
+			miu[i] = -1LL;
 		}
-		for(register int j = 1; j <= len && i * Prime[j] < MAXN; j++)
+		for(register int j = 1; j <= len && i * pr[j] < MAXN; j++)
 		{
-			NotPrime[i * Prime[j]] = true;
-			if(i % Prime[j] == 0LL)
+			np[i * pr[j]] = true;
+			if(i % pr[j] == 0LL)
 			{
-				Phi[i * Prime[j]] = Phi[i] * Prime[j];
+				phi[i * pr[j]] = phi[i] * pr[j];
 				break;
 			}
-			Phi[i * Prime[j]] = Phi[i] * (Prime[j] - 1LL);
-			Miu[i * Prime[j]] = -Miu[i];
+			phi[i * pr[j]] = phi[i] * (pr[j] - 1LL);
+			miu[i * pr[j]] = -miu[i];
 		}
 	}
-	for(register int i = 1; i < MAXN; i++) Phi[i] += Phi[i - 1], Miu[i] += Miu[i - 1];
+	for(register int i = 1; i < MAXN; i++) phi[i] += phi[i - 1], miu[i] += miu[i - 1];
 	return;
 }
 
-inline LL Solve_Phi(int n)
+inline i64 Solve_phi(int n)
 {
-	if(n < MAXN) return Phi[n];
-	if(AnsPhi.count(n)) return AnsPhi[n];
-	LL ans = 1LL * n * (n + 1LL) / 2LL;
-	for(register LL l = 2LL, r; l <= n; l = r + 1LL)
+	if(n < MAXN) return phi[n];
+	if(ansphi.count(n)) return ansphi[n];
+	i64 ans = 1LL * n * (n + 1LL) / 2LL;
+	for(register i64 l = 2LL, r; l <= n; l = r + 1LL)
 	{
 		r = n / (n / l);
-		ans -= 1LL * (r - l + 1LL) * Solve_Phi(n / l);
+		ans -= 1LL * (r - l + 1LL) * Solve_phi(n / l);
 	}
-	AnsPhi.insert(make_pair(n, ans));
+	ansphi.insert(make_pair(n, ans));
 	return ans;
 }
 
-inline LL Solve_Miu(int n)
+inline i64 Solve_miu(int n)
 {
-	if(n < MAXN) return Miu[n];
-	if(AnsMiu.count(n)) return AnsMiu[n];
-	LL ans = 1LL;
-	for(register LL l = 2LL, r; l <= n; l = r + 1LL)
+	if(n < MAXN) return miu[n];
+	if(ansmiu.count(n)) return ansmiu[n];
+	i64 ans = 1LL;
+	for(register i64 l = 2LL, r; l <= n; l = r + 1LL)
 	{
 		r = n / (n / l);
-		ans -= 1LL * (r - l + 1LL) * Solve_Miu(n / l);
+		ans -= 1LL * (r - l + 1LL) * Solve_miu(n / l);
 	}
-	AnsMiu.insert(make_pair(n, ans));
+	ansmiu.insert(make_pair(n, ans));
 	return ans;
 }
 
@@ -77,7 +77,7 @@ int main()
 	while(t--)
 	{
 		scanf("%d", &n);
-		printf("%lld %lld\n", Solve_Phi(n), Solve_Miu(n));
+		printf("%lld %lld\n", Solve_phi(n), Solve_miu(n));
 		continue;
 	}
 	return 0;

@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://reclouds.github.io/img/bg/16.jpeg">
 <meta property="article:published_time" content="2022-04-28T13:24:46.000Z">
-<meta property="article:modified_time" content="2022-06-21T14:02:25.497Z">
+<meta property="article:modified_time" content="2022-07-06T07:41:14.265Z">
 <meta property="article:author" content="Recalling_Clouds">
 <meta property="article:tag" content="学习笔记">
 <meta name="twitter:card" content="summary_large_image">
@@ -214,7 +214,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      163 分钟
+      170 分钟
     </span>
   
 
@@ -246,157 +246,302 @@
             <h1 style="display: none">【学习笔记】图论常见算法小结</h1>
             
             <div class="markdown-body">
-              <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>由于笔者几乎没有系统学习过图论，因此对图论的掌握程度过浅。</p>
+              <h2 id="前言">前言</h2>
+<p>由于笔者几乎没有系统学习过图论，因此对图论的掌握程度过浅。</p>
 <p>所以，笔者决定对学习过的所有图论算法做一个较为系统的总结，以巩固知识，同时方便备忘。</p>
 <p>为了节省篇幅，本篇文章不会讲述树上问题，关于图论的一些基本定义也不再阐述。同时，部分算法的详细过程及证明也会选择性略去。</p>
-<p>如无特别说明，下面将用 $n$ 代表点数，$m$ 代表边数，$w_{i, j}$ 代表有向边（假设无向边即为方向相反的两条有向边）$i \rightarrow j$ 的边权，$dis_{i, j}$ 代表 $i$ 到 $j$ 的最短路径。</p>
-<hr>
-<h2 id="最短路算法"><a href="#最短路算法" class="headerlink" title="最短路算法"></a>最短路算法</h2><p>常用的最短路算法有 $4$ 种，它们分别是：</p>
+<p>如无特别说明，下面将用 <span class="math inline">\(n\)</span>
+代表点数，<span class="math inline">\(m\)</span> 代表边数，<span
+class="math inline">\(w_{i, j}\)</span>
+代表有向边（假设无向边即为方向相反的两条有向边）<span
+class="math inline">\(i \rightarrow j\)</span> 的边权，<span
+class="math inline">\(dis_{i, j}\)</span> 代表 <span
+class="math inline">\(i\)</span> 到 <span
+class="math inline">\(j\)</span> 的最短路径。</p>
+<hr />
+<h2 id="最短路算法">最短路算法</h2>
+<p>常用的最短路算法有 <span class="math inline">\(4\)</span>
+种，它们分别是：</p>
 <ul>
-<li>$\operatorname{Floyd}$ 全源最短路算法；</li>
-<li>$\operatorname{Dijkstra}$ 单源最短路算法；</li>
-<li>$\operatorname{Bellman-Ford}$ 单源最短路算法；</li>
-<li>$\operatorname{SPFA}$ 单源最短路算法。</li>
+<li><span class="math inline">\(\operatorname{Floyd}\)</span>
+全源最短路算法；</li>
+<li><span class="math inline">\(\operatorname{Dijkstra}\)</span>
+单源最短路算法；</li>
+<li><span class="math inline">\(\operatorname{Bellman-Ford}\)</span>
+单源最短路算法；</li>
+<li><span class="math inline">\(\operatorname{SPFA}\)</span>
+单源最短路算法。</li>
 </ul>
 <p>接下来笔者会依次介绍它们。</p>
 <p>同时，笔者还会介绍一些最短路问题的扩展。</p>
-<hr>
-<h3 id="operatorname-Floyd-全源最短路算法"><a href="#operatorname-Floyd-全源最短路算法" class="headerlink" title="$\operatorname{Floyd}$ 全源最短路算法"></a>$\operatorname{Floyd}$ 全源最短路算法</h3><ul>
+<hr />
+<h3 id="operatornamefloyd-全源最短路算法"><span
+class="math inline">\(\operatorname{Floyd}\)</span> 全源最短路算法</h3>
+<ul>
 <li>介绍</li>
 </ul>
-<p>可以发现，它是唯一的全源最短路算法。也因此，它的时间复杂度是这 $4$ 种算法中最高的：$\mathcal{O}(n^3)$。</p>
+<p>可以发现，它是唯一的全源最短路算法。也因此，它的时间复杂度是这 <span
+class="math inline">\(4\)</span> 种算法中最高的：<span
+class="math inline">\(\mathcal{O}(n^3)\)</span>。</p>
 <p>它的算法流程如下：</p>
-<p>我们设 $f_{k, i, j}$ 表示从点 $i$ 到点 $j$ 的最短路径，路径必须保证去除 $i, j$ 后只含编号为 $1\sim k$ 的节点（下文保证 $i, j, k$ 互不相同）。</p>
-<p>初始时有 $k = 0$，若存在边 $i \rightarrow j$，那么我们令 $f_{0, i, j} = w_{i, j}$，否则令 $f_{0, i, j} = +\infty$。</p>
-<p>然后，我们从小到大枚举 $k$，那么有转移方程：</p>
-<script type="math/tex; mode=display">
-f_{k, i, j} = \min(f_{k, i, j}, f_{k - 1, i, k} + f_{k - 1, j, k})</script><p>这便是 $\operatorname{Floyd}$ 算法的核心思想。所以，其本质上是一个 $\operatorname{DP}$。</p>
-<p>实现时我们发现第一维显然是可以滚动的。不过，如果以后做题时需要用到 $\operatorname{Floyd}$ 算法，<strong>请不要忘记第一维的定义</strong>。</p>
+<p>我们设 <span class="math inline">\(f_{k, i, j}\)</span> 表示从点
+<span class="math inline">\(i\)</span> 到点 <span
+class="math inline">\(j\)</span> 的最短路径，路径必须保证去除 <span
+class="math inline">\(i, j\)</span> 后只含编号为 <span
+class="math inline">\(1\sim k\)</span> 的节点（下文保证 <span
+class="math inline">\(i, j, k\)</span> 互不相同）。</p>
+<p>初始时有 <span class="math inline">\(k = 0\)</span>，若存在边 <span
+class="math inline">\(i \rightarrow j\)</span>，那么我们令 <span
+class="math inline">\(f_{0, i, j} = w_{i, j}\)</span>，否则令 <span
+class="math inline">\(f_{0, i, j} = +\infty\)</span>。</p>
+<p>然后，我们从小到大枚举 <span
+class="math inline">\(k\)</span>，那么有转移方程： <span
+class="math display">\[
+f_{k, i, j} = \min(f_{k, i, j}, f_{k - 1, i, k} + f_{k - 1, j, k})
+\]</span> 这便是 <span
+class="math inline">\(\operatorname{Floyd}\)</span>
+算法的核心思想。所以，其本质上是一个 <span
+class="math inline">\(\operatorname{DP}\)</span>。</p>
+<p>实现时我们发现第一维显然是可以滚动的。不过，如果以后做题时需要用到
+<span class="math inline">\(\operatorname{Floyd}\)</span>
+算法，<strong>请不要忘记第一维的定义</strong>。</p>
 <p>贴上代码：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></div></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-type">void</span> <span class="hljs-title">Floyd</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> k = <span class="hljs-number">1</span>; k &lt;= n; k++)<br>   		<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i++) <span class="hljs-keyword">if</span>(i != k)<br>        	<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> j = <span class="hljs-number">1</span>; j &lt;= n; j++) <span class="hljs-keyword">if</span>(i != j &amp;&amp; j != k)<br>            	f[i][j] = <span class="hljs-built_in">min</span>(f[i][j], f[i][k] + f[k][j]);<br>    <span class="hljs-keyword">return</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 <ul>
 <li>应用</li>
 </ul>
-<p>$\alpha$. 给一个正权无向图，找一个最小权值和的环。</p>
+<p><span class="math inline">\(\alpha\)</span>.
+给一个正权无向图，找一个最小权值和的环。</p>
 <p>经典的<strong>无向图的最小环问题</strong>。</p>
 <p>首先由于边权为正，那么答案一定是一个简单环。</p>
-<p>可以发现，枚举 $k$ 的过程中，$f_{k - 1, i, j},w_{i, k}, w_{k, j}$ 这三条路径拼在一起，便构成了一个简单环。</p>
-<p>所以，我们在枚举 $k$ 的过程中同时维护答案即可。</p>
+<p>可以发现，枚举 <span class="math inline">\(k\)</span> 的过程中，<span
+class="math inline">\(f_{k - 1, i, j},w_{i, k}, w_{k, j}\)</span>
+这三条路径拼在一起，便构成了一个简单环。</p>
+<p>所以，我们在枚举 <span class="math inline">\(k\)</span>
+的过程中同时维护答案即可。</p>
 <p>贴上代码：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-type">void</span> <span class="hljs-title">Floyd</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> k = <span class="hljs-number">1</span>; k &lt;= n; k++)<br>    &#123;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i++) <span class="hljs-keyword">if</span>(i != k)<br>            <span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> j = <span class="hljs-number">1</span>; j &lt;= n; j++) <span class="hljs-keyword">if</span>(i != j &amp;&amp; j != k)<br>                ans = <span class="hljs-built_in">min</span>(ans, f[i][j] + w[i][k] + w[k][j]);<br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i++) <span class="hljs-keyword">if</span>(i != k)<br>        	<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> j = <span class="hljs-number">1</span>; j &lt;= n; j++) <span class="hljs-keyword">if</span>(i != j &amp;&amp; j != k)<br>            	f[i][j] = <span class="hljs-built_in">min</span>(f[i][j], f[i][k] + f[k][j]);<br>	&#125;<br>    <span class="hljs-keyword">return</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
-<p>$\beta. $ 已知一个有向图中任意两点之间是否有连边，要求判断任意两点是否连通。</p>
+<p>$. $
+已知一个有向图中任意两点之间是否有连边，要求判断任意两点是否连通。</p>
 <p>经典的<strong>无向图的传递闭包</strong>。</p>
-<p>我们仅需改变一下 $\operatorname{Floyd}$ 算法的转移方程即可：</p>
+<p>我们仅需改变一下 <span
+class="math inline">\(\operatorname{Floyd}\)</span>
+算法的转移方程即可：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-type">void</span> <span class="hljs-title">Floyd</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> k = <span class="hljs-number">1</span>; k &lt;= n; k++)<br>   		<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i++) <span class="hljs-keyword">if</span>(i != k)<br>        	<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> j = <span class="hljs-number">1</span>; j &lt;= n; j++) <span class="hljs-keyword">if</span>(i != j &amp;&amp; j != k)<br>            	f[i][j] = f[i][j] | (f[i][k] &amp; f[k][j]);<br>    <span class="hljs-keyword">return</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>注意，这个算法在后面还会用到，这里就埋一个伏笔。</p>
-<hr>
-<h3 id="operatorname-Dijkstra-单源最短路算法"><a href="#operatorname-Dijkstra-单源最短路算法" class="headerlink" title="$\operatorname{Dijkstra}$ 单源最短路算法"></a>$\operatorname{Dijkstra}$ 单源最短路算法</h3><ul>
+<hr />
+<h3 id="operatornamedijkstra-单源最短路算法"><span
+class="math inline">\(\operatorname{Dijkstra}\)</span>
+单源最短路算法</h3>
+<ul>
 <li>介绍</li>
 </ul>
-<p>单源最短路，即确定一个源点 $S$ 后，求其到其它所有点的最短路。</p>
-<p>$\operatorname{Dijkstra}$ 用到了一个贪心思想，不过这个贪心思想仅限于<strong>不存在负权边</strong>的情况。</p>
-<p>所以存在负权边时，$\operatorname{Dijkstra}$ 算法求出的结果不一定正确，所以请不要使用。</p>
+<p>单源最短路，即确定一个源点 <span class="math inline">\(S\)</span>
+后，求其到其它所有点的最短路。</p>
+<p><span class="math inline">\(\operatorname{Dijkstra}\)</span>
+用到了一个贪心思想，不过这个贪心思想仅限于<strong>不存在负权边</strong>的情况。</p>
+<p>所以存在负权边时，<span
+class="math inline">\(\operatorname{Dijkstra}\)</span>
+算法求出的结果不一定正确，所以请不要使用。</p>
 <p>它的算法流程如下：</p>
-<p>考虑把点分为黑点和白点，前者为确定了 $S$ 到其最短路的点，后者同理。初始时 $S$ 为黑点。</p>
-<p>下文我们设 $dis_{i}$ 表示 $S$ 到 $i$ 的最短路径，初始时 $dis_S = 0$，其他为 $+\infty$。</p>
-<p>每一次我们贪心地在所有的白点中选出一个 $dis_i$ 最小的点 $i$，将其变为黑点。同时，我们枚举其出边，更新其后继 $j$ 的 $dis_j$。</p>
+<p>考虑把点分为黑点和白点，前者为确定了 <span
+class="math inline">\(S\)</span> 到其最短路的点，后者同理。初始时 <span
+class="math inline">\(S\)</span> 为黑点。</p>
+<p>下文我们设 <span class="math inline">\(dis_{i}\)</span> 表示 <span
+class="math inline">\(S\)</span> 到 <span
+class="math inline">\(i\)</span> 的最短路径，初始时 <span
+class="math inline">\(dis_S = 0\)</span>，其他为 <span
+class="math inline">\(+\infty\)</span>。</p>
+<p>每一次我们贪心地在所有的白点中选出一个 <span
+class="math inline">\(dis_i\)</span> 最小的点 <span
+class="math inline">\(i\)</span>，将其变为黑点。同时，我们枚举其出边，更新其后继
+<span class="math inline">\(j\)</span> 的 <span
+class="math inline">\(dis_j\)</span>。</p>
 <p>重复上述过程，直到所有点都变为黑点。</p>
-<p>可以发现，每次会 $\mathcal{O}(n)$ 找一个点变为黑点，这个过程会重复 $n$ 次，同时每一次会枚举最多 $n - 1$ 个后继进行更新，所以这个算法的时间复杂度为 $\mathcal{O}(n^2)$。</p>
+<p>可以发现，每次会 <span class="math inline">\(\mathcal{O}(n)\)</span>
+找一个点变为黑点，这个过程会重复 <span class="math inline">\(n\)</span>
+次，同时每一次会枚举最多 <span class="math inline">\(n - 1\)</span>
+个后继进行更新，所以这个算法的时间复杂度为 <span
+class="math inline">\(\mathcal{O}(n^2)\)</span>。</p>
 <ul>
 <li>优化</li>
 </ul>
-<p>可以发现，我们每次都要 $\mathcal{O}(n)$ 找一个点，这并不优秀。</p>
+<p>可以发现，我们每次都要 <span
+class="math inline">\(\mathcal{O}(n)\)</span> 找一个点，这并不优秀。</p>
 <p>考虑加入一个数据结构维护：堆。</p>
-<p>我们把 $dis_i$ 和 $i$ 绑定为一个对象，以前者为关键字维护一个小根堆。</p>
-<p>这样的话，每次找一个点的复杂度就变为了 $\mathcal{O}(\log_2 n)$。</p>
-<p>同时，我们每次仍需枚举后继 $j$ 更新 $dis_j$，不过在这之后，我们还需要将这两个量绑定后扔进小根堆。</p>
-<p>所以，总的复杂度就变为 $\mathcal{O}((n + m)\log_2n)$。</p>
+<p>我们把 <span class="math inline">\(dis_i\)</span> 和 <span
+class="math inline">\(i\)</span>
+绑定为一个对象，以前者为关键字维护一个小根堆。</p>
+<p>这样的话，每次找一个点的复杂度就变为了 <span
+class="math inline">\(\mathcal{O}(\log_2 n)\)</span>。</p>
+<p>同时，我们每次仍需枚举后继 <span class="math inline">\(j\)</span>
+更新 <span
+class="math inline">\(dis_j\)</span>，不过在这之后，我们还需要将这两个量绑定后扔进小根堆。</p>
+<p>所以，总的复杂度就变为 <span class="math inline">\(\mathcal{O}((n +
+m)\log_2n)\)</span>。</p>
 <p>在稀疏图中，这个优化算法可以所向披靡，所以这也是这个算法经常被使用的原因。</p>
 <p>贴上堆优化代码：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">struct</span> <span class="hljs-title class_">Node</span> &#123; <span class="hljs-type">int</span> k, v; <span class="hljs-type">bool</span> <span class="hljs-keyword">operator</span> &lt; (<span class="hljs-type">const</span> Node &amp;x) <span class="hljs-type">const</span> &#123; <span class="hljs-keyword">return</span> v &gt; x.v; &#125; &#125;;<br>priority_queue&lt;Node&gt; q;<br><br><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-type">void</span> <span class="hljs-title">Dijkstra</span><span class="hljs-params">(<span class="hljs-type">int</span> S)</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-built_in">memset</span>(vis, <span class="hljs-literal">false</span>, <span class="hljs-keyword">sizeof</span> vis), <span class="hljs-built_in">memset</span>(dis, <span class="hljs-number">0x3F</span>, <span class="hljs-keyword">sizeof</span> dis);<br>	dis[S] = <span class="hljs-number">0</span>, q.<span class="hljs-built_in">push</span>((Node)&#123;S, <span class="hljs-number">0</span>&#125;);<br>	<span class="hljs-keyword">while</span>(!q.<span class="hljs-built_in">empty</span>())<br>	&#123;<br>		<span class="hljs-type">int</span> u = q.<span class="hljs-built_in">top</span>().k; q.<span class="hljs-built_in">pop</span>();<br>		<span class="hljs-keyword">if</span>(vis[u]) <span class="hljs-keyword">continue</span>;<br>		vis[u] = <span class="hljs-literal">true</span>;<br>		<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> i = hd[u]; i; i = nxt[i])<br>		&#123;<br>            <span class="hljs-type">int</span> v = to[i], w = val[i];<br>            <span class="hljs-keyword">if</span>(dis[u] + w &lt; dis[v])<br>            &#123;<br>                dis[v] = dis[u] + w;<br>                q.<span class="hljs-built_in">push</span>((Node)&#123;v, dis[v]&#125;);<br>			&#125;<br>		&#125;<br>	&#125;<br>    <span class="hljs-keyword">return</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
-<h3 id="operatorname-Bellman-Ford-单源最短路算法"><a href="#operatorname-Bellman-Ford-单源最短路算法" class="headerlink" title="$\operatorname{Bellman-Ford}$ 单源最短路算法"></a>$\operatorname{Bellman-Ford}$ 单源最短路算法</h3><ul>
+<h3 id="operatornamebellman-ford-单源最短路算法"><span
+class="math inline">\(\operatorname{Bellman-Ford}\)</span>
+单源最短路算法</h3>
+<ul>
 <li>介绍</li>
 </ul>
 <p><del>（说实话，这个算法比较鸡肋。。。）</del></p>
 <p>不过，它是可以处理有负边权的情况的。</p>
 <p>它的算法流程如下：</p>
-<p>我们考虑一条边 $i \to j$ 的松弛操作：$dis_{j} = \min(dis_j, dis_i + w_{i, j})$。</p>
+<p>我们考虑一条边 <span class="math inline">\(i \to j\)</span>
+的松弛操作：<span class="math inline">\(dis_{j} = \min(dis_j, dis_i +
+w_{i, j})\)</span>。</p>
 <p>我们可以不断尝试对图上每一条边进行松弛。</p>
 <p>我们每次对图上所有的边都尝试进行一次松弛操作，当一次循环中没有成功的松弛操作时，算法停止。</p>
-<p>在最短路存在的情况下，由于一次松弛操作会使最短路的边数至少增加 $1$，而最短路的边数最多为 $n - 1$，因此整个算法最多执行 $n - 1$ 轮松弛操作。故总时间复杂度为 $\mathcal{O}(nm)$。</p>
+<p>在最短路存在的情况下，由于一次松弛操作会使最短路的边数至少增加 <span
+class="math inline">\(1\)</span>，而最短路的边数最多为 <span
+class="math inline">\(n - 1\)</span>，因此整个算法最多执行 <span
+class="math inline">\(n - 1\)</span> 轮松弛操作。故总时间复杂度为 <span
+class="math inline">\(\mathcal{O}(nm)\)</span>。</p>
 <ul>
 <li>应用</li>
 </ul>
-<p>值得一提的一点是：当图中存在一个环，权值总和为负时，最短路显然为 $-\infty$（不考虑图不联通的情况）。这个环就叫做负环，也叫负权回路。</p>
+<p>值得一提的一点是：当图中存在一个环，权值总和为负时，最短路显然为
+<span
+class="math inline">\(-\infty\)</span>（不考虑图不联通的情况）。这个环就叫做负环，也叫负权回路。</p>
 <p>而这个算法，可以判断是否存在负环。</p>
-<p>上面提到，这个算法最多松弛 $n - 1$ 轮。所以，如果在 $n - 1$ 轮之后，我们发现仍然存在边可以松弛成功，就说明这个图中存在负环。</p>
+<p>上面提到，这个算法最多松弛 <span class="math inline">\(n - 1\)</span>
+轮。所以，如果在 <span class="math inline">\(n - 1\)</span>
+轮之后，我们发现仍然存在边可以松弛成功，就说明这个图中存在负环。</p>
 <p>贴上代码：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-type">bool</span> <span class="hljs-title">Bellman_Ford</span><span class="hljs-params">(<span class="hljs-type">int</span> S)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-built_in">memset</span>(dis, <span class="hljs-number">0x3F</span>, <span class="hljs-built_in">sizeof</span>(dis)), dis[s] = <span class="hljs-number">0</span>;<br>    <span class="hljs-type">bool</span> f = <span class="hljs-literal">false</span>;<br>    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i++)<br>    &#123;<br>        f = <span class="hljs-literal">false</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> u = <span class="hljs-number">1</span>; u &lt;= n; u++)<br>        &#123;<br>            <span class="hljs-keyword">if</span>(dis[u] == INF) <span class="hljs-keyword">continue</span>;<br>            <span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> i = hd[u]; i; i = nxt[i])<br>            &#123;<br>                <span class="hljs-type">int</span> v = to[i], w = val[i];<br>                <span class="hljs-keyword">if</span>(dis[u] + w &lt; dis[v])<br>                &#123;<br>                    dis[v] = dis[u] + w;<br>                    flag = <span class="hljs-literal">true</span>;<br>                &#125;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">if</span>(!f) <span class="hljs-keyword">break</span>;<br>    &#125;<br>    <span class="hljs-keyword">return</span> f;<br>&#125;<br></code></pre></td></tr></table></figure>
-<h3 id="operatorname-SPFA-单源最短路算法"><a href="#operatorname-SPFA-单源最短路算法" class="headerlink" title="$\operatorname{SPFA}$ 单源最短路算法"></a>$\operatorname{SPFA}$ 单源最短路算法</h3><ul>
+<h3 id="operatornamespfa-单源最短路算法"><span
+class="math inline">\(\operatorname{SPFA}\)</span> 单源最短路算法</h3>
+<ul>
 <li>介绍</li>
 </ul>
-<p>实际上，该算法即为上面讲到的 $\operatorname{Bellman-Ford}$ 算法的队列优化。</p>
+<p>实际上，该算法即为上面讲到的 <span
+class="math inline">\(\operatorname{Bellman-Ford}\)</span>
+算法的队列优化。</p>
 <p>很多时候我们并不需要那么多无用的松弛操作。</p>
 <p>很显然，只有上一次被松弛的结点，所连接的边，才有可能引起下一次的松弛操作。</p>
 <p>那么我们用队列来维护哪些结点可能会引起松弛操作，就能只访问必要的边了。</p>
-<p>判断负环也很简单：记录每个点的入队次数，超过 $n - 1$ 即存在负环。</p>
+<p>判断负环也很简单：记录每个点的入队次数，超过 <span
+class="math inline">\(n - 1\)</span> 即存在负环。</p>
 <p>贴上代码：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-type">bool</span> <span class="hljs-title">SPFA</span><span class="hljs-params">(<span class="hljs-type">int</span> S)</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-built_in">memset</span>(vis, <span class="hljs-literal">false</span>, <span class="hljs-keyword">sizeof</span> vis), <span class="hljs-built_in">memset</span>(dis, <span class="hljs-number">0x3F</span>, <span class="hljs-keyword">sizeof</span> dis), <span class="hljs-built_in">memset</span>(cnt, <span class="hljs-number">0</span>, <span class="hljs-keyword">sizeof</span> cnt);<br>	q.<span class="hljs-built_in">push</span>(S), vis[S] = <span class="hljs-literal">true</span>, dis[S] = <span class="hljs-number">0</span>;<br>	<span class="hljs-keyword">while</span>(!q.<span class="hljs-built_in">empty</span>())<br>	&#123;<br>		<span class="hljs-type">int</span> u = q.<span class="hljs-built_in">front</span>(); q.<span class="hljs-built_in">pop</span>(), vis[u] = <span class="hljs-literal">false</span>;<br>		<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> i = hd[u]; i; i = nxt[i])<br>		&#123;<br>			<span class="hljs-type">int</span> v = to[i], w = val[i];<br>			<span class="hljs-keyword">if</span>(dis[u] + w &lt; dis[v])<br>			&#123;<br>				dis[v] = dis[u] + w;<br>				<span class="hljs-keyword">if</span>(!vis[v])<br>				&#123;<br>					vis[v] = <span class="hljs-literal">true</span>, q.<span class="hljs-built_in">push</span>(v), ++cnt[v];<br>					<span class="hljs-keyword">if</span>(cnt[v] == n) <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>				&#125;<br>			&#125;<br>		&#125;<br>	&#125;<br>	<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
-<p>实际上，$\operatorname{SPFA}$ 算法的时间复杂度本质上没有任何优化，其仍是 $\mathcal{O}(nm)$ 的。不过，这个复杂度通常跑不满，所以在有负权边的情况下，大多数人还是会选择该算法（按照惯例，在这种情况下，出题人不会卡 $\operatorname{SPFA}$）。</p>
-<hr>
+<p>实际上，<span class="math inline">\(\operatorname{SPFA}\)</span>
+算法的时间复杂度本质上没有任何优化，其仍是 <span
+class="math inline">\(\mathcal{O}(nm)\)</span>
+的。不过，这个复杂度通常跑不满，所以在有负权边的情况下，大多数人还是会选择该算法（按照惯例，在这种情况下，出题人不会卡
+<span class="math inline">\(\operatorname{SPFA}\)</span>）。</p>
+<hr />
 <p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1119">例题</a></p>
 <ul>
 <li>题意</li>
 </ul>
-<p>给定一个 $n$ 个点的图，点的编号为 $0\sim{n - 1}$。</p>
-<p>每个点会在时刻 $t_i$ 连同与它相连的所有边一起出现，保证 $t_0 \le t_1 \le \cdots \le t_{n - 1}$。</p>
-<p>现给出 $q$ 询问，询问形式为 $(u, v, t)$，表示询问在第 $t$ 时刻点 $u$ 到点 $v$ 的最短路径。若 $u, v$ 不联通或二者之中有其一未出现，输出 <code>-1</code>。保证询问的 $t$ 是不下降的。</p>
+<p>给定一个 <span class="math inline">\(n\)</span> 个点的图，点的编号为
+<span class="math inline">\(0\sim{n - 1}\)</span>。</p>
+<p>每个点会在时刻 <span class="math inline">\(t_i\)</span>
+连同与它相连的所有边一起出现，保证 <span class="math inline">\(t_0 \le
+t_1 \le \cdots \le t_{n - 1}\)</span>。</p>
+<p>现给出 <span class="math inline">\(q\)</span> 询问，询问形式为 <span
+class="math inline">\((u, v, t)\)</span>，表示询问在第 <span
+class="math inline">\(t\)</span> 时刻点 <span
+class="math inline">\(u\)</span> 到点 <span
+class="math inline">\(v\)</span> 的最短路径。若 <span
+class="math inline">\(u, v\)</span> 不联通或二者之中有其一未出现，输出
+<code>-1</code>。保证询问的 <span class="math inline">\(t\)</span>
+是不下降的。</p>
 <ul>
 <li>题解</li>
 </ul>
-<p>还记得 $\operatorname{Floyd}$ 算法中 $f$ 数组第一维的定义吗？</p>
+<p>还记得 <span class="math inline">\(\operatorname{Floyd}\)</span>
+算法中 <span class="math inline">\(f\)</span> 数组第一维的定义吗？</p>
 <p>可以发现题目保证了点的出现时刻以及询问时刻的单调性。</p>
-<p>所以我们在询问过程中维护显然会单调上升的 $k$。每当 $k$ 增加 $1$ 时，我们直接跑一遍 $\mathcal{O}(n^2)$ 的 $\operatorname{DP}$ 即可。</p>
+<p>所以我们在询问过程中维护显然会单调上升的 <span
+class="math inline">\(k\)</span>。每当 <span
+class="math inline">\(k\)</span> 增加 <span
+class="math inline">\(1\)</span> 时，我们直接跑一遍 <span
+class="math inline">\(\mathcal{O}(n^2)\)</span> 的 <span
+class="math inline">\(\operatorname{DP}\)</span> 即可。</p>
 <p>贴上部分代码：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">while</span>(q--)<br>&#123;<br>	u = <span class="hljs-built_in">Read32</span>(), v = <span class="hljs-built_in">Read32</span>(), nowti = <span class="hljs-built_in">Read32</span>();<br>	<span class="hljs-keyword">while</span>(ti[k] &lt;= nowti &amp;&amp; k &lt; n)<br>	&#123;<br>		<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++) <span class="hljs-keyword">if</span>(i != k)<br>            <span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> j = <span class="hljs-number">0</span>; j &lt; n; j++) <span class="hljs-keyword">if</span>(i != j &amp;&amp; j != k)<br>                dis[i][j] = <span class="hljs-built_in">min</span>(dis[i][j], dis[i][k] + dis[k][j]);<br>        ++k;<br>    &#125;<br>	<span class="hljs-keyword">if</span>(ti[u] &gt; nowti || ti[v] &gt; nowti) <span class="hljs-built_in">puts</span>(<span class="hljs-string">&quot;-1&quot;</span>);<br>	<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(dis[u][v] == INF) <span class="hljs-built_in">puts</span>(<span class="hljs-string">&quot;-1&quot;</span>);<br>    <span class="hljs-keyword">else</span> <span class="hljs-built_in">Write32</span>(dis[u][v]);<br>&#125;<br></code></pre></td></tr></table></figure>
-<hr>
-<h3 id="差分约束算法"><a href="#差分约束算法" class="headerlink" title="差分约束算法"></a>差分约束算法</h3><ul>
+<hr />
+<h3 id="差分约束算法">差分约束算法</h3>
+<ul>
 <li>介绍</li>
 </ul>
-<p>给定若干个不等式形如 $x_u - x_v \le w$，要求出满足条件的一组解 $x_{1\sim n}$ 或判断无解。</p>
-<p>我们发现，如果把不等式变换一下：$x_u \le x_v + w$，这像极了最短路算法中的松弛操作。</p>
-<p>所以，我们可以在有向图中，我们可以从点 $u$ 向点 $v$ 连一条权为 $w$ 的边，以表示这个限制。</p>
-<p>然后我们设定一个源点 $S$，将其向每一个点连一条权值为 $0$ 的边，对 $S$ 点跑单源最短路径。</p>
+<p>给定若干个不等式形如 <span class="math inline">\(x_u - x_v \le
+w\)</span>，要求出满足条件的一组解 <span class="math inline">\(x_{1\sim
+n}\)</span> 或判断无解。</p>
+<p>我们发现，如果把不等式变换一下：<span class="math inline">\(x_u \le
+x_v + w\)</span>，这像极了最短路算法中的松弛操作。</p>
+<p>所以，我们可以在有向图中，我们可以从点 <span
+class="math inline">\(u\)</span> 向点 <span
+class="math inline">\(v\)</span> 连一条权为 <span
+class="math inline">\(w\)</span> 的边，以表示这个限制。</p>
+<p>然后我们设定一个源点 <span
+class="math inline">\(S\)</span>，将其向每一个点连一条权值为 <span
+class="math inline">\(0\)</span> 的边，对 <span
+class="math inline">\(S\)</span> 点跑单源最短路径。</p>
 <p>如果存在最短路，显然它会满足每一个不等式。也就是说，若图中存在负环，那么会无解。</p>
-<p>注意一点：加入源点 $S$ 后，整个图的点数为 $n + 1$，判断负环时需要考虑这个变化。</p>
-<p>如果我们得出了一组解 $x_{1\sim n}$，那么由于不等是实际上是对两个数的差分做约束，所以我们把这组解中的每一个数都加上一个常数 $d$，它仍是原不等式组的一组解。</p>
+<p>注意一点：加入源点 <span class="math inline">\(S\)</span>
+后，整个图的点数为 <span class="math inline">\(n +
+1\)</span>，判断负环时需要考虑这个变化。</p>
+<p>如果我们得出了一组解 <span class="math inline">\(x_{1\sim
+n}\)</span>，那么由于不等是实际上是对两个数的差分做约束，所以我们把这组解中的每一个数都加上一个常数
+<span class="math inline">\(d\)</span>，它仍是原不等式组的一组解。</p>
 <ul>
 <li>技巧</li>
 </ul>
-<p>显然并不是所有的题都是形如 $x_u - x_v \le w$ 的连边，这里给出部分连边技巧：</p>
+<p>显然并不是所有的题都是形如 <span class="math inline">\(x_u - x_v \le
+w\)</span> 的连边，这里给出部分连边技巧：</p>
 <ul>
-<li>$x_u - x_v \ge w$：等价于 $x_v - x_u \le w$；</li>
-<li>$x_u - x_v &lt; w$：等价于 $x_u - x_v \le w - 1$；</li>
-<li>$x_u - x_v &gt; w$：等价于 $x_v - x_u \le w - 1$；</li>
-<li>$x_u - x_v = w$：等价于 $x_u - x_v \le w$ 且 $x_u - x_v \ge w$。</li>
+<li><span class="math inline">\(x_u - x_v \ge w\)</span>：等价于 <span
+class="math inline">\(x_v - x_u \le w\)</span>；</li>
+<li><span class="math inline">\(x_u - x_v &lt; w\)</span>：等价于 <span
+class="math inline">\(x_u - x_v \le w - 1\)</span>；</li>
+<li><span class="math inline">\(x_u - x_v &gt; w\)</span>：等价于 <span
+class="math inline">\(x_v - x_u \le w - 1\)</span>；</li>
+<li><span class="math inline">\(x_u - x_v = w\)</span>：等价于 <span
+class="math inline">\(x_u - x_v \le w\)</span> 且 <span
+class="math inline">\(x_u - x_v \ge w\)</span>。</li>
 </ul>
-<hr>
+<hr />
 <p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P7515">例题</a></p>
 <ul>
 <li>题意</li>
 </ul>
-<p>给定一个 $n - 1$ 行 $m - 1$ 列的矩阵 $b_{i, j}$，对于每个元 $b_{i, j}$ 有生成公式：</p>
-<script type="math/tex; mode=display">
-b_{i, j} = a_{i, j} + a_{i, j + 1} + a_{i + 1, j} + a_{i + 1, j + 1}</script><p>求一个合法的 $n$ 行 $m$ 列矩阵 $a_{i, j}$，满足 $1 \le a_{i, j} \le 10^6$，或判定无解。多组数据（$T \le 10$）。</p>
+<p>给定一个 <span class="math inline">\(n - 1\)</span> 行 <span
+class="math inline">\(m - 1\)</span> 列的矩阵 <span
+class="math inline">\(b_{i, j}\)</span>，对于每个元 <span
+class="math inline">\(b_{i, j}\)</span> 有生成公式： <span
+class="math display">\[
+b_{i, j} = a_{i, j} + a_{i, j + 1} + a_{i + 1, j} + a_{i + 1, j + 1}
+\]</span> 求一个合法的 <span class="math inline">\(n\)</span> 行 <span
+class="math inline">\(m\)</span> 列矩阵 <span
+class="math inline">\(a_{i, j}\)</span>，满足 <span
+class="math inline">\(1 \le a_{i, j} \le
+10^6\)</span>，或判定无解。多组数据（<span class="math inline">\(T \le
+10\)</span>）。</p>
 <ul>
 <li>题解</li>
 </ul>
 <p>我们先来想想，如果不考虑值域的限制怎么做。</p>
-<p>那么很简单：我们仅需令矩阵 $a_{i, j}$ 的最下面一行以及最右边一列全部为 $0$，然后根据公式直接用 $b_{i, j}$ 推算。</p>
+<p>那么很简单：我们仅需令矩阵 <span class="math inline">\(a_{i,
+j}\)</span> 的最下面一行以及最右边一列全部为 <span
+class="math inline">\(0\)</span>，然后根据公式直接用 <span
+class="math inline">\(b_{i, j}\)</span> 推算。</p>
 <p>这样构造出的解是唯一的，但并不一定是满足值域限制的。所以，我们需要在这个上面进行一些调整。</p>
-<p>我们发现，如果选定一行，把 $a_{i, j}$ 从左到右依次 $+d, -d, +d, -d$，对答案的合法性不会有影响，列同理。</p>
-<p>如果我们设 $r_i$ 为对第 $i$ 行操作的 $d$，$c_i$ 为对第 $i$ 列操作的 $d$，那么我们可以构造出一个增量矩阵：</p>
-<script type="math/tex; mode=display">
+<p>我们发现，如果选定一行，把 <span class="math inline">\(a_{i,
+j}\)</span> 从左到右依次 <span class="math inline">\(+d, -d, +d,
+-d\)</span>，对答案的合法性不会有影响，列同理。</p>
+<p>如果我们设 <span class="math inline">\(r_i\)</span> 为对第 <span
+class="math inline">\(i\)</span> 行操作的 <span
+class="math inline">\(d\)</span>，<span
+class="math inline">\(c_i\)</span> 为对第 <span
+class="math inline">\(i\)</span> 列操作的 <span
+class="math inline">\(d\)</span>，那么我们可以构造出一个增量矩阵： <span
+class="math display">\[
 \left[
 \begin{matrix}
 r_1 + c_1~~~-r_1+c_2~~~r_1+c_3~~~\cdots
@@ -407,15 +552,21 @@ r_3 + c_1~~~-r_3+c_2~~~r_3+c_3~~~\cdots
 \\
 ~~~~~\vdots~~~~~~~~~~~~~~~~~~\vdots~~~~~~~~~~~~~~~\vdots~~~~~~\ddots
 \end{matrix}
-\right]</script><p>我们设这其中的元为 $d_{i, j}$，那么必须满足：</p>
-<script type="math/tex; mode=display">
-0 \le a_{i, j} + d_{i, j}  \le 10^6</script><p>变形一下就有：</p>
-<script type="math/tex; mode=display">
--a_{i, j} \le d_{i, j}  \le 10^6 - a_{i, j}</script><p>结合上面的增量矩阵，我们可以发现，这题就转化为了差分约束。</p>
-<p>但是，有部分的 $d_{i, j}$ 是形如 $x + y$ 形式的，这显然不能够做差分约束。</p>
-<p>不过没有关系，$d_{i, j}$ 的值是正是负都没有关系。所以我们只需要把偶数列的 $r_i$ 和奇数列的 $c_i$ 取反即可。</p>
-<p>那么增量矩阵就变为了：</p>
-<script type="math/tex; mode=display">
+\right]
+\]</span> 我们设这其中的元为 <span class="math inline">\(d_{i,
+j}\)</span>，那么必须满足： <span class="math display">\[
+0 \le a_{i, j} + d_{i, j}  \le 10^6
+\]</span> 变形一下就有： <span class="math display">\[
+-a_{i, j} \le d_{i, j}  \le 10^6 - a_{i, j}
+\]</span> 结合上面的增量矩阵，我们可以发现，这题就转化为了差分约束。</p>
+<p>但是，有部分的 <span class="math inline">\(d_{i, j}\)</span> 是形如
+<span class="math inline">\(x + y\)</span>
+形式的，这显然不能够做差分约束。</p>
+<p>不过没有关系，<span class="math inline">\(d_{i, j}\)</span>
+的值是正是负都没有关系。所以我们只需要把偶数列的 <span
+class="math inline">\(r_i\)</span> 和奇数列的 <span
+class="math inline">\(c_i\)</span> 取反即可。</p>
+<p>那么增量矩阵就变为了： <span class="math display">\[
 \left[
 \begin{matrix}
 r_1 - c_1~~~c_2 - r_1~~~r_1-c_3~~~\cdots
@@ -426,87 +577,171 @@ r_3 - c_1~~~c_2-r_3~~~r_3-c_3~~~\cdots
 \\
 ~~~~~\vdots~~~~~~~~~~~~~~\vdots~~~~~~~~~~~~~\vdots~~~~~~\ddots
 \end{matrix}
-\right]</script><p>这样就变成了可以做差分约束的形式。</p>
-<hr>
-<h3 id="分层图最短路"><a href="#分层图最短路" class="headerlink" title="分层图最短路"></a>分层图最短路</h3><p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4568">例题</a></p>
+\right]
+\]</span> 这样就变成了可以做差分约束的形式。</p>
+<hr />
+<h3 id="分层图最短路">分层图最短路</h3>
+<p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4568">例题</a></p>
 <ul>
 <li>题意</li>
 </ul>
-<p>给定一个带权无向图，点的编号为 $0\sim n - 1$，给定起点和终点，求出两点间最短路。</p>
-<p>可以选择至多 $k$ 条边，将其边权变为 $0$。</p>
-<p>数据范围：$n \le 10^4, m \le 5\times 10^4, k \le 10$。</p>
+<p>给定一个带权无向图，点的编号为 <span class="math inline">\(0\sim n -
+1\)</span>，给定起点和终点，求出两点间最短路。</p>
+<p>可以选择至多 <span class="math inline">\(k\)</span>
+条边，将其边权变为 <span class="math inline">\(0\)</span>。</p>
+<p>数据范围：<span class="math inline">\(n \le 10^4, m \le 5\times 10^4,
+k \le 10\)</span>。</p>
 <ul>
 <li>题解</li>
 </ul>
-<p>显然找出最短路后取出前 $k$ 大的边权删去是不对的。</p>
+<p>显然找出最短路后取出前 <span class="math inline">\(k\)</span>
+大的边权删去是不对的。</p>
 <p>我们考虑一种新的建图形式：分层图。</p>
-<p>先不考虑边权清零的操作，建出 $k + 1$ 个和原图一模一样的图，从底至顶分别把它们命名为第 $0\sim k$ 层的图。</p>
-<p>如果我们钦定第 $0$ 层的起点为真正的起点，<strong>那么，我们就可以把每一次边权清零的操作，看作是跨越至上一层图的钥匙</strong>。</p>
-<p>所以，我们还需要把原来的所有边清零，然后将第 $i$ 层的图连这些边至第 $i + 1$ 层的图。</p>
-<p>最后，我们对起点跑单源最短路径，然后在 $k + 1$ 层中找到最小的答案即可。</p>
-<p>给出建图部分代码：（$id_{i, j}$ 表示第 $i$ 层编号为 $j$ 的点）</p>
+<p>先不考虑边权清零的操作，建出 <span class="math inline">\(k +
+1\)</span> 个和原图一模一样的图，从底至顶分别把它们命名为第 <span
+class="math inline">\(0\sim k\)</span> 层的图。</p>
+<p>如果我们钦定第 <span class="math inline">\(0\)</span>
+层的起点为真正的起点，<strong>那么，我们就可以把每一次边权清零的操作，看作是跨越至上一层图的钥匙</strong>。</p>
+<p>所以，我们还需要把原来的所有边清零，然后将第 <span
+class="math inline">\(i\)</span> 层的图连这些边至第 <span
+class="math inline">\(i + 1\)</span> 层的图。</p>
+<p>最后，我们对起点跑单源最短路径，然后在 <span class="math inline">\(k
++ 1\)</span> 层中找到最小的答案即可。</p>
+<p>给出建图部分代码：（<span class="math inline">\(id_{i, j}\)</span>
+表示第 <span class="math inline">\(i\)</span> 层编号为 <span
+class="math inline">\(j\)</span> 的点）</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-type">void</span> <span class="hljs-title">Build</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> i = <span class="hljs-number">1</span>; i &lt;= m; i++)<br>	&#123;<br>		u = <span class="hljs-built_in">Read32</span>(), v = <span class="hljs-built_in">Read32</span>(), w = <span class="hljs-built_in">Read32</span>();<br>		<span class="hljs-built_in">Link</span>(u, v, w), <span class="hljs-built_in">Link</span>(v, u, w);<br>		<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> j = <span class="hljs-number">1</span>; j &lt;= k; j++)	<span class="hljs-comment">//枚举每一层</span><br>		&#123;<br>            <span class="hljs-built_in">Link</span>(<span class="hljs-built_in">id</span>(j, u), <span class="hljs-built_in">id</span>(j, v), w), <span class="hljs-built_in">Link</span>(<span class="hljs-built_in">id</span>(j, v), <span class="hljs-built_in">id</span>(j, u), w);	<span class="hljs-comment">//建出第 j 层的图</span><br>			<span class="hljs-built_in">Link</span>(<span class="hljs-built_in">id</span>(j - <span class="hljs-number">1</span>, u), <span class="hljs-built_in">id</span>(j, v), w), <span class="hljs-built_in">Link</span>(<span class="hljs-built_in">id</span>(j - <span class="hljs-number">1</span>, v), <span class="hljs-built_in">id</span>(j, u), w);	<span class="hljs-comment">//将 j - 1 层的这条边连向 j 层，边权赋为 0</span><br>		&#125;<br>	&#125;<br>    <span class="hljs-keyword">return</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 <ul>
 <li>练习</li>
 </ul>
-<p>这里给出一道分层图好题：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3645">[APIO2015]雅加达的摩天楼</a>。提示：需要用到根号分治算法。</p>
-<hr>
-<h3 id="同余最短路"><a href="#同余最短路" class="headerlink" title="同余最短路"></a>同余最短路</h3><p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2371">例题</a></p>
+<p>这里给出一道分层图好题：<a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3645">[APIO2015]雅加达的摩天楼</a>。提示：需要用到根号分治算法。</p>
+<hr />
+<h3 id="同余最短路">同余最短路</h3>
+<p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2371">例题</a></p>
 <ul>
 <li>题意</li>
 </ul>
-<p>给定 $ n, a_{1 \sim n},l,r$，求存在多少个 $b \in [l, r]$ ，使得存在一组非负整数解 $x_{1 \sim n}$，满足 $\sum_{i = 1}^{n} a_i x_i = b$。</p>
+<p>给定 <span class="math inline">\(n, a_{1 \sim
+n},l,r\)</span>，求存在多少个 <span class="math inline">\(b \in [l,
+r]\)</span> ，使得存在一组非负整数解 <span class="math inline">\(x_{1
+\sim n}\)</span>，满足 <span class="math inline">\(\sum_{i = 1}^{n} a_i
+x_i = b\)</span>。</p>
 <ul>
 <li>题解</li>
 </ul>
-<p>已知 $b$ 去求解会比较麻烦，我们不如用 $x_{1 \sim n}$ 去求 $b$ 的可能值。</p>
-<p>设 $f(t)$ 表示 $1 \sim t$ 内有 $f(t)$ 个数符合要求。</p>
-<p>利用前缀和的思想，$f(r) - f(l - 1)$ 即为答案，所以我们现在要求 $f(t)$。</p>
+<p>已知 <span class="math inline">\(b\)</span>
+去求解会比较麻烦，我们不如用 <span class="math inline">\(x_{1 \sim
+n}\)</span> 去求 <span class="math inline">\(b\)</span> 的可能值。</p>
+<p>设 <span class="math inline">\(f(t)\)</span> 表示 <span
+class="math inline">\(1 \sim t\)</span> 内有 <span
+class="math inline">\(f(t)\)</span> 个数符合要求。</p>
+<p>利用前缀和的思想，<span class="math inline">\(f(r) - f(l -
+1)\)</span> 即为答案，所以我们现在要求 <span
+class="math inline">\(f(t)\)</span>。</p>
 <p>接下来我们就要用到<strong>同余最短路</strong>了。</p>
-<p>我们把 $a_i$ 的最小值求出来，记为 $mi$（这里需要把 $a_i = 0$ 的数据舍弃掉）。</p>
-<p>设 $p \in [0, mi)$，且 $p$ 为整数。</p>
-<p>那么如果存在这样一个 $b = p + k \cdot mi$ 成立，就会使得 $b = p + (k + q) \cdot mi~(q \in N_+)$ 均可以成立。</p>
-<p>在 $1 \sim t$ 的范围内，这一类答案共有 $\lfloor \dfrac{t - (p + k_{\min} \cdot mi)}{mi} \rfloor + 1$ 个。</p>
-<p>所以我们现在需要求的是 $p + k_{\min} \cdot mi$。</p>
-<p>我们可以用最短路的思想，设 $dis_p$ 表示上述式子。</p>
-<p>那么我们把 $i~(i \in [0, mi))$ 分别向 $(i + a[j]) \bmod~mi~(j \in [1, n], ~a_j \ne mi)$ 连一条单向边，$a_j$赋为边权，表示这样走的代价，然后从 $0$ 开始跑一遍最短路就可以了</p>
-<p>取 $a_i$ 的最小值实际上是为了减小图的规模。</p>
+<p>我们把 <span class="math inline">\(a_i\)</span> 的最小值求出来，记为
+<span class="math inline">\(mi\)</span>（这里需要把 <span
+class="math inline">\(a_i = 0\)</span> 的数据舍弃掉）。</p>
+<p>设 <span class="math inline">\(p \in [0, mi)\)</span>，且 <span
+class="math inline">\(p\)</span> 为整数。</p>
+<p>那么如果存在这样一个 <span class="math inline">\(b = p + k \cdot
+mi\)</span> 成立，就会使得 <span class="math inline">\(b = p + (k + q)
+\cdot mi~(q \in N_+)\)</span> 均可以成立。</p>
+<p>在 <span class="math inline">\(1 \sim t\)</span>
+的范围内，这一类答案共有 <span class="math inline">\(\lfloor \dfrac{t -
+(p + k_{\min} \cdot mi)}{mi} \rfloor + 1\)</span> 个。</p>
+<p>所以我们现在需要求的是 <span class="math inline">\(p + k_{\min} \cdot
+mi\)</span>。</p>
+<p>我们可以用最短路的思想，设 <span class="math inline">\(dis_p\)</span>
+表示上述式子。</p>
+<p>那么我们把 <span class="math inline">\(i~(i \in [0, mi))\)</span>
+分别向 <span class="math inline">\((i + a[j]) \bmod mi~(j \in [1, n],
+~a_j \ne mi)\)</span> 连一条单向边，<span
+class="math inline">\(a_j\)</span>赋为边权，表示这样走的代价，然后从
+<span class="math inline">\(0\)</span> 开始跑一遍最短路就可以了</p>
+<p>取 <span class="math inline">\(a_i\)</span>
+的最小值实际上是为了减小图的规模。</p>
 <p>给出建图部分代码：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-type">void</span> <span class="hljs-title">Build</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; mi; i++)<br>		<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> j = <span class="hljs-number">1</span>; j &lt;= n; j++) <span class="hljs-keyword">if</span>(a[j] &gt; mi)<br>			<span class="hljs-built_in">Link</span>(i, (i + a[j]) % mi, a[j]);<br>	<span class="hljs-keyword">return</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 <ul>
 <li>练习</li>
 </ul>
-<p>同余最短路的题比较少，这里给一道刚刚那题的弱化版：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3403">P3403 跳楼机</a>。</p>
-<hr>
-<h2 id="operatorname-Tarjan-算法与图的连通性"><a href="#operatorname-Tarjan-算法与图的连通性" class="headerlink" title="$\operatorname{Tarjan}$ 算法与图的连通性"></a>$\operatorname{Tarjan}$ 算法与图的连通性</h2><p>图是否连通可以很方便地用 $\operatorname{BDFS}$ 或并查集判断，所以下文所述的是有关图的连通性的扩展问题。</p>
-<hr>
-<h3 id="强连通分量（-operatorname-Strongly-Connected-Component-SCC-）"><a href="#强连通分量（-operatorname-Strongly-Connected-Component-SCC-）" class="headerlink" title="强连通分量（$\operatorname{Strongly~Connected~Component, SCC}$）"></a>强连通分量（$\operatorname{Strongly~Connected~Component, SCC}$）</h3><ul>
+<p>同余最短路的题比较少，这里给一道刚刚那题的弱化版：<a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3403">P3403 跳楼机</a>。</p>
+<hr />
+<h2 id="operatornametarjan-算法与图的连通性"><span
+class="math inline">\(\operatorname{Tarjan}\)</span>
+算法与图的连通性</h2>
+<p>图是否连通可以很方便地用 <span
+class="math inline">\(\operatorname{BDFS}\)</span>
+或并查集判断，所以下文所述的是有关图的连通性的扩展问题。</p>
+<hr />
+<h3
+id="强连通分量operatornamestronglyconnectedcomponent-scc">强连通分量（<span
+class="math inline">\(\operatorname{Strongly~Connected~Component,
+SCC}\)</span>）</h3>
+<ul>
 <li>介绍</li>
 </ul>
 <p>先给出若干定义：</p>
 <ul>
-<li>$dfn_u$：用 $\operatorname{DFS}$ 遍历整个图时，节点 $u$ 在 $\operatorname{DFS}$ 树上被访问到的次序。</li>
-<li>$low_u$：以下两类点的 $dfn_u$ 最小值：在 $\operatorname{DFS}$ 树上，以节点 $u$ 为根的子树中的所有点 $v$；存在一个点 $v$ 能够通过一条非 $\operatorname{DFS}$ 树边走到的点 $w$。</li>
+<li><span class="math inline">\(dfn_u\)</span>：用 <span
+class="math inline">\(\operatorname{DFS}\)</span> 遍历整个图时，节点
+<span class="math inline">\(u\)</span> 在 <span
+class="math inline">\(\operatorname{DFS}\)</span>
+树上被访问到的次序。</li>
+<li><span class="math inline">\(low_u\)</span>：以下两类点的 <span
+class="math inline">\(dfn_u\)</span> 最小值：在 <span
+class="math inline">\(\operatorname{DFS}\)</span> 树上，以节点 <span
+class="math inline">\(u\)</span> 为根的子树中的所有点 <span
+class="math inline">\(v\)</span>；存在一个点 <span
+class="math inline">\(v\)</span> 能够通过一条非 <span
+class="math inline">\(\operatorname{DFS}\)</span> 树边走到的点 <span
+class="math inline">\(w\)</span>。</li>
 </ul>
-<p>可以说就是以上两个概念，构成了 $\operatorname{Tarjan}$ 算法的精髓。</p>
-<p>那么我们要考虑在 $\operatorname{DFS}$ 的过程中维护它们。</p>
-<p>在 $\operatorname{DFS}$ 的过程中，设我们现在遍历到的点为 $u$，枚举边 $(u, v)$，那么可以分三种情况讨论：</p>
+<p>可以说就是以上两个概念，构成了 <span
+class="math inline">\(\operatorname{Tarjan}\)</span> 算法的精髓。</p>
+<p>那么我们要考虑在 <span
+class="math inline">\(\operatorname{DFS}\)</span> 的过程中维护它们。</p>
+<p>在 <span class="math inline">\(\operatorname{DFS}\)</span>
+的过程中，设我们现在遍历到的点为 <span
+class="math inline">\(u\)</span>，枚举边 <span class="math inline">\((u,
+v)\)</span>，那么可以分三种情况讨论：</p>
 <ul>
-<li>$v$ 未被访问过：我们继续遍历 $v$，遍历完后执行 $low_u = \min(low_u, low_v)$；</li>
-<li>$v$ 被访问过，不属于任何 $\operatorname{SCC}$：执行 $low_u = \min(low_u, dfn_v)$；</li>
-<li>$v$ 被访问过，属于一个 $\operatorname{SCC}$：不需要执行任何操作。</li>
+<li><span class="math inline">\(v\)</span> 未被访问过：我们继续遍历
+<span class="math inline">\(v\)</span>，遍历完后执行 <span
+class="math inline">\(low_u = \min(low_u, low_v)\)</span>；</li>
+<li><span class="math inline">\(v\)</span> 被访问过，不属于任何 <span
+class="math inline">\(\operatorname{SCC}\)</span>：执行 <span
+class="math inline">\(low_u = \min(low_u, dfn_v)\)</span>；</li>
+<li><span class="math inline">\(v\)</span> 被访问过，属于一个 <span
+class="math inline">\(\operatorname{SCC}\)</span>：不需要执行任何操作。</li>
 </ul>
-<p>当遍历完所有点之后，如果我们发现有 $dfn_u = low_u$，那么 $u$ 即为其所在 $\operatorname{SCC}$ 的 $dfn_u$ 最小的点。</p>
-<p>为了遍历这些点，给他们打上标记，我们在 $\operatorname{DFS}$ 时需要按照 $dfn_u$ 维护一个栈。</p>
-<p>如果发现点 $u$ 满足上述条件，我们直接弹栈，直到 $u$ 弹出为止。</p>
-<p>可以发现弹出的所有节点共同组成一个 $\operatorname{SCC}$。</p>
+<p>当遍历完所有点之后，如果我们发现有 <span class="math inline">\(dfn_u
+= low_u\)</span>，那么 <span class="math inline">\(u\)</span> 即为其所在
+<span class="math inline">\(\operatorname{SCC}\)</span> 的 <span
+class="math inline">\(dfn_u\)</span> 最小的点。</p>
+<p>为了遍历这些点，给他们打上标记，我们在 <span
+class="math inline">\(\operatorname{DFS}\)</span> 时需要按照 <span
+class="math inline">\(dfn_u\)</span> 维护一个栈。</p>
+<p>如果发现点 <span class="math inline">\(u\)</span>
+满足上述条件，我们直接弹栈，直到 <span class="math inline">\(u\)</span>
+弹出为止。</p>
+<p>可以发现弹出的所有节点共同组成一个 <span
+class="math inline">\(\operatorname{SCC}\)</span>。</p>
 <p>贴上代码：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-type">void</span> <span class="hljs-title">Tarjan</span><span class="hljs-params">(<span class="hljs-type">int</span> u)</span></span><br><span class="hljs-function"></span>&#123;<br>    dfn[u] = low[u] = ++tot, stk[++top] = u;<br>    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> i = hd[u]; i; i = nxt[i])<br>    &#123;<br>        <span class="hljs-type">int</span> v = to[i];<br>        <span class="hljs-keyword">if</span>(!dfn[v])	<span class="hljs-comment">//(u, v) 是一条 DFS 树边</span><br>        &#123;<br>            <span class="hljs-built_in">Tarjan</span>(v);<br>            low[u] = <span class="hljs-built_in">min</span>(low[u], low[v]);<br>        &#125;<br>        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(!scc[v]) low[u] = <span class="hljs-built_in">min</span>(low[u], dfn[v]);   <span class="hljs-comment">//(u, v) 是一条非 DFS 树边，且点 v 在栈中，即 v 不属于任何强连通分量</span><br>    &#125;<br>    <span class="hljs-comment">//从这里开始，下面都是强连通的判定</span><br>    <span class="hljs-keyword">if</span>(dfn[u] == low[u])<br>    &#123;<br>        ++cnt; <span class="hljs-type">int</span> k;<br>        <span class="hljs-keyword">do</span><br>        &#123;<br>            k = stk[top--];<br>            scc[k] = cnt;<br>        &#125;<br>        <span class="hljs-keyword">while</span>(k != u);<br>	&#125;<br>    <span class="hljs-keyword">return</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 <ul>
 <li>扩展</li>
 </ul>
-<p>可以发现，由于每个点会恰好属于一个 $\operatorname{SCC}$，那么我们可以将每一个 $\operatorname{SCC}$ 看作一个点，并保留原来的边以形成一张新图。这个算法叫做<strong>缩点</strong>。</p>
-<p>显然缩出来的图会是一张 $\operatorname{DAG}$，否则就会有新的 $\operatorname{SCC}$ 产生。</p>
+<p>可以发现，由于每个点会恰好属于一个 <span
+class="math inline">\(\operatorname{SCC}\)</span>，那么我们可以将每一个
+<span class="math inline">\(\operatorname{SCC}\)</span>
+看作一个点，并保留原来的边以形成一张新图。这个算法叫做<strong>缩点</strong>。</p>
+<p>显然缩出来的图会是一张 <span
+class="math inline">\(\operatorname{DAG}\)</span>，否则就会有新的 <span
+class="math inline">\(\operatorname{SCC}\)</span> 产生。</p>
 <p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2341">例题</a></p>
 <ul>
 <li>题意</li>
@@ -515,53 +750,101 @@ r_3 - c_1~~~c_2-r_3~~~r_3-c_3~~~\cdots
 <ul>
 <li>题解</li>
 </ul>
-<p>显然同一个 $\operatorname{SCC}$ 中的所有点是可以互相到达的。</p>
-<p>因此，我们考虑缩点，可以发现 $\operatorname{DAG}$ 终点的 $\operatorname{SCC}$ 即为答案。</p>
-<p>需要注意的是，如果存在多个终点，答案为 $0$。</p>
-<hr>
-<h3 id="割点、割边"><a href="#割点、割边" class="headerlink" title="割点、割边"></a>割点、割边</h3><ul>
+<p>显然同一个 <span class="math inline">\(\operatorname{SCC}\)</span>
+中的所有点是可以互相到达的。</p>
+<p>因此，我们考虑缩点，可以发现 <span
+class="math inline">\(\operatorname{DAG}\)</span> 终点的 <span
+class="math inline">\(\operatorname{SCC}\)</span> 即为答案。</p>
+<p>需要注意的是，如果存在多个终点，答案为 <span
+class="math inline">\(0\)</span>。</p>
+<hr />
+<h3 id="割点割边">割点、割边</h3>
+<ul>
 <li>介绍</li>
 </ul>
 <p>需要注意的一点是，这两个概念是基于无向图的。</p>
-<p>不过，$\operatorname{Tarjan}$ 算法的 $dfn_u$ 和 $low_u$ 定义仍旧没有变，算法的大致框架也没有什么变化。</p>
-<p>先讲割点吧，一个点 $u$ 为割点的判定条件为：$dfn_u \le low_v$（点 $v$ 为 $\operatorname{DFS}$ 树上点 $u$ 的子节点），根据定义应该很好理解。</p>
-<p>不过，值得注意的是，如果 $u$ 为根节点，上述条件始终成立，但其不一定为割点。</p>
-<p>所以，我们还需要判定其在 $\operatorname{DFS}$ 树上是否有大于 $1$ 颗子树。</p>
+<p>不过，<span class="math inline">\(\operatorname{Tarjan}\)</span>
+算法的 <span class="math inline">\(dfn_u\)</span> 和 <span
+class="math inline">\(low_u\)</span>
+定义仍旧没有变，算法的大致框架也没有什么变化。</p>
+<p>先讲割点吧，一个点 <span class="math inline">\(u\)</span>
+为割点的判定条件为：<span class="math inline">\(dfn_u \le
+low_v\)</span>（点 <span class="math inline">\(v\)</span> 为 <span
+class="math inline">\(\operatorname{DFS}\)</span> 树上点 <span
+class="math inline">\(u\)</span> 的子节点），根据定义应该很好理解。</p>
+<p>不过，值得注意的是，如果 <span class="math inline">\(u\)</span>
+为根节点，上述条件始终成立，但其不一定为割点。</p>
+<p>所以，我们还需要判定其在 <span
+class="math inline">\(\operatorname{DFS}\)</span> 树上是否有大于 <span
+class="math inline">\(1\)</span> 颗子树。</p>
 <p>代码：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-type">void</span> <span class="hljs-title">Tarjan</span><span class="hljs-params">(<span class="hljs-type">int</span> u)</span></span><br><span class="hljs-function"></span>&#123;<br>    dfn[u] = low[u] = ++tot;<br>    <span class="hljs-type">int</span> c = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> i = hd[u]; i; i = nxt[i])<br>    &#123;<br>        <span class="hljs-type">int</span> v = to[i];<br>        <span class="hljs-keyword">if</span>(!dfn[v])<br>        &#123;<br>            <span class="hljs-built_in">Tarjan</span>(v);<br>            low[u] = <span class="hljs-built_in">min</span>(low[u], low[v]);<br>            <span class="hljs-keyword">if</span>(dfn[u] &lt;= low[v])<br>            &#123;<br>                ++c;<br>                <span class="hljs-keyword">if</span>(u != rt || c &gt; <span class="hljs-number">1</span>) cv[u] = <span class="hljs-literal">true</span>; <br>            &#125; <br>        &#125;<br>        <span class="hljs-keyword">else</span> low[u] = <span class="hljs-built_in">min</span>(low[u], dfn[v]);<br>    &#125;<br>    <span class="hljs-keyword">return</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>（洛谷上有一道割点的模板题，这里就不放了。）</p>
-<p>再来讲割边，一条边 $u\to v$ 为割边的判定条件为：$dfn_u &lt; low_v$。</p>
-<p>由于无向图在遍历时有可能会遍历到 $\operatorname{DFS}$ 树上的父亲，而点 $u$ 和父亲之间的无向边已经是 $\operatorname{DFS}$ 树边，所以此处我们需要特判：当点 $v$ 为点 $u$ 的父亲时，我们不能够执行 $low_u = \min(low_u, dfn_v)$。</p>
-<p>但是这里还是有问题：当点 $v$ 为点 $u$ 的父亲时，如果点 $u$ 和点 $v$ 之间存在重边，此时只有一条边为 $\operatorname{DFS}$ 树边，我们仍旧可以执行 $low_u = \min(low_u, dfn_v)$。</p>
-<p>所以我们应当特判的是：遍历到的边是否为 $\operatorname{DFS}$ 树边。这样就不会出现上述问题了。</p>
-<p>代码：（用到了成对变换的存图小 $\operatorname{trick}$）</p>
+<p>再来讲割边，一条边 <span class="math inline">\(u\to v\)</span>
+为割边的判定条件为：<span class="math inline">\(dfn_u &lt;
+low_v\)</span>。</p>
+<p>由于无向图在遍历时有可能会遍历到 <span
+class="math inline">\(\operatorname{DFS}\)</span> 树上的父亲，而点 <span
+class="math inline">\(u\)</span> 和父亲之间的无向边已经是 <span
+class="math inline">\(\operatorname{DFS}\)</span>
+树边，所以此处我们需要特判：当点 <span class="math inline">\(v\)</span>
+为点 <span class="math inline">\(u\)</span> 的父亲时，我们不能够执行
+<span class="math inline">\(low_u = \min(low_u, dfn_v)\)</span>。</p>
+<p>但是这里还是有问题：当点 <span class="math inline">\(v\)</span> 为点
+<span class="math inline">\(u\)</span> 的父亲时，如果点 <span
+class="math inline">\(u\)</span> 和点 <span
+class="math inline">\(v\)</span> 之间存在重边，此时只有一条边为 <span
+class="math inline">\(\operatorname{DFS}\)</span> 树边，我们仍旧可以执行
+<span class="math inline">\(low_u = \min(low_u, dfn_v)\)</span>。</p>
+<p>所以我们应当特判的是：遍历到的边是否为 <span
+class="math inline">\(\operatorname{DFS}\)</span>
+树边。这样就不会出现上述问题了。</p>
+<p>代码：（用到了成对变换的存图小 <span
+class="math inline">\(\operatorname{trick}\)</span>）</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-type">void</span> <span class="hljs-title">Tarjan</span><span class="hljs-params">(<span class="hljs-type">int</span> u, <span class="hljs-type">int</span> pre)</span></span><br><span class="hljs-function"></span>&#123;<br>    dfn[u] = low[u] = ++cnt;<br>    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> i = hd[u]; i; i = nxt[i])<br>    &#123;<br>        <span class="hljs-type">int</span> v = to[i];<br>        <span class="hljs-keyword">if</span>(!dfn[v])<br>        &#123;<br>            <span class="hljs-built_in">Tarjan</span>(v, i);<br>            low[u] = <span class="hljs-built_in">min</span>(low[u], low[v]);<br>            <span class="hljs-keyword">if</span>(dfn[u] &lt; low[v]) bridge[i] = bridge[i ^ <span class="hljs-number">1</span>] = <span class="hljs-literal">true</span>;<br>        &#125;<br>        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(i != (pre ^ <span class="hljs-number">1</span>)) low[u] = <span class="hljs-built_in">min</span>(low[u], dfn[v]);	<span class="hljs-comment">//判断其是否为 DFS 树边</span><br>    &#125;<br>    <span class="hljs-keyword">return</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 <p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3469">例题</a></p>
 <ul>
 <li>题意</li>
 </ul>
-<p>给定一个简单无向连通图，对于每个点 $u$，求若点 $u$ 不能被经过，会有多少个有序点对变得不连通。</p>
+<p>给定一个简单无向连通图，对于每个点 <span
+class="math inline">\(u\)</span>，求若点 <span
+class="math inline">\(u\)</span>
+不能被经过，会有多少个有序点对变得不连通。</p>
 <ul>
 <li>题解</li>
 </ul>
-<p>显然每个点的答案至少为 $(n - 2) \cdot 2$，因为自己不能到达别的点，同时别的点也不能到达自己。</p>
-<p>那么一个点被割掉还会造成什么影响呢？答案是：若两点 $a,b$ 间的路径必须经过该点，那么该点被割掉后，原来的两点 $a,b$ 会变得不连通。</p>
+<p>显然每个点的答案至少为 <span class="math inline">\((n - 2) \cdot
+2\)</span>，因为自己不能到达别的点，同时别的点也不能到达自己。</p>
+<p>那么一个点被割掉还会造成什么影响呢？答案是：若两点 <span
+class="math inline">\(a,b\)</span>
+间的路径必须经过该点，那么该点被割掉后，原来的两点 <span
+class="math inline">\(a,b\)</span> 会变得不连通。</p>
 <p>这样我们就可以很自然地想到割点了。</p>
-<p>如果点 $u$ 不为割点，那么答案即为 $(n - 2) \cdot 2$。</p>
+<p>如果点 <span class="math inline">\(u\)</span> 不为割点，那么答案即为
+<span class="math inline">\((n - 2) \cdot 2\)</span>。</p>
 <p>否则答案为什么呢？</p>
 <p>如果我们把割点从原图中割掉，那么剩下的部分一定是至少两个连通块。</p>
 <p>由于点对是有序的，所以我们可以钦定起点在某个连通块中，然后计算贡献。</p>
-<p>设连通块大小为 $size$，那么该连通块贡献即为 $size \cdot (n - size)$。</p>
-<p>当然，不要忽视了点 $u$ 的贡献。</p>
+<p>设连通块大小为 <span
+class="math inline">\(si\)</span>，那么该连通块贡献即为 <span
+class="math inline">\(si \cdot (n - si)\)</span>。</p>
+<p>当然，不要忽视了点 <span class="math inline">\(u\)</span>
+的贡献。</p>
 <p>代码：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-type">void</span> <span class="hljs-title">Tarjan</span><span class="hljs-params">(<span class="hljs-type">int</span> u)</span></span><br><span class="hljs-function"></span>&#123;<br>    dfn[u] = low[u] = ++tot, si[u] = <span class="hljs-number">1</span>;<br>    <span class="hljs-type">int</span> c = <span class="hljs-number">0</span>, sum = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> i = hd[u]; i; i = nxt[i])<br>    &#123;<br>        <span class="hljs-type">int</span> v = to[i];<br>        <span class="hljs-keyword">if</span>(!dfn[v])<br>        &#123;<br>            <span class="hljs-built_in">Tarjan</span>(v);<br>            si[u] += si[v];<br>            low[u] = <span class="hljs-built_in">min</span>(low[u], low[v]);<br>            <span class="hljs-keyword">if</span>(dfn[u] &lt;= low[v])<br>            &#123;<br>                ++c;<br>                <span class="hljs-keyword">if</span>(u != rt || c &gt; <span class="hljs-number">1</span>) cv[u] = <span class="hljs-literal">true</span>; <br>                ans[u] += <span class="hljs-number">1LL</span> * si[v] * (n - si[v]);<br>                sum += si[v];<br>            &#125; <br>        &#125;<br>        <span class="hljs-keyword">else</span> low[u] = <span class="hljs-built_in">min</span>(low[u], dfn[v]);<br>    &#125;<br>    <span class="hljs-keyword">if</span>(cv[u]) ans[u] += <span class="hljs-number">1LL</span> * (n - sum - <span class="hljs-number">1</span>) * (sum + <span class="hljs-number">1</span>) + (n - <span class="hljs-number">1</span>);<br>    <span class="hljs-keyword">else</span> ans[u] = (n - <span class="hljs-number">2</span>) * <span class="hljs-number">2</span>;<br>    <span class="hljs-keyword">return</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
-<hr>
-<h3 id="点双、边双"><a href="#点双、边双" class="headerlink" title="点双、边双"></a>点双、边双</h3><ul>
+<hr />
+<h3 id="点双边双">点双、边双</h3>
+<ul>
 <li>介绍</li>
 </ul>
 <p>点双就是不存在割点的无向图连通分量，边双同理。</p>
 <p>先讲点双的求法吧。</p>
-<p>当割点判定条件 $dfn_u \le low_v$ 成立时，我们直接弹栈，直到 $v$ 弹出为止，弹出的实际上是 $\operatorname{DFS}$ 树上以点 $v$ 为根的子树内的所有节点，这些节点和点 $u$ 共同组成一个点双。</p>
+<p>当割点判定条件 <span class="math inline">\(dfn_u \le low_v\)</span>
+成立时，我们直接弹栈，直到 <span class="math inline">\(v\)</span>
+弹出为止，弹出的实际上是 <span
+class="math inline">\(\operatorname{DFS}\)</span> 树上以点 <span
+class="math inline">\(v\)</span> 为根的子树内的所有节点，这些节点和点
+<span class="math inline">\(u\)</span> 共同组成一个点双。</p>
 <p>代码：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-type">void</span> <span class="hljs-title">Tarjan</span><span class="hljs-params">(<span class="hljs-type">int</span> u)</span></span><br><span class="hljs-function"></span>&#123;<br>  	dfn[u] = low[u] = ++tot, stk[++top] = u;<br>  	<span class="hljs-keyword">if</span>(u == rt &amp;&amp; !hd[u]) <span class="hljs-keyword">return</span> vd[++cnt].<span class="hljs-built_in">push_back</span>(u), <span class="hljs-built_in">void</span>();<br>  	<span class="hljs-type">int</span> c = <span class="hljs-number">0</span>;<br>  	<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> i = hd[u]; i; i = nxt[i])<br>    &#123;<br>      	<span class="hljs-type">int</span> v = to[i];<br>      	<span class="hljs-keyword">if</span>(!dfn[v])<br>        &#123;<br>          	<span class="hljs-built_in">Tarjan</span>(v);<br>          	low[u] = <span class="hljs-built_in">min</span>(low[u], low[v]);<br>          	<span class="hljs-keyword">if</span>(dfn[u] &lt;= low[v])<br>            &#123;<br>              	c++;<br>              	<span class="hljs-keyword">if</span>(u != rt || c &gt; <span class="hljs-number">1</span>) cv[u] = <span class="hljs-literal">true</span>;<br>              	++cnt;<br>              	<span class="hljs-type">int</span> k;<br>              	<span class="hljs-keyword">do</span><br>                &#123;<br>                  	k = stk[top--];<br>                  	vd[cnt].<span class="hljs-built_in">push_back</span>(k);<br>                &#125;<br>                <span class="hljs-keyword">while</span>(k != v);<br>              	vd[v_DCC].<span class="hljs-built_in">push_back</span>(u);<br>            &#125;<br>        &#125;<br>      	<span class="hljs-keyword">else</span> low[u] = <span class="hljs-built_in">min</span>(low[u], dfn[v]);<br>    &#125;<br>  	<span class="hljs-keyword">return</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>相比点双，边双的求法会简单很多：把所有割边去掉，剩下的所有连通分量均为边双。</p>
@@ -571,93 +854,182 @@ r_3 - c_1~~~c_2-r_3~~~r_3-c_3~~~\cdots
 <ul>
 <li>题意</li>
 </ul>
-<p>有 $n$ 个骑士经常举行圆桌会议，商讨大事。每次圆桌会议至少有 $3$ 个骑士参加，且相互憎恨的骑士不能坐在圆桌的相邻位置。如果发生意见分歧，则需要举手表决，因此参加会议的骑士数目必须是大于 $1$ 的奇数，以防止赞同和反对票一样多。知道那些骑士相互憎恨之后，你的任务是统计有多少骑士不可能参加任何一个会议。</p>
+<p>有 <span class="math inline">\(n\)</span>
+个骑士经常举行圆桌会议，商讨大事。每次圆桌会议至少有 <span
+class="math inline">\(3\)</span>
+个骑士参加，且相互憎恨的骑士不能坐在圆桌的相邻位置。如果发生意见分歧，则需要举手表决，因此参加会议的骑士数目必须是大于
+<span class="math inline">\(1\)</span>
+的奇数，以防止赞同和反对票一样多。知道那些骑士相互憎恨之后，你的任务是统计有多少骑士不可能参加任何一个会议。</p>
 <ul>
 <li>题解</li>
 </ul>
 <p>我们如果把憎恨关系看成边，建出原图的补图，那么问题就是要求有多少个点不能被任何一个奇环包含。</p>
 <p>接着我们给出两个引理：</p>
-<ol>
+<ol type="1">
 <li>若两个骑士分属不同的点双，则它们不可能一起出席会议；</li>
 <li>若某个点双中存在奇环，那么该点双中的所有点都能被至少一个奇环包含。</li>
 </ol>
-<p>引理 $1$ 显然成立：如果两个骑士可以出席会议则必然位于一个奇环中，可是奇环上哪来的割点呢？</p>
-<p>引理 $2$ 也很好证：显然对于点双内奇环外一点 $u$，奇环上必然存在两点 $a, b$ 满足三点在一个简单环上（否则环上会存在割点）。由于 $a, b$ 两点在奇环上有两条长度奇偶性不同的路径，所以一定存在一个同时包含三点的奇环。</p>
-<p>有了引理 $1$，我们就可以对每个点双分开讨论了。</p>
-<p>有了引理 $2$，我们就可以判断每个点双内的所有点是否可行了。</p>
+<p>引理 <span class="math inline">\(1\)</span>
+显然成立：如果两个骑士可以出席会议则必然位于一个奇环中，可是奇环上哪来的割点呢？</p>
+<p>引理 <span class="math inline">\(2\)</span>
+也很好证：显然对于点双内奇环外一点 <span
+class="math inline">\(u\)</span>，奇环上必然存在两点 <span
+class="math inline">\(a, b\)</span>
+满足三点在一个简单环上（否则环上会存在割点）。由于 <span
+class="math inline">\(a, b\)</span>
+两点在奇环上有两条长度奇偶性不同的路径，所以一定存在一个同时包含三点的奇环。</p>
+<p>有了引理 <span
+class="math inline">\(1\)</span>，我们就可以对每个点双分开讨论了。</p>
+<p>有了引理 <span
+class="math inline">\(2\)</span>，我们就可以判断每个点双内的所有点是否可行了。</p>
 <p>判定奇环可以用二分图的黑白染色法（因为二分图中不存在奇环），我们会在下文提到。</p>
-<hr>
-<h3 id="operatorname-2-SAT-问题"><a href="#operatorname-2-SAT-问题" class="headerlink" title="$\operatorname{2-SAT}$ 问题"></a>$\operatorname{2-SAT}$ 问题</h3><ul>
+<hr />
+<h3 id="operatorname2-sat-问题"><span
+class="math inline">\(\operatorname{2-SAT}\)</span> 问题</h3>
+<ul>
 <li>介绍</li>
 </ul>
 <p>下面我们来讨论一类问题：</p>
-<p>现有 $n$ 个变量，分别命名为 $x_{1 \sim n}$，满足 $\forall i \in [1,n], x_i \in \{0, 1\}$。</p>
-<p>然后给定 $m$ 个限制条件，形如 “如果 $x_i=a$，那么 $x_j=b$”，即 $x_i = a$ 是 $x_j = b$ 的充分条件。</p>
+<p>现有 <span class="math inline">\(n\)</span> 个变量，分别命名为 <span
+class="math inline">\(x_{1 \sim n}\)</span>，满足 <span
+class="math inline">\(\forall i \in [1,n], x_i \in \{0,
+1\}\)</span>。</p>
+<p>然后给定 <span class="math inline">\(m\)</span> 个限制条件，形如
+“如果 <span class="math inline">\(x_i=a\)</span>，那么 <span
+class="math inline">\(x_j=b\)</span>”，即 <span
+class="math inline">\(x_i = a\)</span> 是 <span
+class="math inline">\(x_j = b\)</span> 的充分条件。</p>
 <p>现需要给定一组合法解。</p>
-<p>我们发现，“$x_i = a$ 是 $x_j = b$ 的充分条件” 的符号表示 $x_i = a \Rightarrow x_j = b$，十分类似一条有向边。</p>
-<p>所以我们可以考虑建图：如果设 $i + n \cdot a$ 代表 $x_i=a$，那么对于上述条件，我们可以从 $i+n\cdot a$ 向 $j + n \cdot b$ 连一条边。</p>
-<p>可以发现，如果两个点能相互到达，那么它们互为重要条件。也就是说，在一个 $\operatorname{SCC}$ 中，所有命题均互为充要条件！</p>
-<p>（当然会存在 $i$ 和 $i + n$ 在同一个 $\operatorname{SCC}$ 中的情况，此时无解。）</p>
-<p>那么，我们可以跑一遍 $\operatorname{Tarjan}$，然后进行 $\operatorname{SCC}$ 缩点。</p>
-<p>现在我们要考虑的是：如何在这个 $\operatorname{DAG}$ 上给每一个变量取值。</p>
-<p>举个例子，如果我们把 $x_i$ 赋值为 $0$ ，但是在 $\operatorname{DAG}$ 上这个点可以跑到 $x_i = 1$ 所代表的点，那么前面的方案肯定就行不通。所以，我们取拓扑序靠后的节点所代表的值即可。</p>
-<p>显然 $\operatorname{SCC}$ 的编号越小，则越靠近叶节点，实际上就是拓扑序越大，所以我们根据 $\operatorname{SCC}$ 编号大小比较即可。</p>
+<p>我们发现，“<span class="math inline">\(x_i = a\)</span> 是 <span
+class="math inline">\(x_j = b\)</span> 的充分条件” 的符号表示 <span
+class="math inline">\(x_i = a \Rightarrow x_j =
+b\)</span>，十分类似一条有向边。</p>
+<p>所以我们可以考虑建图：如果设 <span class="math inline">\(i + n \cdot
+a\)</span> 代表 <span
+class="math inline">\(x_i=a\)</span>，那么对于上述条件，我们可以从 <span
+class="math inline">\(i+n\cdot a\)</span> 向 <span
+class="math inline">\(j + n \cdot b\)</span> 连一条边。</p>
+<p>可以发现，如果两个点能相互到达，那么它们互为重要条件。也就是说，在一个
+<span class="math inline">\(\operatorname{SCC}\)</span>
+中，所有命题均互为充要条件！</p>
+<p>（当然会存在 <span class="math inline">\(i\)</span> 和 <span
+class="math inline">\(i + n\)</span> 在同一个 <span
+class="math inline">\(\operatorname{SCC}\)</span>
+中的情况，此时无解。）</p>
+<p>那么，我们可以跑一遍 <span
+class="math inline">\(\operatorname{Tarjan}\)</span>，然后进行 <span
+class="math inline">\(\operatorname{SCC}\)</span> 缩点。</p>
+<p>现在我们要考虑的是：如何在这个 <span
+class="math inline">\(\operatorname{DAG}\)</span>
+上给每一个变量取值。</p>
+<p>举个例子，如果我们把 <span class="math inline">\(x_i\)</span> 赋值为
+<span class="math inline">\(0\)</span> ，但是在 <span
+class="math inline">\(\operatorname{DAG}\)</span> 上这个点可以跑到 <span
+class="math inline">\(x_i = 1\)</span>
+所代表的点，那么前面的方案肯定就行不通。所以，我们取拓扑序靠后的节点所代表的值即可。</p>
+<p>显然 <span class="math inline">\(\operatorname{SCC}\)</span>
+的编号越小，则越靠近叶节点，实际上就是拓扑序越大，所以我们根据 <span
+class="math inline">\(\operatorname{SCC}\)</span> 编号大小比较即可。</p>
 <p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4782">模板题</a></p>
-<hr>
-<h2 id="生成树问题"><a href="#生成树问题" class="headerlink" title="生成树问题"></a>生成树问题</h2><p>该部分会讲解最小生成树的 $\operatorname{Prim}$ 算法和 $\operatorname{Kruskal}$ 算法，以及若干生成树问题的扩展。</p>
-<p>笔者还会讲到 $\operatorname{Matrix-Tree}$ 定理，但是笔者会略去所有证明，仅给出最终结论。</p>
-<hr>
-<h3 id="最小生成树"><a href="#最小生成树" class="headerlink" title="最小生成树"></a>最小生成树</h3><ul>
+<hr />
+<h2 id="生成树问题">生成树问题</h2>
+<p>该部分会讲解最小生成树的 <span
+class="math inline">\(\operatorname{Prim}\)</span> 算法和 <span
+class="math inline">\(\operatorname{Kruskal}\)</span>
+算法，以及若干生成树问题的扩展。</p>
+<p>笔者还会讲到 <span
+class="math inline">\(\operatorname{Matrix-Tree}\)</span>
+定理，但是笔者会略去所有证明，仅给出最终结论。</p>
+<hr />
+<h3 id="最小生成树">最小生成树</h3>
+<ul>
 <li>介绍</li>
 </ul>
-<p>在 $n$ 个点的无向图中，若任选 $n - 1$ 条边构成一颗树，则称该树为原图的生成树。</p>
-<p>权值和最小的一颗生成树即为最小生成树（$\operatorname{Minimum~Spanning~Teee,MST}$）。</p>
+<p>在 <span class="math inline">\(n\)</span> 个点的无向图中，若任选
+<span class="math inline">\(n - 1\)</span>
+条边构成一颗树，则称该树为原图的生成树。</p>
+<p>权值和最小的一颗生成树即为最小生成树（<span
+class="math inline">\(\operatorname{Minimum~Spanning~Teee,MST}\)</span>）。</p>
 <p>下面给出最小生成树的两种常用算法。</p>
 <ul>
-<li>$\operatorname{Prim}$ 算法</li>
+<li><span class="math inline">\(\operatorname{Prim}\)</span> 算法</li>
 </ul>
-<p>和 $\operatorname{Dijkstra}$ 的算法框架几乎相同。基本思想是利用贪心维护最小生成树的一部分。</p>
-<p>我们仍然设黑点和白点，初始时设 $1$ 号点为黑点，然后每次选出一个点变为黑点，同时往最小生成树中加入一条边，重复上述过程直至所有点均为黑点为止。</p>
-<p>不过，不同于 $\operatorname{Dijkstra}$，$\operatorname{Prim}$ 算法维护的 $dis_i$ 为点 $i$ 到黑点集合的最短边。</p>
-<p>同时，假设当前循环选中变为黑点的节点为点 $u$，那么加入最小生成树中的边也是 $dis_u$ 所代表的边。</p>
-<p>可喜的是，$\operatorname{Prim}$ 算法允许负权边的存在。并且，它也可以像 $\operatorname{Dijkstra}$ 那样用堆优化。</p>
-<p>$\operatorname{Prim}$ 算法的复杂度为 $\mathcal{O}(n^2)$，加上堆优化后复杂度变为 $\mathcal{O}((n + m)\log_2n)$。</p>
-<p>不过，与其用堆优化，还不如用下面将要介绍的 $\operatorname{Kruskal}$ 算法。所以，$\operatorname{Prim}$ 一般写的是不加优化的版本，并且常用于解决稠密图尤其是完全图的最小生成树问题。</p>
+<p>和 <span class="math inline">\(\operatorname{Dijkstra}\)</span>
+的算法框架几乎相同。基本思想是利用贪心维护最小生成树的一部分。</p>
+<p>我们仍然设黑点和白点，初始时设 <span class="math inline">\(1\)</span>
+号点为黑点，然后每次选出一个点变为黑点，同时往最小生成树中加入一条边，重复上述过程直至所有点均为黑点为止。</p>
+<p>不过，不同于 <span
+class="math inline">\(\operatorname{Dijkstra}\)</span>，<span
+class="math inline">\(\operatorname{Prim}\)</span> 算法维护的 <span
+class="math inline">\(dis_i\)</span> 为点 <span
+class="math inline">\(i\)</span> 到黑点集合的最短边。</p>
+<p>同时，假设当前循环选中变为黑点的节点为点 <span
+class="math inline">\(u\)</span>，那么加入最小生成树中的边也是 <span
+class="math inline">\(dis_u\)</span> 所代表的边。</p>
+<p>可喜的是，<span class="math inline">\(\operatorname{Prim}\)</span>
+算法允许负权边的存在。并且，它也可以像 <span
+class="math inline">\(\operatorname{Dijkstra}\)</span>
+那样用堆优化。</p>
+<p><span class="math inline">\(\operatorname{Prim}\)</span>
+算法的复杂度为 <span
+class="math inline">\(\mathcal{O}(n^2)\)</span>，加上堆优化后复杂度变为
+<span class="math inline">\(\mathcal{O}((n + m)\log_2n)\)</span>。</p>
+<p>不过，与其用堆优化，还不如用下面将要介绍的 <span
+class="math inline">\(\operatorname{Kruskal}\)</span> 算法。所以，<span
+class="math inline">\(\operatorname{Prim}\)</span>
+一般写的是不加优化的版本，并且常用于解决稠密图尤其是完全图的最小生成树问题。</p>
 <p>代码（不加优化的版本）：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-type">int</span> <span class="hljs-title">Prim</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-built_in">memset</span>(dis, <span class="hljs-number">0x3F</span>, <span class="hljs-keyword">sizeof</span> dis), <span class="hljs-built_in">memset</span>(vis, <span class="hljs-literal">false</span>, <span class="hljs-keyword">sizeof</span> vis);<br>    dis[<span class="hljs-number">1</span>] = <span class="hljs-number">0</span>; <span class="hljs-type">int</span> ans = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> i = <span class="hljs-number">1</span>; i &lt; n; i++)<br>    &#123;<br>        <span class="hljs-type">int</span> p = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> j = <span class="hljs-number">1</span>; j &lt;= n; j++) <span class="hljs-keyword">if</span>(!vis[j] &amp;&amp; dis[j] &lt; dis[p]) p = j;<br>        vis[p] = <span class="hljs-literal">true</span>, ans += dis[p];<br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> j = <span class="hljs-number">1</span>; j &lt;= n; j++) <span class="hljs-keyword">if</span>(!vis[j]) dis[j] = <span class="hljs-built_in">min</span>(dis[j], g[p][j]);<br>    &#125;<br>    <span class="hljs-keyword">return</span> ans;<br>&#125;<br></code></pre></td></tr></table></figure>
 <ul>
-<li>$\operatorname{Kruskal}$ 算法</li>
+<li><span class="math inline">\(\operatorname{Kruskal}\)</span>
+算法</li>
 </ul>
 <p>也是基于贪心思想。</p>
 <p>我们对边权从小到大排序，用并查集维护连通块，从小到大枚举边，能加入最小生成树的就加入。</p>
 <p>可以发现这个算法做起来非常的无脑。所以，它应该是算法竞赛中最常用的求最小生成树的算法了。</p>
-<p>复杂度 $\mathcal{O}(m\log_2m)$，瓶颈在于排序。实际上，可以用一些手段做到线性复杂度。</p>
+<p>复杂度 <span
+class="math inline">\(\mathcal{O}(m\log_2m)\)</span>，瓶颈在于排序。实际上，可以用一些手段做到线性复杂度。</p>
 <p>代码：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">struct</span> <span class="hljs-title class_">Edge</span> &#123; <span class="hljs-type">int</span> u, v, w; <span class="hljs-type">bool</span> <span class="hljs-keyword">operator</span> &lt; (<span class="hljs-type">const</span> Edge &amp;t) <span class="hljs-type">const</span> &#123; <span class="hljs-keyword">return</span> w &lt; t.w; &#125; &#125; ed[MAXM];<br><br><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-type">int</span> <span class="hljs-title">Kruskal</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-built_in">sort</span>(ed + <span class="hljs-number">1</span>, ed + m + <span class="hljs-number">1</span>);<br>    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i++) fa[i] = i;<br>    <span class="hljs-type">int</span> cnt = <span class="hljs-number">0</span>, sum = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> i = <span class="hljs-number">1</span>; i &lt;= m; i++)<br>    &#123;<br>        <span class="hljs-type">int</span> u = ed[i].u, v = ed[i].v, w = ed[i].w, fu = <span class="hljs-built_in">Find</span>(u), fv = <span class="hljs-built_in">Find</span>(v);<br>        <span class="hljs-keyword">if</span>(fu == fv) <span class="hljs-keyword">continue</span>;<br>        ++cnt, sum += w;<br>        <span class="hljs-keyword">if</span>(cnt == n - <span class="hljs-number">1</span>) <span class="hljs-keyword">break</span>;<br>    &#125;<br>    <span class="hljs-keyword">return</span> sum;<br>&#125;<br></code></pre></td></tr></table></figure>
 <p><a target="_blank" rel="noopener" href="http://poj.org/problem?id=2349">例题</a></p>
 <ul>
 <li>题意</li>
 </ul>
-<p>给出平面上 $p$ 个点，点和点之间可以用无线电或者卫星通信，每个点都有无线电收发器可进行无线电通信，但是只有 $s$ 个点有卫星通信功能。</p>
-<p>卫星通信的距离可以无限大，但无线电通信的距离不能超过 $d$，而 $p$ 个点需要互相通信，可以直接也可以间接，求 $d$ 最小值。</p>
+<p>给出平面上 <span class="math inline">\(p\)</span>
+个点，点和点之间可以用无线电或者卫星通信，每个点都有无线电收发器可进行无线电通信，但是只有
+<span class="math inline">\(s\)</span> 个点有卫星通信功能。</p>
+<p>卫星通信的距离可以无限大，但无线电通信的距离不能超过 <span
+class="math inline">\(d\)</span>，而 <span
+class="math inline">\(p\)</span>
+个点需要互相通信，可以直接也可以间接，求 <span
+class="math inline">\(d\)</span> 最小值。</p>
 <ul>
 <li>题解</li>
 </ul>
-<p>如果直接求第 $s$ 大边显然是错的，正确答案是 $\operatorname{MST}$ 上的第 $s$ 大边。</p>
-<p>因为去掉 $s - 1$ 条边会把数分成 $s$ 个连通块，所以我们在每个连通块放一个卫星通信即可。</p>
-<p>而直接求第 $s$ 大的边，$d$ 会比答案要大，不满足最优。</p>
-<p>代码就不放了。不过顺带提一句，这道题用 $\operatorname{Kruskal}$ 做会很方便。</p>
-<hr>
-<h3 id="生成树问题若干拓展"><a href="#生成树问题若干拓展" class="headerlink" title="生成树问题若干拓展"></a>生成树问题若干拓展</h3><ul>
+<p>如果直接求第 <span class="math inline">\(s\)</span>
+大边显然是错的，正确答案是 <span
+class="math inline">\(\operatorname{MST}\)</span> 上的第 <span
+class="math inline">\(s\)</span> 大边。</p>
+<p>因为去掉 <span class="math inline">\(s - 1\)</span> 条边会把数分成
+<span class="math inline">\(s\)</span>
+个连通块，所以我们在每个连通块放一个卫星通信即可。</p>
+<p>而直接求第 <span class="math inline">\(s\)</span> 大的边，<span
+class="math inline">\(d\)</span> 会比答案要大，不满足最优。</p>
+<p>代码就不放了。不过顺带提一句，这道题用 <span
+class="math inline">\(\operatorname{Kruskal}\)</span> 做会很方便。</p>
+<hr />
+<h3 id="生成树问题若干拓展">生成树问题若干拓展</h3>
+<ul>
 <li>介绍</li>
 </ul>
 <p>生成树问题不仅限于最小生成树，还包括次小生成树，最小度限制生成树等经典问题，下面将一一讲解。</p>
 <ul>
 <li>次小生成树</li>
 </ul>
-<p>严格来讲，次小生成树分为严格次小生成树和非严格次小生成树，即权值是否可以与 $\operatorname{MST}$ 相等。</p>
+<p>严格来讲，次小生成树分为严格次小生成树和非严格次小生成树，即权值是否可以与
+<span class="math inline">\(\operatorname{MST}\)</span> 相等。</p>
 <p>下面就拿例题来讲解。</p>
-<p><a target="_blank" rel="noopener" href="http://poj.org/problem?id=1679">非严格次小生成树 例题</a></p>
+<p><a target="_blank" rel="noopener" href="http://poj.org/problem?id=1679">非严格次小生成树</a></p>
 <ul>
 <li>题意</li>
 </ul>
@@ -666,16 +1038,23 @@ r_3 - c_1~~~c_2-r_3~~~r_3-c_3~~~\cdots
 <li>题解</li>
 </ul>
 <p>题目实际上是求非严格次小生成树是否等于最小生成树。</p>
-<p>我们可以求出 $\operatorname{MST}$ 后，把非树边一条一条地尝试加入。每加入一条非树边，就会与原来的树构成一个环。</p>
+<p>我们可以求出 <span class="math inline">\(\operatorname{MST}\)</span>
+后，把非树边一条一条地尝试加入。每加入一条非树边，就会与原来的树构成一个环。</p>
 <p>我们在这个环原来的部分，也就是除去这条新加入边的部分，选出一条权值最大的边用新加入的边代替。</p>
-<p>这样可以保证新的生成树最接近 $\operatorname{MST}$ ，甚至有可能等于 $\operatorname{MST}$。</p>
+<p>这样可以保证新的生成树最接近 <span
+class="math inline">\(\operatorname{MST}\)</span> ，甚至有可能等于 <span
+class="math inline">\(\operatorname{MST}\)</span>。</p>
 <p>然后对于所有这样的生成树，我们选取取最小的一颗，这就是非严格次小生成树。</p>
-<p>实现的话，可以考虑在 $\operatorname{MST}$ 上树上倍增。</p>
-<p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4180">严格次小生成树 例题</a></p>
+<p>实现的话，可以考虑在 <span
+class="math inline">\(\operatorname{MST}\)</span> 上树上倍增。</p>
+<p><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4180">严格次小生成树</a></p>
 <ul>
 <li>题意</li>
 </ul>
-<p>给定一张无向图，求权值严格大于 $\operatorname{MST}$ 的权值最小的生成树。</p>
+<p>给定一张无向图，求权值严格大于 <span
+class="math inline">\(\operatorname{MST}\)</span>
+的权值最小的生成树。</p>
 <ul>
 <li>题解</li>
 </ul>
@@ -687,88 +1066,158 @@ r_3 - c_1~~~c_2-r_3~~~r_3-c_3~~~\cdots
 </ul>
 <p>实际上，最小度限制生成树也有严格和非严格之分，即度限制是否必须达到。</p>
 <p>下面同样拿例题讲解。</p>
-<p><a target="_blank" rel="noopener" href="http://poj.org/problem?id=1639">非严格最小度限制生成树</a></p>
+<p><a
+target="_blank" rel="noopener" href="http://poj.org/problem?id=1639">非严格最小度限制生成树</a></p>
 <ul>
 <li>题意</li>
 </ul>
-<p>给定一张无向图，要求一颗权值最小的生成树，满足 $1$ 号点的度数不超过 $k$。</p>
+<p>给定一张无向图，要求一颗权值最小的生成树，满足 <span
+class="math inline">\(1\)</span> 号点的度数不超过 <span
+class="math inline">\(k\)</span>。</p>
 <ul>
 <li>题解</li>
 </ul>
-<p>首先，我们可以考虑把 $1$ 号点去掉，那么剩下的所有连通块必有一条边连向 $1$ 号点，我们对于每个连通块选择权值最小的一条边连接即可。同时，在这一步中，我们可以把无解情况判掉。</p>
+<p>首先，我们可以考虑把 <span class="math inline">\(1\)</span>
+号点去掉，那么剩下的所有连通块必有一条边连向 <span
+class="math inline">\(1\)</span>
+号点，我们对于每个连通块选择权值最小的一条边连接即可。同时，在这一步中，我们可以把无解情况判掉。</p>
 <p>这个时候求出的生成树并不一定是最优解，所以我们还需要进行进一步的调整。</p>
-<p>我们类似上文所述，考虑把所有不在当前生成树中的与 $1$ 号点相连的边加入，然后在环上取出权值最大的边，分别计算对权值的影响。如果某个时刻权值的影响为非负数，那么此时的生成树即为最优解。</p>
-<p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5633">严格最小度限制生成树</a></p>
+<p>我们类似上文所述，考虑把所有不在当前生成树中的与 <span
+class="math inline">\(1\)</span>
+号点相连的边加入，然后在环上取出权值最大的边，分别计算对权值的影响。如果某个时刻权值的影响为非负数，那么此时的生成树即为最优解。</p>
+<p><a
+target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5633">严格最小度限制生成树</a></p>
 <ul>
 <li>题意</li>
 </ul>
-<p>给定一张无向图，要求一颗权值最小的生成树，满足 $s$ 号点的度数等于 $k$。</p>
+<p>给定一张无向图，要求一颗权值最小的生成树，满足 <span
+class="math inline">\(s\)</span> 号点的度数等于 <span
+class="math inline">\(k\)</span>。</p>
 <ul>
 <li>题解</li>
 </ul>
-<p>$\operatorname{wqs}$ 二分的做法似乎被卡了，所以这里讲解另一种解法。</p>
-<p>我们可以考虑给每一个点赋一个点权表示其与 $s$ 的最小边权（如无边相连则设为正无穷），那么选择这个点权相当于选择了这条边，接下来我们就可以忽略 $s$ 了。</p>
-<p>先求出整张图的最小生成森林，那么不在该森林内的边将会被删除。</p>
-<p>接下来我们需要在每一颗树中选择一个点权，选择最小的即可。</p>
-<p>这一步会出现两种无解情况：</p>
-<ol>
-<li><p>正无穷的点权不可选择，如果某一颗树内点权全部为正无穷，那么无解（实际上对应了原图不连通的情况）；</p>
-</li>
-<li><p>树的个数超过了 $k$，也就是说，点 $s$ 的度数必将超过 $k$，那么无解。</p>
-</li>
-</ol>
-<p>然后，我们需要得到每个点 $u$ 的点权被选择时需要删掉哪一条边，我们也仅需选择 $s$ 到 $u$ 路径上的最大边即可。</p>
-<p>我们把所有可能被选择的点的点权减去需要被删掉的边的边权，然后按照减完后的点权从小到大排序，结合前面选中的点，再在这些点中选择，直至选完 $k$ 个。</p>
-<p>当然总点数可能小于 $k$ 个，显然这种情况也为无解。</p>
-<p>具体实现，我们可以考虑每条边会被哪个点删掉。</p>
-<p>我们可以在 $\operatorname{Kruskal}$ 的过程中，利用并查集维护每个连通块的最小值（具体来说我们可以将并查集维护成一个小根堆）。</p>
-<p>每次加入一条边时，如果当前边对应的两个连通块中点权最小值分别为 $a, b$，那么 $\max(a, b)$ 对应的点需要删除的边即为当前边。</p>
-<p>原因有二：</p>
-<ol>
-<li><p>$\operatorname{Kruskal}$ 的算法过程保证了两个连通块内所有边的边权必不超过当前边的边权，所以可以保证选择这条边是最优的；</p>
-</li>
-<li><p>$\min(a, b)$ 所对应的点一定会比 $\max(a, b)$ 所对应的点先选中，所以可以保证选择这条边是合法的。</p>
-</li>
-</ol>
-<p>至于答案如何计算，选择 $k$ 个点的时候统计一下权值和即可。</p>
-<hr>
-<h3 id="矩阵树定理"><a href="#矩阵树定理" class="headerlink" title="矩阵树定理"></a>矩阵树定理</h3><p>在学习矩阵树定理之前，请先保证自己有一定线性代数基础，至少需要会行列式求值。</p>
-<hr>
+<p>我们可以考虑给每一个点赋一个点权表示其与 <span
+class="math inline">\(s\)</span>
+之间所有连边的最小边权（如无连边则设为正无穷），那么选择这个点权相当于选择了这条边，接下来我们就可以忽略
+<span class="math inline">\(s\)</span> 了。</p>
+<p>对于去掉 <span class="math inline">\(s\)</span>
+后的图，我们对其求出最小生成森林，那么显然不在该森林内的边将会被删除。</p>
+<p>在每颗树中，我们初始时必须要选择一个点（否则会导致生成树不联通），可以证明选择点权最小的点会最优。</p>
+<p>设 <span class="math inline">\(f(i, j)\)</span> 表示在连通分量 <span
+class="math inline">\(i\)</span> 中选择 <span
+class="math inline">\(j\)</span>
+个点的最小答案，可以考虑贪心地增量，即从 <span
+class="math inline">\(f(i, j - 1)\)</span> 对应的答案加入一个新点使得
+<span class="math inline">\(f(i, j)\)</span>
+最小，证明同上面的贪心类似。</p>
+<p>这里，设新点为 <span class="math inline">\(u\)</span>，加入点 <span
+class="math inline">\(u\)</span>
+后，它会与一个同属同一连通块且已经被选中的点为 <span
+class="math inline">\(v\)</span> 形成一个环，那么 <span
+class="math inline">\(u\)</span> 的贡献等于 <span
+class="math inline">\(u\)</span> 的点权减去 <span
+class="math inline">\(u \to v\)</span>
+这条路径上的最大边权。当然，加入新点 <span
+class="math inline">\(u\)</span> 后要删去这条最大边。</p>
+<p>可以发现，<span class="math inline">\(f(i, j)\)</span> 是以 <span
+class="math inline">\(j\)</span> 为自变量的凸函数，那么我们将所有 <span
+class="math inline">\(f(i, j) - f(i, j - 1)\)</span>
+从小到大排序，取前若干个即为答案。而 <span class="math inline">\(f(i, j)
+- f(i, j - 1)\)</span> 实际上就是表示 <span class="math inline">\(f(i, j
+- 1) \to f(i, j)\)</span>
+中新点的贡献，所以我们仅需尝试求出每个点的贡献，将其排序后取前若干个即可。</p>
+<p>现在考虑每个点的贡献，也就是求出每个点加入时会对应地删去哪条边。不妨考虑每条边会被哪个点删掉。</p>
+<p>从小到大考虑所有边，设当前的边的两个端点所在的在两个连通块中最小的点权分别为
+<span class="math inline">\(a\)</span> 和 <span
+class="math inline">\(b\)</span>，则 <span
+class="math inline">\(a\)</span> 和 <span
+class="math inline">\(b\)</span>
+中的较大值所对应的点被选中时，当前的边就会被这个点删除。我们将这个点在原图中删除，然后考虑下一条边即可。</p>
+<p>可以发现这个算法的逆过程和 <span
+class="math inline">\(\operatorname{Kruskal}\)</span>
+十分相似，所以在求最小生成森林的同时，在并查集上维护当前连通块的最小值即可。</p>
+<p>注意无解情况：至少需要的边太多，或者至多能够连的边太少（注意点权为正无穷时不能够被选中）。</p>
+<hr />
+<h3 id="矩阵树定理">矩阵树定理</h3>
+<p>在学习矩阵树定理之前，请先保证自己有一定线性代数基础，至少需要会行列式求值。</p>
+<hr />
 <ul>
 <li>介绍</li>
 </ul>
 <p>在生成树问题中，有一类和计数相关的问题：统计无向图中有多少颗本质不同的生成树。</p>
 <p>当然这个问题也有若干扩展：图可以变为有向图（此时生成树为外向树或内向树），统计生成树的个数可以变为统计所有生成树的权值和（这里的权值定义为生成树中所有边权的乘积）。</p>
-<p>下面我们就给出结论，证明可以参考网上的博客 <del>（显然是笔者不会）</del>。</p>
-<p>我们设度数矩阵 $D$，它仅在主对角线上有值，同时设邻接矩阵 $A$。</p>
-<p>然后，定义基尔霍夫（$\operatorname{Kirchhoff}$）矩阵 $K$ 为：$K = D - A$。</p>
+<p>下面我们就给出结论，证明可以参考网上的博客
+<del>（显然是笔者不会）</del>。</p>
+<p>我们设度数矩阵 <span
+class="math inline">\(D\)</span>，它仅在主对角线上有值，同时设邻接矩阵
+<span class="math inline">\(A\)</span>。</p>
+<p>然后，定义基尔霍夫（<span
+class="math inline">\(\operatorname{Kirchhoff}\)</span>）矩阵 <span
+class="math inline">\(K\)</span> 为：<span class="math inline">\(K = D -
+A\)</span>。</p>
 <p>那么接下来所有的结论都基于这个矩阵。</p>
-<p>（注：如果没有边权则默认边权为 $1$。)</p>
-<ol>
-<li><p>如果图为无向图，那么所有生成树的权值和为：去掉 $K$ 矩阵的第 $k$ 行和第 $k$ 列后得到的矩阵的行列式（$k$ 任意）。此时，$D_{i, i}$ 即为与点 $i$ 相连的所有边的权值和，$A_{i, j}$ 即为点 $i$ 和点 $j$ 之间所有边的权值和。</p>
-</li>
-<li><p>如果图为有向图，那么所有以点 $k$ 为根的外向树的权值和为：去掉 $K$ 矩阵的第 $k$ 行和第 $k$ 列后得到的矩阵的行列式。此时，$D_{i, i}$ 即为所有连向 $i$ 的边的权值和，$A_{i, j}$ 即为所有点 $i$ 向点 $j$ 连的边的权值和。内向树的结论类似，不过此时 $D_{i, i}$ 定义为所有 $i$ 向外连出的边的权值和。</p>
-</li>
+<p>（注：如果没有边权则默认边权为 <span
+class="math inline">\(1\)</span>。)</p>
+<ol type="1">
+<li><p>如果图为无向图，那么所有生成树的权值和为：去掉 <span
+class="math inline">\(K\)</span> 矩阵的第 <span
+class="math inline">\(k\)</span> 行和第 <span
+class="math inline">\(k\)</span> 列后得到的矩阵的行列式（<span
+class="math inline">\(k\)</span> 任意）。此时，<span
+class="math inline">\(D_{i, i}\)</span> 即为与点 <span
+class="math inline">\(i\)</span> 相连的所有边的权值和，<span
+class="math inline">\(A_{i, j}\)</span> 即为点 <span
+class="math inline">\(i\)</span> 和点 <span
+class="math inline">\(j\)</span> 之间所有边的权值和。</p></li>
+<li><p>如果图为有向图，那么所有以点 <span
+class="math inline">\(k\)</span> 为根的外向树的权值和为：去掉 <span
+class="math inline">\(K\)</span> 矩阵的第 <span
+class="math inline">\(k\)</span> 行和第 <span
+class="math inline">\(k\)</span> 列后得到的矩阵的行列式。此时，<span
+class="math inline">\(D_{i, i}\)</span> 即为所有连向 <span
+class="math inline">\(i\)</span> 的边的权值和，<span
+class="math inline">\(A_{i, j}\)</span> 即为所有点 <span
+class="math inline">\(i\)</span> 向点 <span
+class="math inline">\(j\)</span>
+连的边的权值和。内向树的结论类似，不过此时 <span
+class="math inline">\(D_{i, i}\)</span> 定义为所有 <span
+class="math inline">\(i\)</span> 向外连出的边的权值和。</p></li>
 </ol>
 <p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4336">例题</a></p>
 <ul>
 <li>题意</li>
 </ul>
-<p>给定一个 $n$ 个点 $m$ 条边无向图，每条边可能呈现出若干种颜色（颜色一共有 $n - 1$ 种）。</p>
+<p>给定一个 <span class="math inline">\(n\)</span> 个点 <span
+class="math inline">\(m\)</span>
+条边无向图，每条边可能呈现出若干种颜色（颜色一共有 <span
+class="math inline">\(n - 1\)</span> 种）。</p>
 <p>求有多少颗本质不同的生成树，满足每一种颜色都在生成树上出现过（注意，每条边在一颗生成树上仅能呈现出一种颜色）。</p>
 <p>定义两颗生成树本质不同为：存在至少一条边，满足仅在其中一颗生成树上出现，或满足两颗生成树中该边的颜色不同。</p>
 <ul>
 <li>题解</li>
 </ul>
-<p>（做这题前需要会子集反演，如果不会，可以阅读我的文章<a href="https://reclouds.github.io/2022/03/09/%E5%87%BD%E6%95%B0%E7%9A%84%E5%8F%8D%E6%BC%94%E5%8F%98%E6%8D%A2/">《函数的反演变换》</a>。）</p>
-<p>发现 $n$ 很小，于是我们可以考虑和枚举子集有关的做法。</p>
-<p>我们设 $F(S)$ 表示生成树上出现的颜色集合为 $S$ 的子集的方案数，设 $G(S)$ 表示生成树上出现的颜色集合为 $S$ 的方案数，那么有下列式子：</p>
-<script type="math/tex; mode=display">
-F(S) = \sum_{T \subset S} G(T)</script><p>子集反演一下就有：</p>
-<script type="math/tex; mode=display">
-G(S) = \sum_{T \subset S} (-1)^{|S| - |T|} F(T)</script><p>求 $F(S)$ 是很好做的，我们仅需把每条边的颜色集合和 $S$ 取交，得到的集合大小即为边的权值，跑矩阵树定理即可。</p>
-<hr>
-<h2 id="operatorname-END"><a href="#operatorname-END" class="headerlink" title="$\operatorname{END}$"></a>$\operatorname{END}$</h2>
+<p>发现 <span class="math inline">\(n\)</span>
+很小，于是我们可以考虑和枚举子集有关的做法。</p>
+<p>我们设 <span class="math inline">\(F(S)\)</span>
+表示生成树上出现的颜色集合为 <span class="math inline">\(S\)</span>
+的子集的方案数，设 <span class="math inline">\(G(S)\)</span>
+表示生成树上出现的颜色集合为 <span class="math inline">\(S\)</span>
+的方案数，那么有下列式子：</p>
+<p><span class="math display">\[
+F(S) = \sum_{T \subseteq S} G(T)
+\]</span></p>
+<p>子集反演一下就有：</p>
+<p><span class="math display">\[
+G(S) = \sum_{T \subseteq S} (-1)^{|S| - |T|} F(T)
+\]</span></p>
+<p>求 <span class="math inline">\(F(S)\)</span>
+是很好做的，我们仅需把每条边的颜色集合和 <span
+class="math inline">\(S\)</span>
+取交，得到的集合大小即为边的权值，跑矩阵树定理即可。</p>
+<hr />
+<h2 id="operatornameend"><span
+class="math inline">\(\operatorname{END}\)</span></h2>
+
             </div>
             <hr>
             <div>
