@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://reclouds.github.io/img/bg/19.jpeg">
 <meta property="article:published_time" content="2022-06-02T11:15:11.000Z">
-<meta property="article:modified_time" content="2022-07-06T11:39:58.970Z">
+<meta property="article:modified_time" content="2022-07-06T15:51:54.222Z">
 <meta property="article:author" content="Recalling_Clouds">
 <meta property="article:tag" content="杂项">
 <meta name="twitter:card" content="summary_large_image">
@@ -205,7 +205,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      29k 字
+      31k 字
     </span>
   
 
@@ -214,7 +214,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      245 分钟
+      260 分钟
     </span>
   
 
@@ -2352,6 +2352,8 @@ class="math inline">\(x_j\)</span> 会不断减小，所以决策单调性即可
 <span class="math inline">\(y_i\)</span>
 的限制，套上一个线段树即可，此时限制就可以用线段树分治解决。至于 <span
 class="math inline">\(\operatorname{DP}\)</span>，我们在线段树上的每一个节点都跑一遍决策单调性的转移即可。</p>
+<p>时间复杂度为 <span class="math inline">\(\mathcal{O}(n \log_2 n + n
+\log_2 T)\)</span></p>
 <ul>
 <li>备注：</li>
 </ul>
@@ -2369,7 +2371,7 @@ target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github
 <ul>
 <li><p>通过时间：<span class="math inline">\(2022.7.6\)</span></p></li>
 <li><p>难度：<font color="#000080"> NOI/NOI+/CTSC </font></p></li>
-<li><p>算法：计数</p></li>
+<li><p>算法：组合计数</p></li>
 <li><p>做法：</p></li>
 </ul>
 <p>推一推式子：</p>
@@ -2393,6 +2395,8 @@ j\end{Bmatrix}
 \]</span></p>
 <p>可以发现后面部分的式子就是个卷积的形式，<span
 class="math inline">\(\operatorname{NTT}\)</span> 即可。</p>
+<p>时间复杂度为 <span class="math inline">\(\mathcal{O}(n \log_2
+n)\)</span>。</p>
 <ul>
 <li>备注：</li>
 </ul>
@@ -2404,6 +2408,116 @@ class="math inline">\(\operatorname{NTT}\)</span> 即可。</p>
 target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/blob/master/Codes/%E6%96%B0%E9%A2%98%E7%9B%AE/P4091%20%5BHEOI2016%20%26%20TJOI2016%5D%20%E6%B1%82%E5%92%8C.cpp">P4091
 [HEOI2016 &amp; TJOI2016] 求和</a></li>
 </ul>
+<hr />
+<ol start="50" type="1">
+<li><a target="_blank" rel="noopener" href="https://loj.ac/p/6274">BZOJ5232 好题</a></li>
+</ol>
+<ul>
+<li><p>通过时间：<span class="math inline">\(2022.7.6\)</span></p></li>
+<li><p>难度：<font color="#9400D3"> 省选/NOI- </font></p></li>
+<li><p>算法：决策单调性优化 <span
+class="math inline">\(\operatorname{DP}\)</span></p></li>
+<li><p>做法：</p></li>
+</ul>
+<p>可以发现若总的颜色数很小，那么可以设计出一个 <span
+class="math inline">\(\operatorname{DP}\)</span>：设 <span
+class="math inline">\(f_{i, S}\)</span> 表示包含点 <span
+class="math inline">\(i\)</span>
+的最小连通块大小，满足连通块中点的颜色集合为 <span
+class="math inline">\(S\)</span>。</p>
+<p>显然这样无论是时间还是空间都会炸，并且也没有很好的优化算法。</p>
+<p>不过，我们可以考虑把每一种颜色随机映射到这 <span
+class="math inline">\(k\)</span> 种颜色上，然后多跑几次上述的 <span
+class="math inline">\(\operatorname{DP}\)</span>
+即可。这样，得出的答案不会小于真实答案，并且每次有 <span
+class="math inline">\(\displaystyle \frac{k!}{k^k}\)</span>
+的概率得到正确答案，在 <span class="math inline">\(k \le 5\)</span>
+的情况下这个概率还比较大。</p>
+<p>第一个结论显然，第二个结论需要一点证明。</p>
+<p>考虑对于一个是正确答案的连通块，其包含 <span
+class="math inline">\(k\)</span> 种不同的个颜色，如果随机映射后这 <span
+class="math inline">\(k\)</span>
+个颜色还是两两不同，得到的答案就是正确的，因此正确率为 <span
+class="math inline">\(\displaystyle \frac{k!}{k^k}\)</span>。</p>
+<p>时间复杂度玄学。。。</p>
+<ul>
+<li>备注：</li>
+</ul>
+<p>注意做和随机化有关的题目要在时间范围内尽量多跑几次，然后多卡几次评测就能过了。。。</p>
+<ul>
+<li>代码：<a
+target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/blob/master/Codes/%E6%96%B0%E9%A2%98%E7%9B%AE/BZOJ5232%20%E5%A5%BD%E9%A2%98.cpp">BZOJ5232
+好题</a></li>
+</ul>
+<hr />
+<ol start="51" type="1">
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P6672">P6672
+[清华集训2016] 你的生命已如风中残烛</a></li>
+</ol>
+<ul>
+<li><p>通过时间：<span class="math inline">\(2022.7.6\)</span></p></li>
+<li><p>难度：<font color="#9400D3"> 省选/NOI- </font></p></li>
+<li><p>算法：组合计数</p></li>
+<li><p>做法：</p></li>
+</ul>
+<p>问题可以转化为：有一个整数序列 <span
+class="math inline">\(a_i\)</span>（<span class="math inline">\(a_i =
+w_i - 1\)</span>），满足总和为 <span
+class="math inline">\(0\)</span>，求该序列有多少种排列使得其每一个前缀和均为非负整数。</p>
+<p>首先需要知道 <span
+class="math inline">\(\operatorname{Raney}\)</span> 引理：对于一个总和为
+<span class="math inline">\(1\)</span> 的序列 <span
+class="math inline">\(a_i\)</span>，在它的所有循环移位中，有且仅有一种满足每一个前缀和均为正整数。（证明放在备注中）</p>
+<p>在《具体数学》中有一个例子：求有多少个 <span
+class="math inline">\(n\)</span> 个 <span
+class="math inline">\(1\)</span> 和 <span
+class="math inline">\(n\)</span> 个 <span
+class="math inline">\(-1\)</span>
+组成的数列，满足每一个前缀和均为非负整数。我们可以考虑在数列中加入一个
+<span class="math inline">\(1\)</span>，使得整个数列的总和为 <span
+class="math inline">\(1\)</span>，再将问题转化为和 <span
+class="math inline">\(\operatorname{Raney}\)</span>
+引理中的问题相同。这样对于转化过后的每一个合法的数列，它的第一个数必然为
+<span class="math inline">\(1\)</span>（为 <span
+class="math inline">\(-1\)</span> 则无法满足题目要求），并且去掉第一个
+<span class="math inline">\(1\)</span>
+后得到的所有数列都不重不漏地对应了原问题所有合法的数列。</p>
+<p>回到原问题，我们发现并不能再次进行上述的操作，因为此时 <span
+class="math inline">\(1\)</span>
+并不是序列的最大值，所以我们无法保证合法的数列中 <span
+class="math inline">\(1\)</span>
+必定在首位。但是我们可以考虑在数列中加入一个 <span
+class="math inline">\(-1\)</span>，由于 <span
+class="math inline">\(-1\)</span>
+为整个数列的最小值，那么这样合法的数列中 <span
+class="math inline">\(-1\)</span>
+一定在末位，因为原问题实际上保证了每一个后缀和均为非正整数，对数列中的每一个数取相反数并将整个数列翻转后，问题就转化为了和上述例子相似的问题，此时由于
+<span class="math inline">\(-1\)</span> 的相反数 <span
+class="math inline">\(1\)</span>
+成为了数列的最大值，则它加入数列后一定会被放在数列首位。</p>
+<p>那么，答案是否就是 <span class="math inline">\(m!\)</span>
+呢？并不是，因为我们加入了一个 <span class="math inline">\(-1\)</span>
+在其中。对于原数列的每一个合法方案，它的每一个 <span
+class="math inline">\(-1\)</span> 都有可能成为首位应当被去掉的 <span
+class="math inline">\(-1\)</span>，同时也有可能都不是。所以，每一种合法的方案被算重了
+<span class="math inline">\(m - n + 1\)</span> 次，答案即为 <span
+class="math inline">\(\displaystyle \frac{m!}{m - n + 1}\)</span>。</p>
+<ul>
+<li>备注：</li>
+</ul>
+<p>证明 <span class="math inline">\(\operatorname{Raney}\)</span>
+引理其实比较简单。</p>
+<p>考虑画出数列的前缀和函数，那么我们可以将前缀和函数的最后一个最低点作为数列的末点，则它对应的循环移位必定是满足要求的（以其为原点作一个新的坐标系，则
+<span class="math inline">\(x = 1 \sim |a_i|\)</span> 时函数图像都在
+<span class="math inline">\(x\)</span>
+轴上方），同时对其它点做如上操作都是不合法的（因为每一个点的后面都会有一个小于等于它的函数值，若以其为原点作新的坐标系，则这个原本小于等于它的函数值的点必定会落在
+<span class="math inline">\(x\)</span> 轴上或位于其下方），得证。</p>
+<ul>
+<li>代码：<a
+target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/blob/master/Codes/%E6%96%B0%E9%A2%98%E7%9B%AE/P6672%20%5B%E6%B8%85%E5%8D%8E%E9%9B%86%E8%AE%AD2016%5D%20%E4%BD%A0%E7%9A%84%E7%94%9F%E5%91%BD%E5%B7%B2%E5%A6%82%E9%A3%8E%E4%B8%AD%E6%AE%8B%E7%83%9B.cpp">P6672
+[清华集训2016] 你的生命已如风中残烛</a></li>
+</ul>
+<hr />
 <h2 id="operatornametobecontinuedcdotscdots"><span
 class="math inline">\(\operatorname{To~Be~Continued\cdots\cdots}\)</span></h2>
 
