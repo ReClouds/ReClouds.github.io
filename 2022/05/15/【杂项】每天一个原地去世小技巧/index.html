@@ -205,7 +205,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      2.2k 字
+      2.1k 字
     </span>
   
 
@@ -214,7 +214,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      19 分钟
+      18 分钟
     </span>
   
 
@@ -246,169 +246,94 @@
             <h1 style="display: none">【杂项】每天一个原地去世小技巧</h1>
             
             <div class="markdown-body">
-              <h3 id="算法">算法</h3>
-<ol type="1">
+              <h3 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h3><ol>
 <li>不要轻易否定某些做法，尝试分类讨论或者势能分析，说不定复杂度是正确的。</li>
 </ol>
-<p>典例：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF702F">CF702F
-T-Shirts</a>，<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4516">P4516
-[JSOI2018] 潜入行动</a>。</p>
-<h3 id="数据结构">数据结构</h3>
-<ol type="1">
-<li>如果要判断一个区间中是否每个数仅出现过一次，那么可以维护每一个位置所对应的数上一次出现的位置，然后检验区间
-<span class="math inline">\(\max\)</span> 是否在区间外即可。</li>
+<p>典例：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF702F">CF702F T-Shirts</a>，<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4516">P4516 [JSOI2018] 潜入行动</a>。</p>
+<h3 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h3><ol>
+<li>如果要判断一个区间中是否每个数仅出现过一次，那么可以维护每一个位置所对应的数上一次出现的位置，然后检验区间 $\max$ 是否在区间外即可。</li>
 </ol>
-<p>典例：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3792">P3792
-由乃与大母神原型和偶像崇拜</a>。</p>
-<ol start="2" type="1">
-<li>对于动态加边和删边的树上或图上问题，不仅可以用 <span
-class="math inline">\(\operatorname{LCT}\)</span>，还可以用线段树分治（尤其是动态的图上问题）。</li>
+<p>典例：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3792">P3792 由乃与大母神原型和偶像崇拜</a>。</p>
+<ol>
+<li>对于动态加边和删边的树上或图上问题，不仅可以用 $\operatorname{LCT}$，还可以用线段树分治（尤其是动态的图上问题）。</li>
 </ol>
-<p>典例：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF938G">CF938G
-Shortest Path Queries</a>。</p>
-<ol start="3" type="1">
+<p>典例：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF938G">CF938G Shortest Path Queries</a>。</p>
+<ol>
 <li>如果一些题目所维护的东西能够轻松支持贡献的加入，并且较难支持贡献的删除，同时贡献又满足可减性，那么可以考虑把要删除的贡献再维护，最后计算答案时再把这部分贡献减去。</li>
 </ol>
-<p>典例：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF710F">CF710F String
-Set Queries</a>。</p>
-<ol start="4" type="1">
+<p>典例：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF710F">CF710F String Set Queries</a>。</p>
+<ol>
 <li>如果要在平衡树中插入区间，那么可以考虑缩点。类似线段树标记下传，当某一次操作需要用到其中的元素时，再把这个点拆分开来即可。</li>
 </ol>
-<p>典例：<a target="_blank" rel="noopener" href="https://hydro.ac/d/bzoj/p/3678">BZOJ3678
-wangxz与OJ</a>。</p>
-<ol start="5" type="1">
+<p>典例：<a target="_blank" rel="noopener" href="https://hydro.ac/d/bzoj/p/3678">BZOJ3678 wangxz与OJ</a>。</p>
+<ol>
 <li>如果一个题目有两种复杂度较高解法，在同一类数据有最大值和最小值时分别达到最大复杂度，可以考虑数据分治。</li>
 </ol>
-<p>典例：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5072">P5072
-[Ynoi2015] 盼君勿忘</a>。</p>
-<ol start="6" type="1">
-<li>如果我们只需要了解一个数 <span class="math inline">\(k\)</span>
-在整个序列从小到大排序后的位置，那么我们可以把大于等于 <span
-class="math inline">\(k\)</span> 的数记为 <span
-class="math inline">\(1\)</span>，小于等于 <span
-class="math inline">\(k\)</span> 的数记为 <span
-class="math inline">\(0\)</span>，然后用线段树做区间推平操作就可以很方便地模拟排序。</li>
+<p>典例：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5072">P5072 [Ynoi2015] 盼君勿忘</a>。</p>
+<ol>
+<li>如果我们只需要了解一个数 $k$ 在整个序列从小到大排序后的位置，那么我们可以把大于等于 $k$ 的数记为 $1$，小于等于 $k$ 的数记为 $0$，然后用线段树做区间推平操作就可以很方便地模拟排序。</li>
 </ol>
-<p>典例：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2824">P2824
-[HEOI2016/TJOI2016]排序</a>。</p>
-<ol start="7" type="1">
+<p>典例：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2824">P2824 [HEOI2016/TJOI2016]排序</a>。</p>
+<ol>
 <li>对于区间修改的问题，如果允许离线，那么可以考虑扫描线。</li>
 </ol>
-<p>典例：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3863">P3863
-序列</a>。</p>
-<ol start="8" type="1">
-<li>对于动态加边维护链上信息的问题，不仅可以用 <span
-class="math inline">\(\operatorname{LCT}\)</span>，还可以用启发式合并。</li>
+<p>典例：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3863">P3863 序列</a>。</p>
+<ol>
+<li>对于动态加边维护链上信息的问题，不仅可以用 $\operatorname{LCT}$，还可以用启发式合并。</li>
 </ol>
-<p>典例：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3302">P3302
-[SDOI2013] 森林</a>。</p>
-<ol start="9" type="1">
+<p>典例：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3302">P3302 [SDOI2013] 森林</a>。</p>
+<ol>
 <li>如果某些题目的查询信息在带修之后很难维护，同时又是单点修改，并且不强制在线，那么可以考虑操作分块。</li>
 </ol>
-<p>典例：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5443">P5443
-[APIO2019]桥梁</a>，<a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1588F">CF1588F Jumping Through
-the Array</a>。</p>
-<h3 id="动态规划">动态规划</h3>
-<ol type="1">
-<li><span class="math inline">\(\operatorname{DP}\)</span>
-的数组不一定要存放答案，还可以存放状态。同样，设计状态时也可以考虑把答案做为状态，通过状态的存在性推出答案。</li>
+<p>典例：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5443">P5443 [APIO2019]桥梁</a>，<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1588F">CF1588F Jumping Through the Array</a>。</p>
+<h3 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h3><ol>
+<li>$\operatorname{DP}$ 的数组不一定要存放答案，还可以存放状态。同样，设计状态时也可以考虑把答案做为状态，通过状态的存在性推出答案。</li>
 </ol>
-<p>典例：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1342F">CF1342F Make
-It Ascending</a>。</p>
-<ol start="2" type="1">
-<li>对于和子集（或者序列的子段）贡献有关的 <span
-class="math inline">\(\operatorname{DP}\)</span>，有时会要求对集合进行子集划分并保证划分出的子集互不相交且每个子集都合法。那么设计状态时为了避免贡献算重，可以设
-<span class="math inline">\(f_S\)</span> 直接表示集合 <span
-class="math inline">\(S\)</span> 进行上述子集划分后的贡献，再设 <span
-class="math inline">\(g_S\)</span> 表示集合 <span
-class="math inline">\(S\)</span>
-本身合法的贡献，然后用后者辅助前者进行转移。</li>
+<p>典例：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1342F">CF1342F Make It Ascending</a>。</p>
+<ol>
+<li>对于和子集（或者序列的子段）贡献有关的 $\operatorname{DP}$，有时会要求对集合进行子集划分并保证划分出的子集互不相交且每个子集都合法。那么设计状态时为了避免贡献算重，可以设 $f_S$ 直接表示集合 $S$ 进行上述子集划分后的贡献，再设 $g_S$ 表示集合 $S$ 本身合法的贡献，然后用后者辅助前者进行转移。</li>
 </ol>
-<p>典例：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P7914">P7914 [CSP-S
-2021] 括号序列</a>，<a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4221">P4221
-[WC2018]州区划分</a>。</p>
-<h3 id="图论">图论</h3>
-<ol type="1">
-<li>判环不仅可以用 <span
-class="math inline">\(\operatorname{DFS}\)</span>，还可以拓扑排序。如果拓扑排序后入队的点数小于总点数，说明图中存在环。</li>
+<p>典例：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P7914">P7914 [CSP-S 2021] 括号序列</a>，<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4221">P4221 [WC2018]州区划分</a>。</p>
+<h3 id="图论"><a href="#图论" class="headerlink" title="图论"></a>图论</h3><ol>
+<li>判环不仅可以用 $\operatorname{DFS}$，还可以拓扑排序。如果拓扑排序后入队的点数小于总点数，说明图中存在环。</li>
 </ol>
-<p>典例：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1679D">CF1679D Toss
-a Coin to Your Graph...</a>。</p>
-<ol start="2" type="1">
-<li>在一些费用流问题中，对于形如 <span class="math inline">\(a\cdot
-x^2\)</span> 的贡献，可以模拟增量或减量的过程，将其拆成若干个形如 <span
-class="math inline">\(b\cdot x\)</span>
-的贡献，然后根据后者的单调性设费用，使得在贪心策略下，网络流在决策时必将选取一段连续的贡献，以保证用费用流解决原问题的合法性。</li>
+<p>典例：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF1679D">CF1679D Toss a Coin to Your Graph…</a>。</p>
+<ol>
+<li>在一些费用流问题中，对于形如 $a\cdot x^2$ 的贡献，可以模拟增量或减量的过程，将其拆成若干个形如 $b\cdot x$ 的贡献，然后根据后者的单调性设费用，使得在贪心策略下，网络流在决策时必将选取一段连续的贡献，以保证用费用流解决原问题的合法性。</li>
 </ol>
-<p>典例：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4307">P4307
-[JSOI2009] 球队收益 / 球队预算</a>，<a
-href="luogu.com.cn/problem/P4249">P4249 [WC2007] 剪刀石头布</a>。</p>
-<h3 id="计数问题">计数问题</h3>
-<ol type="1">
-<li><span class="math inline">\(\operatorname{C}_{n + m}^n\)</span>
-可以表示在坐标轴上从 <span class="math inline">\((0, 0)\)</span> 走到
-<span class="math inline">\((n, m)\)</span> 的方案数。</li>
+<p>典例：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4307">P4307 [JSOI2009] 球队收益 / 球队预算</a>，<a href="luogu.com.cn/problem/P4249">P4249 [WC2007] 剪刀石头布</a>。</p>
+<h3 id="计数问题"><a href="#计数问题" class="headerlink" title="计数问题"></a>计数问题</h3><ol>
+<li>$\operatorname{C}_{n + m}^n$ 可以表示在坐标轴上从 $(0, 0)$ 走到 $(n, m)$ 的方案数。</li>
 </ol>
-<p>典例：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/AT1983">AT1983
-[AGC001E] BBQ Hard</a>。</p>
-<ol start="2" type="1">
+<p>典例：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/AT1983">AT1983 [AGC001E] BBQ Hard</a>。</p>
+<ol>
 <li>和位运算有关的计数问题可以考虑按位算贡献。</li>
 </ol>
-<p>典例：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2114">P2114
-[NOI2014] 起床困难综合症</a>。</p>
-<ol start="3" type="1">
-<li>如果要求异或方程组解的个数，那么可以将每一个方程转化为 <span
-class="math inline">\(01\)</span> 串插入线性基。设线性基中自由元的个数为
-<span class="math inline">\(cnt\)</span>，那么答案即为 <span
-class="math inline">\(2^{cnt}\)</span>。</li>
+<p>典例：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2114">P2114 [NOI2014] 起床困难综合症</a>。</p>
+<ol>
+<li>如果要求异或方程组解的个数，那么可以将每一个方程转化为 $01$ 串插入线性基。设线性基中自由元的个数为 $cnt$，那么答案即为 $2^{cnt}$。</li>
 </ol>
-<p>典例：<a target="_blank" rel="noopener" href="https://hydro.ac/d/bzoj/p/4671">BZOJ4671
-异或图</a>。</p>
-<ol start="4" type="1">
+<p>典例：<a target="_blank" rel="noopener" href="https://hydro.ac/d/bzoj/p/4671">BZOJ4671 异或图</a>。</p>
+<ol>
 <li>有关匹配方案数的问题，可以考虑用容斥原理做。</li>
 </ol>
-<p>典例：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4859">P4859
-已经没有什么好害怕的了</a>。</p>
-<h3 id="数论">数论</h3>
-<ol type="1">
-<li>数 <span class="math inline">\(n\)</span> 最多存在 <span
-class="math inline">\(k - 1\)</span> 个大于 <span
-class="math inline">\(n^\frac{1}{k}\)</span> 的质因子。</li>
+<p>典例：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4859">P4859 已经没有什么好害怕的了</a>。</p>
+<h3 id="数论"><a href="#数论" class="headerlink" title="数论"></a>数论</h3><ol>
+<li>数 $n$ 最多存在 $k - 1$ 个大于 $n^\frac{1}{k}$ 的质因子。</li>
 </ol>
-<p>典例：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2150">P2150
-[NOI2015] 寿司晚宴</a>，<a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P8292">P8292 [省选联考 2022]
-卡牌</a>，<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5285">P5285
-[十二省联考 2019] 骗分过样例</a>。</p>
-<ol start="2" type="1">
+<p>典例：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2150">P2150 [NOI2015] 寿司晚宴</a>，<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P8292">P8292 [省选联考 2022] 卡牌</a>，<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5285">P5285 [十二省联考 2019] 骗分过样例</a>。</p>
+<ol>
 <li>如果一个题目中同时出现了大指数和取模，一定要想到指数循环节。</li>
 </ol>
-<p>典例：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4000">P4000
-斐波那契数列</a>，<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5285">P5285
-[十二省联考 2019] 骗分过样例</a>。</p>
-<h3 id="字符串">字符串</h3>
-<ol type="1">
-<li>用 <span class="math inline">\(\operatorname{SA}\)</span>
-解决题目时，如果有多个字符串，那么我们可以把它们用不同的分隔符连接起来，放在一个串中处理。</li>
+<p>典例：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4000">P4000 斐波那契数列</a>，<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5285">P5285 [十二省联考 2019] 骗分过样例</a>。</p>
+<h3 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h3><ol>
+<li>用 $\operatorname{SA}$ 解决题目时，如果有多个字符串，那么我们可以把它们用不同的分隔符连接起来，放在一个串中处理。</li>
 </ol>
-<p>典例：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3181">P3181
-[HAOI2016]找相同字符</a>。</p>
-<ol start="2" type="1">
-<li>涉及到连续重复子串的问题，可以考虑枚举 <span
-class="math inline">\(k\)</span> 后把所有是 <span
-class="math inline">\(k\)</span> 的倍数的 <span
-class="math inline">\(i\)</span>
-标记为关键点，然后求出两个关键点所代表后缀的 <span
-class="math inline">\(\operatorname{LCP}\)</span>
-以及它们的前一个位置所代表前缀的 <span
-class="math inline">\(\operatorname{LCS}\)</span>，二者拼接而成的子串有很多和连续重复有关的优秀性质。</li>
+<p>典例：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3181">P3181 [HAOI2016]找相同字符</a>。</p>
+<ol>
+<li>涉及到连续重复子串的问题，可以考虑枚举 $k$ 后把所有是 $k$ 的倍数的 $i$ 标记为关键点，然后求出两个关键点所代表后缀的 $\operatorname{LCP}$ 以及它们的前一个位置所代表前缀的 $\operatorname{LCS}$，二者拼接而成的子串有很多和连续重复有关的优秀性质。</li>
 </ol>
-<p>典例：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1117">P1117
-[NOI2016] 优秀的拆分</a>，<a
-target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/SP687">SP687 REPEATS -
-Repeats</a>。</p>
+<p>典例：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1117">P1117 [NOI2016] 优秀的拆分</a>，<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/SP687">SP687 REPEATS - Repeats</a>。</p>
 
             </div>
             <hr>

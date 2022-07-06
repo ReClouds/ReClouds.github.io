@@ -54,7 +54,7 @@ namespace Program
 
     int n, t, mxlen;
     i64 f[MAXN], ans;
-    vector<int> vec[MAXN];
+    vector<int> len[MAXN];
 
     struct Point { int xi, yi, len; Point(int _xi = 0, int _yi = 0) : xi(_xi), yi(_yi) {} bool operator < (const Point &t) const { return xi == t.xi ? yi < t.yi : xi < t.xi; } } p[MAXN];
 
@@ -66,7 +66,7 @@ namespace Program
 
         inline void Modify(int pos, int val)
         {
-            while(pos <= t)
+            while(pos <= t + 1)
             {
                 mx[pos] = max(mx[pos], val);
                 pos += Lowbit(pos);
@@ -96,7 +96,38 @@ namespace Program
         #define rs (now << 1 | 1)
         #define mid ((l + r) >> 1)
 
-        
+        vector<int> vec[MAXM << 2];
+
+        inline void Insert(int now, int l, int r, int id, int dep)
+        {
+            if(p[len[dep - 1][l]].xi > p[id].xi || p[len[dep - 1][r]].yi > p[id].yi) return;
+            if(p[len[dep - 1][l]].xi < p[id].xi && p[len[dep - 1][l]].yi < p[id].yi && p[len[dep - 1][r]].xi < p[id].xi && p[len[dep - 1][r]].yi < p[id].yi) return vec[now].push_back(id), void();
+            return Insert(ls, l, mid, id, dep), Insert(rs, mid + 1, r, id, dep);
+        }
+
+        inline void Solve(int now, int l, int r, int tl, int tr, int dep)
+        {
+            if(l > r) return;
+            int cur = -1; i64 val = INF;
+            for(register int i = tl; i <= tr; i++)
+            {
+                if(f[len[dep - 1][i]] + 1LL * (p[vec[now][mid]].xi - p[len[dep - 1][i]].xi) * (p[vec[now][mid]].yi - p[len[dep - 1][i]].yi) < val)
+                {
+                    cur = i;
+                    val = f[len[dep - 1][i]] + 1LL * (p[vec[now][mid]].xi - p[len[dep - 1][i]].xi) * (p[vec[now][mid]].yi - p[len[dep - 1][i]].yi);
+                }
+            }
+            f[vec[now][mid]] = min(f[vec[now][mid]], val);
+            if(l == r) return;
+            return Solve(now, l, mid - 1, cur, tr, dep), Solve(now, mid + 1, r, tl, cur, dep);
+        }
+
+        inline void DFS(int now, int l, int r, int dep)
+        {
+            if(!vec[now].empty()) Solve(now, 0, (int)(vec[now].size() - 1), l, r, dep), vec[now].clear();
+            if(l == r) return;
+            return DFS(ls, l, mid, dep), DFS(rs, mid + 1, r, dep);
+        }
 
         #undef ls
         #undef rs
@@ -108,13 +139,14 @@ namespace Program
     inline int Run()
     {
         n = Read32(), t = Read32();
-        for(register int i = 1; i <= n; i++) p[i] = Point(Read32(), Read32());
+        for(register int i = 1; i <= n; i++) p[i].xi = Read32(), p[i].yi = Read32();
         p[++n] = Point(), p[++n] = Point(t, t), sort(p + 1, p + n + 1);
-        for(register int i = 1; i <= n; i++) p[i].len = Query(p[i].yi) + 1, Modify(p[i].xi, p[i].len), vec[p[i].len].push_back(i);
+        for(register int i = 1; i <= n; i++) p[i].len = Query(p[i].yi + 1) + 1, Modify(p[i].yi + 1, p[i].len), len[p[i].len].push_back(i);
         for(register int i = 1; i <= n; i++) mxlen = max(mxlen, p[i].len), f[i] = (p[i].len == 1 ? 0 : INF);
         for(register int i = 2; i <= mxlen; i++)
         {
-            for(auto j : vec[i]) Insert(1, 0, (int)(vec[i - 1].size() - 1));
+            for(auto j : len[i]) Insert(1, 0, (int)(len[i - 1].size() - 1), j, i);
+            DFS(1, 0, (int)(len[i - 1].size() - 1), i);
         }
         ans = INF;
         for(register int i = 1; i <= n; i++) if(p[i].len == mxlen) ans = min(ans, f[i]);
