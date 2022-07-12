@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://reclouds.github.io/img/bg/19.jpeg">
 <meta property="article:published_time" content="2022-06-02T11:15:11.000Z">
-<meta property="article:modified_time" content="2022-07-11T14:41:02.679Z">
+<meta property="article:modified_time" content="2022-07-12T13:28:41.848Z">
 <meta property="article:author" content="Recalling_Clouds">
 <meta property="article:tag" content="杂项">
 <meta name="twitter:card" content="summary_large_image">
@@ -205,7 +205,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      33k 字
+      35k 字
     </span>
   
 
@@ -214,7 +214,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      275 分钟
+      290 分钟
     </span>
   
 
@@ -1563,8 +1563,8 @@ c(j)\)</span>。</p>
 c(j)\)</span> 实际上就取决于每个数中不小于 <span
 class="math inline">\(i\)</span> 的数位有多少个，数位 <span
 class="math inline">\(\operatorname{DP}\)</span> 即可。</p>
-<p>时间复杂度为 <span class="math inline">\(\mathcal{O}(10^2 \log_{10}^2
-n)\)</span>。</p>
+<p>时间复杂度为 <span class="math inline">\(\mathcal{O}(10^2 \times
+\log_{10}^2 n)\)</span>。</p>
 <ul>
 <li>备注：</li>
 </ul>
@@ -2338,7 +2338,7 @@ Mowing Mischief P</a></li>
 class="math inline">\(\operatorname{DP}\)</span></p></li>
 <li><p>做法：</p></li>
 </ul>
-<p>首先 <span class="math inline">\(\mathcal{O}(n log_2 n)\)</span>
+<p>首先 <span class="math inline">\(\mathcal{O}(n \log_2 n)\)</span>
 求出以每个点结尾的 <span
 class="math inline">\(\operatorname{LIS}\)</span>，设点 <span
 class="math inline">\(i\)</span> 的答案为 <span
@@ -2658,6 +2658,128 @@ class="math inline">\(\operatorname{LCA}\)</span>。</p>
 <li>代码：<a
 target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/blob/master/Codes/%E6%96%B0%E9%A2%98%E7%9B%AE/P4606%20%5BSDOI2018%5D%20%E6%88%98%E7%95%A5%E6%B8%B8%E6%88%8F.cpp">P4606
 [SDOI2018] 战略游戏</a></li>
+</ul>
+<hr />
+<ol start="55" type="1">
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF51F">CF51F
+Caterpillar</a></li>
+</ol>
+<ul>
+<li><p>通过时间：<span class="math inline">\(2022.7.12\)</span></p></li>
+<li><p>难度：<font color="#9400D3"> 省选/NOI- </font></p></li>
+<li><p>算法：边双缩点</p></li>
+<li><p>做法：</p></li>
+</ul>
+<p>由于最终的图中不能够存在重边，所以对于一个边双而言，将其缩为一点才算合法，这启发我们对边双缩点。</p>
+<p>缩完点后会留下一颗树形结构，此时我们需要在树上保留尽可能多的点。可以发现无论如何所有度数小于等于
+<span class="math inline">\(1\)</span> 的节点都能够保留（小于 <span
+class="math inline">\(1\)</span>
+指孤立点），那么我们就需要在树上选出一条链，使其包含最多的度数大于 <span
+class="math inline">\(1\)</span> 的节点，求一遍直径即可。</p>
+<p>注意缩点后不联通的情况，答案还需要加上连通块的个数减 <span
+class="math inline">\(1\)</span>。</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(n)\)</span>。</p>
+<ul>
+<li>备注：</li>
+</ul>
+<p>注意我们统计的是最多能够保留多少节点，而非答案中的最小操作次数，需要做一些处理。</p>
+<ul>
+<li>代码：<a
+target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/blob/master/Codes/%E6%96%B0%E9%A2%98%E7%9B%AE/CF51F%20Caterpillar.cpp">CF51F
+Caterpillar</a></li>
+</ul>
+<hr />
+<ol start="56" type="1">
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3345">P3345 [ZJOI2015]
+幻想乡战略游戏</a></li>
+</ol>
+<ul>
+<li><p>通过时间：<span class="math inline">\(2022.7.12\)</span></p></li>
+<li><p>难度：<font color="#9400D3"> 省选/NOI- </font></p></li>
+<li><p>算法：点分树</p></li>
+<li><p>做法：</p></li>
+</ul>
+<p>可以发现，由于边权为正，所以每一次的最优决策点和边权没有任何关系。</p>
+<p>因此，整个算法将分为两步：求带权重心和求带权距离和。</p>
+<p>求带权距离和是点分树的经典应用，不多解释，本题的重点在于如何求带权重心。</p>
+<p>我们考虑从一个点一步步地移动到带权重心。设当前的权值和为 <span
+class="math inline">\(sum\)</span>，当前所在的点为 <span
+class="math inline">\(u\)</span>，若点 <span
+class="math inline">\(u\)</span> 存在子树 <span
+class="math inline">\(v\)</span>，其权值和 <span
+class="math inline">\(sum_v\)</span> 满足 <span
+class="math inline">\(sum_v \cdot 2 &gt;
+sum\)</span>，那么显然带权重心在点 <span
+class="math inline">\(v\)</span> 一侧。我们一直如此移动，直到点 <span
+class="math inline">\(u\)</span> 不存在满足条件的点 <span
+class="math inline">\(v\)</span> 时停止，此时点 <span
+class="math inline">\(u\)</span> 即为带权重心。</p>
+<p>为了保证复杂度，我们考虑在点分树上做这个过程，这样我们仅需移动 <span
+class="math inline">\(\mathcal{O}(\log_2 n)\)</span> 次了。</p>
+<p>从点分树的根节点开始，我们扫描其每一个儿子，并判断上述条件是否成立，是则向该儿子所在子树的重心（即点分树上根节点的儿子）移动一步，然后在子数里分治。由于每个节点有度数保证，所以在求一次带权重心的过程中，这一步的总复杂度为
+<span class="math inline">\(\mathcal{O}(20 \times \log_2
+n)\)</span>。</p>
+<p>但是直接分治是不行的，对于当前分治中心 <span
+class="math inline">\(v\)</span>，如果我们只考虑当前连通块的权值和，那么求出的带权重心显然是错的。在点分树上移动一次后，我们需要把舍弃掉的一部分连通块的权值和贡献到部分点上。具体地，假设我们在扫描点
+<span class="math inline">\(u\)</span> 的儿子时发现点 <span
+class="math inline">\(w\)</span>
+是符合条件的儿子，并且下一步我们将在点分树上跳至点 <span
+class="math inline">\(v\)</span> 进行分治，那么在点分树上我们需要从点
+<span class="math inline">\(w\)</span>
+开始，将其所有的祖先的权值和加上被舍弃部分的权值和（注意这一步需要撤销），这些祖先实际上表示的是原树中点
+<span class="math inline">\(u\)</span> 到点 <span
+class="math inline">\(v\)</span>
+的路径上未被舍弃的点。在求一次带权重心的过程中，这一步的总复杂度为 <span
+class="math inline">\(\mathcal{O}(\log_2^2 n)\)</span>。</p>
+<p>时间复杂度 <span class="math inline">\(\mathcal{O}(20 \times q \log_2
+n + q \log_2^2 n)\)</span>。</p>
+<ul>
+<li>备注：</li>
+</ul>
+<p>注意本题实现起来常数会比较大，可以考虑用 <span
+class="math inline">\(\mathcal{O}(n \log_2 n) - \mathcal{O}(1)\)</span>
+的 <span class="math inline">\(\operatorname{LCA}\)</span> 来优化。</p>
+<ul>
+<li>代码：<a
+target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/blob/master/Codes/%E6%96%B0%E9%A2%98%E7%9B%AE/P3345%20%5BZJOI2015%5D%20%E5%B9%BB%E6%83%B3%E4%B9%A1%E6%88%98%E7%95%A5%E6%B8%B8%E6%88%8F.cpp">P3345
+[ZJOI2015] 幻想乡战略游戏</a></li>
+</ul>
+<hr />
+<ol start="57" type="1">
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3345">P5994 [PA2014]
+Kuglarz</a></li>
+</ol>
+<ul>
+<li><p>通过时间：<span class="math inline">\(2022.7.12\)</span></p></li>
+<li><p>难度：<font color="#00BFFF"> 提高+/省选- </font></p></li>
+<li><p>算法：最小生成树</p></li>
+<li><p>做法：</p></li>
+</ul>
+<p>可以发现我们必须要知道每个位置是否存在球，所以至少需要 <span
+class="math inline">\(n\)</span> 次询问。</p>
+<p>若我们已经知道了子段 <span class="math inline">\([l, r_1]\)</span>
+和子段 <span class="math inline">\([l, r_2]\)</span>
+的奇偶性，那么我们也可以知道 <span class="math inline">\([r_1 + 1,
+r_2]\)</span> 的奇偶性。可以发现用点 <span class="math inline">\(l -
+1\)</span> 和点 <span class="math inline">\(r\)</span>
+的连通表示知道子段 <span class="math inline">\([l, r]\)</span>
+的奇偶性恰好符合了上述性质，那么我们需要保证的是对于每一个 <span
+class="math inline">\(i \in [1, n]\)</span> 都有点 <span
+class="math inline">\(i - 1\)</span> 和点 <span
+class="math inline">\(i\)</span> 连通。</p>
+<p>所以，建出图后跑最小生成树即可。</p>
+<p>用 <span class="math inline">\(\operatorname{Kruskal}\)</span>
+做的时间复杂度为 <span class="math inline">\(\mathcal{O}(n^2\log_2^2
+n)\)</span>。</p>
+<ul>
+<li>备注：</li>
+</ul>
+<p>注意边的数量是 <span class="math inline">\(\mathcal{O}(n^2)\)</span>
+级别的。</p>
+<ul>
+<li>代码：<a
+target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/blob/master/Codes/%E6%96%B0%E9%A2%98%E7%9B%AE/P5994%20%5BPA2014%5D%20Kuglarz.cpp">P5994
+[PA2014] Kuglarz</a></li>
 </ul>
 <hr />
 <h2 id="operatornametobecontinuedcdotscdots"><span
