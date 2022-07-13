@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://reclouds.github.io/img/bg/19.jpeg">
 <meta property="article:published_time" content="2022-06-02T11:15:11.000Z">
-<meta property="article:modified_time" content="2022-07-12T13:28:41.848Z">
+<meta property="article:modified_time" content="2022-07-13T11:45:59.735Z">
 <meta property="article:author" content="Recalling_Clouds">
 <meta property="article:tag" content="杂项">
 <meta name="twitter:card" content="summary_large_image">
@@ -205,7 +205,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      35k 字
+      37k 字
     </span>
   
 
@@ -214,7 +214,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      290 分钟
+      305 分钟
     </span>
   
 
@@ -2780,6 +2780,146 @@ n)\)</span>。</p>
 <li>代码：<a
 target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/blob/master/Codes/%E6%96%B0%E9%A2%98%E7%9B%AE/P5994%20%5BPA2014%5D%20Kuglarz.cpp">P5994
 [PA2014] Kuglarz</a></li>
+</ul>
+<hr />
+<ol start="58" type="1">
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1186">P1186
+玛丽卡</a></li>
+</ol>
+<ul>
+<li><p>通过时间：<span class="math inline">\(2022.7.13\)</span></p></li>
+<li><p>难度：<font color="#00BFFF"> 提高+/省选- </font></p></li>
+<li><p>算法：最短路</p></li>
+<li><p>做法：</p></li>
+</ul>
+<p>考虑求出最短路，设其为 <span
+class="math inline">\(\gamma\)</span>，那么如果需要维修的边不是最短路上的边，则
+<span class="math inline">\(1\)</span> 到 <span
+class="math inline">\(n\)</span>
+的最短路径是不会变的，所以我们需要考虑每一条最短路上的边被维修时的答案。</p>
+<p>直接求显然不好做。但我们发现如果钦定了一条不在 <span
+class="math inline">\(\gamma\)</span>
+上的边必须在答案中，那么答案里必然会存在一段连续的不在 <span
+class="math inline">\(\gamma\)</span> 上的路径。</p>
+<p>所以，枚举每条不在 <span class="math inline">\(\gamma\)</span>
+上的边，那么我们需要求出经过这条边的最短路径，以及它会影响到哪些 <span
+class="math inline">\(\gamma\)</span> 上的边。</p>
+<p>具体的，对于当前钦定的边 <span class="math inline">\(u \to
+v\)</span>，显然 <span class="math inline">\(dis_{1, u} + w_{u, v} +
+dis_{v, n}\)</span> 是最短路径。</p>
+<p>我们考虑求出以 <span class="math inline">\(1\)</span> 和 <span
+class="math inline">\(n\)</span> 为源点的最短路径树，那么 <span
+class="math inline">\(dis_{1, u}\)</span> 在某个点之后就会与 <span
+class="math inline">\(\gamma\)</span> 分离，<span
+class="math inline">\(dis_{v, n}\)</span> 同理，我们设这两个点分别为
+<span class="math inline">\(a, b\)</span>（可以用并查集求出），则 <span
+class="math inline">\(\gamma\)</span> 上 <span class="math inline">\(a,
+b\)</span> 之间的所有边都可以被 <span class="math inline">\(dis_{1, u} +
+w_{u, v} + dis_{v, n}\)</span> 这条路径贡献到，用线段树维护区间取 <span
+class="math inline">\(\min\)</span> 即可。</p>
+<p>最后 <span class="math inline">\(\operatorname{DFS}\)</span>
+一遍线段树，取所有叶子间的最大值即可。</p>
+<p>使用 <span class="math inline">\(\mathcal{O}(n^2)\)</span> 的 <span
+class="math inline">\(\operatorname{Dijkstra}\)</span> 可以使本题做到
+<span class="math inline">\(\mathcal{O}(n^2 + m\log_2 m)\)</span>
+的时间复杂度。</p>
+<ul>
+<li>备注：</li>
+</ul>
+<p>双倍经验题：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2685">P2685
+[TJOI2012] 桥</a>。</p>
+<p>此题与上一题有两大不同：</p>
+<p><span class="math inline">\(\alpha\)</span>：<span
+class="math inline">\(\operatorname{Dijkstra}\)</span>
+需要加堆优化。</p>
+<p><span
+class="math inline">\(\beta\)</span>：由于需要对答案计数，所以会有一种特殊情况：如果第一个答案与
+<span class="math inline">\(1\)</span> 到 <span
+class="math inline">\(n\)</span> 的最短路径相等，那么此时第二个答案为
+<span class="math inline">\(m\)</span>。</p>
+<ul>
+<li>代码：<a
+target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/blob/master/Codes/%E6%96%B0%E9%A2%98%E7%9B%AE/P1186%20%E7%8E%9B%E4%B8%BD%E5%8D%A1.cpp">P1186
+玛丽卡</a></li>
+</ul>
+<hr />
+<ol start="59" type="1">
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2829">P2829
+大逃离</a></li>
+</ol>
+<ul>
+<li><p>通过时间：<span class="math inline">\(2022.7.13\)</span></p></li>
+<li><p>难度：<font color="#9400D3"> 省选/NOI- </font></p></li>
+<li><p>算法：严格次短路</p></li>
+<li><p>做法：</p></li>
+</ul>
+<p>对于 <span class="math inline">\(k\)</span> 的限制，我们 <span
+class="math inline">\(\mathcal{O}(n^2)\)</span>
+跑一遍判断即可，注意重边只算一条。</p>
+<p>虽然每个点和每条边都可以被经过多次，但是显然每条边被经过三次以上必然不会是次短路。</p>
+<p>所以，我们考虑枚举每一条边 <span class="math inline">\(u \to
+v\)</span>，然后用 <span class="math inline">\(dis_{1, u} + w_{u, v} +
+dis_{v, n}\)</span>
+更新答案即可。如果枚举的边是有向的，那么对于一个可能成为答案的，同时存在一条边被经过三次的方案，我们一定可以在上面遍历到。</p>
+<p>注意判无解时不仅要考虑等于最短路的情况，还要考虑不联通的情况（此时上述枚举的路径长度应为
+<span
+class="math inline">\(+\infty\)</span>，仅判断第一种情况是错误的）。</p>
+<p>采用堆优化的 <span
+class="math inline">\(\operatorname{Dijksta}\)</span> 算法，时间复杂度为
+<span class="math inline">\(\mathcal{O}(n^2 + m \log_2 m)\)</span>。</p>
+<ul>
+<li>备注：</li>
+</ul>
+<p>本题其实还用另一种做法：根据 <span
+class="math inline">\(\operatorname{SPFA}\)</span>
+算法松弛的性质，我们在松弛的过程中直接维护点 <span
+class="math inline">\(1\)</span> 到每个点的最短路和次短路即可。</p>
+<ul>
+<li>代码：<a
+target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/blob/master/Codes/%E6%96%B0%E9%A2%98%E7%9B%AE/P2829%20%E5%A4%A7%E9%80%83%E7%A6%BB.cpp">P2829
+大逃离</a></li>
+</ul>
+<hr />
+<ol start="60" type="1">
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P6190">P6190 [NOI Online
+#1 入门组] 魔法</a></li>
+</ol>
+<ul>
+<li><p>通过时间：<span class="math inline">\(2022.7.13\)</span></p></li>
+<li><p>难度：<font color="#9400D3"> 省选/NOI- </font></p></li>
+<li><p>算法：最短路，矩阵快速幂</p></li>
+<li><p>做法：</p></li>
+</ul>
+<p>对于 <span class="math inline">\(k = 0\)</span> 的情况，我们跑一遍
+<span class="math inline">\(\operatorname{Floyd}\)</span>
+算法求解即可。下文记此时求出的点 <span class="math inline">\(i\)</span>
+到点 <span class="math inline">\(j\)</span> 的最短路径为 <span
+class="math inline">\(dis_{i, j}\)</span>。</p>
+<p>对于 <span class="math inline">\(k = 1\)</span>
+的情况，我们可以考虑枚举 <span class="math inline">\(i,
+j\)</span>，再枚举边 <span class="math inline">\(u \to
+v\)</span>，那么有 <span class="math inline">\(\displaystyle
+dis&#39;_{i, j} = \min_{i = 1}^m \{dis_{i, u} + dis_{v, j} - w_{i,
+j}\}\)</span>。</p>
+<p>对于 <span class="math inline">\(k &gt; 1\)</span> 的情况，我们设
+<span class="math inline">\(dis_{k, i, j}\)</span> 为 <span
+class="math inline">\(i\)</span> 到 <span
+class="math inline">\(j\)</span> 使用最多 <span
+class="math inline">\(k\)</span> 次魔法的方案数，那么有 <span
+class="math inline">\(\displaystyle dis_{k, i, j} = \min_{u = 1}^n
+dis_{k - 1, i, u} + dis_{1, u,
+j}\)</span>，这就是一个矩阵乘法的形式，把矩乘修改一下之后做快速幂即可。</p>
+<p>时间复杂度为 <span class="math inline">\(\mathcal{O}(n^2m +
+n^3\log_2k)\)</span>。</p>
+<ul>
+<li>备注：</li>
+</ul>
+<p>注意答案会超过 <span
+class="math inline">\(\operatorname{int}\)</span> 的范围。</p>
+<ul>
+<li>代码：<a
+target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/blob/master/Codes/%E6%96%B0%E9%A2%98%E7%9B%AE/P6190%20%5BNOI%20Online%20%231%20%E5%85%A5%E9%97%A8%E7%BB%84%5D%20%E9%AD%94%E6%B3%95.cpp">P6190
+[NOI Online #1 入门组] 魔法</a></li>
 </ul>
 <hr />
 <h2 id="operatornametobecontinuedcdotscdots"><span
