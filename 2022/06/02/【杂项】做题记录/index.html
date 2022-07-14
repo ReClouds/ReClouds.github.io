@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://reclouds.github.io/img/bg/19.jpeg">
 <meta property="article:published_time" content="2022-06-02T11:15:11.000Z">
-<meta property="article:modified_time" content="2022-07-13T11:45:59.735Z">
+<meta property="article:modified_time" content="2022-07-14T14:16:39.622Z">
 <meta property="article:author" content="Recalling_Clouds">
 <meta property="article:tag" content="杂项">
 <meta name="twitter:card" content="summary_large_image">
@@ -205,7 +205,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      37k 字
+      38k 字
     </span>
   
 
@@ -214,7 +214,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      305 分钟
+      318 分钟
     </span>
   
 
@@ -844,7 +844,7 @@ class="math inline">\(k\)</span> 次的限制。</p>
 </ul>
 <p>注意需要求的是最大费用最大流，可以用 <span
 class="math inline">\(\operatorname{SPFA}\)</span>
-跑伪最长路，也可以把费用取反后跑最小费用最大流。</p>
+跑最长路，也可以把费用取反后跑最小费用最大流。</p>
 <ul>
 <li>代码：<a
 target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/blob/master/Codes/%E6%96%B0%E9%A2%98%E7%9B%AE/P3358%20%E6%9C%80%E9%95%BF%20k%20%E5%8F%AF%E9%87%8D%E5%8C%BA%E9%97%B4%E9%9B%86%E9%97%AE%E9%A2%98.cpp">P3358
@@ -999,8 +999,8 @@ Biologist</a></li>
 <li><p>做法：</p></li>
 </ul>
 <p>先全部钦定是 <span
-class="math inline">\(0\)</span>，把花费算上，然后计算更改一个位置为
-<span class="math inline">\(1\)</span>
+class="math inline">\(1\)</span>，把花费算上，然后计算更改一个位置为
+<span class="math inline">\(0\)</span>
 的花费，套用最大权闭合子图的模型即可。</p>
 <ul>
 <li>备注：</li>
@@ -2922,8 +2922,149 @@ target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github
 [NOI Online #1 入门组] 魔法</a></li>
 </ul>
 <hr />
-<h2 id="operatornametobecontinuedcdotscdots"><span
-class="math inline">\(\operatorname{To~Be~Continued\cdots\cdots}\)</span></h2>
+<ol start="61" type="1">
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF241E">CF241E
+Flights</a></li>
+</ol>
+<ul>
+<li><p>通过时间：<span class="math inline">\(2022.7.14\)</span></p></li>
+<li><p>难度：<font color="#9400D3"> 省选/NOI- </font></p></li>
+<li><p>算法：差分约束</p></li>
+<li><p>做法：</p></li>
+</ul>
+<p>首先我们需要把没有用的节点从图中删除：我们可以在点 <span
+class="math inline">\(n\)</span> 打一个标记，然后从点 <span
+class="math inline">\(1\)</span> 开始遍历，若点 <span
+class="math inline">\(u\)</span> 的后继点 <span
+class="math inline">\(v\)</span> 被标记了，我们同样也标记点 <span
+class="math inline">\(u\)</span>，这样标记一遍之后，我们把未被标记的点从原图中去掉。</p>
+<p>可以发现一个性质：点 <span class="math inline">\(1\)</span>
+到每一个点的所有路径长度都必须相等。因此我们可以设点 <span
+class="math inline">\(1\)</span> 到点 <span
+class="math inline">\(u\)</span> 的所有路径长为 <span
+class="math inline">\(dis_u\)</span>。那么，对于一条边 <span
+class="math inline">\(u \to v\)</span>，它存在限制 <span
+class="math inline">\(1 \le dis_v - dis_u \le
+2\)</span>，显然这就是个差分约束的形式，用 <span
+class="math inline">\(\operatorname{Bellman-Ford}\)</span>
+跑一遍即可，如果存在负环说明无解。</p>
+<p>构造方案就很简单了，直接遍历所有边用 <span
+class="math inline">\(dis_u\)</span> 相减即可。</p>
+<p>时间复杂度为 <span
+class="math inline">\(\mathcal{O}(nm)\)</span>。</p>
+<ul>
+<li>备注：</li>
+</ul>
+<p>注意判断没有用的节点时要加记忆化搜索。</p>
+<ul>
+<li>代码：<a
+target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/blob/master/Codes/%E6%96%B0%E9%A2%98%E7%9B%AE/CF241E%20Flights.cpp">CF241E
+Flights</a></li>
+</ul>
+<hr />
+<ol start="62" type="1">
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF103E">CF103E Buying
+Sets</a></li>
+</ol>
+<ul>
+<li><p>通过时间：<span class="math inline">\(2022.7.14\)</span></p></li>
+<li><p>难度：<font color="#9400D3"> 省选/NOI- </font></p></li>
+<li><p>算法：最大权闭合子图</p></li>
+<li><p>做法：</p></li>
+</ul>
+<p>这题的子集关系显然在暗示最大权闭合子图的做法。由于我们需要求最小权值和，因此我们先将所有权值取反。</p>
+<p>但是最大权闭合子图并不能够保证 “子集并的大小和子集个数相等”
+这个要求。实际上，我们可以给所有子集所代表的点加上 <span
+class="math inline">\(+\infty\)</span> 的权值，给所有元素所代表的点加上
+<span class="math inline">\(-\infty\)</span>
+的权值，这样如果方案不符合上述要求，那么根据题目的性质，子集并的大小一定会大于子集的个数，这时权值和就会多出若干个
+<span
+class="math inline">\(-\infty\)</span>，这必然是不优的，所以最优的方案一定会满足上述要求。</p>
+<p>最后，由于可以选取空集，所以答案要和 <span
+class="math inline">\(0\)</span> 取 <span
+class="math inline">\(\min\)</span>。</p>
+<ul>
+<li>备注：</li>
+</ul>
+<p>注意网络流建图时要区分集合与元素所代表的点。</p>
+<ul>
+<li>代码：<a
+target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/blob/master/Codes/%E6%96%B0%E9%A2%98%E7%9B%AE/CF103E%20Buying%20Sets.cpp">CF103E
+Buying Sets</a></li>
+</ul>
+<hr />
+<ol start="63" type="1">
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF237E">CF237E Build
+String</a></li>
+</ol>
+<ul>
+<li><p>通过时间：<span class="math inline">\(2022.7.14\)</span></p></li>
+<li><p>难度：<font color="#00BFFF"> 提高+/省选- </font></p></li>
+<li><p>算法：最小费用最大流</p></li>
+<li><p>做法：</p></li>
+</ul>
+<p>可以发现加入的顺序并不会有影响，因此我们可以对 <span
+class="math inline">\(26\)</span>
+个字母分别建立节点并向汇点连边，容量即为其在 <span
+class="math inline">\(t\)</span> 串中的出现次数，费用为 <span
+class="math inline">\(0\)</span>。</p>
+<p>源点向每个 <span class="math inline">\(s\)</span>
+串所代表的节点连一条容量为给定限制，费用为 <span
+class="math inline">\(s\)</span>
+串编号的边，这些节点再向所有字母连容量为该字母在 <span
+class="math inline">\(s\)</span> 串中出现次数的边，费用为 <span
+class="math inline">\(0\)</span>。</p>
+<p>求出最小费用最大流，判断 <span class="math inline">\(26\)</span>
+个字母到汇点的边是否满流即可判断是否有解，若有解则最小费用即为答案。</p>
+<ul>
+<li>备注：</li>
+</ul>
+<p>网络流板子还是要多写点，不要总是写挂了。</p>
+<ul>
+<li>代码：<a
+target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/blob/master/Codes/%E6%96%B0%E9%A2%98%E7%9B%AE/CF237E%20Build%20String.cpp">CF237E
+Build String</a></li>
+</ul>
+<hr />
+<p>64 <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF277E">CF277E Binary
+Tree on Plane</a></p>
+<ul>
+<li><p>通过时间：<span class="math inline">\(2022.7.14\)</span></p></li>
+<li><p>难度：<font color="#9400D3"> 省选/NOI- </font></p></li>
+<li><p>算法：最小费用最大流</p></li>
+<li><p>做法：</p></li>
+</ul>
+<p>对于每个点 <span class="math inline">\(i\)</span> 建立入点 <span
+class="math inline">\(u_i\)</span> 和出点 <span
+class="math inline">\(v_i\)</span>。</p>
+<p>从源点 <span class="math inline">\(S\)</span>
+向每一个入点连一条容量为 <span class="math inline">\(2\)</span>，费用为
+<span class="math inline">\(0\)</span>
+的边，表示每个节点最多有两个儿子。</p>
+<p>从每一个出点向汇点 <span class="math inline">\(T\)</span>
+连一条容量为 <span class="math inline">\(1\)</span>，费用为 <span
+class="math inline">\(0\)</span> 的边，表示每个节点最多有一个父亲。</p>
+<p>对于可以作为点 <span class="math inline">\(i\)</span> 儿子的点 <span
+class="math inline">\(j\)</span>，我们从 <span
+class="math inline">\(u_i\)</span> 向 <span
+class="math inline">\(v_j\)</span> 连一条容量为 <span
+class="math inline">\(1\)</span>，费用为两点距离的边，表示选择了这一条边。</p>
+<p>在最大流的条件下，合法方案的最大流必定为 <span
+class="math inline">\(n -
+1\)</span>，如果小于它则说明无解，否则最小费用即为答案。</p>
+<ul>
+<li>备注：</li>
+</ul>
+<p>注意本题存在精度误差，加个 <span
+class="math inline">\(\epsilon\)</span> 判断即可。</p>
+<ul>
+<li>代码：<a
+target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/blob/master/Codes/%E6%96%B0%E9%A2%98%E7%9B%AE/CF277E%20Binary%20Tree%20on%20Plane.cpp">CF277E
+Binary Tree on Plane</a></li>
+</ul>
+<hr />
+<h2 id="operatornametobecontinueddotsdots"><span
+class="math inline">\(\operatorname{To~Be~Continued\dots\dots}\)</span></h2>
 
             </div>
             <hr>
