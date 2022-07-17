@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://reclouds.github.io/img/bg/19.jpeg">
 <meta property="article:published_time" content="2022-06-02T11:15:11.000Z">
-<meta property="article:modified_time" content="2022-07-15T09:23:46.501Z">
+<meta property="article:modified_time" content="2022-07-17T13:42:11.557Z">
 <meta property="article:author" content="Recalling_Clouds">
 <meta property="article:tag" content="杂项">
 <meta name="twitter:card" content="summary_large_image">
@@ -205,7 +205,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      39k 字
+      40k 字
     </span>
   
 
@@ -214,7 +214,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      326 分钟
+      331 分钟
     </span>
   
 
@@ -3141,6 +3141,49 @@ class="math inline">\(\operatorname{unordered}\underline{}\operatorname{map}\)</
 <ul>
 <li>代码：<a
 target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/blob/master/Codes/%E6%96%B0%E9%A2%98%E7%9B%AE/CF763D%20Timofey%20and%20a%20flat%20tree.cpp">CF763D
+Timofey and a flat tree</a></li>
+</ul>
+<hr />
+<ol start="67" type="1">
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF613D">CF613D Kingdom and
+its Cities</a></li>
+</ol>
+<ul>
+<li><p>通过时间：<span class="math inline">\(2022.7.17\)</span></p></li>
+<li><p>难度：<font color="#9400D3"> 省选/NOI- </font></p></li>
+<li><p>算法：虚树 <span
+class="math inline">\(\operatorname{DP}\)</span></p></li>
+<li><p>做法：</p></li>
+</ul>
+<p>建出虚树，定义虚树上的重要城市为关键点，非重要城市为非关键点。</p>
+<p>设 <span class="math inline">\(f_u\)</span> 为点 <span
+class="math inline">\(u\)</span> 为根的子树的答案，<span
+class="math inline">\(g_u\)</span> 表示点 <span
+class="math inline">\(u\)</span> 是否为关键点或是否有关键点与点 <span
+class="math inline">\(u\)</span> 相连。</p>
+<p>设点 <span class="math inline">\(v\)</span> 为点 <span
+class="math inline">\(u\)</span> 儿子，若点 <span
+class="math inline">\(u\)</span> 为关键点，则 <span
+class="math inline">\(\displaystyle f_u = \sum_{v} (f_v +
+g_v)\)</span>；否则，若子树中 <span
+class="math inline">\(\displaystyle(\sum_v[g_v = \texttt{true}]) &gt;
+1\)</span>，则我们需要把点 <span class="math inline">\(u\)</span>
+割掉，即 <span class="math inline">\(\displaystyle f_u = (\sum_{v} f_v)
++ 1\)</span>；否则，令 <span class="math inline">\(\displaystyle f_u =
+\sum_{v} f_v\)</span> 且 <span class="math inline">\(\displaystyle g_u =
+\sum_v[g_v = \texttt{true}]\)</span>。</p>
+<p>设 <span class="math inline">\(\displaystyle\mathcal{O}(\sum_{i =
+1}^q k_i) = \mathcal{O}(n)\)</span>，则时间复杂度为 <span
+class="math inline">\(\mathcal{O}(n \log_2
+n)\)</span>，瓶颈在建虚树时的排序。</p>
+<ul>
+<li>备注：</li>
+</ul>
+<p>注意建虚树所用的数组大小要开到 <span class="math inline">\(n\)</span>
+的两倍。</p>
+<ul>
+<li>代码：<a
+target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/blob/master/Codes/%E6%96%B0%E9%A2%98%E7%9B%AE/CF613D%20Kingdom%20and%20its%20Cities.cpp">CF763D
 Timofey and a flat tree</a></li>
 </ul>
 <hr />
