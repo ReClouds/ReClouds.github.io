@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://reclouds.github.io/img/bg/1.jpeg">
 <meta property="article:published_time" content="2022-02-26T06:08:46.000Z">
-<meta property="article:modified_time" content="2022-07-06T09:19:39.540Z">
+<meta property="article:modified_time" content="2022-07-20T13:37:35.940Z">
 <meta property="article:author" content="Recalling_Clouds">
 <meta property="article:tag" content="学习笔记">
 <meta name="twitter:card" content="summary_large_image">
@@ -256,7 +256,7 @@ x^i\)</span> 的表示法，而这 <span class="math inline">\(n + 1\)</span>
 <p>可以发现，对于一个多项式而言，系数表示法是唯一确定的，而点值表示法则有无穷多种，所以我们在做和数学相关的学术研究时，常用的表示法即为系数表示法。</p>
 <p>然而点值表示法也并非一无是处，在下文的多项式乘法一节中我们将会讲述它优秀的性质。</p>
 <hr />
-<p>插值，通俗地讲，就是指通过多项式的点值表示法求出多项式的系数表示法。</p>
+<p>插值，就是指通过多项式的点值表示法求出多项式的系数表示法。</p>
 <p>而拉格朗日插值就是插值的一种方法，它支持通过 <span
 class="math inline">\(n + 1\)</span> 个点插出一个度数为 <span
 class="math inline">\(n\)</span> 的多项式。</p>
@@ -890,10 +890,12 @@ class="math inline">\(\mathcal{O}(n \log_2n)\)</span>。</p>
 <hr />
 <p>当然，还可以去做一下<a
 target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5277">加强版</a>，仅需要在求常数项时套上一个二次剩余即可。</p>
-<p>写好二次剩余后，就只需要改 <code>Get_Sqrt</code>
+<p>写好二次剩余后，就只需要改 <span
+class="math inline">\(\operatorname{Get\underline{}Sqrt}\)</span>
 函数的第一行即可。</p>
 <hr />
-<h2 id="多项式对数函数求-ln">多项式对数函数（求 ln)</h2>
+<h2 id="多项式对数函数求-ln">多项式对数函数（求 <span
+class="math inline">\(\ln\)</span>)</h2>
 <p>给出一个度数为 <span class="math inline">\(n - 1\)</span> 的多项式
 <span class="math inline">\(f(x)\)</span>，求出一个度数同为 <span
 class="math inline">\(n - 1\)</span> 多项式 <span
@@ -988,7 +990,8 @@ g(x) = t(x) - \frac{f(t(x))}{f&#39;(t(x))} \pmod{x^{n}}
 了。时间复杂度 <span class="math inline">\(\mathcal{O}(n
 \log_2n)\)</span>。</p>
 <hr />
-<h2 id="多项式指数函数求-exp">多项式指数函数（求 exp）</h2>
+<h2 id="多项式指数函数求-exp">多项式指数函数（求 <span
+class="math inline">\(\exp\)</span>）</h2>
 <p>给出一个度数为 <span class="math inline">\(n - 1\)</span> 的多项式
 <span class="math inline">\(f(x)\)</span>，求出一个度数同为 <span
 class="math inline">\(n - 1\)</span> 多项式 <span
@@ -1051,7 +1054,7 @@ class="math inline">\(g(x)\)</span>。</p>
 <p>不过在贴代码前，有一个地方需要思考：<span
 class="math inline">\(k\)</span> 在读入时应该对什么取模？</p>
 <p>可能会有人脱口而出是 <span
-class="math inline">\(\varphi(998244353)\)</span>。但是，需要郑重声明的是：欧拉定理在多项式的运算意义下是不成立的，正确的模数应当为
+class="math inline">\(\varphi(998244353)\)</span>。实际上，正确的模数应当为
 <span class="math inline">\(998244353\)</span>
 本身（阅读完下文后，可以发现这也是规定了 <span
 class="math inline">\([x^0]f(x) = 1\)</span> 的原因）。</p>

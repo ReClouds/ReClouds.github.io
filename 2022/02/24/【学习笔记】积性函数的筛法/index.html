@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://reclouds.github.io/img/bg/2.jpeg">
 <meta property="article:published_time" content="2022-02-24T05:36:44.000Z">
-<meta property="article:modified_time" content="2022-07-06T04:25:45.554Z">
+<meta property="article:modified_time" content="2022-07-20T13:44:07.686Z">
 <meta property="article:author" content="Recalling_Clouds">
 <meta property="article:tag" content="学习笔记">
 <meta name="twitter:card" content="summary_large_image">
@@ -205,7 +205,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      6.6k 字
+      6.5k 字
     </span>
   
 
@@ -325,7 +325,7 @@ n})\)</span>，不过当 <span class="math inline">\(n \le 10^{10}\)</span>
 <li><span class="math inline">\(\operatorname{Step~1}\)</span>：</li>
 </ul>
 <p>先考虑求质数的前缀和： <span class="math display">\[
-\sum_{i = 1,i \in \operatorname{Prime}}^n f(i)
+\sum_{i = 1,i \in \mathcal{Prime}}^n f(i)
 \]</span></p>
 <p>我们先来看一个神奇的操作：考虑当 <span
 class="math inline">\(d\)</span> 为质数时 <span
@@ -368,9 +368,9 @@ class="math inline">\(p_i\)</span>），所以再把它们加上就好了。</li
 g(n, j) = g(n, j - 1) - h(p_j)\cdot (g(\lfloor\frac{n}{p_j}\rfloor,j -
 1) - \sum_{i=1}^{j - 1}h(p_i))
 \]</span></p>
-<p>求出来的 <span class="math inline">\(g(n,
-|\operatorname{Prime}|)\)</span> 即为 <span class="math inline">\(1 \sim
-n\)</span> 内所有质数的函数值之和。</p>
+<p>求出来的 <span class="math inline">\(g(n, |\mathcal{Prime}|)\)</span>
+即为 <span class="math inline">\(1 \sim n\)</span>
+内所有质数的函数值之和。</p>
 <ul>
 <li><span class="math inline">\(\operatorname{Step~2}\)</span>：</li>
 </ul>
@@ -383,11 +383,11 @@ class="math inline">\(f\)</span> 的函数值和。</p>
 class="math inline">\(n\)</span> 时，我们定义 <span
 class="math inline">\(f(p_k^{t + 1})\)</span> 为 <span
 class="math inline">\(0\)</span>。） <span class="math display">\[
-S(n, j) = g(n, |\operatorname{Prime}|) - \sum_{i = 1}^{j} f(p_i) +
-\sum_{k = j + 1}^{p_k^2 \le n}\sum_{t = 1}^{p_k^{t} \le n} (f(p_k^{t +
-1}) + f(p_k^{t}) \cdot S(\lfloor\frac{n}{p_k^t}\rfloor, k + 1))
+S(n, j) = g(n, |\mathcal{Prime}|) - \sum_{i = 1}^{j} f(p_i) + \sum_{k =
+j + 1}^{p_k^2 \le n}\sum_{t = 1}^{p_k^{t} \le n} (f(p_k^{t + 1}) +
+f(p_k^{t}) \cdot S(\lfloor\frac{n}{p_k^t}\rfloor, k + 1))
 \]</span> 前面的 <span class="math inline">\(\displaystyle g(n,
-|\operatorname{Prime}|) - \sum_{i = 1}^{j} f(p_i)\)</span>
+|\mathcal{Prime}|) - \sum_{i = 1}^{j} f(p_i)\)</span>
 即为质数部分，注意要减去所有不大于 <span
 class="math inline">\(p_j\)</span> 的质数 <span
 class="math inline">\(p_i\)</span> 的贡献；</p>
@@ -470,17 +470,16 @@ target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github
 <h2 id="operatornamepowerfulnumber"><span
 class="math inline">\(\operatorname{Powerful~Number}\)</span></h2>
 <p>对正整数 <span class="math inline">\(k\)</span> 唯一分解为 <span
-class="math inline">\(\displaystyle\sum_{p_i\in \operatorname{Prime}}
+class="math inline">\(\displaystyle\sum_{p_i\in \mathcal{Prime}}
 p_i^{\alpha_i}\)</span>，如满足 <span class="math inline">\(\forall p_i
-\in {\operatorname{Prime}}， \alpha_i \ge 2\)</span>，则称其为 <span
-class="math inline">\(\operatorname{Powerful~Number}\)</span>。</p>
-<p>每一个 <span
-class="math inline">\(\operatorname{Powerful~Number}\)</span>
+\in {\mathcal{Prime}}， \alpha_i \ge 2\)</span>，则称其为 <span
+class="math inline">\(\mathcal{Powerful~Number}\)</span>。</p>
+<p>每一个 <span class="math inline">\(\mathcal{Powerful~Number}\)</span>
 都可以表示成 <span class="math inline">\(a^2 \cdot b^3\)</span>
 的形式。由此我们也可以证明：<span class="math inline">\(1 \sim
 n\)</span> 内 <span
-class="math inline">\(\operatorname{Powerful~Number}\)</span> 的数量在
-<span class="math inline">\(O(\sqrt{n})\)</span> 级别。</p>
+class="math inline">\(\mathcal{Powerful~Number}\)</span> 的数量在 <span
+class="math inline">\(O(\sqrt{n})\)</span> 级别。</p>
 <p>它有什么用处呢？</p>
 <p>假设我们要求积性函数 <span class="math inline">\(f\)</span>
 的前缀和，考虑构造一个前缀和很好求的函数 <span
@@ -488,7 +487,7 @@ class="math inline">\(g\)</span>，满足两函数在质数处值相等。</p>
 <p>再设函数 <span class="math inline">\(h\)</span> 使得 <span
 class="math inline">\(f = h \cdot g\)</span>。</p>
 <p>可以发现，当 <span class="math inline">\(d\)</span> 不为 <span
-class="math inline">\(\operatorname{Powerful~Number}\)</span> 时，<span
+class="math inline">\(\mathcal{Powerful~Number}\)</span> 时，<span
 class="math inline">\(h(d)\)</span> 取值为 <span
 class="math inline">\(0\)</span>。</p>
 <p>又有： <span class="math display">\[
@@ -501,7 +500,7 @@ class="math inline">\(0\)</span>。</p>
 \end{aligned}
 \]</span> 由于后者前缀和很好求，因此可以考虑暴力找出 <span
 class="math inline">\(n\)</span> 以内的 <span
-class="math inline">\(\operatorname{Powerful~Number}\)</span>，直接暴力加就行。</p>
+class="math inline">\(\mathcal{Powerful~Number}\)</span>，直接暴力加就行。</p>
 <hr />
 <h2 id="operatornameend"><span
 class="math inline">\(\operatorname{END}\)</span></h2>

@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://reclouds.github.io/img/bg/10.jpeg">
 <meta property="article:published_time" content="2022-03-03T05:44:30.000Z">
-<meta property="article:modified_time" content="2022-06-30T08:45:38.942Z">
+<meta property="article:modified_time" content="2022-07-20T13:33:17.935Z">
 <meta property="article:author" content="Recalling_Clouds">
 <meta property="article:tag" content="学习笔记">
 <meta name="twitter:card" content="summary_large_image">
@@ -205,7 +205,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      3.3k 字
+      3.2k 字
     </span>
   
 
@@ -214,7 +214,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      28 分钟
+      27 分钟
     </span>
   
 
@@ -248,11 +248,11 @@
             <div class="markdown-body">
               <h2 id="operatornamesg-函数"><span
 class="math inline">\(\operatorname{SG}\)</span> 函数</h2>
-<h3 id="operatornamenim-博弈"><span
-class="math inline">\(\operatorname{Nim}\)</span> 博弈</h3>
+<h3 id="mathcalnim-博弈"><span
+class="math inline">\(\mathcal{Nim}\)</span> 博弈</h3>
 <p>在介绍 <span class="math inline">\(\operatorname{SG}\)</span>
 函数前，我们先介绍一种经典的博弈 —— <span
-class="math inline">\(\operatorname{Nim}\)</span>
+class="math inline">\(\mathcal{Nim}\)</span>
 博弈，并从中获得一定的启发。</p>
 <ul>
 <li><p>问题：有 <span class="math inline">\(n\)</span> 堆石子，第 <span
@@ -291,7 +291,7 @@ A_i~\texttt{xor}~x\)</span>，就能使得甲到达必胜态。</p>
 <p>可以发现，<span class="math inline">\(A_i &gt;
 A_i~\texttt{xor}~x\)</span>，所以这样的操作是合法的。</p>
 <h3 id="有向图游戏">有向图游戏</h3>
-<p>可以发现，<span class="math inline">\(\operatorname{Nim}\)</span>
+<p>可以发现，<span class="math inline">\(\mathcal{Nim}\)</span>
 游戏满足如下三条定则：</p>
 <ol type="1">
 <li>两名玩家交替行动；</li>
@@ -300,10 +300,10 @@ A_i~\texttt{xor}~x\)</span>，所以这样的操作是合法的。</p>
 </ol>
 <p>满足它们的游戏被称为公平组合游戏。</p>
 <p>同时我们还可以发现，如果把所有的状态看作是图上的一个个节点，那么
-<span class="math inline">\(\operatorname{Nim}\)</span>
+<span class="math inline">\(\mathcal{Nim}\)</span>
 博弈的过程非常像一个有向图。</p>
 <p>所以，我们完全可以把 <span
-class="math inline">\(\operatorname{Nim}\)</span> 游戏转化为：</p>
+class="math inline">\(\mathcal{Nim}\)</span> 游戏转化为：</p>
 <ul>
 <li>在初始节点摆一枚棋子，两人轮流拿棋子在有向图上移动一条边，无法移动的人判负。</li>
 </ul>
@@ -355,15 +355,14 @@ class="math inline">\(\operatorname{SG}\)</span>
 定理，它给了我们把整个游戏进行分治的可能。</p>
 <p>证明：</p>
 <p>其实很简单，相当于在原始的 <span
-class="math inline">\(\operatorname{Nim}\)</span>
+class="math inline">\(\mathcal{Nim}\)</span>
 游戏上加了一个加石子的操作（因为有向图游戏中玩家可以走向 <span
 class="math inline">\(\operatorname{SG}\)</span> 函数增大的节点）。</p>
 <p>不过可以发现，如果加石子会抛一个必负态给对手，那么对手同样可以把刚刚加上的石子拿走，然后把加石子前的状态再次抛给你，这显然是矛盾的。所以，加石子的操作必然不会使自己到达一个更优的状态，它是一个无效的操作。</p>
-<p>接着就可以套用 <span
-class="math inline">\(\operatorname{Nim}\)</span> 游戏的证明了。</p>
-<p>由此，我们可以将 <span
-class="math inline">\(\operatorname{Nim}\)</span> 博弈转化为 <span
-class="math inline">\(n\)</span>
+<p>接着就可以套用 <span class="math inline">\(\mathcal{Nim}\)</span>
+游戏的证明了。</p>
+<p>由此，我们可以将 <span class="math inline">\(\mathcal{Nim}\)</span>
+博弈转化为 <span class="math inline">\(n\)</span>
 个有向图游戏，那么每一堆石子都代表了一个有向图游戏。可以推出，第 <span
 class="math inline">\(i\)</span> 堆的 <span
 class="math inline">\(\operatorname{SG}\)</span> 函数值即为 <span
