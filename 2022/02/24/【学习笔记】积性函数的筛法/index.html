@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://reclouds.github.io/img/bg/2.jpeg">
 <meta property="article:published_time" content="2022-02-24T05:36:44.000Z">
-<meta property="article:modified_time" content="2022-07-20T13:44:07.686Z">
+<meta property="article:modified_time" content="2022-07-21T01:15:13.078Z">
 <meta property="article:author" content="Recalling_Clouds">
 <meta property="article:tag" content="学习笔记">
 <meta name="twitter:card" content="summary_large_image">
@@ -424,7 +424,7 @@ class="math inline">\(f(p^k) = p^k\cdot (p^k - 1)\)</span>。</p>
 \]</span> 对 <span class="math inline">\(10^9 + 7\)</span> 取模。</p>
 <p>题解：</p>
 <ul>
-<li><span class="math inline">\(\operatorname{Step~1}\)</span>：</li>
+<li><span class="math inline">\(\mathcal{Step~1}\)</span>：</li>
 </ul>
 <p>显然对于质数 <span class="math inline">\(p\)</span>，有 <span
 class="math inline">\(f(p) = p\cdot (p - 1) = p^2 -
@@ -459,7 +459,7 @@ class="math inline">\(g\)</span>，这里可以发现后面的值只会由前面
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> i = <span class="hljs-number">1</span>; i &lt;= len; i++)<br>&#123;<br>	<span class="hljs-keyword">for</span>(<span class="hljs-keyword">register</span> <span class="hljs-type">int</span> j = <span class="hljs-number">1</span>; j &lt;= m &amp;&amp; pr[i] * pr[i] &lt;= val[j]; j++)<br>	&#123;<br>		g1[j] = <span class="hljs-built_in">Get_MOD</span>(g1[j] - <span class="hljs-number">1LL</span> * pr[i] * <span class="hljs-built_in">Get_MOD</span>(g1[<span class="hljs-built_in">Get_Pos</span>(val[j] / pr[i])] - sum1[i - <span class="hljs-number">1</span>] + MOD) % MOD + MOD); <br>		g2[j] = <span class="hljs-built_in">Get_MOD</span>(g2[j] - <span class="hljs-number">1LL</span> * pr[i] * pr[i] % MOD * <span class="hljs-built_in">Get_MOD</span>(g2[<span class="hljs-built_in">Get_Pos</span>(val[j] / pr[i])] - sum2[i - <span class="hljs-number">1</span>] + MOD) % MOD + MOD);<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>完毕。</p>
 <ul>
-<li><span class="math inline">\(\operatorname{Step~2}\)</span>：</li>
+<li><span class="math inline">\(\mathcal{Step~2}\)</span>：</li>
 </ul>
 <p>接下来考虑求解 <span
 class="math inline">\(S\)</span>。实际上没有那么麻烦，直接暴力枚举然后递归即可：</p>
