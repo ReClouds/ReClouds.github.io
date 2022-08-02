@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://reclouds.github.io/img/bg/19.jpeg">
 <meta property="article:published_time" content="2022-06-02T11:15:11.000Z">
-<meta property="article:modified_time" content="2022-07-31T08:08:44.480Z">
+<meta property="article:modified_time" content="2022-08-02T14:37:09.779Z">
 <meta property="article:author" content="Recalling_Clouds">
 <meta property="article:tag" content="杂项">
 <meta name="twitter:card" content="summary_large_image">
@@ -214,7 +214,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      335 分钟
+      338 分钟
     </span>
   
 
@@ -3261,6 +3261,37 @@ class="math inline">\(log\)</span>。</p>
 <li>代码：<a
 target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/blob/master/Codes/%E6%96%B0%E9%A2%98%E7%9B%AE/P3899%20%5B%E6%B9%96%E5%8D%97%E9%9B%86%E8%AE%AD%5D%20%E6%9B%B4%E4%B8%BA%E5%8E%89%E5%AE%B3.cpp">P3899
 [湖南集训] 更为厉害</a></li>
+</ul>
+<hr />
+<ol start="70" type="1">
+<li><a target="_blank" rel="noopener" href="https://uoj.ac/problem/52">UOJ52 [UR #4]
+元旦激光炮</a></li>
+</ol>
+<ul>
+<li><p>通过时间：<span class="math inline">\(2022.8.2\)</span></p></li>
+<li><p>难度：<font color="#9400D3"> 省选/NOI- </font></p></li>
+<li><p>算法：构造</p></li>
+<li><p>做法：</p></li>
+</ul>
+<p><span class="math inline">\(k = 2\)</span>
+时，我们直接暴力做即可。</p>
+<p>否则，我们分别询问三个序列的第 <span class="math inline">\(\lfloor
+\dfrac{k}{3} \rfloor\)</span>
+小的数。对于这三个数中最小的数所在的序列，我们删去其前 <span
+class="math inline">\(\lfloor \dfrac{k}{3} \rfloor\)</span>
+个元素，因为它们不可能成为答案。</p>
+<p>然后递归解决子问题即可。</p>
+<p>询问次数和时间复杂度同级。时间复杂度为 <span
+class="math inline">\(\mathcal{O}(\log_\omega k)\)</span>，其中 <span
+class="math inline">\(\omega = \dfrac{3}{2}\)</span>。</p>
+<ul>
+<li>备注：</li>
+</ul>
+<p>由于三个序列的长度不一，询问时要注意边界情况。</p>
+<ul>
+<li>代码：<a
+target="_blank" rel="noopener" href="https://github.com/ReClouds/ReClouds.github.io/blob/master/Codes/%E6%96%B0%E9%A2%98%E7%9B%AE/UOJ52%20%5BUR%20%234%5D%20%E5%85%83%E6%97%A6%E6%BF%80%E5%85%89%E7%82%AE.cpp">UOJ52
+[UR #4] 元旦激光炮</a></li>
 </ul>
 <hr />
 <h2 id="operatornametobecontinueddotsdots"><span
