@@ -197,7 +197,3 @@ cover: /img/12.jpg
 ### T4 棋局
 
 占坑待填。
-
-------
-
-## To Be Continued...
