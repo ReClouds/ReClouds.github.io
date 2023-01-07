@@ -5,8 +5,6 @@ date: 2022-11-16 21:28:32
 
 description: 本文为历年 NOIP 的做题记录。
 
-non-public: true
-
 katex: true
 
 tags:
@@ -194,6 +192,4 @@ cover: /img/12.jpg
 
 ------
 
-### T4 棋局
-
-占坑待填。
+## 未完待续 ……
