@@ -709,10 +709,10 @@
     "picocolors" "^1.0.0"
     "serve-static" "^1.14.1"
 
-"hexo-theme-butterfly@^4.5.1":
-  "integrity" "sha512-gZQ0y0q27n52tAphsF5Nj5Uvihhr8uAIyjPvK+BnysZuLgnSgbbnIr1rresRIWygvNn/PA87wzDJpKAM2NhJ3A=="
-  "resolved" "https://registry.npmjs.org/hexo-theme-butterfly/-/hexo-theme-butterfly-4.5.1.tgz"
-  "version" "4.5.1"
+"hexo-theme-butterfly@^4.6.0":
+  "integrity" "sha512-XLIR1EL/xabFa6JWgjEBO+ZtW+KoaMxt0DanZAhjUpvy4ZXXa8nSm1js3VQVDiake48DFdi2v36xmZiYvGTE+g=="
+  "resolved" "https://registry.npmjs.org/hexo-theme-butterfly/-/hexo-theme-butterfly-4.6.0.tgz"
+  "version" "4.6.0"
   dependencies:
     "hexo-renderer-pug" "^3.0.0"
     "hexo-renderer-stylus" "^2.1.0"
