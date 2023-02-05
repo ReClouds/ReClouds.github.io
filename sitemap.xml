@@ -131,13 +131,6 @@
   </url>
   
   <url>
-    <loc>https://reclouds.github.io/categories/OI/%E6%95%B0%E5%AD%A6/</loc>
-    <lastmod>2023-02-05</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://reclouds.github.io/categories/OI/%E5%8E%86%E5%B9%B4%E7%9C%9F%E9%A2%98/</loc>
     <lastmod>2023-02-05</lastmod>
     <changefreq>weekly</changefreq>
@@ -145,14 +138,14 @@
   </url>
   
   <url>
-    <loc>https://reclouds.github.io/categories/OI/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</loc>
+    <loc>https://reclouds.github.io/categories/OI/%E6%95%B0%E5%AD%A6/</loc>
     <lastmod>2023-02-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://reclouds.github.io/categories/OI/%E4%BA%A4%E4%BA%92%E9%A2%98/</loc>
+    <loc>https://reclouds.github.io/categories/OI/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</loc>
     <lastmod>2023-02-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -181,6 +174,13 @@
   
   <url>
     <loc>https://reclouds.github.io/categories/OI/%E6%95%B0%E5%AD%A6/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/%E6%96%AF%E7%89%B9%E6%9E%97%E6%95%B0/</loc>
+    <lastmod>2023-02-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://reclouds.github.io/categories/OI/%E4%BA%A4%E4%BA%92%E9%A2%98/</loc>
     <lastmod>2023-02-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
