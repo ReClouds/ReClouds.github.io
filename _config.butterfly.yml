@@ -3,7 +3,7 @@
 # --------------------------------------
 
 menu:
-  Home: /Home/ || fas fa-home
+  Home: / || fas fa-home
   Archives: /Archives/ || fas fa-archive
   Tags: /Tags/ || fas fa-tags
   Categories: /Categories/ || fas fa-folder-open
