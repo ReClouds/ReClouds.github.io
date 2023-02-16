@@ -44,9 +44,9 @@ cover: /img/11.jpg
 
 - [题目链接](https://www.luogu.com.cn/problem/P5658) {% label AC green %}
 
-{% note success flat %}
-
 题解：
+
+{% note success flat %}
 
 $\mathcal{DFS}$ 一遍整颗树，每个节点的答案等于父亲节点的答案加上自己的贡献。对于后者，我们维护一个栈即可计算。
 
