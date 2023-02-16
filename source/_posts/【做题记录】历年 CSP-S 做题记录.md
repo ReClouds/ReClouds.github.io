@@ -26,11 +26,15 @@ cover: /img/11.jpg
 
 ### D1T1 格雷码
 
-[题目链接](https://www.luogu.com.cn/problem/P5657)
+- [题目链接](https://www.luogu.com.cn/problem/P5657) {% label AC green %}
 
 题解：
 
+{% note success flat %}
+
 依题意按位模拟即可。
+
+{% endnote %}
 
 [代码实现](https://www.luogu.com.cn/record/91241151)
 
@@ -38,11 +42,15 @@ cover: /img/11.jpg
 
 ### D1T2 括号树
 
-[题目链接](https://www.luogu.com.cn/problem/P5658)
+- [题目链接](https://www.luogu.com.cn/problem/P5658) {% label AC green %}
+
+{% note success flat %}
 
 题解：
 
 $\mathcal{DFS}$ 一遍整颗树，每个节点的答案等于父亲节点的答案加上自己的贡献。对于后者，我们维护一个栈即可计算。
+
+{% endnote %}
 
 [代码实现](https://www.luogu.com.cn/record/91241395)
 
@@ -50,9 +58,11 @@ $\mathcal{DFS}$ 一遍整颗树，每个节点的答案等于父亲节点的答�
 
 ### D1T3 树上的数
 
-[题目链接](https://www.luogu.com.cn/problem/P5659)
+- [题目链接](https://www.luogu.com.cn/problem/P5659) {% label AC green %}
 
 题解：
+
+{% note success flat %}
 
 首先考虑一个基本的思路：枚举每个权值，将其移动到尽量小的位置。我们称这个过程为这个权值的移动。
 
@@ -68,6 +78,8 @@ $\mathcal{DFS}$ 一遍整颗树，每个节点的答案等于父亲节点的答�
 
 那么，我们每次以当前枚举到的权值初始时所在的节点为根 $\mathcal{DFS}$ 整颗树，在遍历的过程中顺便维护每个节点的合法性即可。
 
+{% endnote %}
+
 [代码实现](https://www.luogu.com.cn/record/92498171)
 
 ------
@@ -75,13 +87,17 @@ $\mathcal{DFS}$ 一遍整颗树，每个节点的答案等于父亲节点的答�
 
 ### D2T1 Emiya 家今天的饭
 
-[题目链接](https://www.luogu.com.cn/problem/P5664)
+- [题目链接](https://www.luogu.com.cn/problem/P5664) {% label AC green %}
 
 题解：
+
+{% note success flat %}
 
 考虑容斥，显然最多仅会有一列不合法，那么我们考虑枚举这一列，并设状态 $f_{i, j, k}$ 表示在前 $i$ 行中，这一列选了 $j$ 个数，其它的列选了 $k$ 个数的方案总数，转移方程是显然的。
 
 这个 $\mathcal{DP}$ 的复杂度是 $\mathcal{O}(n^3 m)$ 的，不过可以注意到，我们关心的是 $j$ 和 $k$ 的大小关系而非它们的具体值，因此我们可以重新设状态 $f_{i, j}$，其中 $i$ 含义不变，$j$ 表示原状态中 $j - k$ 的大小。这样，这个 $\mathcal{DP}$ 的复杂度就降至 $\mathcal{O}(n^2 m)$ 了。
+
+{% endnote %}
 
 [代码实现](https://www.luogu.com.cn/record/91887300)
 
@@ -89,9 +105,11 @@ $\mathcal{DFS}$ 一遍整颗树，每个节点的答案等于父亲节点的答�
 
 ### D2T2 划分
 
-[题目链接](https://www.luogu.com.cn/problem/P5665)
+- [题目链接](https://www.luogu.com.cn/problem/P5665) {% label AC green %}
 
 题解：
+
+{% note success flat %}
 
 首先需要介绍为正解做法做铺垫的两个定理：
 
@@ -107,15 +125,19 @@ $\mathcal{DFS}$ 一遍整颗树，每个节点的答案等于父亲节点的答�
 
 注意这题的空间限制是不允许我们开下 $f_i$ 数组的，所以我们在做 $\mathcal{DP}$ 时可以仅考虑把转移记录下来，做完后再通过高精度算法或 $\underline{}\underline{}\texttt{int128}$ 计算答案。
 
+{% endnote %}
+
 [代码实现](https://www.luogu.com.cn/record/92554700)
 
 ------
 
 ### D2T3 树的重心
 
-[题目链接](https://www.luogu.com.cn/problem/P5666)
+- [题目链接](https://www.luogu.com.cn/problem/P5666) {% label AC green %}
 
 题解：
+
+{% note success flat %}
 
 首先考虑一个基本的思路：统计每个节点作为重心的次数。
 
@@ -139,6 +161,8 @@ $\mathcal{DFS}$ 一遍整颗树，每个节点的答案等于父亲节点的答�
 
 对于这个部分，我们 $\mathcal{DFS}$ 一遍整颗树，用两个树状数组维护即可。
 
+{% endnote %}
+
 [代码实现](https://www.luogu.com.cn/record/92609527)
 
 ------
@@ -147,11 +171,15 @@ $\mathcal{DFS}$ 一遍整颗树，每个节点的答案等于父亲节点的答�
 
 ### T1 日期
 
-[题目链接](https://www.luogu.com.cn/problem/P5690)
+- [题目链接](https://www.luogu.com.cn/problem/P5690) {% label AC green %}
 
 题解：
 
+{% note success flat %}
+
 暴力枚举一年中的每一天，然后一一和输入进行比对即可。
+
+{% endnote %}
 
 [代码实现](https://www.luogu.com.cn/record/92673596)
 
@@ -159,13 +187,17 @@ $\mathcal{DFS}$ 一遍整颗树，每个节点的答案等于父亲节点的答�
 
 ### T2 和积和
 
-[题目链接](https://www.luogu.com.cn/problem/P5686)
+- [题目链接](https://www.luogu.com.cn/problem/P5686) {% label AC green %}
 
 题解：
+
+{% note success flat %}
 
 考虑包含 $a_i \cdot b_j$ 的 $S(l, r)$ 的个数，显然其为 $\min(i, j) \cdot (n - \max(i, j) + 1)$。
 
 乍一看似乎并不好计算，不过我们可以考虑枚举 $i$，并分 $j \le i$ 和 $j > i$ 两部分计算，这样我们仅需预处理一些信息便可做到 $\mathcal{O}(n)$ 的时空复杂度。
+
+{% endnote %}
 
 [代码实现](https://www.luogu.com.cn/record/92674449)
 
@@ -173,11 +205,15 @@ $\mathcal{DFS}$ 一遍整颗树，每个节点的答案等于父亲节点的答�
 
 ### T3 网格图
 
-[题目链接](https://www.luogu.com.cn/problem/P5687)
+- [题目链接](https://www.luogu.com.cn/problem/P5687) {% label AC green %}
 
 题解：
 
+{% note success flat %}
+
 考虑 $\mathcal{Kruskal}$ 算法求 $\mathcal{MST}$ 的过程，那么我们仅需判断成环的情况，简单维护即可。
+
+{% endnote %}
 
 [代码实现](https://www.luogu.com.cn/record/92682081)
 
@@ -185,9 +221,11 @@ $\mathcal{DFS}$ 一遍整颗树，每个节点的答案等于父亲节点的答�
 
 ### T5 多叉堆
 
-[题目链接](https://www.luogu.com.cn/problem/P5689)
+- [题目链接](https://www.luogu.com.cn/problem/P5689) {% label AC green %}
 
 题解：
+
+{% note success flat %}
 
 对于一颗静态的树，求解答案是很简单的：设以点 $u$ 为根的子树的答案为 $f_u$，那么有 $f_u = (si_u - 1)! \cdot \displaystyle \prod_{v \in son_u} \frac{f_v}{si_v!}$。
 
@@ -197,6 +235,8 @@ $\mathcal{DFS}$ 一遍整颗树，每个节点的答案等于父亲节点的答�
 
 不过我们可以注意到这样一个事实：我们并不在意根节点是什么，我们只在意根节点上维护的信息。这样的话，我们仍然可以启发式合并，仅需把新子树的信息移植到新的根节点上即可。
 
+{% endnote %}
+
 [代码实现](https://www.luogu.com.cn/record/93108732)
 
 ------
@@ -205,9 +245,11 @@ $\mathcal{DFS}$ 一遍整颗树，每个节点的答案等于父亲节点的答�
 
 ### T1 儒略日
 
-[题目链接](https://www.luogu.com.cn/problem/P7075)
+- [题目链接](https://www.luogu.com.cn/problem/P7075) {% label AC green %}
 
 题解：
+
+{% note success flat %}
 
 对于 $1582$ 年之前的日期，我们可以考虑通过枚举依次确定年、月、日。
 
@@ -215,15 +257,19 @@ $\mathcal{DFS}$ 一遍整颗树，每个节点的答案等于父亲节点的答�
 
 对于 $1582$ 年之后的日期，考虑到闰年的分布以 $400$ 年为周期，我们可以先确定大致的年份，然后再通过枚举依次确定精确的年、月、日。
 
+{% endnote %}
+
 [代码实现](https://www.luogu.com.cn/record/93358394)
 
 ------
 
 ### T2 动物园
 
-[题目链接](https://www.luogu.com.cn/problem/P7076)
+- [题目链接](https://www.luogu.com.cn/problem/P7076) {% label AC green %}
 
 题解：
+
+{% note success flat %}
 
 在 $m$ 条限制条件中，若存在一个 $p_i$ 满足 $n$ 只动物的编号均不包含这一位，那么新加入的动物的编号也不能包含这一位。
 
@@ -231,15 +277,19 @@ $\mathcal{DFS}$ 一遍整颗树，每个节点的答案等于父亲节点的答�
 
 注意特判答案为 $2^{64}$ 的情况。
 
+{% endnote %}
+
 [代码实现](https://www.luogu.com.cn/record/93363615)
 
 ------
 
 ### T3 函数调用
 
-[题目链接](https://www.luogu.com.cn/problem/P7077)
+- [题目链接](https://www.luogu.com.cn/problem/P7077) {% label AC green %}
 
 题解：
+
+{% note success flat %}
 
 回想在[这道题](https://www.luogu.com.cn/problem/P3373)中我们是如何处理乘法标记的下传的：我们会修改区间总和、区间加标记和区间乘标记三种信息。
 
@@ -249,15 +299,19 @@ $\mathcal{DFS}$ 一遍整颗树，每个节点的答案等于父亲节点的答�
 
 那么，我们用一次拓扑排序预处理一些信息，再用一次拓扑排序求解答案即可。
 
+{% endnote %}
+
 [代码实现](https://www.luogu.com.cn/record/93759490)
 
 ------
 
 ### T4 贪吃蛇
 
-[题目链接](https://www.luogu.com.cn/problem/P7078)
+- [题目链接](https://www.luogu.com.cn/problem/P7078) {% label AC green %}
 
 题解：
+
+{% note success flat %}
 
 首先，本题存在一个十分重要的结论：如果当前最强的蛇在吃掉了最弱的蛇之后不是最弱的蛇，那么它一定会选择吃。
 
@@ -289,6 +343,8 @@ $\mathcal{DFS}$ 一遍整颗树，每个节点的答案等于父亲节点的答�
 
 时间复杂度为 $\mathcal{O}(T n)$。
 
+{% endnote %}
+
 [代码实现](https://www.luogu.com.cn/record/94067796)
 
 ------
@@ -297,9 +353,11 @@ $\mathcal{DFS}$ 一遍整颗树，每个节点的答案等于父亲节点的答�
 
 ### T1 廊桥分配
 
-[题目链接](https://www.luogu.com.cn/problem/P7913)
+- [题目链接](https://www.luogu.com.cn/problem/P7913) {% label AC green %}
 
 题解：
+
+{% note success flat %}
 
 把所有的廊桥按照某种顺序编号为 $1 \sim n$。
 
@@ -311,15 +369,19 @@ $\mathcal{DFS}$ 一遍整颗树，每个节点的答案等于父亲节点的答�
 
 最后，我们枚举分配给国内区的廊桥数 $i~(i \in [0, n])$，然后取 $f_i + g_{n - i}$ 的最大值即可。
 
+{% endnote %}
+
 [代码实现](https://www.luogu.com.cn/record/94194952)
 
 ------
 
 ### T2 括号序列
 
-[题目链接](https://www.luogu.com.cn/problem/P7914)
+- [题目链接](https://www.luogu.com.cn/problem/P7914) {% label AC green %}
 
 题解：
+
+{% note success flat %}
 
 为了避免算重，我们可以考虑设 $f_{l, r}$ 和 $g_{l, r}$，分别表示有多少种确定所有尚未确定的字符的方案使得子段 $[l, r]$ 为 “符合规范的超级括号序列”，前者要求 $l$ 和 $r$ 位置上的括号配对，后者要求 $l$ 和 $r$ 位置上的括号不配对。
 
@@ -331,15 +393,19 @@ $\mathcal{DFS}$ 一遍整颗树，每个节点的答案等于父亲节点的答�
 
 注意直接转移 $g_{l, r}$ 的复杂度是 $\mathcal{O}(n^4)$ 的。为了辅助 $g_{l, r}$ 的转移，我们可以再设 $h_{l, r}$ 表示有多少种确定所有尚未确定的字符的方案使得子段 $[l, r]$ 为形如 `SB` 的串，这样转移 $g_{l, r}$ 的复杂度就降至 $\mathcal{O}(n^3)$ 了。$h_{l, r}$ 的转移也是平凡的。
 
+{% endnote %}
+
 [代码实现](https://www.luogu.com.cn/record/94203983)
 
 ------
 
 ### T3 回文
 
-[题目链接](https://www.luogu.com.cn/problem/P7915)
+- [题目链接](https://www.luogu.com.cn/problem/P7915) {% label AC green %}
 
 题解：
+
+{% note success flat %}
 
 假设我们已经从序列的首部或尾部取出了一个数，记这个数在序列中另一次出现的位置为 $pos$。
 
@@ -349,6 +415,8 @@ $\mathcal{DFS}$ 一遍整颗树，每个节点的答案等于父亲节点的答�
 
 这样，我们仅需考虑第一次操作是在首部还是在尾部取数，然后用四个指针模拟接下来的取数操作即可。注意到由于每个数在序列中会且仅会出现两次，因此在合法的基础上贪心地取数是正确的。
 
+{% endnote %}
+
 [代码实现](https://www.luogu.com.cn/record/94227769)
 
 ------
@@ -357,9 +425,11 @@ $\mathcal{DFS}$ 一遍整颗树，每个节点的答案等于父亲节点的答�
 
 ### T1 假期计划
 
-[题目链接](https://www.luogu.com.cn/problem/P8817)
+- [题目链接](https://www.luogu.com.cn/problem/P8817) {% label AC green %}
 
 题解：
+
+{% note success flat %}
 
 首先，由于所有边权均为 $1$，因此我们可以 $\mathcal{O}(n^2)$ 求出任意两点之间的最短路径。
 
@@ -369,15 +439,19 @@ $\mathcal{DFS}$ 一遍整颗树，每个节点的答案等于父亲节点的答�
 
 最后，我们枚举景点 $\text{B}$ 和景点 $\text{C}$，然后将各自维护的三条路径合并，若合法则更新答案即可。
 
+{% endnote %}
+
 [代码实现](https://www.luogu.com.cn/record/94252108)
 
 ------
 
 ### T2 策略游戏
 
-[题目链接](https://www.luogu.com.cn/problem/P8818)
+- [题目链接](https://www.luogu.com.cn/problem/P8818) {% label AC green %}
 
 题解：
+
+{% note success flat %}
 
 注意小 $\text{L}$ 会比小 $\text{Q}$ 先选择，那么在最优策略下，小 $\text{Q}$ 为了保证得分最小，肯定会选择小 $\text{L}$ 所选择的行中的最小值，因此小 $\text{L}$ 为了保证得分尽可能大，肯定会选择最小值最大的一行。
 
@@ -387,19 +461,25 @@ $\mathcal{DFS}$ 一遍整颗树，每个节点的答案等于父亲节点的答�
 
 为了避免大量的分类讨论，我们不妨考虑求出数组 $\text{A}$ 的子段 $[l_1, r_1]$ 内的最大值、最小非负数、最小值、最大非正数和四个值。对于前两者，若数组 $\text{A}$ 的子段 $[l_1, r_1]$ 内存在非负数，那么我们将二者和 $\text{B}$ 中选出的最小值相乘，取乘积的最小值即可；对于后两者，若数组 $\text{A}$ 的子段 $[l_1, r_1]$ 内存在非正数，那么我们将二者和 $\text{B}$ 中选出的最大值相乘，同样也取乘积的最小值即可。最后，再取二者所得答案的最小值即可。
 
+{% endnote %}
+
 [代码实现](https://www.luogu.com.cn/record/94255023)
 
 ------
 
 ### T3 星战
 
-[题目链接](https://www.luogu.com.cn/problem/P8819)
+- [题目链接](https://www.luogu.com.cn/problem/P8819) {% label AC green %}
 
 题解：
+
+{% note success flat %}
 
 可以发现，能够进行反攻的条件实际上就是每个点的出度 $out_u$ 恰好为 $1$。
 
 那么，我们考虑哈希的思想，给每个点赋上一个随机权值 $val_u$，那么当且仅当 $\displaystyle \sum_{u = 1}^n val_u \cdot (out_u - 1) = 0$ 时，我们才认为当前时刻是能够进行反攻的。简单维护即可。
+
+{% endnote %}
 
 [代码实现](https://www.luogu.com.cn/record/94273213)
 
