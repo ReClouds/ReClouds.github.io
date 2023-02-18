@@ -345,7 +345,7 @@ $\mathcal{DFS}$ 一遍整颗树，每个节点的答案等于父亲节点的答�
 
 {% endnote %}
 
-[代码实现](https://www.luogu.com.cn/record/94067796)
+[代码实现](https://www.luogu.com.cn/record/94073323)
 
 ------
 
