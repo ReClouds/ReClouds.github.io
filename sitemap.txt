@@ -19,11 +19,11 @@ https://reclouds.github.io/categories/OI/
 https://reclouds.github.io/categories/OI/%E6%B4%9B%E8%B0%B7%E7%9C%81%E9%80%89%E8%AE%A1%E5%88%92/
 https://reclouds.github.io/categories/OI/%E5%8E%86%E5%B9%B4%E7%9C%9F%E9%A2%98/
 https://reclouds.github.io/categories/OI/%E6%95%B0%E5%AD%A6/
-https://reclouds.github.io/categories/OI/%E6%95%B0%E5%AD%A6/%E6%95%B0%E8%AE%BA/
 https://reclouds.github.io/categories/OI/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/
 https://reclouds.github.io/categories/OI/%E4%BA%A4%E4%BA%92%E9%A2%98/
-https://reclouds.github.io/categories/OI/%E5%AD%97%E7%AC%A6%E4%B8%B2/
+https://reclouds.github.io/categories/OI/%E6%95%B0%E5%AD%A6/%E6%95%B0%E8%AE%BA/
 https://reclouds.github.io/categories/OI/%E6%95%B0%E5%AD%A6/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/
 https://reclouds.github.io/categories/OI/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E7%BA%BF%E6%AE%B5%E6%A0%91/
-https://reclouds.github.io/categories/OI/%E5%AD%97%E7%AC%A6%E4%B8%B2/AC-%E8%87%AA%E5%8A%A8%E6%9C%BA/
 https://reclouds.github.io/categories/OI/%E6%95%B0%E5%AD%A6/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/%E6%96%AF%E7%89%B9%E6%9E%97%E6%95%B0/
+https://reclouds.github.io/categories/OI/%E5%AD%97%E7%AC%A6%E4%B8%B2/
+https://reclouds.github.io/categories/OI/%E5%AD%97%E7%AC%A6%E4%B8%B2/AC-%E8%87%AA%E5%8A%A8%E6%9C%BA/
