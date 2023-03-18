@@ -34,9 +34,9 @@ cover: /img/12.jpg
 
 依题意模拟即可。
 
-{% endnote %}
-
 [代码实现](https://www.luogu.com.cn/record/19612125)
+
+{% endnote %}
 
 ------
 
@@ -50,9 +50,9 @@ cover: /img/12.jpg
 
 可以发现，每秒产生的两种蚯蚓的长度都是单调不增的，因此用三个队列维护所有的蚯蚓即可。
 
-{% endnote %}
-
 [代码实现](https://www.luogu.com.cn/record/94383339)
+
+{% endnote %}
 
 ------
 
@@ -66,9 +66,9 @@ cover: /img/12.jpg
 
 注意到每条路径的贡献仅取决于这条路径所对应的两个时间段是否提出了更换教室的申请，因此记 $f_{i, j, 0/1}$ 表示考虑第 $i\sim n$ 节课，一共提出了 $j$ 次申请，第 $i + 1$ 节课是否提出了申请的答案，转移是平凡的。
 
-{% endnote %}
-
 [代码实现](https://www.luogu.com.cn/record/94840233)
+
+{% endnote %}
 
 ------
 
@@ -82,9 +82,9 @@ cover: /img/12.jpg
 
 注意到从 $\displaystyle \binom{n}{m}$ 转变为 $\displaystyle \binom{n}{m + 1}$ 的过程相当于乘上一个数再除以一个数，因此我们可以先预处理出所有数的质因数分解，然后动态维护每一个组合数的质因数分解，并判断其是否能被 $k$ 整除即可。
 
-{% endnote %}
-
 [代码实现](https://www.luogu.com.cn/record/94850780)
+
+{% endnote %}
 
 ------
 
@@ -102,9 +102,9 @@ cover: /img/12.jpg
 
 这个做法的复杂度是 $\mathcal{O}(Tn^22^n)$ 的。不过，我们注意到，对于第一只不存在于 $S$ 内的猪，它早晚都需要被干掉，我们不如固定 $i$ 为其，那么我们就仅需枚举 $j$ 了，复杂度降至 $\mathcal{O}(Tn2^n)$。
 
-{% endnote %}
-
 [代码实现](https://www.luogu.com.cn/record/95085778)
+
+{% endnote %}
 
 ------
 
@@ -120,9 +120,9 @@ cover: /img/12.jpg
 
 我们考虑把每个玩家的贡献在树上差分，然后再 $\mathcal{DFS}$ 一遍以统计子树内的贡献和即可。
 
-{% endnote %}
-
 [代码实现](https://www.luogu.com.cn/record/95107477)
+
+{% endnote %}
 
 ------
 
@@ -140,9 +140,9 @@ cover: /img/12.jpg
 
 ~~证明摆烂。~~
 
-{% endnote %}
-
 [代码实现](https://www.luogu.com.cn/record/95111838)
+
+{% endnote %}
 
 ------
 
@@ -158,9 +158,9 @@ cover: /img/12.jpg
 
 记录一个踩了坑的地方：一个循环体即使不会进入，同样也会创建变量，并且会影响这个循环体内嵌套的其它循环体。
 
-{% endnote %}
-
 [代码实现](https://www.luogu.com.cn/record/95145541)
+
+{% endnote %}
 
 ------
 
@@ -176,9 +176,9 @@ cover: /img/12.jpg
 
 如何判断无解呢？无解的情况会导致在记忆化搜索的过程中出现环形的转移，那么我们在记忆化搜索的过程中用一个数组记录一下即可。
 
-{% endnote %}
-
 [代码实现](https://www.luogu.com.cn/record/95392199)
+
+{% endnote %}
 
 ------
 
@@ -194,9 +194,9 @@ cover: /img/12.jpg
 
 考虑先筛出所有是 $7$ 的倍数的数和十进制表示中含有数字 $7$ 的数，然后再通过后者筛出所有十进制表示中含有数字 $7$ 的数的倍数，最后再处理出每个数的下一个数应该报多少，这样所有询问均可在 $\mathcal{O}(1)$ 的时间内回答。
 
-{% endnote %}
-
 [代码实现](https://www.luogu.com.cn/record/94290316)
+
+{% endnote %}
 
 ------
 
@@ -212,9 +212,9 @@ cover: /img/12.jpg
 
 因此，我们考虑设 $f_{i, j, T}$ 表示仅考虑在序列的前 $i$ 个位置上填数，使得 $S$ 中除去 $T$ 以外的部分共有 $j$ 个 $1$ 的所有方案的权值和。转移考虑从小到大枚举当前要填的数即可。
 
-{% endnote %}
-
 [代码实现](https://www.luogu.com.cn/record/78022616)
+
+{% endnote %}
 
 ------
 
@@ -234,9 +234,9 @@ cover: /img/12.jpg
 
 设值域为 $w$，那么这样做的复杂度是 $\mathcal{O}(n^2 w)$ 的，但是由于 $a_i$ 为不降序列且 $a_i$ 远小于 $n$，所以差分数组中实际上存在很多的 $0$，而又由于它们对上面的两个式子没有贡献，因此做 $\mathcal{DP}$ 时跳过它们即可，这样复杂度就降至 $\mathcal{O}(nw^2)$ 了。
 
-{% endnote %}
-
 [代码实现](https://www.luogu.com.cn/record/78038305)
+
+{% endnote %}
 
 ------
 
