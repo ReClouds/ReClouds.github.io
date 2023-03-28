@@ -4,14 +4,14 @@
 
 menu:
   Home: / || fas fa-home
-  Archives: /Archives/ || fas fa-archive
-  Tags: /Tags/ || fas fa-tags
-  Categories: /Categories/ || fas fa-folder-open
+  Archives: /Archives/index.html || fas fa-archive
+  Tags: /Tags/index.html || fas fa-tags
+  Categories: /Categories/index.html || fas fa-folder-open
   # List||fas fa-list:
   #   Music: /music/ || fas fa-music
   #   Movie: /movies/ || fas fa-video
   # Link: /link/ || fas fa-link
-  About: /About/ || fas fa-heart
+  About: /About/index.html || fas fa-heart
 
 # Code Blocks (代碼相關)
 # --------------------------------------
