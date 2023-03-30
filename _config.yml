@@ -124,5 +124,5 @@ kramed:
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: git
-  repo: https://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@github.com/ReClouds/ReClouds.github.io.git
+  repo: https://github.com/ReClouds/ReClouds.github.io.git
   branch: master
